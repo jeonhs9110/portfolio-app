@@ -34,8 +34,8 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #1a1a1a;
-            padding-bottom: 15px;
-            margin-bottom: 12px;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
         }
 
         .header-left h1 {
@@ -55,7 +55,10 @@
         .header-left .contacts {
             font-size: 9pt;
             color: #555;
-            margin-top: 6px;
+            margin-top: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
         }
 
         .header-photo {
@@ -201,7 +204,10 @@
         <div class="header-left">
             <h1>Hyunsik Jeon</h1>
             <div class="subtitle">AI &amp; Backend Developer</div>
-            <div class="contacts">jeonhs9110@gmail.com | +82 10-4092-0628 | linkedin.com/in/hyunsikjeon | Seoul, Korea
+            <div class="contacts">
+                <div><strong>Portfolio:</strong> <a href="https://portfolio-app-5ca9.vercel.app/"
+                        style="color:#555; text-decoration:underline;">https://portfolio-app-5ca9.vercel.app/</a></div>
+                <div>jeonhs9110@gmail.com | +82 10-4092-0628 | linkedin.com/in/hyunsikjeon | Seoul, Korea</div>
             </div>
         </div>
         <img src="hyunsik-picture.jpg" alt="Hyunsik Jeon" class="header-photo" />
