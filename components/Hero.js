@@ -39,7 +39,7 @@ export default function Hero() {
                 >
                     <div className="hero__photo-glow" />
                     <Image
-                        src="/hyunsik-picture.jpg"
+                        src="/hyunsik-upper.png"
                         alt="Hyunsik Jeon"
                         fill
                         className="hero__photo"
