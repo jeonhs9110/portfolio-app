@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyunsik Jeon Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            font-size: 13pt;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: white;
+            width: 210mm;
+        }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 10mm 15mm;
+            page-break-after: always;
+            position: relative;
+        }
+
+        .page:last-child {
+            page-break-after: auto;
+        }
+
+        /* ---- Header ---- */
+        .cover-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #1a1a1a;
+            padding-bottom: 10px;
+            margin-bottom: 14px;
+        }
+
+        .cover-header h1 {
+            font-size: 24pt;
+            font-weight: 700;
+        }
+
+        .cover-header .subtitle {
+            font-size: 12pt;
+            color: #333;
+            margin-top: 3px;
+            font-weight: 600;
+        }
+
+        .cover-header .contacts {
+            font-size: 10.5pt;
+            color: #555;
+            margin-top: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .header-photo {
+            width: 90px;
+            height: 110px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        .section {
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 14pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 6px;
+            margin-bottom: 12px;
+            color: #111;
+        }
+
+        /* --- Project Cards --- */
+        .project-card {
+            margin-bottom: 10px;
+            page-break-inside: avoid;
+        }
+
+        .project-card h2 {
+            font-size: 15pt;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #111;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .participants {
+            font-size: 11pt;
+            font-weight: 500;
+            color: #666;
+        }
+
+        .project-card .tech {
+            font-size: 11pt;
+            color: #555;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .project-card .desc {
+            font-size: 10.5pt;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .pipeline {
+            margin: 8px 0;
+            padding: 10px 12px;
+            background: #f9f9f9;
+            border-left: 4px solid #333;
+            border-radius: 4px;
+        }
+
+        .pipeline h4 {
+            font-size: 10.5pt;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .pipeline ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .pipeline li {
+            font-size: 10pt;
+            margin-bottom: 5px;
+            line-height: 1.5;
+        }
+
+        .pipeline li strong {
+            color: #000;
+            margin-right: 6px;
+        }
+
+        .screenshot {
+            width: 100%;
+            height: auto;
+            max-height: 310px;
+            object-fit: contain;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 9pt;
+            font-weight: 700;
+            background: #fef9c3;
+            color: #92400e;
+            border: 1px solid #fde68a;
+            border-radius: 3px;
+            padding: 2px 8px;
+            margin-bottom: 6px;
+        }
+
+        .half-page-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .small-screenshot {
+            max-height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- PAGE 1: Featured Project 01 -->
+    <div class="page">
+        <div class="cover-header">
+            <div>
+                <h1>Hyunsik Jeon</h1>
+                <div class="subtitle">AI &amp; Backend Developer Portfolio</div>
+                <div class="contacts">
+                    <div>jeonhs9110@gmail.com | Seoul, Korea</div>
+                    <div>+82 10-4092-0628 | linkedin.com/in/hyunsikjeon</div>
+                </div>
+            </div>
+            <img src="hyunsik-picture.jpg" alt="Hyunsik Jeon" class="header-photo" />
+        </div>
+
+        <div class="section">
+            <div class="section-title">Featured Project 01</div>
+            <div class="project-card">
+                <div class="badge">Top Award — IBM &amp; RedHat AI Transformation Program</div>
+                <h2>Vaccine Daily (AI News Pipeline) <span class="participants">Hyunsik Jeon and 2 others</span></h2>
+                <div class="tech">React · FastAPI · PostgreSQL · ChromaDB · GPT-4o-mini · ko-sroberta · HDBSCAN ·
+                    GraphRAG · Docker</div>
+                <div class="desc">An automated news intelligence pipeline that crawls 10 major media outlets every 5
+                    minutes and uses a multi-agent workflow to generate verified, hallucination-free personalized
+                    reports.</div>
+
+                <div class="pipeline">
+                    <h4>Technical Pipeline Detail</h4>
+                    <ul>
+                        <li><strong>1. Crawling</strong> Real-time automated data collection from 10 media outlets via
+                            Selenium &amp; BS4.</li>
+                        <li><strong>2. Clustering</strong> Token-efficient group analysis of similar news using HDBSCAN
+                            and ko-sroberta.</li>
+                        <li><strong>3. AI News Article Generator</strong> Multi-Agent AI (Writer → Critic → Editor) for
+                            factual verification and summarization.</li>
+                        <li><strong>4. GraphRAG</strong> Entity-Relation extraction and Knowledge Graph construction for
+                            Media Tone of Voice analysis.</li>
+                    </ul>
+                </div>
+                <img src="projects/vaccine-daily.png" alt="Vaccine Daily Screenshot" class="screenshot" />
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 2: Football AI -->
+    <div class="page">
+        <div class="section">
+            <div class="section-title">Featured Project 02</div>
+            <div class="project-card">
+                <h2>Football AI Prediction System <span class="participants">Hyunsik Jeon (Personal Use)</span></h2>
+                <div class="tech">Python · TensorFlow · Reinforcement Learning · Monte Carlo · XGBoost · LightGBM ·
+                    FastAPI · Pandas</div>
+                <div class="desc">A high-precision forecasting system analyzing data from 13 European football leagues.
+                    It maximizes predictive accuracy by ensembling deep learning models with reinforcement learning
+                    strategies.</div>
+
+                <div class="pipeline">
+                    <h4>6-Step System Architecture</h4>
+                    <ul>
+                        <li><strong>Step 1</strong> Data Scrapping: Automated pipeline for match data and global
+                            bookmaker odds collection.</li>
+                        <li><strong>Step 2</strong> Predictive Ensembling: Triple architecture — TensorFlow DL + XGBoost
+                            + LightGBM.</li>
+                        <li><strong>Step 3</strong> Confidence Optimization: Reinforcement Learning (RL) agent for
+                            tuning logical confidence thresholds.</li>
+                        <li><strong>Step 4</strong> Probabilistic Reasoning: Monte Carlo simulation for calibrated
+                            outcome probabilities.</li>
+                        <li><strong>Step 5</strong> Dynamic Tuning: Adaptive sequence length optimization based on
+                            league-specific volatility.</li>
+                        <li><strong>Step 6</strong> Power Ranking: ELO-based strength metrics and GNN-based dominance
+                            analysis.</li>
+                    </ul>
+                </div>
+                <img src="projects/training-day.png" alt="Football AI Screenshot" class="screenshot"
+                    style="max-height: 480px;" />
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 3: Other Projects -->
+    <div class="page">
+        <div class="section">
+            <div class="section-title">Other Projects</div>
+
+            <div class="half-page-grid">
+                <!-- Shopping Mall -->
+                <div class="project-card">
+                    <h2>Goblin Shopping Mall (E-commerce SPA) <span class="participants">Hyunsik Jeon and 3
+                            others</span></h2>
+                    <div class="tech">React · JavaScript · CSS · Vercel</div>
+                    <div class="desc">A fully-featured e-commerce platform with 18+ category filters and real-time
+                        search. Focused on intuitive UX and high-performance frontend state management.</div>
+                    <img src="projects/shopping-mall.png" alt="Shopping Mall Screenshot"
+                        class="screenshot small-screenshot" />
+                </div>
+
+                <!-- Crazy Arcade -->
+                <div class="project-card">
+                    <h2>Crazy Arcade Web Replica <span class="participants">Hyunsik Jeon and 3 others</span></h2>
+                    <div class="tech">React · FastAPI · WebSocket · MySQL</div>
+                    <div class="desc">A real-time multiplayer game synchronization project using WebSockets. Implemented
+                        complex physics and room-state management for smooth gameplay.</div>
+                    <img src="projects/p3-arcade.png" alt="Game Screenshot" class="screenshot small-screenshot" />
+                </div>
+
+                <!-- My Diary -->
+                <div class="project-card">
+                    <h2>My Diary (Emotion Log App) <span class="participants">(Personal Use for Education)</span></h2>
+                    <div class="tech">React · Context API · localStorage</div>
+                    <div class="desc">A personal journal application focusing on frontend state persistence and custom
+                        UI interactions using browser's local storage.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

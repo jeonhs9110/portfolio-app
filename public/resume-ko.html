@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전현식 이력서</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.45;
+      color: #1a1a1a;
+      background: white;
+      width: 210mm;
+      min-height: 297mm;
+      padding: 8mm 15mm 8mm 15mm;
+      position: relative;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #1a1a1a;
+      padding-bottom: 15px;
+      margin-bottom: 12px;
+    }
+
+    .header-left h1 {
+      font-size: 24pt;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 2px;
+    }
+
+    .header-left .subtitle {
+      font-size: 11.5pt;
+      color: #333;
+      margin-top: 3px;
+      font-weight: 600;
+    }
+
+    .header-left .contacts {
+      font-size: 9.5pt;
+      color: #555;
+      margin-top: 6px;
+    }
+
+    .header-photo {
+      width: 90px;
+      height: 110px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .section {
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 10pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 3px;
+      margin-bottom: 8px;
+      color: #111;
+    }
+
+    .bio {
+      font-size: 9.5pt;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .job {
+      margin-bottom: 14px;
+    }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .job-title {
+      font-size: 10pt;
+      font-weight: 700;
+      display: flex;
+      align-items: baseline;
+    }
+
+    .job-period {
+      font-size: 9pt;
+      color: #444;
+      font-weight: 600;
+    }
+
+    .job-company {
+      font-size: 9pt;
+      color: #555;
+      font-style: italic;
+      font-weight: 500;
+      margin-left: 8px;
+    }
+
+    .job-desc {
+      font-size: 9pt;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .sub-category {
+      font-size: 9pt;
+      font-weight: 700;
+      color: #222;
+      margin: 6px 0 4px;
+    }
+
+    ul.items {
+      list-style: disc;
+      padding-left: 18px;
+      margin: 0;
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    ul.items li {
+      font-size: 9pt;
+      color: #333;
+      margin-bottom: 2px;
+      line-height: 1.5;
+    }
+
+    .edu-item {
+      margin-bottom: 10px;
+    }
+
+    .edu-school {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .edu-degree {
+      font-size: 9.5pt;
+      color: #333;
+      margin-top: 1px;
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .skill-row {
+      display: flex;
+      gap: 12px;
+      align-items: baseline;
+    }
+
+    .skill-label {
+      font-size: 9pt;
+      font-weight: 700;
+      width: 100px;
+      flex-shrink: 0;
+      color: #111;
+    }
+
+    .skill-items {
+      font-size: 9pt;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="header-left">
+      <h1>전현식</h1>
+      <div class="subtitle">AI &amp; Backend 개발자</div>
+      <div class="contacts">jeonhs9110@gmail.com | +82 10-4092-0628 | linkedin.com/in/hyunsikjeon | Seoul, Korea</div>
+    </div>
+    <img src="hyunsik-picture.jpg" alt="전현식" class="header-photo" />
+  </div>
+
+  <div class="section">
+    <div class="section-title">자기 소개</div>
+    <div class="bio">AI와 함께 미래를 설계합니다. 대한민국 국회에서 외교 및 해외 업무 경력에서 AI 아키텍트로 전환하는 AI 엔지니어입니다. 전략적 문제를 파악하고 최신 AI 모델링으로 정확하고
+      통찰력 있는 솔루션을 설계합니다. 탁월한 커뮤니케이션 능력과 문제 해결 역량을 결합하여 기술적 한계를 넘어서는 가치를 창출합니다.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">경력</div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">외교 및 행정 <span class="job-company">전 국회의원 비서관</span></div>
+        <div class="job-period">2019.07 – 2025.06</div>
+      </div>
+      <div class="job-desc">대한민국 국회 및 주요 법무법인(충정, 광장)에서 국회의원 보좌 및 해외 행정 업무 주도.</div>
+
+      <div class="sub-category">법무법인 광장 (2022.04 – 2025.06)</div>
+      <ul class="items">
+        <li>한국-중동 지속가능발전 포럼 설립 및 관리, 세미나/이벤트 조정</li>
+        <li>한국 정부 기관 및 민간 기업 고위급 회의/해외 출장 관리, 한국-중동 교류 촉진</li>
+        <li>의원실 보좌진 긴밀 관계 유지, 고객 입법 조정 촉진 및 규제 완화 활동</li>
+      </ul>
+
+      <div class="sub-category">법무법인 충정 (2020.07 – 2022.04)</div>
+      <ul class="items">
+        <li>방한 외국 고위 인사 관계 관리, 한국 기업 협력 지원</li>
+        <li>회의 시 한-영 통역 및 커뮤니케이션 주도</li>
+      </ul>
+
+      <div class="sub-category">대한민국 국회 (2019.07 – 2020.05)</div>
+      <ul class="items">
+        <li>한국 도입 가능 해외 입법 연구 및 정책 제안</li>
+        <li>피감기관 정보/데이터 요청 및 심층 분석 수행</li>
+        <li>외국 VIP 관계 증진 및 대량 글로벌 서신 관리</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">인력 관리 및 Apple 서비스 어드바이저 <span class="job-company">Concentrix Korea</span></div>
+        <div class="job-period">2018.04 – 2019.02</div>
+      </div>
+      <ul class="items">
+        <li>글로벌 오피스 및 고객 표준에 따른 콜센터 상담원 효율적 일정 관리</li>
+        <li>시스템 비효율성 식별 및 업무 성과 최적화 프로세스 개선</li>
+        <li>Tier 4 시니어 어드바이저(최고 레벨) — 인바운드 고객 Apple 기술 문의 지원</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">교육</div>
+    <div class="edu-grid">
+      <div class="edu-item">
+        <div class="edu-school">Miami University, USA (OH)</div>
+        <div class="edu-degree">국제학 (경제개발 전문분야) 졸업</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-school">IBM x RedHat AI Transformation</div>
+        <div class="edu-degree">AX Academy 수료</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">주요 프로젝트</div>
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">백신일보 (AI 뉴스 파이프라인)</div>
+        <div class="job-period">전현식 외 2명</div>
+      </div>
+      <div class="job-desc">단순 LLM 만 사용한 것이 아닌 여러 패키지 및 모델을 검토하여 토큰 효율성과 Multi Agent 구현</div>
+    </div>
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">축구 데이터 분석 및 경기 예측 시스템</div>
+        <div class="job-period">1인 개발</div>
+      </div>
+      <div class="job-desc">TensorFlow 앙상블, 강화학습(RL) 기반 컨피던스 최적화 및 몬테카를로 시뮬레이션 기반 추론 엔진 개발.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">기술 스택</div>
+    <div class="skills-grid">
+      <div class="skill-row">
+        <span class="skill-label">프론트엔드</span>
+        <span class="skill-items">React, Next.js, JavaScript, HTML/CSS, Framer Motion</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-label">백엔드 / AI</span>
+        <span class="skill-items">Python, FastAPI, TensorFlow, GraphRAG, Agentic AI, XGBoost, LightGBM</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-label">데이터베이스</span>
+        <span class="skill-items">PostgreSQL, MySQL, ChromaDB, SQLAlchemy</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-label">인프라 / 배포</span>
+        <span class="skill-items">Docker Compose, AWS EC2, Git, Vercel, WebSocket</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
