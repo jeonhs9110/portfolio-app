@@ -200,7 +200,7 @@
         <div class="cover-header">
             <div>
                 <h1>Hyunsik Jeon</h1>
-                <div class="subtitle">AI &amp; Backend Developer Portfolio</div>
+                <div class="subtitle">Designing End-to-End AI Systems — Portfolio</div>
                 <div class="contacts">
                     <div><strong>Portfolio:</strong> <a href="https://portfolio-app-5ca9.vercel.app/"
                             style="color:#555; text-decoration:underline;">https://portfolio-app-5ca9.vercel.app/</a>
@@ -214,6 +214,75 @@
 
         <div class="section">
             <div class="section-title">Featured Project 01</div>
+            <div class="project-card">
+                <h2>IAMX6 — Naver Blog Automation Desktop App <span class="participants">Hyunsik Jeon (Solo · Private Repo)</span></h2>
+                <div class="tech">Electron · Puppeteer-core · Node.js · AI/LLM · electron-builder (Windows portable .exe / macOS dmg)</div>
+                <div class="desc">Key takeaway: a Naver blog growth tool shipped as an Electron desktop app (not a web app). Puppeteer drives the real browser, an AI model writes context-aware comments, and mutual-neighbor requests, comment/like automation, visitor auto-reply, and blog analytics all ship as one portable .exe.</div>
+
+                <div class="pipeline">
+                    <h4>Technical Pipeline Detail</h4>
+                    <ul>
+                        <li><strong>1. Desktop architecture</strong> Electron main/preload/renderer cleanly separates UI from automation backend.</li>
+                        <li><strong>2. Browser automation</strong> Puppeteer-core drives a real Naver session (mutual-neighbor, commenting, likes).</li>
+                        <li><strong>3. AI comment generation</strong> AI writes context-aware comments with tone presets (friendly / polite / short).</li>
+                        <li><strong>4. Blog analytics</strong> Blog DNA diagnosis, keyword analysis, and post-level analytics modules.</li>
+                        <li><strong>5. Distribution</strong> electron-builder packages a single Windows portable .exe plus macOS dmg.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE: KOKKOK Garden -->
+    <div class="page">
+        <div class="section">
+            <div class="section-title">Featured Project 02</div>
+            <div class="project-card">
+                <h2>KOKKOK Garden — K-Beauty Multi-region E-commerce <span class="participants">Hyunsik Jeon (Solo)</span></h2>
+                <div class="tech">Next.js 16 · TypeScript · Supabase · Tailwind CSS 4 · OpenAI GPT-4o mini · Vercel</div>
+                <div class="desc">Live: https://kokv2.vercel.app</div>
+                <div class="desc">Key takeaway: stood up a full stack — frontend → backend → DB → chatbot — in days via vibe coding. Korean users are routed to a purchasable `/kr` store; international users hit a viewing + AI-chatbot `/gl` store. GPT-4o mini auto-translates product data into 5 languages.</div>
+
+                <div class="pipeline">
+                    <h4>Technical Pipeline Detail</h4>
+                    <ul>
+                        <li><strong>1. Multi-region routing</strong> KR/GL split via `x-user-country` header, six language routes.</li>
+                        <li><strong>2. AI translation</strong> GPT-4o mini translates products into 5 languages (EN/CN/JP/VN/TH), cached 24h via `unstable_cache`.</li>
+                        <li><strong>3. AI chatbot</strong> K-beauty consultation chatbot embedded in the GL store.</li>
+                        <li><strong>4. Unified backend</strong> Supabase (PostgreSQL + Auth + Storage) handles admin auth, product CRUD, image upload.</li>
+                        <li><strong>5. Deploy</strong> Vercel (https://kokv2.vercel.app).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE: AIIM -->
+    <div class="page">
+        <div class="section">
+            <div class="section-title">Featured Project 03</div>
+            <div class="project-card">
+                <h2>AIIM — AI Influencer Matching <span class="participants">Hyunsik Jeon (Solo)</span></h2>
+                <div class="tech">Next.js 16 · TypeScript · Playwright · LLM SDK · Reddit API (snoowrap) · Tailwind CSS 4</div>
+                <div class="desc">Key takeaway: replaces gut-feeling influencer matching with a scraping + LLM-reasoning system. Playwright plus Reddit's public API gather influencer and community signal, and an LLM scores brand-fit with rationale.</div>
+
+                <div class="pipeline">
+                    <h4>Technical Pipeline Detail</h4>
+                    <ul>
+                        <li><strong>1. Data collection</strong> Playwright dynamic scraping + Reddit public API (snoowrap) for influencer/community signal.</li>
+                        <li><strong>2. AI matching</strong> LLM-based reasoning over brand traits vs. influencer content, outputting fit score + rationale.</li>
+                        <li><strong>3. Outreach log</strong> `dm-log` module tracks DM history and status.</li>
+                        <li><strong>4. End-to-end loop</strong> Collection → normalization → LLM analysis → recommendation inside a single Next.js app.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE: Vaccine Daily -->
+    <div class="page">
+        <div class="section">
+            <div class="section-title">Featured Project 04</div>
             <div class="project-card">
                 <div class="badge">Top Award — IBM &amp; RedHat AI Transformation Program</div>
                 <h2>Vaccine Daily (AI News Pipeline) <span class="participants">Hyunsik Jeon and 2 others</span></h2>
@@ -241,15 +310,15 @@
         </div>
     </div>
 
-    <!-- PAGE 2: Football AI -->
+    <!-- PAGE: EPL Match Prediction AI -->
     <div class="page">
         <div class="section">
-            <div class="section-title">Featured Project 02</div>
+            <div class="section-title">Featured Project 05</div>
             <div class="project-card">
-                <h2>Football AI Prediction System <span class="participants">Hyunsik Jeon (Personal Use)</span></h2>
+                <h2>EPL Match Prediction AI <span class="participants">Hyunsik Jeon (Personal Use)</span></h2>
                 <div class="tech">Python · TensorFlow · Reinforcement Learning · Monte Carlo · XGBoost · LightGBM ·
                     FastAPI · Pandas</div>
-                <div class="desc">A high-precision forecasting system analyzing data from 13 European football leagues.
+                <div class="desc">A high-precision forecasting system analyzing data from the EPL and other major European leagues.
                     It maximizes predictive accuracy by ensembling deep learning models with reinforcement learning
                     strategies.</div>
 

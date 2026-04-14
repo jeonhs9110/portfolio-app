@@ -200,7 +200,7 @@
         <div class="cover-header">
             <div>
                 <h1>전현식</h1>
-                <div class="subtitle">AI &amp; Backend 개발자 포트폴리오</div>
+                <div class="subtitle">AI 시스템 설계 · 전략 포트폴리오</div>
                 <div class="contacts">
                     <div><strong>Portfolio:</strong> <a href="https://portfolio-app-5ca9.vercel.app/"
                             style="color:#555; text-decoration:underline;">https://portfolio-app-5ca9.vercel.app/</a>
@@ -214,6 +214,75 @@
 
         <div class="section">
             <div class="section-title">주요 프로젝트 01</div>
+            <div class="project-card">
+                <h2>IAMX6 — 네이버 블로그 자동화 데스크톱 앱 <span class="participants">전현식 (1인 개발 · 비공개 저장소)</span></h2>
+                <div class="tech">Electron · Puppeteer-core · Node.js · AI/LLM · electron-builder (Windows portable .exe / macOS dmg)</div>
+                <div class="desc">핵심 성과: 웹이 아닌 Electron 데스크톱 앱으로 만든 네이버 블로그 성장 자동화 툴. Puppeteer가 실제 브라우저를 제어하고, AI가 포스팅 맥락에 맞는 댓글을 생성하며, 서로이웃 신청·댓글·좋아요·방문 답글·블로그 분석을 하나의 portable .exe로 패키징했습니다.</div>
+
+                <div class="pipeline">
+                    <h4>기술 파이프라인 세부 내용</h4>
+                    <ul>
+                        <li><strong>1. 데스크톱 아키텍처</strong> Electron main/preload/renderer 구조로 UI와 자동화 백엔드를 분리</li>
+                        <li><strong>2. 브라우저 자동화</strong> Puppeteer-core로 실제 네이버 세션 제어 (서로이웃·댓글·좋아요)</li>
+                        <li><strong>3. AI 댓글 생성</strong> 포스팅 맥락에 맞춘 자연스러운 댓글을 AI가 자동 생성 (친근/공손/짧게 톤 선택)</li>
+                        <li><strong>4. 블로그 분석</strong> 블로그 DNA 진단, 키워드 분석, 포스팅 분석 모듈</li>
+                        <li><strong>5. 배포</strong> electron-builder로 Windows portable .exe 단일 파일 + macOS dmg 동시 빌드</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE: KOKKOK Garden -->
+    <div class="page">
+        <div class="section">
+            <div class="section-title">주요 프로젝트 02</div>
+            <div class="project-card">
+                <h2>KOKKOK Garden — K-뷰티 멀티리전 이커머스 <span class="participants">전현식 (1인 개발)</span></h2>
+                <div class="tech">Next.js 16 · TypeScript · Supabase · Tailwind CSS 4 · OpenAI GPT-4o mini · Vercel</div>
+                <div class="desc">Live: https://kokv2.vercel.app</div>
+                <div class="desc">핵심 성과: 바이브 코딩으로 프론트→백엔드→DB→챗봇까지 풀스택을 며칠 만에 세운 K-뷰티 멀티리전 이커머스. 한국 사용자는 구매 가능한 `/kr` 스토어, 해외 사용자는 뷰잉 + AI 챗봇 중심의 `/gl` 스토어로 자동 분기되며, GPT-4o mini가 상품 데이터를 5개국어로 자동 번역합니다.</div>
+
+                <div class="pipeline">
+                    <h4>기술 파이프라인 세부 내용</h4>
+                    <ul>
+                        <li><strong>1. 멀티리전 라우팅</strong> `x-user-country` 헤더 기반 KR/GL 스토어 분기, 6개 언어 라우트</li>
+                        <li><strong>2. AI 번역</strong> GPT-4o mini로 5개국어(영·중·일·베·태) 상품 번역, `unstable_cache`로 24h 캐싱</li>
+                        <li><strong>3. AI 챗봇</strong> 글로벌 스토어에 K-뷰티 상담 챗봇 탑재</li>
+                        <li><strong>4. 백엔드 일원화</strong> Supabase(PostgreSQL + Auth + Storage)로 관리자 인증·상품 CRUD·이미지 업로드</li>
+                        <li><strong>5. 배포</strong> Vercel (https://kokv2.vercel.app)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE: AIIM -->
+    <div class="page">
+        <div class="section">
+            <div class="section-title">주요 프로젝트 03</div>
+            <div class="project-card">
+                <h2>AIIM — AI 인플루언서 매칭 <span class="participants">전현식 (1인 개발)</span></h2>
+                <div class="tech">Next.js 16 · TypeScript · Playwright · LLM SDK · Reddit API (snoowrap) · Tailwind CSS 4</div>
+                <div class="desc">핵심 성과: '어떤 브랜드에 어떤 인플루언서가 어울리는가'를 사람의 감이 아니라 스크래핑 + LLM 추론으로 풀어낸 시스템. Playwright 브라우저 자동화와 Reddit 공개 API로 인플루언서·커뮤니티 시그널을 수집하고, LLM이 브랜드 적합도를 점수·근거와 함께 산출합니다.</div>
+
+                <div class="pipeline">
+                    <h4>기술 파이프라인 세부 내용</h4>
+                    <ul>
+                        <li><strong>1. 데이터 수집</strong> Playwright 동적 스크래핑 + Reddit 공개 API(snoowrap)로 인플루언서/커뮤니티 신호 수집</li>
+                        <li><strong>2. AI 매칭</strong> LLM 기반 추론으로 브랜드 특성 ↔ 인플루언서 콘텐츠 적합도 점수·근거 자동 생성</li>
+                        <li><strong>3. 아웃리치 로그</strong> `dm-log` 모듈로 DM 히스토리 및 상태 추적</li>
+                        <li><strong>4. 전체 루프</strong> 수집 → 정규화 → LLM 분석 → 추천을 Next.js 앱 하나로 운영</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE: Vaccine Daily -->
+    <div class="page">
+        <div class="section">
+            <div class="section-title">주요 프로젝트 04</div>
             <div class="project-card">
                 <div class="badge">IBM &amp; RedHat AI Transformation 교육 과정 - 최우수상 수상</div>
                 <h2>백신일보 (AI 개인화 뉴스 파이프라인) <span class="participants">전현식 외 2명</span></h2>
@@ -237,15 +306,15 @@
         </div>
     </div>
 
-    <!-- PAGE 2: Football AI -->
+    <!-- PAGE: EPL Match Prediction AI -->
     <div class="page">
         <div class="section">
-            <div class="section-title">주요 프로젝트 02</div>
+            <div class="section-title">주요 프로젝트 05</div>
             <div class="project-card">
-                <h2>축구 AI 경기 결과 예측 시스템 <span class="participants">전현식 (1인 개발)</span></h2>
+                <h2>EPL 경기 예측 AI <span class="participants">전현식 (1인 개발)</span></h2>
                 <div class="tech">Python · TensorFlow · Reinforcement Learning · Monte Carlo · XGBoost · LightGBM ·
                     FastAPI · Pandas</div>
-                <div class="desc">유럽 13개 주요 축구 리그의 방대한 데이터를 분석하여 경기 결과를 예측하는 시스템입니다. 딥러닝 앙상블과 강화학습을 결합하여 예측의 정교함을
+                <div class="desc">EPL을 중심으로 유럽 주요 축구 리그의 방대한 데이터를 분석하여 경기 결과를 예측하는 시스템입니다. 딥러닝 앙상블과 강화학습을 결합하여 예측의 정교함을
                     극대화했습니다.</div>
 
                 <div class="pipeline">

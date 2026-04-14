@@ -80,26 +80,28 @@ export default function ProjectDetail() {
                             ))}
                         </motion.div>
 
-                        {/* Screenshot */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 40 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.9, delay: 0.2 }}
-                            style={{
-                                position: 'relative', width: '100%', maxWidth: '1000px',
-                                aspectRatio: '16/9', borderRadius: '16px 16px 0 0',
-                                overflow: 'hidden', border: '1px solid var(--border)',
-                                borderBottom: 'none', boxShadow: `0 -20px 80px ${project.color}20`
-                            }}
-                        >
-                            <Image
-                                src={project.image}
-                                alt={lang === 'ko' ? project.titleKo : project.titleEn}
-                                fill
-                                style={{ objectFit: 'contain', backgroundColor: 'var(--bg-surface)' }}
-                                priority
-                            />
-                        </motion.div>
+                        {/* Screenshot — only if project.image exists */}
+                        {project.image && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 40 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.9, delay: 0.2 }}
+                                style={{
+                                    position: 'relative', width: '100%', maxWidth: '1000px',
+                                    aspectRatio: '16/9', borderRadius: '16px 16px 0 0',
+                                    overflow: 'hidden', border: '1px solid var(--border)',
+                                    borderBottom: 'none', boxShadow: `0 -20px 80px ${project.color}20`
+                                }}
+                            >
+                                <Image
+                                    src={project.image}
+                                    alt={lang === 'ko' ? project.titleKo : project.titleEn}
+                                    fill
+                                    style={{ objectFit: 'contain', backgroundColor: 'var(--bg-surface)' }}
+                                    priority
+                                />
+                            </motion.div>
+                        )}
                     </div>
                 </div>
 

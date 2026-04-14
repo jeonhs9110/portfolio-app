@@ -44,7 +44,7 @@ export default function Projects() {
                 </motion.h2>
 
                 <div className="projects__list">
-                    {projects.map((proj, i) => (
+                    {[...projects].reverse().map((proj, i) => (
                         <motion.div
                             key={proj.id}
                             custom={i}
