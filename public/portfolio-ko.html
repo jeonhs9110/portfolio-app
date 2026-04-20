@@ -206,7 +206,7 @@
                             style="color:#555; text-decoration:underline;">https://portfolio-app-5ca9.vercel.app/</a>
                     </div>
                     <div>jeonhs9110@gmail.com | Seoul, Korea</div>
-                    <div>+82 10-4092-0628 | linkedin.com/in/hyunsikjeon</div>
+                    <div>+82 10-4092-0628 | linkedin.com/in/hyunsikjeon | github.com/jeonhs9110</div>
                 </div>
             </div>
             <img src="hyunsik-picture.jpg" alt="전현식" class="header-photo" />
@@ -263,16 +263,18 @@
             <div class="section-title">주요 프로젝트 03</div>
             <div class="project-card">
                 <h2>AIIM — AI 인플루언서 매칭 <span class="participants">전현식 (1인 개발)</span></h2>
-                <div class="tech">Next.js 16 · TypeScript · Playwright · LLM SDK · Reddit API (snoowrap) · Tailwind CSS 4</div>
-                <div class="desc">핵심 성과: '어떤 브랜드에 어떤 인플루언서가 어울리는가'를 사람의 감이 아니라 스크래핑 + LLM 추론으로 풀어낸 시스템. Playwright 브라우저 자동화와 Reddit 공개 API로 인플루언서·커뮤니티 시그널을 수집하고, LLM이 브랜드 적합도를 점수·근거와 함께 산출합니다.</div>
+                <div class="tech">Python · FastAPI · Next.js 14 · PostgreSQL (Cloud SQL) · Selenium · YouTube Data API · Meta Graph API · LLM · GCP Cloud Run</div>
+                <div class="desc">YouTube + Instagram + TikTok에서 14개 언어권 5,300명+ 크리에이터를 수집하고 LLM으로 브랜드 적합도를 매칭하는 엔드투엔드 클라우드 플랫폼. 다국어 해시태그 전략으로 30분 실행에 YouTube 신규 400명 확보, IG 비즈니스 이메일 323건 자동 추출. Google Cloud(Cloud Run + Cloud SQL)에서 24/7 운영. <b>Live:</b> aiim-frontend-559416574965.asia-northeast3.run.app &nbsp;·&nbsp; <b>GitHub:</b> github.com/jeonhs9110/AIIM-Showcase</div>
 
                 <div class="pipeline">
                     <h4>기술 파이프라인 세부 내용</h4>
                     <ul>
-                        <li><strong>1. 데이터 수집</strong> Playwright 동적 스크래핑 + Reddit 공개 API(snoowrap)로 인플루언서/커뮤니티 신호 수집</li>
-                        <li><strong>2. AI 매칭</strong> LLM 기반 추론으로 브랜드 특성 ↔ 인플루언서 콘텐츠 적합도 점수·근거 자동 생성</li>
-                        <li><strong>3. 아웃리치 로그</strong> `dm-log` 모듈로 DM 히스토리 및 상태 추적</li>
-                        <li><strong>4. 전체 루프</strong> 수집 → 정규화 → LLM 분석 → 추천을 Next.js 앱 하나로 운영</li>
+                        <li><strong>1. 멀티 플랫폼 수집</strong> YouTube (1,584) · Instagram (3,735) · TikTok (16) — 총 5,300명+</li>
+                        <li><strong>2. 다국어 해시태그 전략</strong> 14개 문자 체계로 검색(광고·スポンサー·رعاية 등) → 영어 수렴 한계 돌파</li>
+                        <li><strong>3. LLM 데이터 보강</strong> 국가·언어·브랜드 협업·카테고리·연락처 자동 추출 + 프롬프트 캐싱</li>
+                        <li><strong>4. 추천 엔진</strong> 제품·타겟·예산 자연어 입력 → 근거 포함 랭킹 · 데모 모드 게이팅으로 유료 API 소진 방지</li>
+                        <li><strong>5. 휴먼-셰이프드 Selenium</strong> μs 드웰 랜덤화 + 5–15분 AFK 스케줄러 → 수개월 무중단 운영</li>
+                        <li><strong>6. 인프라</strong> GCP asia-northeast3 — Cloud Run + Cloud SQL Postgres + Cloud Build CI</li>
                     </ul>
                 </div>
             </div>
@@ -289,6 +291,7 @@
                 <div class="tech">React · FastAPI · PostgreSQL · ChromaDB · GPT-4o-mini · ko-sroberta · HDBSCAN ·
                     GraphRAG · Docker</div>
                 <div class="desc">10개 주요 언론사를 실시간으로 추적하고, 검증된 리포트를 생성하는 고도화된 AI 자동화 파이프라인입니다.</div>
+                <div class="desc"><b>Live:</b> https://jeonhs9110.github.io/vaccine-daily/ &nbsp;·&nbsp; <b>GitHub:</b> github.com/jeonhs9110/vaccine-daily</div>
 
                 <div class="pipeline">
                     <h4>기술 파이프라인 세부 내용</h4>
@@ -306,26 +309,26 @@
         </div>
     </div>
 
-    <!-- PAGE: EPL Match Prediction AI -->
+    <!-- PAGE: FOBO AI -->
     <div class="page">
         <div class="section">
             <div class="section-title">주요 프로젝트 05</div>
             <div class="project-card">
-                <h2>EPL 경기 예측 AI <span class="participants">전현식 (1인 개발)</span></h2>
-                <div class="tech">Python · TensorFlow · Reinforcement Learning · Monte Carlo · XGBoost · LightGBM ·
-                    FastAPI · Pandas</div>
-                <div class="desc">EPL을 중심으로 유럽 주요 축구 리그의 방대한 데이터를 분석하여 경기 결과를 예측하는 시스템입니다. 딥러닝 앙상블과 강화학습을 결합하여 예측의 정교함을
-                    극대화했습니다.</div>
+                <h2>FOBO AI — 유럽 축구 경기 예측 <span class="participants">전현식 (1인 개발)</span></h2>
+                <div class="tech">Python · PyTorch · Transformer · Graph Attention Network · PPO 강화학습 · Dixon-Coles · XGBoost · LightGBM · Flask · Google Cloud</div>
+                <div class="desc">PyTorch Transformer + GAT + Dixon-Coles 보정 + PPO 강화학습 + XGBoost/LightGBM 앙상블을 8단계 파이프라인으로 연결한 엔드투엔드 ML 시스템. 13개 유럽 리그 대상, 앙상블 ≥77% + 우세팀 필터 적중률 ~90%, PPO ≥90% 동의 시 ~95%. Google Cloud 2-VM으로 월 ~$26 운영. <b>Live:</b> http://34.64.147.124/ &nbsp;·&nbsp; <b>GitHub:</b> github.com/jeonhs9110/epl-showcase</div>
 
                 <div class="pipeline">
-                    <h4>6단계 시스템 아키텍처</h4>
+                    <h4>8단계 시스템 아키텍처</h4>
                     <ul>
-                        <li><strong>Step 1</strong> 데이터 수집: Selenium/BS4 기반 실시간 매치 정보 및 글로벌 배당률 크롤링</li>
-                        <li><strong>Step 2</strong> 모델 앙상블: TensorFlow DL + XGBoost + LightGBM 트리플 앙상블 아키텍처</li>
-                        <li><strong>Step 3</strong> 신뢰도 최적화: 강화학습(RL) 에이전트를 통한 모델별 예측 신뢰도 임계값 자동 튜닝</li>
-                        <li><strong>Step 4</strong> 확률적 추론: 몬테카를로 시뮬레이션 기반의 칼리브레이션 및 결과 확률 산출</li>
-                        <li><strong>Step 5</strong> 동적 튜닝: 리그별 데이터 휘발성을 반영한 가변 시퀀스 길이 최적화</li>
-                        <li><strong>Step 6</strong> 전력 분석: ELO 기반 팀 전력 지표 산출 및 GNN 기반 도미넌스 랭킹 적용</li>
+                        <li><strong>1. Scrape</strong> Flashscore 13개 리그 병렬 크롤링 (증분 재실행)</li>
+                        <li><strong>2. Validation</strong> 기사 무결성 체크로 학습 오염 방지</li>
+                        <li><strong>3. Seq optimisation</strong> 리그별 look-back 윈도우 (Premier ~10, Championship ~5)</li>
+                        <li><strong>4. DL training</strong> Transformer + GAT + Dixon-Coles NLL — 약팀 vs 강팀 수비 태세 추론</li>
+                        <li><strong>5. PPO RL</strong> Action ∈ {Home, Draw, Away, Pass} + Kelly-Criterion 보상</li>
+                        <li><strong>6. Hybrid ensemble</strong> XGBoost + LightGBM on DL embeddings</li>
+                        <li><strong>7. Calibration</strong> Platt 스케일링으로 보고 확률 ↔ 실제 적중률 정렬</li>
+                        <li><strong>8. Flask API</strong> 모델 부트 로드, 요청당 &lt;200ms, GPT-4o-mini 챗봇 (오늘 경기)</li>
                     </ul>
                 </div>
                 <img src="projects/training-day.png" alt="축구 AI 스크린샷" class="screenshot" style="max-height: 480px;" />

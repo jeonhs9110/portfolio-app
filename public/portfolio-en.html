@@ -206,7 +206,7 @@
                             style="color:#555; text-decoration:underline;">https://portfolio-app-5ca9.vercel.app/</a>
                     </div>
                     <div>jeonhs9110@gmail.com | Seoul, Korea</div>
-                    <div>+82 10-4092-0628 | linkedin.com/in/hyunsikjeon</div>
+                    <div>+82 10-4092-0628 | linkedin.com/in/hyunsikjeon | github.com/jeonhs9110</div>
                 </div>
             </div>
             <img src="hyunsik-picture.jpg" alt="Hyunsik Jeon" class="header-photo" />
@@ -262,17 +262,19 @@
         <div class="section">
             <div class="section-title">Featured Project 03</div>
             <div class="project-card">
-                <h2>AIIM — AI Influencer Matching <span class="participants">Hyunsik Jeon (Solo)</span></h2>
-                <div class="tech">Next.js 16 · TypeScript · Playwright · LLM SDK · Reddit API (snoowrap) · Tailwind CSS 4</div>
-                <div class="desc">Key takeaway: replaces gut-feeling influencer matching with a scraping + LLM-reasoning system. Playwright plus Reddit's public API gather influencer and community signal, and an LLM scores brand-fit with rationale.</div>
+                <h2>AIIM — AI Influencer Match <span class="participants">Hyunsik Jeon (Solo)</span></h2>
+                <div class="tech">Python · FastAPI · Next.js 14 · PostgreSQL (Cloud SQL) · Selenium · YouTube Data API · Meta Graph API · LLM · GCP Cloud Run</div>
+                <div class="desc">End-to-end cloud platform ingesting 5,300+ creators across YouTube + Instagram + TikTok in 14 languages, matched to brands via LLM reasoning. Multilingual hashtag discovery surfaced 400 new YouTube creators in one 30-min run and extracted 323 IG business emails. Runs 24/7 on Google Cloud (Cloud Run + Cloud SQL). <b>Live:</b> aiim-frontend-559416574965.asia-northeast3.run.app &nbsp;·&nbsp; <b>GitHub:</b> github.com/jeonhs9110/AIIM-Showcase</div>
 
                 <div class="pipeline">
                     <h4>Technical Pipeline Detail</h4>
                     <ul>
-                        <li><strong>1. Data collection</strong> Playwright dynamic scraping + Reddit public API (snoowrap) for influencer/community signal.</li>
-                        <li><strong>2. AI matching</strong> LLM-based reasoning over brand traits vs. influencer content, outputting fit score + rationale.</li>
-                        <li><strong>3. Outreach log</strong> `dm-log` module tracks DM history and status.</li>
-                        <li><strong>4. End-to-end loop</strong> Collection → normalization → LLM analysis → recommendation inside a single Next.js app.</li>
+                        <li><strong>1. Multi-platform ingestion</strong> YouTube (1,584) · Instagram (3,735) · TikTok (16) — 5,300+ creators</li>
+                        <li><strong>2. Multilingual hashtag discovery</strong> Searches native-language tags (광고 · スポンサー · رعاية …) to escape English-query convergence</li>
+                        <li><strong>3. LLM enrichment</strong> Country, language, brand-collab history, vertical, contacts — with prompt caching for cost control</li>
+                        <li><strong>4. Recommendation engine</strong> Plain-English brief → ranked shortlist with rationale · demo-mode gating prevents paid-API burn on the public URL</li>
+                        <li><strong>5. Human-shaped Selenium</strong> μs dwell randomisation + 5–15 min AFK scheduler → months of uninterrupted runs</li>
+                        <li><strong>6. Infra</strong> GCP asia-northeast3 — Cloud Run + Cloud SQL Postgres + Cloud Build CI</li>
                     </ul>
                 </div>
             </div>
@@ -291,6 +293,7 @@
                 <div class="desc">An automated news intelligence pipeline that crawls 10 major media outlets every 5
                     minutes and uses a multi-agent workflow to generate verified, hallucination-free personalized
                     reports.</div>
+                <div class="desc"><b>Live:</b> https://jeonhs9110.github.io/vaccine-daily/ &nbsp;·&nbsp; <b>GitHub:</b> github.com/jeonhs9110/vaccine-daily</div>
 
                 <div class="pipeline">
                     <h4>Technical Pipeline Detail</h4>
@@ -310,33 +313,26 @@
         </div>
     </div>
 
-    <!-- PAGE: EPL Match Prediction AI -->
+    <!-- PAGE: FOBO AI -->
     <div class="page">
         <div class="section">
             <div class="section-title">Featured Project 05</div>
             <div class="project-card">
-                <h2>EPL Match Prediction AI <span class="participants">Hyunsik Jeon (Personal Use)</span></h2>
-                <div class="tech">Python · TensorFlow · Reinforcement Learning · Monte Carlo · XGBoost · LightGBM ·
-                    FastAPI · Pandas</div>
-                <div class="desc">A high-precision forecasting system analyzing data from the EPL and other major European leagues.
-                    It maximizes predictive accuracy by ensembling deep learning models with reinforcement learning
-                    strategies.</div>
+                <h2>FOBO AI — European Football Prediction <span class="participants">Hyunsik Jeon (Personal Use)</span></h2>
+                <div class="tech">Python · PyTorch · Transformer · Graph Attention Network · PPO RL · Dixon-Coles · XGBoost · LightGBM · Flask · Google Cloud</div>
+                <div class="desc">End-to-end ML system chaining PyTorch Transformer + GAT + Dixon-Coles correction + PPO RL + XGBoost/LightGBM into an 8-stage pipeline. Across 13 European leagues: ~90% hit rate at ensemble ≥77% + favourite filter; ~95% when the PPO agent independently agrees at ≥90%. Deployed on Google Cloud via a 2-VM architecture for ~$26/month. <b>Live:</b> http://34.64.147.124/ &nbsp;·&nbsp; <b>GitHub:</b> github.com/jeonhs9110/epl-showcase</div>
 
                 <div class="pipeline">
-                    <h4>6-Step System Architecture</h4>
+                    <h4>8-Step System Architecture</h4>
                     <ul>
-                        <li><strong>Step 1</strong> Data Scrapping: Automated pipeline for match data and global
-                            bookmaker odds collection.</li>
-                        <li><strong>Step 2</strong> Predictive Ensembling: Triple architecture — TensorFlow DL + XGBoost
-                            + LightGBM.</li>
-                        <li><strong>Step 3</strong> Confidence Optimization: Reinforcement Learning (RL) agent for
-                            tuning logical confidence thresholds.</li>
-                        <li><strong>Step 4</strong> Probabilistic Reasoning: Monte Carlo simulation for calibrated
-                            outcome probabilities.</li>
-                        <li><strong>Step 5</strong> Dynamic Tuning: Adaptive sequence length optimization based on
-                            league-specific volatility.</li>
-                        <li><strong>Step 6</strong> Power Ranking: ELO-based strength metrics and GNN-based dominance
-                            analysis.</li>
+                        <li><strong>1. Scrape</strong> Parallel Flashscore crawl across 13 leagues (incremental re-runs)</li>
+                        <li><strong>2. Validation</strong> Integrity checks catch broken scrapes before they poison training</li>
+                        <li><strong>3. Seq optimisation</strong> Per-league look-back window (Premier ~10, Championship ~5)</li>
+                        <li><strong>4. DL training</strong> Transformer + GAT + Dixon-Coles NLL — infers defensive posture in weak-vs-strong matchups</li>
+                        <li><strong>5. PPO RL</strong> Action ∈ {Home, Draw, Away, Pass} with Kelly-Criterion-shaped reward</li>
+                        <li><strong>6. Hybrid ensemble</strong> XGBoost + LightGBM on DL embeddings</li>
+                        <li><strong>7. Calibration</strong> Platt scaling aligns reported probability with empirical hit rate</li>
+                        <li><strong>8. Flask API</strong> Models preloaded, &lt;200 ms per request, GPT-4o-mini chatbot scoped to today's matches</li>
                     </ul>
                 </div>
                 <img src="projects/training-day.png" alt="Football AI Screenshot" class="screenshot"

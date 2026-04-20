@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
-import { FiMail, FiPhone, FiFileText, FiFolder } from 'react-icons/fi';
+import { FiMail, FiPhone, FiFileText, FiFolder, FiGithub, FiLinkedin } from 'react-icons/fi';
 
 export default function Contact() {
     const { t } = useLanguage();
@@ -57,6 +57,14 @@ export default function Contact() {
                         <a href="tel:+821040920628" className="btn btn-outline">
                             <FiPhone size={18} />
                             {t.contact.phone}
+                        </a>
+                        <a href="https://github.com/jeonhs9110" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+                            <FiGithub size={18} />
+                            GitHub
+                        </a>
+                        <a href="https://linkedin.com/in/hyunsikjeon" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+                            <FiLinkedin size={18} />
+                            LinkedIn
                         </a>
                     </motion.div>
 
