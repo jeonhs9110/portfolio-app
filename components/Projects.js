@@ -1,10 +1,10 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
 import { projects } from '@/lib/projects';
-import { FiExternalLink, FiGithub, FiArrowRight } from 'react-icons/fi';
-import Link from 'next/link';
+import { FiArrowRight, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import { useRouter } from 'next/navigation';
 
 const fadeUp = {
@@ -19,6 +19,14 @@ const fadeUp = {
 export default function Projects() {
     const { t, lang } = useLanguage();
     const router = useRouter();
+    const [showAll, setShowAll] = useState(false);
+
+    const featured = projects.filter((p) => p.featured);
+    const others = projects.filter((p) => !p.featured);
+    const visible = showAll ? projects : featured;
+
+    const seeMoreLabel = lang === 'ko' ? '더 많은 프로젝트 보기' : 'See more projects';
+    const seeLessLabel = lang === 'ko' ? '접기' : 'Show less';
 
     return (
         <section className="projects" id="projects">
@@ -44,7 +52,7 @@ export default function Projects() {
                 </motion.h2>
 
                 <div className="projects__list">
-                    {[...projects].reverse().map((proj, i) => (
+                    {visible.map((proj, i) => (
                         <motion.div
                             key={proj.id}
                             custom={i}
@@ -54,18 +62,13 @@ export default function Projects() {
                             variants={fadeUp}
                             style={{ position: 'relative' }}
                         >
-                            {/* Entire card is a clickable div instead of a Link to avoid nested <a> tags */}
                             <div
                                 onClick={() => router.push(`/projects/${proj.slug}`)}
                                 className="project-card project-card--clickable"
                                 style={{ textDecoration: 'none', color: 'inherit' }}
                             >
-                                {/* Number */}
                                 <span className="project-card__num">0{proj.id}</span>
 
-
-
-                                {/* Main info */}
                                 <div className="project-card__main">
                                     <h3 className="project-card__title">
                                         {lang === 'ko' ? proj.titleKo : proj.titleEn}
@@ -80,9 +83,7 @@ export default function Projects() {
                                     </div>
                                 </div>
 
-                                {/* Right side: external links + view arrow */}
                                 <div className="project-card__links">
-                                    {/* "View detail" arrow indicator */}
                                     <span className="project-card__arrow">
                                         <FiArrowRight size={18} />
                                     </span>
@@ -91,6 +92,34 @@ export default function Projects() {
                         </motion.div>
                     ))}
                 </div>
+
+                {others.length > 0 && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.15 }}
+                        style={{ display: 'flex', justifyContent: 'center', marginTop: 32 }}
+                    >
+                        <button
+                            type="button"
+                            className="btn btn-outline"
+                            onClick={() => setShowAll((v) => !v)}
+                        >
+                            {showAll ? (
+                                <>
+                                    <FiChevronUp size={18} />
+                                    {seeLessLabel}
+                                </>
+                            ) : (
+                                <>
+                                    <FiChevronDown size={18} />
+                                    {seeMoreLabel}
+                                </>
+                            )}
+                        </button>
+                    </motion.div>
+                )}
             </div>
         </section>
     );

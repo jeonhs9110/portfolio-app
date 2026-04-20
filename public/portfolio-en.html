@@ -200,7 +200,7 @@
         <div class="cover-header">
             <div>
                 <h1>Hyunsik Jeon</h1>
-                <div class="subtitle">Designing End-to-End AI Systems — Portfolio</div>
+                <div class="subtitle">AI Strategist</div>
                 <div class="contacts">
                     <div><strong>Portfolio:</strong> <a href="https://portfolio-app-5ca9.vercel.app/"
                             style="color:#555; text-decoration:underline;">https://portfolio-app-5ca9.vercel.app/</a>
@@ -215,18 +215,19 @@
         <div class="section">
             <div class="section-title">Featured Project 01</div>
             <div class="project-card">
-                <h2>IAMX6 — Naver Blog Automation Desktop App <span class="participants">Hyunsik Jeon (Solo · Private Repo)</span></h2>
-                <div class="tech">Electron · Puppeteer-core · Node.js · AI/LLM · electron-builder (Windows portable .exe / macOS dmg)</div>
-                <div class="desc">Key takeaway: a Naver blog growth tool shipped as an Electron desktop app (not a web app). Puppeteer drives the real browser, an AI model writes context-aware comments, and mutual-neighbor requests, comment/like automation, visitor auto-reply, and blog analytics all ship as one portable .exe.</div>
+                <h2>AIIM — AI Influencer Match <span class="participants">Hyunsik Jeon (Solo)</span></h2>
+                <div class="tech">Python · FastAPI · Next.js 14 · LangGraph · GraphRAG · PostgreSQL (Cloud SQL) · Selenium · YouTube Data API · Meta Graph API · LLM · GCP Cloud Run</div>
+                <div class="desc">An end-to-end cloud platform that ingests 5,300+ creators across YouTube + Instagram + TikTok in 14 languages and ranks brand-fit via a <b>LangGraph-based agentic workflow layered on GraphRAG retrieval</b> — returning shortlists with per-pick rationale. Multilingual hashtag discovery surfaced 400 new YouTube creators in one 30-min run; extracted 323 IG business emails. Runs 24/7 on Google Cloud (Cloud Run + Cloud SQL). <b>Live:</b> aiim-frontend-559416574965.asia-northeast3.run.app &nbsp;·&nbsp; <b>GitHub:</b> github.com/jeonhs9110/AIIM-Showcase</div>
 
                 <div class="pipeline">
                     <h4>Technical Pipeline Detail</h4>
                     <ul>
-                        <li><strong>1. Desktop architecture</strong> Electron main/preload/renderer cleanly separates UI from automation backend.</li>
-                        <li><strong>2. Browser automation</strong> Puppeteer-core drives a real Naver session (mutual-neighbor, commenting, likes).</li>
-                        <li><strong>3. AI comment generation</strong> AI writes context-aware comments with tone presets (friendly / polite / short).</li>
-                        <li><strong>4. Blog analytics</strong> Blog DNA diagnosis, keyword analysis, and post-level analytics modules.</li>
-                        <li><strong>5. Distribution</strong> electron-builder packages a single Windows portable .exe plus macOS dmg.</li>
+                        <li><strong>1. LangGraph agentic workflow</strong> Brief parsing → candidate retrieval → multi-criteria scoring → rationale writing, modelled as a state graph (with retries, branching, human-in-the-loop hooks)</li>
+                        <li><strong>2. GraphRAG retrieval</strong> Creator · category · brand-collab relations encoded as a knowledge graph so every pick comes with a structural "why this creator" rationale</li>
+                        <li><strong>3. Multi-platform ingestion</strong> YouTube (1,584) · Instagram (3,735) · TikTok (16) — 5,300+ creators total</li>
+                        <li><strong>4. Multilingual hashtag strategy</strong> Searches 14 writing systems (광고 · スポンサー · رعاية …) to escape English-query convergence</li>
+                        <li><strong>5. LLM enrichment</strong> Country · language · brand-collab history · vertical · contacts — auto-extracted with prompt caching</li>
+                        <li><strong>6. Infra</strong> GCP asia-northeast3 — Cloud Run + Cloud SQL Postgres + Cloud Build CI</li>
                     </ul>
                 </div>
             </div>
@@ -239,42 +240,42 @@
             <div class="section-title">Featured Project 02</div>
             <div class="project-card">
                 <h2>KOKKOK Garden — K-Beauty Multi-region E-commerce <span class="participants">Hyunsik Jeon (Solo)</span></h2>
-                <div class="tech">Next.js 16 · TypeScript · Supabase · Tailwind CSS 4 · OpenAI GPT-4o mini · Vercel</div>
-                <div class="desc">Live: https://kokv2.vercel.app</div>
-                <div class="desc">Key takeaway: stood up a full stack — frontend → backend → DB → chatbot — in days via vibe coding. Korean users are routed to a purchasable `/kr` store; international users hit a viewing + AI-chatbot `/gl` store. GPT-4o mini auto-translates product data into 5 languages.</div>
+                <div class="tech">Next.js 16 · TypeScript · Supabase (PostgreSQL + Auth + Storage) · Tailwind CSS 4 · OpenAI GPT-4o mini · Vercel</div>
+                <div class="desc"><b>A sustainable e-commerce designed for an administrator to keep running long after the initial build.</b> Six core data entities (products · orders · cart · users · media_stories · YouTube Shorts) are normalised into a Supabase (PostgreSQL) schema under proper RLS and relational constraints; every entity has a unified `/admin` CRUD + image-upload + state flow so a non-developer can operate the store. KR (purchasable) / GL (viewing + AI chatbot) routing and GPT-4o mini 5-language product translation all run from one codebase. <b>Live:</b> https://kokv2.vercel.app &nbsp;·&nbsp; <b>GitHub:</b> github.com/jeonhs9110/kok_v2</div>
 
                 <div class="pipeline">
                     <h4>Technical Pipeline Detail</h4>
                     <ul>
-                        <li><strong>1. Multi-region routing</strong> KR/GL split via `x-user-country` header, six language routes.</li>
-                        <li><strong>2. AI translation</strong> GPT-4o mini translates products into 5 languages (EN/CN/JP/VN/TH), cached 24h via `unstable_cache`.</li>
-                        <li><strong>3. AI chatbot</strong> K-beauty consultation chatbot embedded in the GL store.</li>
-                        <li><strong>4. Unified backend</strong> Supabase (PostgreSQL + Auth + Storage) handles admin auth, product CRUD, image upload.</li>
-                        <li><strong>5. Deploy</strong> Vercel (https://kokv2.vercel.app).</li>
+                        <li><strong>1. Sustainable admin tooling</strong> `/admin` dashboard — product · Shorts · media CRUD + image upload, operable without a developer</li>
+                        <li><strong>2. Normalised DB schema</strong> Six entities on Supabase (PostgreSQL) — users · products · orders · cart_items · media_stories · shorts — with RLS and relational constraints</li>
+                        <li><strong>3. Unified auth</strong> Supabase Auth + cookie-based admin session — login, permissions, and RLS handled in one layer</li>
+                        <li><strong>4. Multi-region routing</strong> KR/GL split via `x-user-country`, six language routes</li>
+                        <li><strong>5. AI translation + chatbot</strong> GPT-4o mini 5-language translation + unstable_cache 24h caching, with a K-beauty consultation chatbot on the GL store</li>
+                        <li><strong>6. Deploy</strong> Vercel · https://kokv2.vercel.app</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- PAGE: AIIM -->
+    <!-- PAGE: IAMX6 -->
     <div class="page">
         <div class="section">
             <div class="section-title">Featured Project 03</div>
             <div class="project-card">
-                <h2>AIIM — AI Influencer Match <span class="participants">Hyunsik Jeon (Solo)</span></h2>
-                <div class="tech">Python · FastAPI · Next.js 14 · PostgreSQL (Cloud SQL) · Selenium · YouTube Data API · Meta Graph API · LLM · GCP Cloud Run</div>
-                <div class="desc">End-to-end cloud platform ingesting 5,300+ creators across YouTube + Instagram + TikTok in 14 languages, matched to brands via LLM reasoning. Multilingual hashtag discovery surfaced 400 new YouTube creators in one 30-min run and extracted 323 IG business emails. Runs 24/7 on Google Cloud (Cloud Run + Cloud SQL). <b>Live:</b> aiim-frontend-559416574965.asia-northeast3.run.app &nbsp;·&nbsp; <b>GitHub:</b> github.com/jeonhs9110/AIIM-Showcase</div>
+                <h2>IAMX6 — Naver Blog Automation Desktop App <span class="participants">Hyunsik Jeon (Solo · source private)</span></h2>
+                <div class="tech">Electron · Puppeteer-core · Node.js · LLM · Bytenode (V8) · Electron Fuses · Windows portable .exe</div>
+                <div class="desc"><b>Key impact: a viral-marketing engine for Naver blog owners.</b> Automates neighbor requests · comment/like · visitor replies with human-shaped behavior to pile up the inbound / dwell / interaction signals the Naver algorithm rewards — deliberately pushing posts toward <b>top search ranking (검색 상위 노출)</b>. Distributed as a single ~67MB portable .exe, three-layer hardened (control-flow-flattened JS + V8 bytecode + Electron Fuses). <b>GitHub:</b> github.com/jeonhs9110/IAMX6-showcase</div>
 
                 <div class="pipeline">
                     <h4>Technical Pipeline Detail</h4>
                     <ul>
-                        <li><strong>1. Multi-platform ingestion</strong> YouTube (1,584) · Instagram (3,735) · TikTok (16) — 5,300+ creators</li>
-                        <li><strong>2. Multilingual hashtag discovery</strong> Searches native-language tags (광고 · スポンサー · رعاية …) to escape English-query convergence</li>
-                        <li><strong>3. LLM enrichment</strong> Country, language, brand-collab history, vertical, contacts — with prompt caching for cost control</li>
-                        <li><strong>4. Recommendation engine</strong> Plain-English brief → ranked shortlist with rationale · demo-mode gating prevents paid-API burn on the public URL</li>
-                        <li><strong>5. Human-shaped Selenium</strong> μs dwell randomisation + 5–15 min AFK scheduler → months of uninterrupted runs</li>
-                        <li><strong>6. Infra</strong> GCP asia-northeast3 — Cloud Run + Cloud SQL Postgres + Cloud Build CI</li>
+                        <li><strong>1. Viral-marketing impact</strong> Accumulates inbound / dwell / interaction signals → maximises probability of <b>top search ranking (검색 상위 노출)</b> on Naver search and blog rankings</li>
+                        <li><strong>2. 3-workflow unified GUI</strong> Neighbor-request · comment/like · per-visit reply + settings tab</li>
+                        <li><strong>3. Puppeteer automation</strong> Drives a real Naver session — 2FA/CAPTCHA handled manually by the user, then the bot takes over</li>
+                        <li><strong>4. LLM comment generation</strong> Post title + body → context-shaped Korean comments, 6–10 cached per run</li>
+                        <li><strong>5. Human simulation</strong> Dwell time scaled to character count + ±25% jitter + ms-level noise + 35% "distraction" actions</li>
+                        <li><strong>6. 3-layer hardening</strong> javascript-obfuscator → bytenode (.jsc) → Electron Fuses — blocks `asar extract`, debugger attach, and run-as-Node</li>
                     </ul>
                 </div>
             </div>
@@ -286,26 +287,20 @@
         <div class="section">
             <div class="section-title">Featured Project 04</div>
             <div class="project-card">
-                <div class="badge">Top Award — IBM &amp; RedHat AI Transformation Program</div>
-                <h2>Vaccine Daily (AI News Pipeline) <span class="participants">Hyunsik Jeon and 2 others</span></h2>
-                <div class="tech">React · FastAPI · PostgreSQL · ChromaDB · GPT-4o-mini · ko-sroberta · HDBSCAN ·
-                    GraphRAG · Docker</div>
-                <div class="desc">An automated news intelligence pipeline that crawls 10 major media outlets every 5
-                    minutes and uses a multi-agent workflow to generate verified, hallucination-free personalized
-                    reports.</div>
-                <div class="desc"><b>Live:</b> https://jeonhs9110.github.io/vaccine-daily/ &nbsp;·&nbsp; <b>GitHub:</b> github.com/jeonhs9110/vaccine-daily</div>
+                <div class="badge">Top Award — IBM x RedHat AI Transformation Program</div>
+                <h2>Vaccine Daily — AI News Intelligence Pipeline <span class="participants">Hyunsik Jeon and 2 others</span></h2>
+                <div class="tech">React · FastAPI · PostgreSQL · ChromaDB · HDBSCAN · ko-sroberta · Kiwi · KR-WordRank · GPT-4o-mini · GraphRAG · Docker · AWS EC2</div>
+                <div class="desc"><b>A news-automation pipeline that systematically cuts LLM API cost by composing multiple Python libraries around GPT-4o-mini, and kills hallucinations with a Writer → Critic → Editor 3-agent system.</b> HDBSCAN + ko-sroberta clustering eliminates duplicate LLM calls, a two-stage Kiwi morphological filter catches most obvious cases before the LLM, and a ChromaDB embedding cache prevents re-encoding. <b>Live:</b> jeonhs9110.github.io/vaccine-daily/ &nbsp;·&nbsp; <b>GitHub:</b> github.com/jeonhs9110/vaccine-daily</div>
 
                 <div class="pipeline">
                     <h4>Technical Pipeline Detail</h4>
                     <ul>
-                        <li><strong>1. Crawling</strong> Real-time automated data collection from 10 media outlets via
-                            Selenium &amp; BS4.</li>
-                        <li><strong>2. Clustering</strong> Token-efficient group analysis of similar news using HDBSCAN
-                            and ko-sroberta.</li>
-                        <li><strong>3. AI News Article Generator</strong> Multi-Agent AI (Writer → Critic → Editor) for
-                            factual verification and summarization.</li>
-                        <li><strong>4. GraphRAG</strong> Entity-Relation extraction and Knowledge Graph construction for
-                            Media Tone of Voice analysis.</li>
+                        <li><strong>1. Multi-agent system</strong> Writer → Critic → Editor — Critic judges the draft against the source as PASS/FAIL for hallucination/fact-distortion, auto-retry on failure, async parallel up to 5 at a time</li>
+                        <li><strong>2. LLM cost reduction via multiple Python libraries</strong> HDBSCAN clustering + ko-sroberta embeddings + two-stage Kiwi morphological filter + ChromaDB embedding cache — blocks duplicate LLM calls and re-encoding</li>
+                        <li><strong>3. Data collection</strong> Selenium + BeautifulSoup crawl 10 media outlets on a 5-minute cycle</li>
+                        <li><strong>4. GraphRAG tone analysis</strong> Entity-Relation triples → knowledge graph visualising per-outlet reporting tone and framing; only the graph summary is injected into the prompt</li>
+                        <li><strong>5. Personalised recommendation</strong> Subscribed keywords + read history + category preference → multi-criteria scoring + TextRank + KR-WordRank ensemble + D3 word cloud</li>
+                        <li><strong>6. Deploy</strong> Docker Compose + Nginx + Certbot (HTTPS) + AWS EC2</li>
                     </ul>
                 </div>
                 <img src="projects/vaccine-daily.png" alt="Vaccine Daily Screenshot" class="screenshot" />
@@ -337,43 +332,6 @@
                 </div>
                 <img src="projects/training-day.png" alt="Football AI Screenshot" class="screenshot"
                     style="max-height: 480px;" />
-            </div>
-        </div>
-    </div>
-
-    <!-- PAGE 3: Other Projects -->
-    <div class="page">
-        <div class="section">
-            <div class="section-title">Other Projects</div>
-
-            <div class="half-page-grid">
-                <!-- Shopping Mall -->
-                <div class="project-card">
-                    <h2>Goblin Shopping Mall (E-commerce SPA) <span class="participants">Hyunsik Jeon and 3
-                            others</span></h2>
-                    <div class="tech">React · JavaScript · CSS · Vercel</div>
-                    <div class="desc">A fully-featured e-commerce platform with 18+ category filters and real-time
-                        search. Focused on intuitive UX and high-performance frontend state management.</div>
-                    <img src="projects/shopping-mall.png" alt="Shopping Mall Screenshot"
-                        class="screenshot small-screenshot" />
-                </div>
-
-                <!-- Crazy Arcade -->
-                <div class="project-card">
-                    <h2>Crazy Arcade Web Replica <span class="participants">Hyunsik Jeon and 3 others</span></h2>
-                    <div class="tech">React · FastAPI · WebSocket · MySQL</div>
-                    <div class="desc">A real-time multiplayer game synchronization project using WebSockets. Implemented
-                        complex physics and room-state management for smooth gameplay.</div>
-                    <img src="projects/p3-arcade.png" alt="Game Screenshot" class="screenshot small-screenshot" />
-                </div>
-
-                <!-- My Diary -->
-                <div class="project-card">
-                    <h2>My Diary (Emotion Log App) <span class="participants">(Personal Use for Education)</span></h2>
-                    <div class="tech">React · Context API · localStorage</div>
-                    <div class="desc">A personal journal application focusing on frontend state persistence and custom
-                        UI interactions using browser's local storage.</div>
-                </div>
             </div>
         </div>
     </div>
