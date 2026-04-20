@@ -62,7 +62,7 @@ export default function Contact() {
                             <FiGithub size={18} />
                             GitHub
                         </a>
-                        <a href="https://linkedin.com/in/hyunsikjeon" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+                        <a href="https://www.linkedin.com/in/jeonhyunsik" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
                             <FiLinkedin size={18} />
                             LinkedIn
                         </a>
