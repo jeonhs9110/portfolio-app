@@ -70,9 +70,9 @@ export default function Experience() {
                                         )}
                                         <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                                             {ach.items.map((item, idxx) => (
-                                                <li key={idxx} className="experience__achieved-item">
-                                                    <span className="experience__dot" />
-                                                    <span style={{ fontSize: '0.85rem', lineHeight: '1.5' }}>{item}</span>
+                                                <li key={idxx} className="experience__achieved-item" style={{ marginBottom: '14px', alignItems: 'flex-start' }}>
+                                                    <span className="experience__dot" style={{ marginTop: '8px' }} />
+                                                    <span style={{ fontSize: '0.85rem', lineHeight: '1.65', whiteSpace: 'pre-line' }}>{item}</span>
                                                 </li>
                                             ))}
                                         </ul>
