@@ -85,7 +85,7 @@ export default function About() {
                         <div className="about__big-number" style={{ position: 'absolute', top: '150px', left: '160px', zIndex: -1 }}>JHS</div>
                         <div className="about__feature-card">
                             <p>
-                                &ldquo;Hard Coding 을 이해하며 Vibe Coding을 활용하여 보다 더 많은 상품을 빠르고 정확하게 잘 전달해 드립니다.&rdquo;
+                                &ldquo;데이터, 모델, 비즈니스 목표를 하나의 시스템으로 엮어 실제로 쓰이는 결과물을 빠르고 정확하게 만들어 드립니다.&rdquo;
                             </p>
                             <br />
                             <p style={{ fontStyle: 'normal', fontSize: '0.82rem', color: 'var(--text-muted)' }}>

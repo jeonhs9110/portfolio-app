@@ -187,11 +187,11 @@ export default function ProjectDetail() {
                                                     style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border)', boxShadow: '0 4px 24px rgba(0,0,0,0.07)' }}
                                                 >
                                                     <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', padding: '8px 14px', background: 'var(--bg-surface)', borderBottom: '1px solid var(--border)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                                                        v{7 - i}
+                                                        {lang === 'ko' ? `스크린샷 ${i + 1}` : `Screenshot ${i + 1}`}
                                                     </p>
                                                     <Image
                                                         src={src}
-                                                        alt={`${lang === 'ko' ? project.titleKo : project.titleEn} v${7 - i}`}
+                                                        alt={`${lang === 'ko' ? project.titleKo : project.titleEn} screenshot ${i + 1}`}
                                                         width={1200}
                                                         height={700}
                                                         style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'contain', backgroundColor: 'var(--bg-surface)' }}
@@ -259,7 +259,6 @@ export default function ProjectDetail() {
                                                     textDecoration: 'none'
                                                 }}
                                             >
-                                                <span>{p.emoji}</span>
                                                 <span style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
                                                     {lang === 'ko' ? p.titleKo : p.titleEn}
                                                 </span>
