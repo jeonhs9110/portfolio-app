@@ -74,6 +74,11 @@
             margin-bottom: 10px;
         }
 
+        .section--skills {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
         .section-title {
             font-size: 10pt;
             font-weight: 700;
@@ -174,19 +179,20 @@
         .skills-grid {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
         }
 
         .skill-row {
             display: flex;
             gap: 12px;
             align-items: baseline;
+            line-height: 1.35;
         }
 
         .skill-label {
             font-size: 9pt;
             font-weight: 700;
-            width: 100px;
+            width: 140px;
             flex-shrink: 0;
             color: #111;
         }
@@ -267,12 +273,13 @@
 
         <div class="job">
             <div class="job-header">
-                <div class="job-title">Foreign Affairs &amp; Administrator <span class="job-company">Secretary for
-                        National Assembly</span></div>
+                <div class="job-title">Foreign Affairs &amp; Administration <span class="job-company">Former Aide ·
+                        Korean National Assembly Member</span></div>
                 <div class="job-period">2019.07 – 2025.06</div>
             </div>
-            <div class="job-desc">Led diplomacy and macro overseas affairs at the Republic of Korea National
-                Assembly and major law firms (Choongjeong, Lee &amp; Ko).</div>
+            <div class="job-desc">Led overseas affairs and legislative support across the Korean National Assembly,
+                HMP Law, and Lee &amp; Ko — five years of defining problems and building alignment in complex
+                stakeholder settings.</div>
 
             <div class="sub-category">Lee &amp; Ko (Apr. 2022 – Jun. 2025)</div>
             <ul class="items">
@@ -328,24 +335,32 @@
         </div>
     </div>
 
-    <div class="section">
+    <div class="section section--skills">
         <div class="section-title">Skills</div>
         <div class="skills-grid">
             <div class="skill-row">
+                <span class="skill-label">AI / ML Modeling</span>
+                <span class="skill-items">PyTorch, TensorFlow, Graph Attention Network, Transformer, PPO Reinforcement Learning, XGBoost, LightGBM, HDBSCAN</span>
+            </div>
+            <div class="skill-row">
+                <span class="skill-label">LLM · Agentic</span>
+                <span class="skill-items">GPT-4o / 4o-mini, Prompt Engineering, LangGraph, GraphRAG, Writer · Critic · Editor Agentic Workflow, Embeddings / Vector Search, LLM Cost Optimization</span>
+            </div>
+            <div class="skill-row">
+                <span class="skill-label">Backend · APIs</span>
+                <span class="skill-items">Python, FastAPI, Flask, Node.js, SQLAlchemy, WebSocket, REST API Design</span>
+            </div>
+            <div class="skill-row">
                 <span class="skill-label">Frontend</span>
-                <span class="skill-items">React, Next.js, JavaScript, HTML/CSS, Framer Motion</span>
+                <span class="skill-items">Next.js, React, TypeScript, Tailwind CSS, Framer Motion</span>
             </div>
             <div class="skill-row">
-                <span class="skill-label">Backend / AI</span>
-                <span class="skill-items">Python, FastAPI, TensorFlow, GraphRAG, Agentic AI, XGBoost, LightGBM</span>
+                <span class="skill-label">Data · Infra</span>
+                <span class="skill-items">PostgreSQL, ChromaDB, Supabase, Docker Compose, Google Cloud (Cloud Run · Cloud SQL), AWS EC2, Vercel</span>
             </div>
             <div class="skill-row">
-                <span class="skill-label">Database</span>
-                <span class="skill-items">PostgreSQL, MySQL, ChromaDB, SQLAlchemy</span>
-            </div>
-            <div class="skill-row">
-                <span class="skill-label">Infra / DevOps</span>
-                <span class="skill-items">Docker Compose, AWS EC2, Git, Vercel, WebSocket</span>
+                <span class="skill-label">Collection · Automation</span>
+                <span class="skill-items">Selenium, Puppeteer, Playwright, BeautifulSoup, YouTube Data API, Meta Graph API</span>
             </div>
         </div>
     </div>

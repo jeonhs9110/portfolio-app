@@ -74,6 +74,11 @@
       margin-bottom: 10px;
     }
 
+    .section--skills {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
     .section-title {
       font-size: 10pt;
       font-weight: 700;
@@ -174,19 +179,20 @@
     .skills-grid {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
     }
 
     .skill-row {
       display: flex;
       gap: 12px;
       align-items: baseline;
+      line-height: 1.35;
     }
 
     .skill-label {
       font-size: 9pt;
       font-weight: 700;
-      width: 100px;
+      width: 105px;
       flex-shrink: 0;
       color: #111;
     }
@@ -267,10 +273,10 @@
 
     <div class="job">
       <div class="job-header">
-        <div class="job-title">외교 및 행정 <span class="job-company">전 국회의원 비서관</span></div>
+        <div class="job-title">외교 및 해외 업무 총괄 <span class="job-company">전 국회의원 비서관</span></div>
         <div class="job-period">2019.07 – 2025.06</div>
       </div>
-      <div class="job-desc">대한민국 국회 및 주요 법무법인(충정, 광장)에서 국회의원 보좌 및 해외 행정 업무 주도.</div>
+      <div class="job-desc">대한민국 국회와 법무법인 충정·광장에서 5년간 외교·해외 업무를 맡으며, 복잡한 이해관계 속에서 문제를 정의하고 합의를 이끌어 내는 경험을 쌓았습니다.</div>
 
       <div class="sub-category">법무법인 광장 (2022.04 – 2025.06)</div>
       <ul class="items">
@@ -325,24 +331,32 @@
     </div>
   </div>
 
-  <div class="section">
+  <div class="section section--skills">
     <div class="section-title">기술 스택</div>
     <div class="skills-grid">
       <div class="skill-row">
+        <span class="skill-label">AI / ML 모델링</span>
+        <span class="skill-items">PyTorch, TensorFlow, Graph Attention Network, Transformer, PPO 강화학습, XGBoost, LightGBM, HDBSCAN</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-label">LLM · Agentic</span>
+        <span class="skill-items">GPT-4o / 4o-mini, Prompt Engineering, LangGraph, GraphRAG, Writer · Critic · Editor Agentic Workflow, 임베딩 / 벡터 검색, LLM 비용 최적화</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-label">백엔드 · API</span>
+        <span class="skill-items">Python, FastAPI, Flask, Node.js, SQLAlchemy, WebSocket, REST API 설계</span>
+      </div>
+      <div class="skill-row">
         <span class="skill-label">프론트엔드</span>
-        <span class="skill-items">React, Next.js, JavaScript, HTML/CSS, Framer Motion</span>
+        <span class="skill-items">Next.js, React, TypeScript, Tailwind CSS, Framer Motion</span>
       </div>
       <div class="skill-row">
-        <span class="skill-label">백엔드 / AI</span>
-        <span class="skill-items">Python, FastAPI, TensorFlow, GraphRAG, Agentic AI, XGBoost, LightGBM</span>
+        <span class="skill-label">데이터 · 인프라</span>
+        <span class="skill-items">PostgreSQL, ChromaDB, Supabase, Docker Compose, Google Cloud (Cloud Run · Cloud SQL), AWS EC2, Vercel</span>
       </div>
       <div class="skill-row">
-        <span class="skill-label">데이터베이스</span>
-        <span class="skill-items">PostgreSQL, MySQL, ChromaDB, SQLAlchemy</span>
-      </div>
-      <div class="skill-row">
-        <span class="skill-label">인프라 / 배포</span>
-        <span class="skill-items">Docker Compose, AWS EC2, Git, Vercel, WebSocket</span>
+        <span class="skill-label">수집 · 자동화</span>
+        <span class="skill-items">Selenium, Puppeteer, Playwright, BeautifulSoup, YouTube Data API, Meta Graph API</span>
       </div>
     </div>
   </div>
