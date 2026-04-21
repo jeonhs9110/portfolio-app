@@ -6,26 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hyunsik Jeon Resume</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        @page {
-            size: A4;
-            margin: 0;
+        @page { size: A4; margin: 0; }
+
+        :root {
+            --accent: #4338ca;
+            --accent-soft: #eef2ff;
+            --ink: #111;
+            --text: #1f2937;
+            --muted: #555;
+            --rule: #d4d4d8;
         }
 
         body {
             font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 10pt;
-            line-height: 1.45;
-            color: #1a1a1a;
+            font-size: 9.5pt;
+            line-height: 1.4;
+            color: var(--text);
             background: white;
             width: 210mm;
             min-height: 297mm;
-            padding: 15mm 18mm 15mm 18mm;
+            padding: 14mm 16mm;
             position: relative;
         }
 
@@ -33,72 +35,76 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #1a1a1a;
-            padding-bottom: 10px;
+            border-bottom: 2.5px solid var(--accent);
+            padding-bottom: 8px;
             margin-bottom: 10px;
         }
 
         .header-left h1 {
-            font-size: 24pt;
-            font-weight: 700;
+            font-size: 22pt;
+            font-weight: 800;
             letter-spacing: -0.5px;
-            margin-bottom: 2px;
+            color: var(--ink);
+            line-height: 1.1;
         }
 
         .header-left .subtitle {
-            font-size: 11.5pt;
-            color: #333;
-            margin-top: 3px;
-            font-weight: 600;
+            font-size: 10.5pt;
+            color: var(--accent);
+            margin-top: 2px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
         }
 
         .header-left .contacts {
-            font-size: 9pt;
-            color: #555;
+            font-size: 8.5pt;
+            color: var(--muted);
             margin-top: 4px;
-            display: flex;
-            flex-direction: column;
-            gap: 1px;
+            line-height: 1.45;
         }
 
+        .header-left .contacts a { color: var(--muted); text-decoration: none; }
+
         .header-photo {
-            width: 90px;
-            height: 110px;
-            border: 1px solid #ccc;
+            width: 78px;
+            height: 96px;
+            border: 1px solid var(--rule);
             border-radius: 4px;
             object-fit: cover;
             flex-shrink: 0;
         }
 
-        .section {
-            margin-bottom: 10px;
-        }
-
-        .section--skills {
-            page-break-inside: avoid;
-            break-inside: avoid;
-        }
+        .section { margin-bottom: 9px; }
 
         .section-title {
-            font-size: 10pt;
+            font-size: 9.5pt;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 3px;
-            margin-bottom: 8px;
-            color: #111;
+            letter-spacing: 1.4px;
+            color: var(--accent);
+            border-bottom: 1px solid var(--rule);
+            padding: 0 0 2px 10px;
+            margin-bottom: 6px;
+            position: relative;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 2px;
+            width: 3px;
+            height: 11pt;
+            background: var(--accent);
+            border-radius: 2px;
         }
 
         .bio {
-            font-size: 9.5pt;
-            color: #333;
-            line-height: 1.6;
+            font-size: 9pt;
+            color: var(--text);
+            line-height: 1.55;
         }
 
-        .job {
-            margin-bottom: 14px;
-        }
+        .job { margin-bottom: 7px; }
 
         .job-header {
             display: flex;
@@ -108,99 +114,107 @@
         }
 
         .job-title {
-            font-size: 10pt;
+            font-size: 9.5pt;
             font-weight: 700;
-            display: flex;
-            align-items: baseline;
+            color: var(--ink);
+        }
+
+        .job-title .job-company {
+            font-size: 8.5pt;
+            color: var(--muted);
+            font-style: italic;
+            font-weight: 500;
+            margin-left: 6px;
         }
 
         .job-period {
-            font-size: 9pt;
-            color: #444;
+            font-size: 8.5pt;
+            color: var(--muted);
             font-weight: 600;
         }
 
-        .job-company {
-            font-size: 9pt;
-            color: #555;
-            font-style: italic;
-            font-weight: 500;
-            margin-left: 8px;
-        }
-
         .job-desc {
-            font-size: 9pt;
-            color: #333;
-            margin-bottom: 5px;
+            font-size: 8.5pt;
+            color: var(--text);
+            margin-bottom: 2px;
+            line-height: 1.5;
         }
 
-        .sub-category {
-            font-size: 9pt;
-            font-weight: 700;
-            color: #222;
-            margin: 6px 0 4px;
+        .project-line {
+            font-size: 8.7pt;
+            line-height: 1.5;
+            margin-bottom: 4px;
         }
 
-        ul.items {
-            list-style: disc;
-            padding-left: 18px;
-            margin: 0;
+        .project-line strong { color: var(--ink); font-weight: 700; }
+
+        .project-line .tag {
+            display: inline-block;
+            font-size: 7.5pt;
+            color: var(--accent);
+            background: var(--accent-soft);
+            border-radius: 3px;
+            padding: 1px 6px;
+            margin-left: 4px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        ul.compact {
+            list-style: none;
+            padding: 0;
+            margin: 2px 0 0;
+        }
+
+        ul.compact li {
+            font-size: 8.5pt;
+            color: var(--text);
+            margin-bottom: 3px;
+            line-height: 1.5;
+            padding-left: 10px;
+            position: relative;
+        }
+
+        ul.compact li::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 6px;
+            width: 4px; height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
         }
 
         .edu-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 10px;
         }
 
-        ul.items li {
-            font-size: 9pt;
-            color: #333;
-            margin-bottom: 8px;
-            line-height: 1.55;
-        }
-
-        .edu-item {
-            margin-bottom: 10px;
-        }
-
-        .edu-school {
-            font-size: 10pt;
-            font-weight: 700;
-            color: #111;
-        }
-
-        .edu-degree {
-            font-size: 9.5pt;
-            color: #333;
-            margin-top: 1px;
-        }
+        .edu-school { font-size: 9pt; font-weight: 700; color: var(--ink); }
+        .edu-degree { font-size: 8.5pt; color: var(--muted); margin-top: 1px; }
 
         .skills-grid {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 2px;
         }
 
         .skill-row {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: baseline;
-            line-height: 1.35;
+            line-height: 1.4;
         }
 
         .skill-label {
-            font-size: 9pt;
+            font-size: 8.5pt;
             font-weight: 700;
-            width: 140px;
+            width: 128px;
             flex-shrink: 0;
-            color: #111;
+            color: var(--accent);
         }
 
-        .skill-items {
-            font-size: 9pt;
-            color: #333;
-        }
+        .skill-items { font-size: 8.5pt; color: var(--text); }
     </style>
 </head>
 
@@ -211,9 +225,8 @@
             <h1>Hyunsik Jeon</h1>
             <div class="subtitle">AI Strategist</div>
             <div class="contacts">
-                <div><strong>Portfolio:</strong> <a href="https://portfolio-app-5ca9.vercel.app/"
-                        style="color:#555; text-decoration:underline;">https://portfolio-app-5ca9.vercel.app/</a></div>
-                <div>jeonhs9110@gmail.com | +82 10-4092-0628 | www.linkedin.com/in/jeonhyunsik | github.com/jeonhs9110 | Seoul, Korea</div>
+                <div><strong>Portfolio:</strong> portfolio-app-5ca9.vercel.app &nbsp;·&nbsp; jeonhs9110@gmail.com &nbsp;·&nbsp; +82 10-4092-0628</div>
+                <div>www.linkedin.com/in/jeonhyunsik &nbsp;·&nbsp; github.com/jeonhs9110 &nbsp;·&nbsp; Seoul, Korea</div>
             </div>
         </div>
         <img src="hyunsik-picture.jpg" alt="Hyunsik Jeon" class="header-photo" />
@@ -221,50 +234,26 @@
 
     <div class="section">
         <div class="section-title">Professional Summary</div>
-        <div class="bio">Five years at the Korean National Assembly and top Korean law firms taught me to define business problems and build alignment inside complex stakeholder terrain. I now channel that instinct into leading innovation at conservative enterprises as an AI architect — where a working PoC (proof of concept) proves more than any pitch. Beyond single API calls, I combine Multi-Agent and RAG architectures and personally design end-to-end systems — from data pipeline through cloud deployment to frontend serving — to land each client's business goal as a result that actually runs.</div>
+        <div class="bio">An <strong>AI Architect</strong> with five years at the Korean National Assembly and top Korean law firms, where I learned to define problems and build alignment in complex stakeholder terrain. I channel that instinct into end-to-end systems — Multi-Agent + RAG, data pipeline through cloud deployment and frontend serving — to land each client's business goal as a result that actually runs.</div>
     </div>
 
     <div class="section">
-        <div class="section-title">Projects</div>
-        <div class="job">
-            <div class="job-header">
-                <div class="job-title">AIIM — AI Influencer Match</div>
-                <div class="job-period">Hyunsik Jeon (Solo)</div>
-            </div>
-            <div class="job-desc">End-to-end cloud platform that ingests 5,300+ creators across YouTube/Instagram/TikTok in 14 languages and <strong>ranks brand-fit via a LangGraph agentic workflow layered on GraphRAG retrieval</strong> — returning shortlists with per-pick rationale. Runs 24/7 on GCP Cloud Run + Cloud SQL.</div>
-            <div class="job-desc">Live: aiim-frontend-559416574965.asia-northeast3.run.app</div>
-        </div>
-        <div class="job">
-            <div class="job-header">
-                <div class="job-title">KOKKOK Garden — K-Beauty Multi-region E-commerce</div>
-                <div class="job-period">Hyunsik Jeon (Solo)</div>
-            </div>
-            <div class="job-desc"><strong>A sustainable e-commerce designed for an administrator to keep running long after the initial build</strong>. Six core entities normalised into a Supabase schema with RLS and relational constraints; every entity has a unified `/admin` CRUD flow. KR/GL routing plus GPT-4o mini 5-language translation on one codebase.</div>
-            <div class="job-desc">Live: https://kokv2.vercel.app</div>
-        </div>
-        <div class="job">
-            <div class="job-header">
-                <div class="job-title">IAMX6 — Naver Blog Automation Desktop App</div>
-                <div class="job-period">Hyunsik Jeon (Solo · source private)</div>
-            </div>
-            <div class="job-desc"><strong>A viral-marketing engine for Naver blog owners</strong>. Automates neighbor requests, comment/like, and visitor replies with human-shaped behavior to push posts toward top search ranking (검색 상위 노출). Distributed as a single ~67MB portable .exe, three-layer hardened (CFF JS + V8 bytecode + Electron Fuses).</div>
-        </div>
-        <div class="job">
-            <div class="job-header">
-                <div class="job-title">Vaccine Daily — AI News Intelligence Pipeline</div>
-                <div class="job-period">Hyunsik Jeon and 2 others</div>
-            </div>
-            <div class="job-desc"><strong>Cutting-edge AI for cross-outlet reporting-tone comparison.</strong> A news-automation pipeline that systematically cuts LLM API cost by composing multiple Python libraries (HDBSCAN · ko-sroberta · Kiwi · ChromaDB cache) around GPT-4o-mini, and kills hallucinations with a Writer → Critic → Editor 3-agent system. Top Award — IBM x RedHat AI Transformation Program.</div>
-            <div class="job-desc">Live: jeonhs9110.github.io/vaccine-daily/</div>
-        </div>
-        <div class="job">
-            <div class="job-header">
-                <div class="job-title">FOBO AI — European Football Prediction</div>
-                <div class="job-period">Hyunsik Jeon (Solo)</div>
-            </div>
-            <div class="job-desc"><strong>A Machine Learning and Reinforcement Learning pipeline for football-match prediction.</strong> End-to-end ML system wiring PyTorch Transformer + GAT + Dixon-Coles + PPO RL + XGBoost/LightGBM into an 8-stage pipeline across 13 European leagues, hitting ~90% (ensemble) and ~95% when PPO agrees. Runs on GCP 2-VM for ~$26/mo.</div>
-            <div class="job-desc">Live: http://34.64.147.124/</div>
-        </div>
+        <div class="section-title">Featured Projects</div>
+
+        <div class="project-line"><strong>AIIM — AI Influencer Match</strong> <span class="tag">Python · FastAPI · LangGraph · GraphRAG · GCP</span><br>
+            End-to-end cloud platform ingesting 5,300+ creators across YouTube · IG · TikTok in 14 languages and ranking brand-fit via a LangGraph agentic workflow on GraphRAG retrieval. 24/7 on GCP Cloud Run + Cloud SQL. <em>aiim-frontend-559416574965.asia-northeast3.run.app</em></div>
+
+        <div class="project-line"><strong>KOKKOK Garden — K-Beauty Multi-region E-commerce</strong> <span class="tag">Next.js 16 · Supabase · GPT-4o mini</span><br>
+            Six-entity Supabase schema (RLS + relational constraints) + `/admin` dashboard designed for sustainable admin operation, GPT-4o mini 5-language product translation, KR/GL auto-routing. <em>kokv2.vercel.app</em></div>
+
+        <div class="project-line"><strong>FOBO AI — European Football Prediction</strong> <span class="tag">PyTorch · Transformer · GAT · PPO RL · GCP</span><br>
+            ML + reinforcement-learning pipeline for football-match prediction. Transformer + GAT + Dixon-Coles + PPO + XGB/LGB 8-stage pipeline, 13 European leagues, ensemble ~90% and ~95% when PPO agrees. <em>http://34.64.147.124/</em></div>
+
+        <div class="project-line"><strong>Vaccine Daily — AI News Intelligence Pipeline</strong> <span class="tag">React · FastAPI · ChromaDB · GraphRAG</span> <span class="tag">IBM × RedHat Top Award</span><br>
+            Cutting-edge AI for cross-outlet reporting-tone comparison. HDBSCAN · ko-sroberta · Kiwi · ChromaDB cut LLM API cost; Writer → Critic → Editor multi-agent system kills hallucinations. <em>jeonhs9110.github.io/vaccine-daily/</em></div>
+
+        <div class="project-line"><strong>IAMX6 — Naver Blog Automation Desktop App</strong> <span class="tag">Electron · Puppeteer · LLM</span><br>
+            Viral-marketing engine for Naver blog owners. Accumulates inbound / dwell / interaction signals in a human-shaped way to push posts toward top search ranking. Three-layer hardening, single portable .exe.</div>
     </div>
 
     <div class="section">
@@ -272,77 +261,48 @@
 
         <div class="job">
             <div class="job-header">
-                <div class="job-title">Foreign Affairs &amp; Administration <span class="job-company">Former Aide ·
-                        Korean National Assembly Member</span></div>
-                <div class="job-period">2019.07 – 2025.06</div>
+                <div class="job-title">Foreign Affairs & Overseas Administration <span class="job-company">Former Aide, Korean National Assembly Member — Lee & Ko · HMP Law · National Assembly</span></div>
+                <div class="job-period">Jul. 2019 – Jun. 2025</div>
             </div>
-            <div class="job-desc">Led overseas affairs and legislative support across the Korean National Assembly,
-                HMP Law, and Lee &amp; Ko — five years of defining problems and building alignment in complex
-                stakeholder settings.</div>
-
-            <div class="sub-category">Lee &amp; Ko (Apr. 2022 – Jun. 2025)</div>
-            <ul class="items">
-                <li><strong>Secretary-General, Korea–Middle East Sustainable Development Forum</strong></li>
-                <li>2023 — Co-hosted with the Korea Financial Investment Association: brokered high-level meetings between leaders of Korea's top 10 financial institutions and major UAE and Singaporean sovereign wealth funds.<br><strong>Objective:</strong> Establish a foundation for foreign SWF co-investment into Korean blue-chip companies.<br><strong>Outcome:</strong> Signed letters of intent (LOIs); subsequently matured into a standing investment-financing channel for Korean firms entering the Middle East.</li>
-                <li>2024 — Led negotiation of the MOU between Seoul National University Dental Hospital and MUBADALA Health (UAE).<br><strong>Objective:</strong> Establish a jointly invested and operated dental hospital in the Abu Dhabi / Dubai region, and create a Middle-East market entry for adjacent Korean dental-device suppliers.<br><strong>Outcome:</strong> Khalifa University — the only institution in the UAE operating a dental-residency program — now rotates its residents through SNU Dental Hospital, and SNU Dental Hospital dispatches one senior professor annually for teaching rotations.</li>
-                <li>Administered high-level meetings and trips abroad with Korean government organizations and private entities to foster Korea–Middle East exchange.</li>
-                <li>Maintained close working relationships with parliamentary staff to support client legislative adjustments and regulatory-relief efforts.</li>
-            </ul>
-
-            <div class="sub-category">HMP Law (Jul. 2020 – Apr. 2022)</div>
-            <ul class="items">
-                <li>2021 — Led a Nigerian steel-business acquisition mandate.<br><strong>Objective:</strong> Source a fit-profile Korean acquirer to secure the overseas steel asset.<br><strong>Outcome:</strong> Could not identify a domestic acquirer whose risk profile fit the opportunity; deal was closed out.</li>
-                <li>2020 — Sourced a Korean EPC partner for an LNG pipeline construction project adjacent to an existing oil pipeline in Iraq.<br><strong>Objective:</strong> Create a Korean contractor entry point into Middle-East infrastructure builds.<br><strong>Outcome:</strong> Regional security-risk profile prevented securing a suitable Korean EPC partner; project discontinued.</li>
-                <li>2020 — Handled the Oman Ministry of Defense's request to acquire decommissioned Korean tanks.<br><strong>Objective:</strong> Directly connect the counterparty to a Korean defense manufacturer to enable a government-to-government transaction.<br><strong>Outcome:</strong> Delivered a direct connection to Hyundai Rotem; as of last confirmed state, the transaction was advancing into Defense Acquisition Program Administration (DAPA) approval.</li>
-                <li>Managed relationships with visiting foreign dignitaries to support cooperation with Korean companies; served as Korean–English interpreter during meetings.</li>
-            </ul>
-
-            <div class="sub-category">National Assembly of Korea (Jul. 2019 – May. 2020)</div>
-            <ul class="items">
-                <li>UAE cooperation initiative — led discussions on an MOU between the National Museum of Korea and Louvre Abu Dhabi.<br><strong>Objective:</strong> Establish a standing bilateral channel for cultural and cross-institutional exchange.<br><strong>Outcome:</strong> Secured the principal working-level contacts required to advance the MOU into subsequent negotiation stages.</li>
-                <li>Attended the biweekly Friday informal UAE expat gathering hosted at the UAE Ambassador's residence in Seoul.<br><strong>Objective:</strong> Use a back-channel forum to pre-align bilateral cooperation agendas and build senior-level UAE networks.<br><strong>Outcome:</strong> Maintained ongoing relationships with senior figures across UAE institutions (including Mubadala group) — a network that later enabled the Korea–UAE projects during my tenure at Lee &amp; Ko.</li>
-                <li>Researched foreign legislation applicable to Korea; requested and analyzed information and data from overseen agencies for hearings and legislative work.</li>
-                <li>Managed foreign VIP relations and high-volume English correspondence on key occasions.</li>
+            <ul class="compact">
+                <li><strong>Lee & Ko (Apr. 2022 – Jun. 2025)</strong> — Secretary-General, Korea–Middle East Sustainable Development Forum. 2023 co-hosted with Korea Financial Investment Association: brokered high-level meetings between Korea's top-10 FIs and UAE + Singapore sovereign wealth funds → co-investment LOIs. 2024 led SNU Dental Hospital × MUBADALA Health MOU (Khalifa Univ residents rotating through SNU · annual SNU senior-professor teaching rotation).</li>
+                <li><strong>HMP Law (Jul. 2020 – Apr. 2022)</strong> — Cross-border deal origination and Korean-partner matching: Iraq LNG pipeline EPC sourcing, Oman MoD decommissioned-tank acquisition (directly connected to Hyundai Rotem, advanced to DAPA approval), Nigerian steel-business acquisition.</li>
+                <li><strong>National Assembly of Korea (Jul. 2019 – May. 2020)</strong> — Regular attendee of the biweekly UAE Ambassador's-residence expat forum (built the senior UAE network that later enabled the Lee & Ko projects). Led MOU discussions between the National Museum of Korea and Louvre Abu Dhabi. Foreign-legislation research and oversight-data analysis for the Assembly.</li>
             </ul>
         </div>
 
         <div class="job">
             <div class="job-header">
-                <div class="job-title">Workforce Management &amp; Apple Advisor <span class="job-company">Concentrix
-                        Korea</span></div>
-                <div class="job-period">2018.04 – 2019.02</div>
+                <div class="job-title">Workforce Manager · Apple Tier 4 Senior Advisor <span class="job-company">Concentrix Korea</span></div>
+                <div class="job-period">Apr. 2018 – Feb. 2019</div>
             </div>
-            <ul class="items">
-                <li>Managed call center attendants’ schedules according to global office and client standards.</li>
-                <li>Identified system inefficiencies and implemented process optimization for performance.</li>
-                <li>Assisted in-call customers as a Tier 4 Senior Advisor (Highest Level) for Apple products.</li>
-            </ul>
+            <div class="job-desc">Call-center workforce scheduling to global office + client standards · process-inefficiency optimisation · top-tier inbound Apple technical support.</div>
         </div>
     </div>
 
     <div class="section">
         <div class="section-title">Education</div>
         <div class="edu-grid">
-            <div class="edu-item">
+            <div>
                 <div class="edu-school">Miami University, USA (OH)</div>
-                <div class="edu-degree">B.A. in International Studies (Specialization: Economic Development)</div>
+                <div class="edu-degree">B.A. International Studies — concentration in Economic Development</div>
             </div>
-            <div class="edu-item">
-                <div class="edu-school">IBM x RedHat AI Transformation</div>
-                <div class="edu-degree">AX Academy (Certificate)</div>
+            <div>
+                <div class="edu-school">IBM × RedHat AI Transformation</div>
+                <div class="edu-degree">AX Academy — Certificate</div>
             </div>
         </div>
     </div>
 
-    <div class="section section--skills">
+    <div class="section">
         <div class="section-title">Skills</div>
         <div class="skills-grid">
-            <div class="skill-row"><span class="skill-label">AI / ML Modeling</span><span class="skill-items">PyTorch, TensorFlow, Graph Attention Network, Transformer, PPO Reinforcement Learning, XGBoost, LightGBM, HDBSCAN</span></div>
-            <div class="skill-row"><span class="skill-label">LLM · Agentic</span><span class="skill-items">GPT-4o / 4o-mini, Prompt Engineering, LangGraph, GraphRAG, Writer · Critic · Editor Agentic Workflow, Embeddings / Vector Search, LLM Cost Optimization</span></div>
-            <div class="skill-row"><span class="skill-label">Backend · APIs</span><span class="skill-items">Python, FastAPI, Flask, Node.js, SQLAlchemy, WebSocket, REST API Design</span></div>
-            <div class="skill-row"><span class="skill-label">Frontend</span><span class="skill-items">Next.js, React, TypeScript, Tailwind CSS, Framer Motion</span></div>
-            <div class="skill-row"><span class="skill-label">Data · Infra</span><span class="skill-items">PostgreSQL, ChromaDB, Supabase, Docker Compose, Google Cloud (Cloud Run · Cloud SQL), AWS EC2, Vercel</span></div>
-            <div class="skill-row"><span class="skill-label">Collection · Automation</span><span class="skill-items">Selenium, Puppeteer, Playwright, BeautifulSoup, YouTube Data API, Meta Graph API</span></div>
+            <div class="skill-row"><span class="skill-label">AI / ML Modeling</span><span class="skill-items">PyTorch · TensorFlow · Graph Attention Network · Transformer · PPO RL · XGBoost · LightGBM · HDBSCAN</span></div>
+            <div class="skill-row"><span class="skill-label">LLM · Agentic</span><span class="skill-items">GPT-4o / 4o-mini · LangGraph · GraphRAG · Writer/Critic/Editor Agentic Workflow · Embeddings · LLM Cost Optimization</span></div>
+            <div class="skill-row"><span class="skill-label">Backend · APIs</span><span class="skill-items">Python · FastAPI · Flask · Node.js · SQLAlchemy · WebSocket · REST API Design</span></div>
+            <div class="skill-row"><span class="skill-label">Frontend</span><span class="skill-items">Next.js · React · TypeScript · Tailwind CSS · Framer Motion</span></div>
+            <div class="skill-row"><span class="skill-label">Data · Infra</span><span class="skill-items">PostgreSQL · ChromaDB · Supabase · Docker Compose · GCP (Cloud Run · Cloud SQL) · AWS EC2 · Vercel</span></div>
+            <div class="skill-row"><span class="skill-label">Collection · Automation</span><span class="skill-items">Selenium · Puppeteer · Playwright · BeautifulSoup · YouTube Data API · Meta Graph API</span></div>
         </div>
     </div>
 
