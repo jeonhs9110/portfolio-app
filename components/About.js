@@ -87,11 +87,11 @@ export default function About() {
                         <div className="about__big-number" style={{ position: 'absolute', top: '150px', left: '160px', zIndex: -1 }}>JHS</div>
                         <div className="about__feature-card">
                             <p>
-                                &ldquo;데이터, 모델, 비즈니스 목표를 하나의 시스템으로 엮어 실제로 쓰이는 결과물을 빠르고 정확하게 만들어 드립니다.&rdquo;
+                                &ldquo;{t.about.quote}&rdquo;
                             </p>
                             <br />
                             <p style={{ fontStyle: 'normal', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                                &mdash; 전현식 (Hyunsik Jeon)
+                                &mdash; {t.about.quoteAuthor}
                             </p>
                         </div>
                     </motion.div>
