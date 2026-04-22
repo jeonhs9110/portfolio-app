@@ -30,7 +30,7 @@ export default function Navbar() {
             </a>
 
             <ul className="navbar__links">
-                {['about', 'projects', 'skills', 'experience', 'contact'].map((key) => (
+                {['about', 'experience', 'projects', 'skills', 'contact'].map((key) => (
                     <li key={key}>
                         <a
                             href={`#${key}`}
