@@ -38,15 +38,17 @@ export default function About() {
                             {t.about.title}
                         </motion.h2>
 
-                        <motion.p
+                        <motion.div
                             className="about__bio"
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true, margin: '-80px' }}
                             variants={{ ...fadeUp, visible: { ...fadeUp.visible, transition: { ...fadeUp.visible.transition, delay: 0.1 } } }}
                         >
-                            {t.about.bio}
-                        </motion.p>
+                            {t.about.bio.split('\n\n').map((para, i) => (
+                                <p key={i} style={{ marginTop: i === 0 ? 0 : '14px' }}>{para}</p>
+                            ))}
+                        </motion.div>
 
                         <motion.div
                             className="about__stats"

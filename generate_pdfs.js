@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const path = require('path');
 const fs = require('fs');
+const url = require('url');
 
 async function generatePDFs() {
     console.log('Starting puppeteer...');
@@ -31,7 +32,7 @@ async function generatePDFs() {
     for (const item of filesToConvert) {
         const inputPath = path.join(publicDir, item.input);
         const outputPath = path.join(publicDir, item.output);
-        const fileUrl = 'file://' + inputPath.replace(/\\/g, '/');
+        const fileUrl = url.pathToFileURL(inputPath).href;
 
         console.log(`Generating PDF for ${item.input} -> ${item.output}`);
         await page.goto(fileUrl, { waitUntil: 'networkidle0' });
