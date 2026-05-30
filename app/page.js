@@ -1,23 +1,17 @@
 import Navbar from '@/components/Navbar';
-import Hero from '@/components/Hero';
-import About from '@/components/About';
-import Experience from '@/components/Experience';
-import Skills from '@/components/Skills';
-import Projects from '@/components/Projects';
-import Contact from '@/components/Contact';
-import Footer from '@/components/Footer';
+import Terminal from '@/components/Terminal';
+import Architecture from '@/components/Architecture';
+import Substrate from '@/components/Substrate';
+import Endpoint from '@/components/Endpoint';
 
 export default function Home() {
   return (
     <main>
       <Navbar />
-      <Hero />
-      <About />
-      <Experience />
-      <Projects />
-      <Skills />
-      <Contact />
-      <Footer />
+      <Terminal />
+      <Architecture />
+      <Substrate />
+      <Endpoint />
     </main>
   );
 }
