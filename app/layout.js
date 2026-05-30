@@ -1,37 +1,23 @@
 import './globals.css';
-import { Geist, JetBrains_Mono } from 'next/font/google';
 import { LanguageProvider } from '@/context/LanguageContext';
 
-const geist = Geist({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-geist',
-  weight: ['400', '500', '600', '700'],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-jetbrains',
-  weight: ['400', '500'],
-});
-
 export const metadata = {
-  title: 'Hyunsik Jeon · Translator between capital and code',
+  title: '전현식 포트폴리오 | Hyunsik Jeon Portfolio',
   description:
-    'AI architect at the capital–code interface. Six years routing Korea–Middle East capital and sovereign-allocator logic; now shipping agentic systems in production.',
-  openGraph: {
-    title: 'Hyunsik Jeon — Translator between capital and code',
-    description:
-      'AI architect bridging cross-border deal work and shipped agentic systems. AIIM in production: 5,300+ creators, 14 languages, 24/7.',
-    type: 'website',
-    locale: 'en_US',
-  },
+    '전현식 (Hyunsik Jeon) — 프론트엔드 & AI 개발자 포트폴리오. Frontend & AI Developer Portfolio.',
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${geist.variable} ${jetbrainsMono.variable}`}>
+    <html lang="ko">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body>
         <LanguageProvider>{children}</LanguageProvider>
       </body>
