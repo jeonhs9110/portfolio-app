@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전현식 — 유니버설 이력서 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @page { size: A4; margin: 16mm 15mm 13mm 15mm; }
+
+    :root {
+      --ink-primary: #0B1220;
+      --ink-body: #1F2937;
+      --ink-muted: #475569;
+      --ink-soft: #64748B;
+      --accent: #1E3A8A;
+      --accent-soft: #F1F5F9;
+      --rule: #CBD5E1;
+      --rule-soft: #E2E8F0;
+      --bg: #FFFFFF;
+    }
+
+    html, body { background: var(--bg); color: var(--ink-body); }
+
+    body {
+      font-family: 'Noto Sans KR', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 9pt;
+      line-height: 1.5;
+      letter-spacing: -0.003em;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── HEADER ─── */
+    .header {
+      padding-bottom: 7pt;
+      border-bottom: 0.75pt solid var(--ink-primary);
+      margin-bottom: 9pt;
+    }
+
+    .header h1 {
+      font-family: 'Noto Sans KR', 'Inter';
+      font-size: 24pt;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: var(--ink-primary);
+      margin-bottom: 3pt;
+    }
+
+    .header h1 .name-en {
+      font-family: 'Inter';
+      font-size: 14pt;
+      font-weight: 500;
+      color: var(--ink-muted);
+      margin-left: 8pt;
+      letter-spacing: -0.01em;
+    }
+
+    .header .tagline {
+      font-size: 12pt;
+      font-weight: 500;
+      color: var(--ink-muted);
+      letter-spacing: -0.01em;
+      margin-bottom: 6pt;
+    }
+
+    .header .contact {
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 9pt;
+      color: var(--ink-body);
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+    }
+
+    .header .contact .sep {
+      color: var(--ink-soft);
+      margin: 0 5pt;
+    }
+
+    /* ─── SECTIONS ─── */
+    .section { margin-bottom: 9pt; }
+
+    .section-heading {
+      font-family: 'Noto Sans KR', 'Inter';
+      font-size: 11pt;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--ink-primary);
+      margin-bottom: 6pt;
+      padding-bottom: 3pt;
+      border-bottom: 0.5pt solid var(--rule);
+    }
+
+    /* ─── SUMMARY ─── */
+    .summary p {
+      font-size: 9pt;
+      line-height: 1.55;
+      color: var(--ink-body);
+    }
+
+    .summary p strong { color: var(--ink-primary); font-weight: 700; }
+
+    /* ─── CORE COMPETENCIES ─── */
+    .competency {
+      font-size: 9pt;
+      line-height: 1.55;
+      margin-bottom: 3pt;
+      color: var(--ink-body);
+    }
+
+    .competency__label {
+      font-weight: 700;
+      color: var(--ink-primary);
+    }
+
+    /* ─── APPLIED AI (centerpiece) ─── */
+    .project {
+      margin-bottom: 7pt;
+      page-break-inside: avoid;
+    }
+
+    .project__head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10pt;
+      margin-bottom: 1pt;
+    }
+
+    .project__name {
+      font-family: 'Noto Sans KR', 'Inter';
+      font-size: 11pt;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--ink-primary);
+    }
+
+    .project__badge {
+      font-family: 'Inter';
+      font-size: 8pt;
+      color: var(--accent);
+      font-weight: 600;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .project__role {
+      font-size: 9pt;
+      font-weight: 500;
+      color: var(--ink-muted);
+      margin-bottom: 3pt;
+    }
+
+    .project__stack {
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 8.5pt;
+      color: var(--ink-body);
+      background: var(--accent-soft);
+      padding: 3pt 7pt;
+      border-radius: 2pt;
+      margin-bottom: 3pt;
+      letter-spacing: -0.02em;
+    }
+
+    .project__stack-label {
+      font-weight: 500;
+      color: var(--accent);
+      margin-right: 4pt;
+    }
+
+    /* ─── ROLES (timeline) ─── */
+    .role {
+      margin-bottom: 6pt;
+      page-break-inside: avoid;
+    }
+
+    .role__head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10pt;
+      margin-bottom: 1pt;
+    }
+
+    .role__company {
+      font-size: 11pt;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--ink-primary);
+    }
+
+    .role__location {
+      font-size: 9pt;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+
+    .role__title {
+      font-size: 9pt;
+      font-weight: 500;
+      color: var(--ink-muted);
+      margin-bottom: 3pt;
+    }
+
+    .role__title .role__dates {
+      color: var(--ink-soft);
+    }
+
+    /* ─── BULLETS ─── */
+    ul.bullets {
+      list-style: none;
+      padding-left: 9pt;
+      margin-top: 2pt;
+    }
+
+    ul.bullets li {
+      position: relative;
+      padding-left: 9pt;
+      margin-bottom: 2.5pt;
+      font-size: 9pt;
+      line-height: 1.5;
+      color: var(--ink-body);
+    }
+
+    ul.bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6pt;
+      width: 2.8pt;
+      height: 2.8pt;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    ul.bullets li strong { color: var(--ink-primary); font-weight: 700; }
+
+    /* ─── EDUCATION ─── */
+    .education-list li {
+      font-size: 9pt;
+      line-height: 1.5;
+      margin-bottom: 2.5pt;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═════════════════════ HEADER ═════════════════════ -->
+  <div class="header">
+    <h1>전현식<span class="name-en">Hyunsik Jeon</span></h1>
+    <div class="tagline">Global AI Strategist &middot; 크로스보더 딜 구조화 &times; 프로덕션 AI 시스템</div>
+    <div class="contact">
+      <div class="contact-line">jeonhs9110@gmail.com<span class="sep">|</span>+82 10-4092-0628<span class="sep">|</span>서울, 대한민국</div>
+      <div class="contact-line">github.com/jeonhs9110<span class="sep">|</span>portfolio-app-5ca9.vercel.app</div>
+    </div>
+  </div>
+
+  <!-- ═════════════════════ VALUE PROPOSITION ═════════════════════ -->
+  <section class="section summary">
+    <div class="section-heading">Global AI Strategist &amp; 글로벌 기술 사업 리드</div>
+    <p>완벽한 한·영 이중언어 구사력과 거시적 규제 환경에 대한 높은 이해도를 바탕으로, 복잡한 크로스보더 딜 구조화부터 프로덕션급 AI 시스템 구축까지 프로덕트의 전 주기를 주도하는 <strong>하이브리드 기술 사업 리더</strong>. 단순한 기술 제안을 넘어 글로벌 임원진의 비즈니스 요구를 실제 작동하는 AI 아키텍처로 구현함.</p>
+  </section>
+
+  <!-- ═════════════════════ CORE COMPETENCIES ═════════════════════ -->
+  <section class="section">
+    <div class="section-heading">핵심 역량</div>
+    <p class="competency"><span class="competency__label">글로벌 딜 구조화:</span> 기관 LOI, 양자 MOU, 국부펀드(SWF) 테제 추적, 크로스보더 카운터파티 매핑</p>
+    <p class="competency"><span class="competency__label">AI 아키텍처:</span> Multi-Agent LLMs, Agentic RAG, LangGraph Orchestration, Hallucination-Gated Loops</p>
+    <p class="competency"><span class="competency__label">언어 &amp; 커뮤니케이션:</span> 영어 원어민 (미국 K-12 ~ 학사), 한국어 원어민, 중국어 회화 (기본), 고위급 외교 통역 경험</p>
+  </section>
+
+  <!-- ═════════════════════ APPLIED AI & SOLUTIONS ARCHITECTURE ═════════════════════ -->
+  <section class="section">
+    <div class="section-heading">응용 AI 및 솔루션 아키텍처</div>
+
+    <!-- AIIM -->
+    <div class="project">
+      <div class="project__head">
+        <div class="project__name">AIIM &mdash; 글로벌 인플루언서 디스커버리 프로덕션 에이전틱 플랫폼</div>
+        <div class="project__badge">Live &middot; 2025&ndash;Present</div>
+      </div>
+      <div class="project__role">Architect &amp; Operator</div>
+      <div class="project__stack"><span class="project__stack-label">Stack:</span>LangGraph, GraphRAG, FastAPI, GCP Cloud Run, Next.js, Cloud-Hosted</div>
+      <ul class="bullets">
+        <li><strong>14개 언어에 걸쳐 5,300명 이상의 크리에이터를 서비스하는 24/7 프로덕션 플랫폼</strong> 운영 — 프로토타입이 아닌 실제 가동 중인 시스템.</li>
+        <li>벤더 예산 사고 이후 &ldquo;probe-before-bulk&rdquo; 안전장치 구축 — 예측 불가능한 유료 API 런레이트를 관리 가능한 라인 아이템으로 전환.</li>
+        <li>세 개의 독립적 데이터 소스를 병렬로 수집해 크리에이터별 의사결정 가능한 단일 레코드로 통합하는 아키텍처 설계.</li>
+      </ul>
+    </div>
+
+    <!-- Vaccine Daily -->
+    <div class="project">
+      <div class="project__head">
+        <div class="project__name">Vaccine Daily &mdash; 멀티 에이전트 뉴스 인텔리전스 파이프라인</div>
+        <div class="project__badge">IBM x RedHat 최우수상 &middot; 2025&ndash;2026</div>
+      </div>
+      <div class="project__role">Architect</div>
+      <div class="project__stack"><span class="project__stack-label">Stack:</span>HDBSCAN, ChromaDB, ko-sroberta, Kiwi, FastAPI, Multi-Agent RAG</div>
+      <ul class="bullets">
+        <li><strong>Writer → Critic → Editor 멀티 에이전트 루프</strong> 엔지니어링 — PASS/FAIL 게이트로 모든 출력을 원본 문서에 대조 검증하여 시간 민감 뉴스 데스크의 수동 팩트체크 단계를 제거.</li>
+        <li>클러스터링 및 임베딩 캐시 전략으로 LLM API 비용 절감 — 중복 작업을 스킵하는 동일한 비용 규율이 모든 대용량 검색 배포에 적용 가능.</li>
+        <li>10개 국내 뉴스 매체에 걸친 매체별 보도 편향을 가시화 — 편집자가 기사 할당 전에 보도 구조를 구조적으로 파악할 수 있도록 지원.</li>
+      </ul>
+    </div>
+
+    <!-- FOBO AI -->
+    <div class="project">
+      <div class="project__head">
+        <div class="project__name">FOBO AI &mdash; 유럽 축구 마켓을 위한 8단계 ML/RL 파이프라인</div>
+        <div class="project__badge">Live &middot; 2025&ndash;Present</div>
+      </div>
+      <div class="project__role">Architect &amp; Operator</div>
+      <div class="project__stack"><span class="project__stack-label">Stack:</span>PyTorch, Transformer, GAT, PPO, XGBoost, LightGBM, GCP Compute Engine</div>
+      <ul class="bullets">
+        <li>13개 유럽 리그를 서비스하는 <strong>8단계 프로덕션 ML 파이프라인</strong> 엔지니어링, 단일 e2-medium CPU에서 <strong>200ms 미만 추론 지연 시간</strong> 달성 — Transformer 인코더, Graph Attention Network, gradient-boosted 앙상블이 2080차원 임베딩을 PPO 강화학습 결정 레이어로 전달.</li>
+        <li>2-VM 클라우드 셋업으로 월 <strong>~$26 운영</strong>, Spot GPU 재학습은 회당 ~$0.40 — 프로덕션급 ML이 엔터프라이즈 인프라 예산을 요구하지 않음을 입증.</li>
+        <li>RL 결정 레이어는 단순 정확도가 아닌 <strong>리스크 조정 수익률 최적화</strong> — 금융 시장의 표준 알파 프레임워크를 구조화된 이벤트 데이터에 이식.</li>
+      </ul>
+    </div>
+
+    <!-- KOKKOK Garden -->
+    <div class="project">
+      <div class="project__head">
+        <div class="project__name">KOKKOK Garden &mdash; AI 현지화 기반 멀티 리전 이커머스</div>
+        <div class="project__badge">Live &middot; Mar 2026&ndash;Present</div>
+      </div>
+      <div class="project__role">Founder &amp; Operator</div>
+      <div class="project__stack"><span class="project__stack-label">Stack:</span>Next.js, React, TypeScript, Tailwind v4, Supabase, PostgreSQL + RLS, GPT-4o-mini, Vercel</div>
+      <ul class="bullets">
+        <li>GPT-4o-mini 기반 자동 번역 + 24시간 캐시로 <strong>전 상품 카탈로그를 5개 언어로 라이브 변환</strong>, 국내·해외 바이어를 위한 지역 인식 라우팅 구현 (한국 구매 가능 스토어 + 글로벌 뷰잉·AI 상담 라우트 분기).</li>
+        <li>PostgreSQL Row-Level Security 기반 <strong>보안 멀티 테넌트 데이터 아키텍처</strong> 위에 LLM K-뷰티 상담 어시스턴트 탑재; 비기술 운영자가 <strong>14개 어드민 모듈</strong>로 카탈로그 전반을 직접 관리 가능 &mdash; 모든 크로스보더 이커머스에 직접 이식 가능한 패턴.</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- ═════════════════════ PROFESSIONAL EXPERIENCE ═════════════════════ -->
+  <section class="section">
+    <div class="section-heading">경력 사항</div>
+
+    <div class="role">
+      <div class="role__head">
+        <div class="role__company">법무법인 광장 (Lee &amp; Ko)</div>
+        <div class="role__location">서울, 대한민국</div>
+      </div>
+      <div class="role__title">외무·크로스보더 딜 담당 <span class="role__dates">&middot; 2022.04 &mdash; 2025.06</span></div>
+      <ul class="bullets">
+        <li>한국금융투자협회(KOFIA), 국내 10대 금융기관, UAE·싱가포르 국부펀드 간 공동투자 <strong>LOI 성사 및 체결 (2023)</strong>. 본인이 사무장(事務長)으로 주관한 한·중동 지속발전 포럼이 카운터파티들을 동일 테이블로 결집시키는 매개체 역할 수행.</li>
+        <li>서울대학교 치과병원 × 무바달라 헬스 <strong>MOU (2024) 단독 조율 및 종결</strong> &mdash; 협의 정렬부터 양자 텀시트 작성, 장관급 사인오프까지 전 과정 일괄 담당; 레지던시 및 교수진 교류 프레임워크는 현재도 가동 중.</li>
+      </ul>
+    </div>
+
+    <div class="role">
+      <div class="role__head">
+        <div class="role__company">법무법인 충정 (HMP Law)</div>
+        <div class="role__location">서울, 대한민국</div>
+      </div>
+      <div class="role__title">외무·크로스보더 딜 담당 <span class="role__dates">&middot; 2020.07 &mdash; 2022.04</span></div>
+      <ul class="bullets">
+        <li>ADIA, 무바달라, PIF, QIA, GIC, 테마섹 등 <strong>6대 국부펀드 지속 테제 추적 리서치 수행</strong>; 각 펀드의 배분 전략을 실시간 국내 딜 플로우와 정합 매핑.</li>
+        <li>2023년 KOFIA LOI 및 2024년 서울대 치과 × 무바달라 MOU의 기반이 된 <strong>양자 카운터파티 파이프라인 구축</strong>; 사전 LOI 단계의 테제 정렬, 이해관계자 매핑, 텀시트 사전 작업 일괄 수행.</li>
+      </ul>
+    </div>
+
+    <div class="role">
+      <div class="role__head">
+        <div class="role__company">대한민국 국회 (National Assembly of Korea)</div>
+        <div class="role__location">서울, 대한민국</div>
+      </div>
+      <div class="role__title">7급 비서·외무 연락관 &mdash; 김정훈 의원실 <span class="role__dates">&middot; 2019.07 &mdash; 2020.05</span></div>
+      <ul class="bullets">
+        <li>정무위원회(FSC·FSS·KFTC) <strong>감사 세션 전담 커버리지</strong> &mdash; 모든 크로스보더 캐피털 대화의 기반이 되는 거시 규제 프레임워크 내재화.</li>
+        <li>의원실의 중동 외교·국부펀드 카운터파티 응대를 위한 한국어·영어 <strong>외무 브리핑 자료 및 양자 서신 전반 작성·관리</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="role">
+      <div class="role__head">
+        <div class="role__company">컨센트릭스 코리아 (Apple 생태계)</div>
+        <div class="role__location">서울, 대한민국</div>
+      </div>
+      <div class="role__title">워크포스 매니저 &amp; Apple Tier-4 시니어 어드바이저 &mdash; 클라이언트: Apple <span class="role__dates">&middot; 2018.04 &mdash; 2019.02</span></div>
+      <ul class="bullets">
+        <li><strong>30명+ 규모의 Apple APAC 인바운드 기술 지원 콜센터</strong>를 워크포스 매니저로 총괄 운영; Apple 글로벌 본사 및 클라이언트 기준에 부합하는 24/7 교대 스케줄링, 캐퍼시티 플래닝, <strong>CSAT·AHT 기반 SLA 거버넌스 체계</strong> 구축.</li>
+        <li>Tier-4 시니어 어드바이저 레벨에서 가장 복잡한 영어권 Apple 기술 <strong>에스컬레이션 자문</strong>; 지원 플로어 전반의 프로세스 비효율성 진단 및 클라이언트 요구사항을 운영 변경으로 전환 &mdash; Fortune-50 다국적 서비스 기준 운영 경험의 첫 노출.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═════════════════════ EDUCATION & AWARDS ═════════════════════ -->
+  <section class="section">
+    <div class="section-heading">학력 및 수상</div>
+    <ul class="bullets education-list">
+      <li><strong>IBM × RedHat AI Transformation Academy</strong> &mdash; 최우수상, 2025.08&ndash;2026.02. 캡스톤: Vaccine Daily 멀티 에이전트 뉴스 파이프라인.</li>
+      <li><strong>마이애미 대학교 (Miami University, Ohio, USA)</strong> &mdash; 국제학 학사 (B.A. International Studies), 경제개발 전공.</li>
+      <li><strong>대전크리스천국제학교 (TCIS)</strong> &mdash; IB 자격증, 영어 매체 커리큘럼.</li>
+      <li><strong>대구 미국 학교 (U.S. DoD School)</strong> &mdash; 고등학교 졸업장, 미국 K-12 영어 매체 교육.</li>
+    </ul>
+  </section>
+
+</body>
+
+</html>

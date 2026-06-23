@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hyunsik Jeon — Universal Resume 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @page { size: A4; margin: 16mm 15mm 13mm 15mm; }
+
+    :root {
+      --ink-primary: #0B1220;
+      --ink-body: #1F2937;
+      --ink-muted: #475569;
+      --ink-soft: #64748B;
+      --accent: #1E3A8A;
+      --accent-soft: #F1F5F9;
+      --rule: #CBD5E1;
+      --rule-soft: #E2E8F0;
+      --bg: #FFFFFF;
+    }
+
+    html, body { background: var(--bg); color: var(--ink-body); }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 9pt;
+      line-height: 1.4;
+      letter-spacing: -0.003em;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── HEADER ─── */
+    .header {
+      padding-bottom: 7pt;
+      border-bottom: 0.75pt solid var(--ink-primary);
+      margin-bottom: 9pt;
+    }
+
+    .header h1 {
+      font-family: 'Inter';
+      font-size: 24pt;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.0;
+      color: var(--ink-primary);
+      margin-bottom: 3pt;
+    }
+
+    .header .tagline {
+      font-size: 12pt;
+      font-weight: 500;
+      color: var(--ink-muted);
+      letter-spacing: -0.01em;
+      margin-bottom: 6pt;
+    }
+
+    .header .contact {
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 9pt;
+      color: var(--ink-body);
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+    }
+
+    .header .contact .sep {
+      color: var(--ink-soft);
+      margin: 0 5pt;
+    }
+
+    /* ─── SECTIONS ─── */
+    .section { margin-bottom: 9pt; }
+
+    .section-heading {
+      font-family: 'Inter';
+      font-size: 11pt;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--ink-primary);
+      margin-bottom: 6pt;
+      padding-bottom: 3pt;
+      border-bottom: 0.5pt solid var(--rule);
+    }
+
+    /* ─── SUMMARY ─── */
+    .summary p {
+      font-size: 9pt;
+      line-height: 1.45;
+      color: var(--ink-body);
+    }
+
+    .summary p strong { color: var(--ink-primary); font-weight: 700; }
+
+    /* ─── CORE COMPETENCIES (inline bolded categories + lists) ─── */
+    .competency {
+      font-size: 9pt;
+      line-height: 1.45;
+      margin-bottom: 3pt;
+      color: var(--ink-body);
+    }
+
+    .competency__label {
+      font-weight: 700;
+      color: var(--ink-primary);
+    }
+
+    /* ─── APPLIED AI (centerpiece) ─── */
+    .project {
+      margin-bottom: 7pt;
+      page-break-inside: avoid;
+    }
+
+    .project__head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10pt;
+      margin-bottom: 1pt;
+    }
+
+    .project__name {
+      font-family: 'Inter';
+      font-size: 11pt;
+      font-weight: 700;
+      letter-spacing: -0.012em;
+      color: var(--ink-primary);
+    }
+
+    .project__badge {
+      font-size: 8pt;
+      color: var(--accent);
+      font-weight: 600;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .project__role {
+      font-size: 9pt;
+      font-style: italic;
+      font-weight: 500;
+      color: var(--ink-muted);
+      margin-bottom: 3pt;
+    }
+
+    .project__stack {
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 8.5pt;
+      color: var(--ink-body);
+      background: var(--accent-soft);
+      padding: 3pt 7pt;
+      border-radius: 2pt;
+      margin-bottom: 3pt;
+      letter-spacing: -0.02em;
+    }
+
+    .project__stack-label {
+      font-weight: 500;
+      color: var(--accent);
+      margin-right: 4pt;
+    }
+
+    /* ─── MACRO (clean linear timeline) ─── */
+    .role {
+      margin-bottom: 6pt;
+      page-break-inside: avoid;
+    }
+
+    .role__head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10pt;
+      margin-bottom: 1pt;
+    }
+
+    .role__company {
+      font-size: 11pt;
+      font-weight: 700;
+      letter-spacing: -0.012em;
+      color: var(--ink-primary);
+    }
+
+    .role__location {
+      font-size: 9pt;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+
+    .role__title {
+      font-size: 9pt;
+      font-weight: 500;
+      color: var(--ink-muted);
+      font-style: italic;
+      margin-bottom: 3pt;
+    }
+
+    .role__title .role__dates {
+      font-style: normal;
+      color: var(--ink-soft);
+    }
+
+    /* ─── BULLETS ─── */
+    ul.bullets {
+      list-style: none;
+      padding-left: 9pt;
+      margin-top: 2pt;
+    }
+
+    ul.bullets li {
+      position: relative;
+      padding-left: 9pt;
+      margin-bottom: 2.5pt;
+      font-size: 9pt;
+      line-height: 1.4;
+      color: var(--ink-body);
+    }
+
+    ul.bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 5.5pt;
+      width: 2.8pt;
+      height: 2.8pt;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    ul.bullets li strong { color: var(--ink-primary); font-weight: 700; }
+
+    /* ─── EDUCATION & AWARDS ─── */
+    .education-list li {
+      font-size: 9pt;
+      line-height: 1.4;
+      margin-bottom: 2.5pt;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═════════════════════ HEADER ═════════════════════ -->
+  <div class="header">
+    <h1>Hyunsik Jeon</h1>
+    <div class="tagline">Global AI Strategist &middot; Cross-Border Deal-Structuring &times; Production AI Systems</div>
+    <div class="contact">
+      <div class="contact-line">jeonhs9110@gmail.com<span class="sep">|</span>+82 10-4092-0628<span class="sep">|</span>Seoul, South Korea</div>
+      <div class="contact-line">github.com/jeonhs9110<span class="sep">|</span>portfolio-app-5ca9.vercel.app</div>
+    </div>
+  </div>
+
+  <!-- ═════════════════════ VALUE PROPOSITION ═════════════════════ -->
+  <section class="section summary">
+    <div class="section-heading">Global AI Strategist &amp; Technical Commercial Lead</div>
+    <p>AI architect and technical commercial lead with a dual background. Six years of cross-border enterprise deal-structuring at top-tier Korean law firms and a National Assembly office, plus hands-on engineering of four production AI systems running in the cloud today. Walks into executive meetings as the person who actually built the systems being discussed.</p>
+  </section>
+
+  <!-- ═════════════════════ CORE COMPETENCIES ═════════════════════ -->
+  <section class="section">
+    <div class="section-heading">Core Competencies</div>
+    <p class="competency"><span class="competency__label">Global Deal Structuring:</span> Institutional LOIs, Bilateral MOUs, Sovereign Wealth Thesis Tracking</p>
+    <p class="competency"><span class="competency__label">AI Architecture:</span> Multi-Agent LLMs, Agentic RAG, LangGraph Orchestration, Hallucination-Gated Loops</p>
+    <p class="competency"><span class="competency__label">Languages &amp; Communication:</span> Native EN/KR, Conversational Mandarin (Basic), High-Stakes Diplomatic Interpretation</p>
+  </section>
+
+  <!-- ═════════════════════ APPLIED AI & SOLUTIONS ARCHITECTURE ═════════════════════ -->
+  <section class="section">
+    <div class="section-heading">Applied AI &amp; Solutions Architecture</div>
+
+    <!-- AIIM -->
+    <div class="project">
+      <div class="project__head">
+        <div class="project__name">AIIM &mdash; Production Agentic Platform for Global Influencer Discovery</div>
+        <div class="project__badge">Live &middot; 2025&ndash;Present</div>
+      </div>
+      <div class="project__role">Architect &amp; Operator</div>
+      <div class="project__stack"><span class="project__stack-label">Stack:</span>LangGraph, GraphRAG, FastAPI, GCP Cloud Run, Next.js, Cloud-Hosted</div>
+      <ul class="bullets">
+        <li>Operates a <strong>24/7 production platform serving 5,300+ creators across 14 languages</strong> &mdash; the live system, not a prototype.</li>
+        <li>Built a &ldquo;probe-before-bulk&rdquo; safeguard after a vendor-budget incident, turning unpredictable paid-API run-rates into a managed line item.</li>
+        <li>Architecture ingests three independent data sources in parallel and unifies them into one decision-grade record per creator.</li>
+      </ul>
+    </div>
+
+    <!-- Vaccine Daily -->
+    <div class="project">
+      <div class="project__head">
+        <div class="project__name">Vaccine Daily &mdash; Multi-Agent News Intelligence Pipeline</div>
+        <div class="project__badge">IBM x RedHat Top Award &middot; 2025&ndash;2026</div>
+      </div>
+      <div class="project__role">Architect</div>
+      <div class="project__stack"><span class="project__stack-label">Stack:</span>HDBSCAN, ChromaDB, ko-sroberta, Kiwi, FastAPI, Multi-Agent RAG</div>
+      <ul class="bullets">
+        <li>Engineered a <strong>Writer -&gt; Critic -&gt; Editor multi-agent loop</strong> that adjudicates every output against source documents on a PASS/FAIL gate &mdash; eliminates the manual fact-check step for time-sensitive news desks.</li>
+        <li>Reduced LLM API spend via clustering and embedding-cache strategies that skip duplicate work &mdash; cost discipline transfers to any high-volume retrieval deployment.</li>
+        <li>Surfaces per-outlet reporting bias across 10 Korean news sources, giving editors a structural read on coverage before they assign.</li>
+      </ul>
+    </div>
+
+    <!-- FOBO AI -->
+    <div class="project">
+      <div class="project__head">
+        <div class="project__name">FOBO AI &mdash; 8-Stage ML/RL Pipeline for European Football Markets</div>
+        <div class="project__badge">Live &middot; 2025&ndash;Present</div>
+      </div>
+      <div class="project__role">Architect &amp; Operator</div>
+      <div class="project__stack"><span class="project__stack-label">Stack:</span>PyTorch, Transformer, GAT, PPO, XGBoost, LightGBM, GCP Compute Engine</div>
+      <ul class="bullets">
+        <li>Engineered an <strong>8-stage production ML pipeline</strong> serving 13 European leagues at <strong>sub-200ms inference latency</strong> on a single e2-medium CPU &mdash; Transformer encoder, Graph Attention Network, and gradient-boosted ensemble feed a 2080-dim embedding into a PPO reinforcement-learning decision layer.</li>
+        <li>Runs the full pipeline on a 2-VM cloud setup at <strong>~$26/month</strong> with on-demand Spot GPU retraining at ~$0.40 per run &mdash; proves production-grade ML does not require enterprise infrastructure budgets.</li>
+        <li>RL decision layer optimizes for <strong>risk-adjusted yield, not raw accuracy</strong> &mdash; the standard alpha framework, ported from financial markets to structured event data.</li>
+      </ul>
+    </div>
+
+    <!-- KOKKOK Garden -->
+    <div class="project">
+      <div class="project__head">
+        <div class="project__name">KOKKOK Garden &mdash; Multi-Region E-Commerce with AI Localization</div>
+        <div class="project__badge">Live &middot; Mar 2026&ndash;Present</div>
+      </div>
+      <div class="project__role">Founder &amp; Operator</div>
+      <div class="project__stack"><span class="project__stack-label">Stack:</span>Next.js, React, TypeScript, Tailwind v4, Supabase, PostgreSQL + RLS, GPT-4o-mini, Vercel</div>
+      <ul class="bullets">
+        <li>Live multi-region platform with <strong>GPT-4o-mini-powered automatic product translation across 5 languages</strong> (24-hour cache), serving a Korean purchase storefront and a global viewing + AI-consultation route from one codebase.</li>
+        <li>PostgreSQL Row-Level Security multi-tenant architecture with an LLM K-beauty consultation assistant on the global storefront; <strong>14 admin modules</strong> let a single non-technical operator run the catalog end to end &mdash; transfers directly to any cross-border e-commerce.</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- ═════════════════════ PROFESSIONAL EXPERIENCE ═════════════════════ -->
+  <section class="section">
+    <div class="section-heading">Professional Experience</div>
+
+    <div class="role">
+      <div class="role__head">
+        <div class="role__company">Lee &amp; Ko (법무법인 광장)</div>
+        <div class="role__location">Seoul, Korea</div>
+      </div>
+      <div class="role__title">Foreign Affairs &amp; Cross-Border Deal Staff <span class="role__dates">&middot; Apr 2022 &mdash; Jun 2025</span></div>
+      <ul class="bullets">
+        <li><strong>Closed</strong> a co-investment LOI between the Korea Financial Investment Association (KOFIA), Top-10 Korean financial institutions, and UAE / Singapore sovereign wealth funds (signed 2023). Structured through the Korea&ndash;Middle East Sustainable Development Forum where I served as Secretary (사무장).</li>
+        <li><strong>Coordinated</strong> the SNU Dental x Mubadala Health MOU (2024) from thesis alignment through bilateral term-sheet drafting and ministerial sign-off &mdash; the framework for residency and faculty rotation remains in active use today.</li>
+      </ul>
+    </div>
+
+    <div class="role">
+      <div class="role__head">
+        <div class="role__company">HMP Law (법무법인 충정)</div>
+        <div class="role__location">Seoul, Korea</div>
+      </div>
+      <div class="role__title">Foreign Affairs &amp; Cross-Border Deal Staff <span class="role__dates">&middot; Jul 2020 &mdash; Apr 2022</span></div>
+      <ul class="bullets">
+        <li><strong>Ran</strong> continuous thesis-tracking research on six sovereign wealth funds &mdash; ADIA, Mubadala, PIF, QIA, GIC, Temasek &mdash; mapping each fund&rsquo;s allocation theses against live Korean deal flow.</li>
+        <li><strong>Built</strong> the bilateral counterparty pipeline that fed the 2023 KOFIA LOI and 2024 SNU Dental x Mubadala MOU &mdash; pre-LOI thesis alignment, stakeholder mapping, term-sheet groundwork.</li>
+      </ul>
+    </div>
+
+    <div class="role">
+      <div class="role__head">
+        <div class="role__company">National Assembly of the Republic of Korea</div>
+        <div class="role__location">Seoul, Korea</div>
+      </div>
+      <div class="role__title">Grade-7 Secretary &amp; Foreign Affairs Liaison &mdash; Office of Rep. Kim Jung-Hoon <span class="role__dates">&middot; Jul 2019 &mdash; May 2020</span></div>
+      <ul class="bullets">
+        <li><strong>Covered</strong> National Policy Committee (정무위원회) oversight sessions on FSC, FSS, and KFTC &mdash; the macro-regulatory frame that informs every cross-border capital conversation I run.</li>
+        <li><strong>Drafted</strong> foreign-affairs briefing materials and bilateral correspondence in Korean and English for the office&rsquo;s engagement with Middle Eastern diplomatic and sovereign-capital counterparties.</li>
+      </ul>
+    </div>
+
+    <div class="role">
+      <div class="role__head">
+        <div class="role__company">Concentrix Korea (Apple ecosystem)</div>
+        <div class="role__location">Seoul, Korea</div>
+      </div>
+      <div class="role__title">Workforce Manager &amp; Apple Tier-4 Senior Advisor &mdash; Client: Apple <span class="role__dates">&middot; Apr 2018 &mdash; Feb 2019</span></div>
+      <ul class="bullets">
+        <li><strong>Operated</strong> a <strong>30+ advisor Apple APAC inbound technical-support floor</strong> as Workforce Manager &mdash; built 24/7 shift scheduling, capacity planning, and <strong>CSAT- and AHT-based SLA governance</strong> to Apple global-office and client standards.</li>
+        <li><strong>Advised</strong> at Tier-4 senior-advisor level on the most complex English-language Apple technical escalations; ran process-inefficiency teardown across the support floor and translated client requirements into operational changes &mdash; first exposure operating under Fortune-50 multinational service standards.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═════════════════════ EDUCATION & AWARDS ═════════════════════ -->
+  <section class="section">
+    <div class="section-heading">Education &amp; Awards</div>
+    <ul class="bullets education-list">
+      <li><strong>IBM x RedHat AI Transformation Academy</strong> &mdash; Top Award (최우수상), 2025.08&ndash;2026.02. Capstone: Vaccine Daily multi-agent news pipeline.</li>
+      <li><strong>Miami University, Ohio, USA</strong> &mdash; B.A. International Studies, concentration in Economic Development.</li>
+      <li><strong>Taejon Christian International School (TCIS)</strong> &mdash; IB Certificate, English-medium curriculum.</li>
+      <li><strong>Daegu American High School (U.S. DoD School)</strong> &mdash; High School Diploma, U.S. K-12 English-medium education.</li>
+    </ul>
+  </section>
+
+</body>
+
+</html>
