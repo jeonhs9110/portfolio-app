@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전현식 — 디피아이 해외 업체 관리 이력서</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @page { size: A4; margin: 0; }
+
+    :root {
+      --accent: #1d4ed8;
+      --accent-soft: #dbeafe;
+      --ink: #0f172a;
+      --text: #1f2937;
+      --muted: #555;
+      --rule: #d4d4d8;
+    }
+
+    body {
+      font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.5;
+      color: var(--text);
+      background: white;
+      width: 210mm;
+      min-height: 297mm;
+      padding: 10mm 16mm;
+      position: relative;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2.5px solid var(--accent);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .header-left h1 {
+      font-size: 22pt;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .header-left .subtitle {
+      font-size: 10.5pt;
+      color: var(--accent);
+      margin-top: 2px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .header-left .contacts {
+      font-size: 8.5pt;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.45;
+    }
+
+    .header-photo {
+      width: 78px;
+      height: 96px;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .section { margin-bottom: 7px; }
+
+    .section-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--accent);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 0 2px 10px;
+      margin-bottom: 6px;
+      position: relative;
+    }
+
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 2px;
+      width: 3px;
+      height: 11pt;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .bio {
+      font-size: 9pt;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .job { margin-bottom: 6px; }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .job-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .job-title .job-company {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-style: italic;
+      font-weight: 500;
+      margin-left: 6px;
+    }
+
+    .job-period {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .job-desc {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 2px;
+      line-height: 1.5;
+    }
+
+    ul.compact {
+      list-style: none;
+      padding: 0;
+      margin: 2px 0 0;
+    }
+
+    ul.compact li {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 3px;
+      line-height: 1.5;
+      padding-left: 10px;
+      position: relative;
+    }
+
+    ul.compact li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px;
+      width: 4px; height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .edu-school { font-size: 9pt; font-weight: 700; color: var(--ink); }
+    .edu-degree { font-size: 8.5pt; color: var(--muted); margin-top: 1px; }
+
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .skill-row {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      line-height: 1.45;
+    }
+
+    .skill-label {
+      font-size: 8.5pt;
+      font-weight: 700;
+      width: 140px;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .skill-items { font-size: 8.5pt; color: var(--text); }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="header-left">
+      <h1>전현식 (全賢植)</h1>
+      <div class="subtitle">해외 거래처 관리 · 무역·사업관리 · 영문 커뮤니케이션</div>
+      <div class="contacts">
+        <div>jeonhs9110@gmail.com &nbsp;·&nbsp; +82 10-4092-0628 &nbsp;·&nbsp; 서울특별시 영등포구 여의도동 (디피아이 사무실 인접)</div>
+        <div>Portfolio: portfolio-app-5ca9.vercel.app &nbsp;·&nbsp; www.linkedin.com/in/jeonhyunsik</div>
+      </div>
+    </div>
+    <img src="hyunsik-picture.jpg" alt="전현식" class="header-photo" />
+  </div>
+
+  <div class="section">
+    <div class="section-title">자기소개</div>
+    <div class="bio"><strong>6년간 해외 업체·거래처·정부 카운터파트와의 cross-border 소통 및 관리를 직접 수행해온 지원자입니다.</strong> 김정훈 前국회의원실 7급 비서로 시작해 법무법인 충정·광장에서 외교·해외업무 담당관으로 일하며 UAE·사우디·카타르·쿠웨이트·오만·이라크·나이지리아·싱가포르 등 다양한 권역의 정부·기업 카운터파트와 신규 거래선 발굴, 안건 협상, 계약 체결, 후속 관리의 전 과정을 일상 업무로 수행해왔습니다. 영어는 미국 K-12부터 대학교(마이에미 대학교 국제학과)까지 학습한 <strong>원어민 수준</strong>으로 회화·독해·작문 모두 즉시 활용 가능하며, 중국어 회화도 가능합니다. 영문 공식 서신·계약서 검토·통역의뢰 처리·VIP 응대가 매일의 일이었습니다. 어트랙션·전시·문화 산업과의 직접적 도메인 경험은 없으나, 국립중앙박물관 × Louvre Abu Dhabi MOU 협의 주도 등 문화·전시 분야 cross-border 안건 경험이 있어 산업 적응이 빠를 것으로 판단합니다.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">경력</div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">외교·해외업무 담당관 (해외 거래선 관리·무역·사업관리) <span class="job-company">법무법인 광장 · 법무법인 충정 · 대한민국 국회</span></div>
+        <div class="job-period">2019.07 – 2025.06 (6년)</div>
+      </div>
+      <ul class="compact">
+        <li><strong>법무법인 광장 (2022.04 – 2025.06)</strong> — 한-중동 지속가능발전포럼 사무총장. 한국금융투자협회(KOFIA) 공동주관 하 국내 10대 금융기관과 UAE·싱가포르 국부펀드 간 cross-border 사업 안건 운영. 해외 거래처 발굴·일정 관리·협상 자료 작성·후속 관리 전 과정 책임. 서울대 치과병원 × Mubadala Health MOU 체결 주도(2024).</li>
+        <li><strong>법무법인 충정 (2020.07 – 2022.04)</strong> — <strong>해외 거래처 발굴 및 무역 안건 진행</strong>. 이라크 LNG 파이프라인 EPC, 나이지리아 철강 인수, 오만 국방부 안건(현대로템 경로) 등 다양한 권역의 cross-border 거래 발굴·진행. 외국 정부·기업 카운터파트 응대 및 협상 자료 작성, 영문 공식 서신·통역의뢰 처리.</li>
+        <li><strong>대한민국 국회 김정훈 의원실 (2019.07 – 2020.05)</strong> — 주한 카타르·오만·UAE·싱가포르·쿠웨이트 등 대사·정부 관계자 응대 일상 수행. 국립중앙박물관 × Louvre Abu Dhabi MOU 협의 주도. UAE 대사관저 격주 외교단 비공식 포럼 정례 참석(2019~2025, 6년 누적) — 해외 네트워크의 시작점.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">풀스택 개발자 <span class="job-company">KOKKOK Garden — K-Beauty 다국가 e-commerce</span></div>
+        <div class="job-period">2026.03 – 현재</div>
+      </div>
+      <div class="job-desc">K-Beauty 다국가 e-commerce 플랫폼 풀스택 개발 및 운영. 다국가 거래처 데이터·매출·재고 통합 관리 시스템 직접 구축. 해외 크리에이터·파트너 영문 직접 outreach.</div>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Workforce Manager · Apple Tier 4 Senior Advisor <span class="job-company">Concentrix Korea</span></div>
+        <div class="job-period">2018.04 – 2019.02</div>
+      </div>
+      <div class="job-desc">Apple 글로벌 본사 및 클라이언트 표준에 따른 인력 스케줄링 운영. Apple Tier 4 (최상위 등급) 고객 대상 영문 기술지원 직접 수행 — Fortune 50 다국적 기업의 거래처 응대 표준 체득.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">교육</div>
+    <div class="edu-grid">
+      <div>
+        <div class="edu-school">마이에미 대학교 (Miami University, USA Ohio)</div>
+        <div class="edu-degree">국제학 학사 (B.A. International Studies, 경제개발 전공) — 미국 K-12부터 대학교까지 영어 환경 학습</div>
+      </div>
+      <div>
+        <div class="edu-school">IBM × RedHat AI Transformation</div>
+        <div class="edu-degree">AX Academy 수료 — 최우수상 수상 (2024)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">역량 (디피아이 해외 업체 관리 직무 매핑)</div>
+    <div class="skills-grid">
+      <div class="skill-row"><span class="skill-label">해외 거래처 관리</span><span class="skill-items">UAE·사우디·카타르·쿠웨이트·오만·이라크·나이지리아·싱가포르 등 다국적 정부·기업 카운터파트 6년 응대 · 신규 거래선 발굴부터 협상·체결·후속 관리까지 전 과정</span></div>
+      <div class="skill-row"><span class="skill-label">무역·사업관리</span><span class="skill-items">이라크 LNG EPC, 나이지리아 철강 인수, 오만 국방부 등 cross-border 무역·산업 거래 발굴·진행 실무 (법무법인 충정)</span></div>
+      <div class="skill-row"><span class="skill-label">영어 (회화·독해·작문)</span><span class="skill-items"><strong>원어민 수준</strong> — 미국 K-12·대학 학습. 6년간 영문 공식 서신·계약서 검토·MOU 협상·통역 일상 수행</span></div>
+      <div class="skill-row"><span class="skill-label">기타 어학</span><span class="skill-items">한국어 (원어) · 중국어 (회화 가능, 어린 시절 삼성 주재원 가족 중국 거주)</span></div>
+      <div class="skill-row"><span class="skill-label">툴 · 디지털</span><span class="skill-items">MS Office 고급 (Word·Excel·PowerPoint·Outlook) · 6년 일상 사용 · 풀스택 개발 가능 (운영 시스템 직접 구축)</span></div>
+      <div class="skill-row"><span class="skill-label">기타</span><span class="skill-items">해외 출장 결격사유 없음 · 디피아이 사무실(영등포구) 도보 통근 가능 (여의도동 거주) · 즉시 출근 가능</span></div>
+    </div>
+  </div>
+
+</body>
+
+</html>
+</parameter>

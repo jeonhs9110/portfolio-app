@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전현식 — 화장품 해외사업 이력서</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @page { size: A4; margin: 0; }
+
+    :root {
+      --accent: #c8102e;
+      --accent-soft: #fce8eb;
+      --ink: #111;
+      --text: #1f2937;
+      --muted: #555;
+      --rule: #d4d4d8;
+    }
+
+    body {
+      font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.4;
+      color: var(--text);
+      background: white;
+      width: 210mm;
+      min-height: 297mm;
+      padding: 10mm 16mm;
+      position: relative;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2.5px solid var(--accent);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .header-left h1 {
+      font-size: 22pt;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .header-left .subtitle {
+      font-size: 10.5pt;
+      color: var(--accent);
+      margin-top: 2px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .header-left .contacts {
+      font-size: 8.5pt;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.45;
+    }
+
+    .header-photo {
+      width: 78px;
+      height: 96px;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .section { margin-bottom: 7px; }
+
+    .section-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--accent);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 0 2px 10px;
+      margin-bottom: 6px;
+      position: relative;
+    }
+
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 2px;
+      width: 3px;
+      height: 11pt;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .bio {
+      font-size: 9pt;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .job { margin-bottom: 6px; }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .job-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .job-title .job-company {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-style: italic;
+      font-weight: 500;
+      margin-left: 6px;
+    }
+
+    .job-period {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .job-desc {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 2px;
+      line-height: 1.5;
+    }
+
+    ul.compact {
+      list-style: none;
+      padding: 0;
+      margin: 2px 0 0;
+    }
+
+    ul.compact li {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 3px;
+      line-height: 1.5;
+      padding-left: 10px;
+      position: relative;
+    }
+
+    ul.compact li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px;
+      width: 4px; height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .edu-school { font-size: 9pt; font-weight: 700; color: var(--ink); }
+    .edu-degree { font-size: 8.5pt; color: var(--muted); margin-top: 1px; }
+
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .skill-row {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      line-height: 1.45;
+    }
+
+    .skill-label {
+      font-size: 8.5pt;
+      font-weight: 700;
+      width: 130px;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .skill-items { font-size: 8.5pt; color: var(--text); }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="header-left">
+      <h1>전현식 (全賢植)</h1>
+      <div class="subtitle">K-Beauty 해외사업 · 수출·해외거래처 관리</div>
+      <div class="contacts">
+        <div><strong>Portfolio:</strong> portfolio-app-5ca9.vercel.app &nbsp;·&nbsp; jeonhs9110@gmail.com &nbsp;·&nbsp; +82 10-4092-0628</div>
+        <div>www.linkedin.com/in/jeonhyunsik &nbsp;·&nbsp; github.com/jeonhs9110 &nbsp;·&nbsp; 서울특별시 영등포구 여의도동</div>
+      </div>
+    </div>
+    <img src="hyunsik-picture.jpg" alt="전현식" class="header-photo" />
+  </div>
+
+  <div class="section">
+    <div class="section-title">자기소개</div>
+    <div class="bio">현재 <strong>K-Beauty 다국가 e-commerce 플랫폼 KOKKOK Garden의 풀스택 개발자</strong>로서 화장품 브랜드의 해외 진출을 기술·운영 양면에서 직접 다루고 있습니다. GPT-4o mini 기반 5개 언어 자동 번역, 한국·글로벌 자동 라우팅, Supabase 데이터베이스 설계 등을 통해 <strong>다국가 화장품 판매·운영의 실무 흐름</strong>을 체득했습니다. 이전 6년간(2019.07–2025.06)은 김정훈 前국회의원실 비서로 시작해 법무법인 광장·충정에서 외교·해외업무 담당관으로 일하며, UAE·싱가포르·카타르·오만·쿠웨이트 등 해외 기관·거래처와의 공식 서신 작성, 통역의뢰, VIP 관리, cross-border 안건 진행을 일상적으로 수행했습니다. <strong>한국어(원어)·영어(미국 K-12 및 대학 학습, 비즈니스 작문/회화)·중국어(회화)</strong> 3개 언어를 업무에 활용할 수 있어, 수출 선적 서류 지원·해외 인허가·다국가 마케팅 번역·해외 거래처 관리 영역에서 즉시 기여할 수 있는 토대를 갖췄습니다.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">경력</div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">풀스택 개발자 <span class="job-company">KOKKOK Garden — K-Beauty 다국가 e-commerce 플랫폼</span></div>
+        <div class="job-period">2026.03 – 현재</div>
+      </div>
+      <ul class="compact">
+        <li><strong>K-Beauty 다국가 판매 플랫폼 풀스택 개발</strong> — Next.js 16 프론트엔드, Supabase(PostgreSQL + RLS) 백엔드, 6개 엔티티 관계형 스키마 설계, /admin 운영 대시보드 구축</li>
+        <li><strong>다국가 운영의 핵심 기능 구현</strong> — GPT-4o mini를 활용한 상품 정보 5개 언어 자동 번역, 한국·글로벌 시장 자동 라우팅, 결제·재고·고객 데이터 통합 관리</li>
+        <li><strong>마케팅·해외 거래처 협업</strong> — SNS 데이터 인텔리전스 파이프라인 운영 및 해외 크리에이터 직접 아웃리치 수행 (영문 커뮤니케이션)</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">외교·해외업무 담당관 <span class="job-company">법무법인 광장 · 법무법인 충정 · 대한민국 국회</span></div>
+        <div class="job-period">2019.07 – 2025.06</div>
+      </div>
+      <ul class="compact">
+        <li><strong>법무법인 광장 (2022.04 – 2025.06)</strong> — 김정훈 前의원 외교·해외업무 총괄. <strong>한-중동 지속가능발전포럼 사무총장</strong>으로서 한국금융투자협회와 공동주관, 국내 10대 금융기관과 UAE·싱가포르 국부펀드 간 고위급 회의 주선·운영(콘퍼런스 기획, 참석자 다이어리 관리, 후속 자료 작성 전 과정). 서울대학교 치과병원 × Mubadala Health MOU 체결 주도(2024).</li>
+        <li><strong>법무법인 충정 (2020.07 – 2022.04)</strong> — 해외 거래처 발굴·관리. 이라크 LNG 파이프라인 EPC, 나이지리아 철강 인수 등 cross-border 안건의 외국 정부·기업 카운터파트 응대 및 협상 자료 작성.</li>
+        <li><strong>대한민국 국회 김정훈 의원실 (2019.07 – 2020.05)</strong> — 7급 비서·외교업무 담당관. <strong>카타르·오만·UAE·싱가포르·쿠웨이트 등 주한 대사·정부 고위 관계자 대상 영문 공식 서신 작성, 통역의뢰서 처리, VIP 관리</strong> 일상적 수행. 국립중앙박물관 × Louvre Abu Dhabi MOU 협의 주도. UAE 대사관저 격주 외교단 포럼 정례 참석.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Workforce Manager · Apple Tier 4 Senior Advisor <span class="job-company">Concentrix Korea</span></div>
+        <div class="job-period">2018.04 – 2019.02</div>
+      </div>
+      <div class="job-desc">Apple 글로벌 본사 및 클라이언트 표준에 부합하는 상담사 인력 스케줄링 운영, Apple Tier 4 고객 대상 상위급 기술지원 직접 수행 (영어). Fortune 50 다국적 기업의 운영 표준 체득.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">교육</div>
+    <div class="edu-grid">
+      <div>
+        <div class="edu-school">Miami University, USA (Ohio)</div>
+        <div class="edu-degree">국제학 학사 (B.A. International Studies) — 경제개발 전공 / 미국 K-12부터 대학까지 학습</div>
+      </div>
+      <div>
+        <div class="edu-school">IBM × RedHat AI Transformation</div>
+        <div class="edu-degree">AX Academy 수료 — 최우수상 수상</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">역량 (화장품 해외사업 직접 부합)</div>
+    <div class="skills-grid">
+      <div class="skill-row"><span class="skill-label">언어</span><span class="skill-items"><strong>한국어</strong>(원어) · <strong>영어</strong>(미국 K-12·대학 학습, 비즈니스 작문·회화) · <strong>중국어</strong>(회화)</span></div>
+      <div class="skill-row"><span class="skill-label">K-Beauty / e-commerce</span><span class="skill-items">다국가 e-commerce 플랫폼 풀스택 개발 (Next.js · Supabase) · 다국어 자동 번역(GPT-4o mini) · 5개 언어 상품 운영 · 한국·글로벌 자동 라우팅</span></div>
+      <div class="skill-row"><span class="skill-label">해외업무·수출·인허가</span><span class="skill-items">영문 공식 서신·통역의뢰·VIP 관리 6년 · 해외 거래처 발굴 및 관리 · 정부·인허가 기관 응대 · MOU·LOI 체결 실무 · cross-border 문서 작성</span></div>
+      <div class="skill-row"><span class="skill-label">행사·워크샵 운영</span><span class="skill-items">한-중동 지속가능발전포럼 사무총장 — 콘퍼런스 기획·참석자 관리·후속 자료 작성 전 과정 책임 운영</span></div>
+      <div class="skill-row"><span class="skill-label">마케팅 영문 번역</span><span class="skill-items">미국 학교 학습 영작문 + 6년간 법무법인 공식 영문 서신 작성 + GPT-4o mini 기반 다국어 번역 시스템 구축 경험</span></div>
+      <div class="skill-row"><span class="skill-label">툴</span><span class="skill-items">MS Office (Word · Excel · PowerPoint · Outlook) 고급 · Next.js · Supabase · Python · GitHub</span></div>
+    </div>
+  </div>
+
+</body>
+
+</html>

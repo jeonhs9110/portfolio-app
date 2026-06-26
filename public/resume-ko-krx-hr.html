@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전현식 — HR 행정 지원 이력서</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @page { size: A4; margin: 0; }
+
+    :root {
+      --accent: #16a34a;
+      --accent-soft: #f0fdf4;
+      --ink: #0f172a;
+      --text: #1f2937;
+      --muted: #555;
+      --rule: #d4d4d8;
+    }
+
+    body {
+      font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.5;
+      color: var(--text);
+      background: white;
+      width: 210mm;
+      min-height: 297mm;
+      padding: 12mm 16mm;
+      position: relative;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2.5px solid var(--accent);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .header-left h1 {
+      font-size: 22pt;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .header-left .subtitle {
+      font-size: 10.5pt;
+      color: var(--accent);
+      margin-top: 2px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .header-left .contacts {
+      font-size: 8.5pt;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.45;
+    }
+
+    .header-photo {
+      width: 78px;
+      height: 96px;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .section { margin-bottom: 7px; }
+
+    .section-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--accent);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 0 2px 10px;
+      margin-bottom: 6px;
+      position: relative;
+    }
+
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 2px;
+      width: 3px;
+      height: 11pt;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .bio {
+      font-size: 9pt;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .job { margin-bottom: 6px; }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .job-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .job-title .job-company {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-style: italic;
+      font-weight: 500;
+      margin-left: 6px;
+    }
+
+    .job-period {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .job-desc {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 2px;
+      line-height: 1.55;
+    }
+
+    ul.compact {
+      list-style: none;
+      padding: 0;
+      margin: 2px 0 0;
+    }
+
+    ul.compact li {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 3px;
+      line-height: 1.55;
+      padding-left: 10px;
+      position: relative;
+    }
+
+    ul.compact li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px;
+      width: 4px; height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .edu-school { font-size: 9pt; font-weight: 700; color: var(--ink); }
+    .edu-degree { font-size: 8.5pt; color: var(--muted); margin-top: 1px; }
+
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .skill-row {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      line-height: 1.5;
+    }
+
+    .skill-label {
+      font-size: 8.5pt;
+      font-weight: 700;
+      width: 130px;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .skill-items { font-size: 8.5pt; color: var(--text); }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="header-left">
+      <h1>전현식 (全賢植)</h1>
+      <div class="subtitle">HR 행정 지원 · 인사·급여·계약 사무</div>
+      <div class="contacts">
+        <div>jeonhs9110@gmail.com &nbsp;·&nbsp; +82 10-4092-0628 &nbsp;·&nbsp; 서울특별시 영등포구 여의도동</div>
+        <div>Portfolio: portfolio-app-5ca9.vercel.app &nbsp;·&nbsp; www.linkedin.com/in/jeonhyunsik</div>
+      </div>
+    </div>
+    <img src="hyunsik-picture.jpg" alt="전현식" class="header-photo" />
+  </div>
+
+  <div class="section">
+    <div class="section-title">자기소개</div>
+    <div class="bio">인사·재무 행정의 기본기를 군 복무 시절부터 누적해온 지원자입니다. <strong>육군 인사·재무 행정병으로 부대 부사관·장교 인사기록 관리, 부대 청구·회계연도 보고</strong>를 수행하며 규정 기반 인사·재무 행정의 기초를 다졌고, 이후 <strong>Concentrix Korea Workforce Manager로 콜센터 상담사 인력 스케줄링과 근태 운영</strong>을 담당했습니다. 6년간(2019.07–2025.06) 국회 의원실 7급 비서와 법무법인 외교·해외업무 담당관으로 일하며 문서 작성·자료 정리·일정 관리·외부 응대를 일상 업무로 수행했습니다. MS Office(Word·Excel·PowerPoint·Outlook)는 6년간 매일 사용해온 도구이며, 협업 환경에서 차분히 디테일을 챙기고 약속된 일정 안에 마무리하는 자세를 유지해왔습니다. 영어(원어민 수준)와 중국어 회화도 가능합니다.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">경력</div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">인사·재무 행정병 <span class="job-company">대한민국 육군 제4217부대 (세종)</span></div>
+        <div class="job-period">2012.10 – 2014.07</div>
+      </div>
+      <ul class="compact">
+        <li><strong>부사관·장교 인사기록 관리</strong> — 인사명령, 근무평정, 휴가 기록 등 인사 데이터 정리 및 보관</li>
+        <li><strong>부대 청구 및 회계연도 보고</strong> — 부대 운영 비용 청구 및 회계연도 결산 자료 작성</li>
+        <li>명문화된 군 규정 기반 컴플라이언스 업무 — 자료 정확성·기한 준수 일상화</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Workforce Manager · Apple Tier 4 Senior Advisor <span class="job-company">Concentrix Korea</span></div>
+        <div class="job-period">2018.04 – 2019.02</div>
+      </div>
+      <ul class="compact">
+        <li><strong>콜센터 상담사 인력 스케줄링 운영</strong> — Apple 글로벌 본사·클라이언트 표준에 따른 근무 배치 및 근태 관리</li>
+        <li>일일·주간 운영 보고서 작성 및 자료 관리, 인력 운영 효율화 보고</li>
+        <li>Apple Tier 4 (최상위 등급) 고객 대상 영문 상담 직접 수행 — 다국적 기업의 운영 표준 체득</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">외교·해외업무 담당관 <span class="job-company">법무법인 광장 · 법무법인 충정 · 대한민국 국회</span></div>
+        <div class="job-period">2019.07 – 2025.06 (6년)</div>
+      </div>
+      <ul class="compact">
+        <li><strong>대한민국 국회 김정훈 의원실 (2019.07 – 2020.05)</strong> — 7급 비서. 의원실 사무 지원, 일정 관리, 문서 작성, 자료 정리 등 일반 사무 행정 일상 수행.</li>
+        <li><strong>법무법인 충정 (2020.07 – 2022.04)</strong> — 외국 정부·기업 카운터파트 응대 자료 작성, 영문 공식 서신 처리, 회의 일정 조율 등 행정 사무 지원.</li>
+        <li><strong>법무법인 광장 (2022.04 – 2025.06)</strong> — 한-중동 포럼 사무국 운영 담당. 회의 기획·진행 일정 관리, 참석자 명단·다이어리 관리, 회의록·후속 자료 작성, 의전 협조 등 행사 운영 전반의 사무 업무.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">풀스택 개발자 <span class="job-company">KOKKOK Garden — K-Beauty 다국가 e-commerce</span></div>
+        <div class="job-period">2026.03 – 현재</div>
+      </div>
+      <div class="job-desc">K-Beauty e-commerce 플랫폼 풀스택 개발 및 운영 데이터 관리. 인사·재고·고객 데이터 정리를 위한 운영 대시보드 설계·관리.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">교육</div>
+    <div class="edu-grid">
+      <div>
+        <div class="edu-school">마이에미 대학교 (Miami University, USA Ohio)</div>
+        <div class="edu-degree">국제학 학사 (B.A. International Studies, 경제개발 전공)</div>
+      </div>
+      <div>
+        <div class="edu-school">IBM × RedHat AI Transformation</div>
+        <div class="edu-degree">AX Academy 수료 — 최우수상 수상 (2024)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">역량 (KRX 인사부 사무지원 직무 매핑)</div>
+    <div class="skills-grid">
+      <div class="skill-row"><span class="skill-label">인사 행정</span><span class="skill-items">육군 인사·재무 행정병 — 부사관·장교 인사기록 관리, 부대 회계연도 보고 실무 경험</span></div>
+      <div class="skill-row"><span class="skill-label">계약직 운영 보조</span><span class="skill-items">Concentrix Korea Workforce Manager — 상담사 인력 스케줄링·근태·운영 보고 실무 경험</span></div>
+      <div class="skill-row"><span class="skill-label">서무·문서 관리</span><span class="skill-items">문서 작성·자료 정리·일정 관리·외부 응대·회의 운영 6년 일상 수행 (의원실·법무법인)</span></div>
+      <div class="skill-row"><span class="skill-label">컴플라이언스</span><span class="skill-items">규정 기반 업무 (군 행정·법무법인 환경) · 자료 보관 및 감사 대응 기초</span></div>
+      <div class="skill-row"><span class="skill-label">MS Office</span><span class="skill-items"><strong>Word · Excel · PowerPoint · Outlook 고급</strong> (6년 일상 사용)</span></div>
+      <div class="skill-row"><span class="skill-label">언어</span><span class="skill-items"><strong>한국어</strong> (원어) · <strong>영어</strong> (원어민 수준 — 미국 K-12부터 대학교까지 학습) · <strong>중국어</strong> (회화)</span></div>
+    </div>
+  </div>
+
+</body>
+
+</html>
+</parameter>

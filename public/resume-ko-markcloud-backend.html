@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전현식 — 마크클라우드 백엔드 개발자 이력서</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @page { size: A4; margin: 0; }
+
+    :root {
+      --accent: #0f766e;
+      --accent-soft: #ccfbf1;
+      --ink: #0f172a;
+      --text: #1f2937;
+      --muted: #555;
+      --rule: #d4d4d8;
+    }
+
+    body {
+      font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.45;
+      color: var(--text);
+      background: white;
+      width: 210mm;
+      min-height: 297mm;
+      padding: 8mm 15mm;
+      position: relative;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2.5px solid var(--accent);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .header-left h1 {
+      font-size: 22pt;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .header-left .subtitle {
+      font-size: 10.5pt;
+      color: var(--accent);
+      margin-top: 2px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .header-left .contacts {
+      font-size: 8.5pt;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.45;
+    }
+
+    .header-photo {
+      width: 78px;
+      height: 96px;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .section { margin-bottom: 6px; }
+
+    .section-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--accent);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 0 2px 10px;
+      margin-bottom: 5px;
+      position: relative;
+    }
+
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 2px;
+      width: 3px;
+      height: 11pt;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .bio {
+      font-size: 9pt;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .job { margin-bottom: 5px; }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .job-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .job-title .job-company {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-style: italic;
+      font-weight: 500;
+      margin-left: 6px;
+    }
+
+    .job-period {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .job-desc {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 2px;
+      line-height: 1.5;
+    }
+
+    ul.compact {
+      list-style: none;
+      padding: 0;
+      margin: 2px 0 0;
+    }
+
+    ul.compact li {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 3px;
+      line-height: 1.5;
+      padding-left: 10px;
+      position: relative;
+    }
+
+    ul.compact li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px;
+      width: 4px; height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .project-line {
+      font-size: 8.7pt;
+      line-height: 1.5;
+      margin-bottom: 4px;
+    }
+
+    .project-line strong { color: var(--ink); font-weight: 700; }
+
+    .project-line .tag {
+      display: inline-block;
+      font-size: 7.5pt;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border-radius: 3px;
+      padding: 1px 6px;
+      margin-left: 4px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .edu-school { font-size: 9pt; font-weight: 700; color: var(--ink); }
+    .edu-degree { font-size: 8.5pt; color: var(--muted); margin-top: 1px; }
+
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .skill-row {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      line-height: 1.45;
+    }
+
+    .skill-label {
+      font-size: 8.5pt;
+      font-weight: 700;
+      width: 130px;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .skill-items { font-size: 8.5pt; color: var(--text); }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="header-left">
+      <h1>전현식 (全賢植)</h1>
+      <div class="subtitle">백엔드 개발자 — Python · FastAPI · GCP · LLM Production Systems</div>
+      <div class="contacts">
+        <div>jeonhs9110@gmail.com &nbsp;·&nbsp; +82 10-4092-0628 &nbsp;·&nbsp; 서울특별시 영등포구 여의도동</div>
+        <div>Portfolio: portfolio-app-5ca9.vercel.app &nbsp;·&nbsp; GitHub: github.com/jeonhs9110 &nbsp;·&nbsp; LinkedIn: jeonhyunsik</div>
+      </div>
+    </div>
+    <img src="hyunsik-picture.jpg" alt="전현식" class="header-photo" />
+  </div>
+
+  <div class="section">
+    <div class="section-title">Resume Summary</div>
+    <div class="bio">Production AI 백엔드를 단독으로 빌드·운영해본 백엔드 개발자 — <strong>IBM × RedHat AX Academy 최우수상</strong> (2025.08–2026.02) 수상자로, AIIM(GCP Cloud Run 24/7 운영)·Vaccine Daily(멀티에이전트 LLM 파이프라인) 2건의 production 백엔드를 단독 설계·구축·배포. 데이터 파이프라인 → 임베딩·벡터 저장 → LLM 워크플로우 → REST API → 클라우드 배포까지의 end-to-end 백엔드 사이클을 책임진 경력 + 6년간의 cross-border 사업개발 배경으로 비즈니스 요건을 시스템 단위로 분해해 빠른 견적·로드맵 제시가 가능한 프로필.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Technical Skills</div>
+    <div class="skills-grid">
+      <div class="skill-row"><span class="skill-label">언어 · 프레임워크</span><span class="skill-items">Python · TypeScript · FastAPI · Next.js 16 · React · Node.js</span></div>
+      <div class="skill-row"><span class="skill-label">데이터베이스</span><span class="skill-items">PostgreSQL · Supabase (Row-Level Security 포함) · ChromaDB (Vector DB)</span></div>
+      <div class="skill-row"><span class="skill-label">클라우드 · 인프라</span><span class="skill-items">GCP Cloud Run · Cloud SQL · 24/7 production 운영 경험</span></div>
+      <div class="skill-row"><span class="skill-label">AI · LLM 스택</span><span class="skill-items">LangGraph (멀티에이전트) · GraphRAG · GPT-4o / GPT-4o mini · ko-sroberta (Korean embedding) · HDBSCAN · Kiwi 형태소</span></div>
+      <div class="skill-row"><span class="skill-label">개발 도구</span><span class="skill-items">Git · GitHub · REST API 설계 · 데이터 파이프라인 구축 · CI/CD 기본</span></div>
+      <div class="skill-row"><span class="skill-label">언어 (구사)</span><span class="skill-items">한국어 (원어) · 영어 (원어민 수준, 미국 K-12·대학 학습) · 중국어 (회화)</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Projects (production / 단독 빌드)</div>
+
+    <div class="project-line"><strong>AIIM — AI Influencer Match</strong> <span class="tag">Python · FastAPI · LangGraph · GraphRAG · GCP</span><br>
+      <strong>End-to-end production 백엔드 단독 구축·운영</strong>. YouTube · Instagram · TikTok 크리에이터 <strong>5,300명+ 데이터 ingest</strong> across <strong>14개 언어</strong>. LangGraph 기반 agentic workflow 위에 GraphRAG retrieval로 브랜드 fit ranking. <strong>GCP Cloud Run + Cloud SQL 24/7 production 운영</strong>. <em>aiim-frontend-559416574965.asia-northeast3.run.app</em></div>
+
+    <div class="project-line"><strong>Vaccine Daily — AI News Intelligence Pipeline</strong> <span class="tag">React · FastAPI · ChromaDB · GraphRAG · ko-sroberta · HDBSCAN</span> <span class="tag">IBM × RedHat AX Academy 최우수상</span><br>
+      <strong>Cost-aware 멀티에이전트 LLM 백엔드 단독 설계</strong>. HDBSCAN 사전 클러스터링으로 <strong>LLM API 호출 수 대폭 감축</strong> (cost-aware 아키텍처), ko-sroberta 한국어 임베딩 + Kiwi 형태소 분석, Writer → Critic → Editor 멀티에이전트 루프로 hallucination 차단. <em>jeonhs9110.github.io/vaccine-daily/</em></div>
+
+    <div class="project-line"><strong>KOKKOK Garden — K-Beauty 다국가 e-commerce</strong> <span class="tag">Next.js 16 · Supabase (PostgreSQL + RLS) · GPT-4o mini</span><br>
+      <strong>풀스택 단독 개발 (현재 운영중)</strong>. Supabase 6-entity 관계형 스키마 (Row-Level Security + relational constraints) 설계, <strong>GPT-4o mini 기반 5개 언어 상품 자동 번역</strong>, KR/Global 자동 라우팅. <em>kokv2.vercel.app</em></div>
+
+    <div class="project-line"><strong>FOBO AI — European Football Outcome Prediction</strong> <span class="tag">PyTorch · Transformer · GAT · PPO RL · GCP</span><br>
+      <strong>8-stage ML + RL 파이프라인</strong>. Transformer + Graph Attention + Dixon-Coles + PPO + XGB/LGB 앙상블, 13개 유럽 리그 대상. <strong>앙상블 ~90%, PPO agent 동의 시 ~95% 정확도</strong>. <em>34.64.147.124</em></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Experience</div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">풀스택 개발자 (Backend 중심) <span class="job-company">KOKKOK Garden — K-Beauty 다국가 e-commerce</span></div>
+        <div class="job-period">2026.03 – 현재</div>
+      </div>
+      <ul class="compact">
+        <li><strong>Designed Supabase 백엔드 스키마</strong> — 6개 엔티티 관계형 스키마, Row-Level Security 정책, 결제·재고·고객 데이터 통합 관리 구조 설계</li>
+        <li><strong>Built 다국어 자동 번역 시스템</strong> — GPT-4o mini API 활용한 상품 정보 5개 언어 자동 번역 파이프라인 구축, KR/Global 자동 라우팅 구현</li>
+        <li><strong>Operated /admin 운영 대시보드</strong> — 마케팅팀이 직접 사용할 수 있는 운영 대시보드 설계·구축</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">AI 백엔드 개발 · IBM × RedHat AX Academy 수료 <span class="job-company">개인 production 프로젝트 + Academy 졸업 작품</span></div>
+        <div class="job-period">2025.08 – 2026.02</div>
+      </div>
+      <ul class="compact">
+        <li><strong>Shipped AIIM production system</strong> — Python · FastAPI · LangGraph · GraphRAG · GCP Cloud Run + Cloud SQL. 14개 언어 5,300+ 크리에이터 24/7 운영</li>
+        <li><strong>Won AX Academy 최우수상</strong> — Vaccine Daily 프로젝트로 IBM × RedHat AI Transformation 과정 최우수상 수상. Cost-aware 멀티에이전트 LLM 아키텍처</li>
+        <li><strong>Built FOBO AI 8-stage ML/RL pipeline</strong> — PyTorch · Transformer · Graph Attention · PPO 강화학습 앙상블</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">외교·해외업무 담당관 <span class="job-company">법무법인 광장 · 법무법인 충정 · 대한민국 국회 (김정훈 前의원 보좌)</span></div>
+        <div class="job-period">2019.07 – 2025.06 (6년)</div>
+      </div>
+      <ul class="compact">
+        <li><strong>한-중동 지속발전 포럼 사무장</strong> (광장, 2022.04–2025.06) — 한국금융투자협회(KOFIA) 공동주관 하 국내 10대 금융기관 × UAE·싱가포르 국부펀드 공동투자 LOI 체결까지 행사 운영 협력 주도</li>
+        <li>Sourced 해외 거래 안건 (충정, 2020.07–2022.04) — 이라크 LNG EPC, 나이지리아 철강 인수 등 cross-border 거래 발굴·진행</li>
+        <li>Built 외교 네트워크 (국회 의원실, 2019.07–2020.05) — UAE·카타르·오만·싱가포르·쿠웨이트 등 주한 대사·정부 관계자 응대, 영문 공식 서신 작성, MOU 협의 일상 수행</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Workforce Manager · Apple Tier 4 Senior Advisor <span class="job-company">Concentrix Korea (Apple ecosystem)</span></div>
+        <div class="job-period">2018.04 – 2019.02</div>
+      </div>
+      <div class="job-desc">Apple 글로벌 본사·클라이언트 표준에 따른 인력 스케줄링 운영. Apple Tier 4 (최상위 등급) 고객 대상 영문 기술지원 직접 수행 — Fortune 50 다국적 기업 운영 표준 체득.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Education · Certifications</div>
+    <div class="edu-grid">
+      <div>
+        <div class="edu-school">IBM × RedHat AI Transformation Academy</div>
+        <div class="edu-degree">AX Academy 수료 (2025.08–2026.02) — <strong>최우수상 수상</strong></div>
+      </div>
+      <div>
+        <div class="edu-school">Miami University, USA (Ohio)</div>
+        <div class="edu-degree">국제학 학사 (B.A. International Studies, 경제개발 전공)</div>
+      </div>
+      <div>
+        <div class="edu-school">대전외국인학교 (TCIS, Taejon Christian International School)</div>
+        <div class="edu-degree">IB Certificate (2008.08–2010.05)</div>
+      </div>
+      <div>
+        <div class="edu-school">Daegu American High School (미국 DOD 학교)</div>
+        <div class="edu-degree">High School Diploma — 미국 K-12 영어 환경 학습</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
+</parameter>

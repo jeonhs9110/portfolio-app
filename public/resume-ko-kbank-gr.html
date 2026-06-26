@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전현식 경력기술서 — 케이뱅크 GR</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @page { size: A4; margin: 0; }
+
+    :root {
+      --accent: #4338ca;
+      --accent-soft: #eef2ff;
+      --ink: #111;
+      --text: #1f2937;
+      --muted: #555;
+      --rule: #d4d4d8;
+    }
+
+    body {
+      font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.4;
+      color: var(--text);
+      background: white;
+      width: 210mm;
+      min-height: 297mm;
+      padding: 10mm 16mm;
+      position: relative;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2.5px solid var(--accent);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .header-left h1 {
+      font-size: 22pt;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .header-left .subtitle {
+      font-size: 10.5pt;
+      color: var(--accent);
+      margin-top: 2px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .header-left .contacts {
+      font-size: 8.5pt;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.45;
+    }
+
+    .header-photo {
+      width: 78px;
+      height: 96px;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .section { margin-bottom: 7px; }
+
+    .section-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--accent);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 0 2px 10px;
+      margin-bottom: 6px;
+      position: relative;
+    }
+
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 2px;
+      width: 3px;
+      height: 11pt;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .bio {
+      font-size: 9pt;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .job { margin-bottom: 6px; }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .job-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .job-title .job-company {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-style: italic;
+      font-weight: 500;
+      margin-left: 6px;
+    }
+
+    .job-period {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .job-desc {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 2px;
+      line-height: 1.5;
+    }
+
+    ul.compact {
+      list-style: none;
+      padding: 0;
+      margin: 2px 0 0;
+    }
+
+    ul.compact li {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 3px;
+      line-height: 1.5;
+      padding-left: 10px;
+      position: relative;
+    }
+
+    ul.compact li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px;
+      width: 4px; height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .edu-school { font-size: 9pt; font-weight: 700; color: var(--ink); }
+    .edu-degree { font-size: 8.5pt; color: var(--muted); margin-top: 1px; }
+
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .skill-row {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      line-height: 1.45;
+    }
+
+    .skill-label {
+      font-size: 8.5pt;
+      font-weight: 700;
+      width: 120px;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .skill-items { font-size: 8.5pt; color: var(--text); }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="header-left">
+      <h1>전현식 (全賢植)</h1>
+      <div class="subtitle">대외협력 · 정책·규제 대응 (Government Relations)</div>
+      <div class="contacts">
+        <div><strong>Portfolio:</strong> portfolio-app-5ca9.vercel.app &nbsp;·&nbsp; jeonhs9110@gmail.com &nbsp;·&nbsp; +82 10-4092-0628</div>
+        <div>www.linkedin.com/in/jeonhyunsik &nbsp;·&nbsp; github.com/jeonhs9110 &nbsp;·&nbsp; 서울특별시 영등포구 여의도동</div>
+      </div>
+    </div>
+    <img src="hyunsik-picture.jpg" alt="전현식" class="header-photo" />
+  </div>
+
+  <div class="section">
+    <div class="section-title">자기소개</div>
+    <div class="bio">국회 김정훈 의원실 7급 비서를 시작으로 동 의원의 법무법인 충정·광장 이직에 따라 외교·해외업무를 <strong>6년간(2019.07–2025.06) 연속 수행</strong>한 대외협력 전문가입니다. 의원실 차원에서 <strong>국회 정무위원회(금융위·금감원·공정위 등 소관) 예산결산 회의 및 중진의원 연석회의 배석</strong>을 통해 금융당국 대상 정책 점검 과정을 직접 관찰하였고, 화재로 인한 재해보상과 보험가입에 관한 법률 일부개정법률안 등 <strong>정무위 소관 보험·금융 관련 법안의 입법 지원 실무</strong>를 수행하였습니다. 광장 재직 시에는 한국금융투자협회(KOFIA)와 공동주관한 한-중동 포럼 사무총장으로서 국내 10대 금융기관과 UAE·싱가포르 국부펀드 간 공동투자 LOI 체결까지 전 과정을 책임졌습니다. 케이뱅크의 GR 직무에 요구되는 <strong>금융당국·국회 네트워크, 규제 개선 건의서 작성 역량, 산업 협의체 협업 경험</strong>을 즉시 적용할 수 있습니다.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">경력</div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">외교·해외업무 담당관 <span class="job-company">법무법인 광장 · 법무법인 충정 · 대한민국 국회</span></div>
+        <div class="job-period">2019.07 – 2025.06</div>
+      </div>
+      <ul class="compact">
+        <li><strong>법무법인 광장 (2022.04 – 2025.06)</strong> — 김정훈 前의원의 외교·해외업무 총괄. <strong>한-중동 지속가능발전포럼 사무총장</strong> 직책. 2023년 <strong>한국금융투자협회(KOFIA)</strong> 공동주관 하 국내 10대 금융기관과 UAE·싱가포르 국부펀드 간 고위급 회의 주선, <strong>공동투자 LOI 체결</strong>까지 마케팅 일정·콘퍼런스 기획·참석자 관리·후속 자료 작성 전 과정 책임. 2024년 서울대학교 치과병원 × Mubadala Health MOU 체결 주도. 중동 국부펀드 투자 테제·섹터 관심 상시 리서치 및 매칭 아웃리치를 지속 수행.</li>
+        <li><strong>법무법인 충정 (2020.07 – 2022.04)</strong> — 외교·해외업무 담당. 이라크 LNG 파이프라인 EPC, 나이지리아 철강 인수, 오만 국방부-현대로템 방산 안건(DAPA 승인 단계 진행) 등 cross-border 안건 발굴·진행. 외국 정부·기업 카운터파트 응대 및 다자 이해관계자 협상 자료 작성.</li>
+        <li><strong>대한민국 국회 김정훈 의원실 (2019.07 – 2020.05)</strong> — 7급 비서, 외교업무 담당관. <strong>국회 정무위원회 예산결산 회의 및 중진의원 연석회의 배석</strong> — 금융위·금감원·공정거래위 등 정무위 소관 기관에 대한 국정감사·자료요구 과정 직접 관찰. <strong>정무위 소관 법안 입법 지원</strong> — 화재로 인한 재해보상과 보험가입에 관한 법률 일부개정법률안 등 보험·금융 관련 법안의 비교법 연구·자료 조사·공동발의 협조 진행. 항공보안법·보험업법·방송법·정보통신망법 등 다수 법안 입법 자료 가공. 국립중앙박물관 × Louvre Abu Dhabi MOU 협의 주도. UAE 대사관저 격주 외교단 포럼 정례 참석을 통한 외교공관·외교부 네트워크 구축.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">풀스택 개발자 <span class="job-company">KOKKOK Garden — K-Beauty 다국가 e-commerce</span></div>
+        <div class="job-period">2026.03 – 현재</div>
+      </div>
+      <div class="job-desc">K-Beauty 다국가 e-commerce 플랫폼 풀스택 개발 (Next.js, Supabase, GPT-4o mini 다국어 번역). 마케팅팀과 협력하여 SNS 데이터 인텔리전스 파이프라인 및 크리에이터 직접 아웃리치 운영.</div>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Workforce Manager · Apple Tier 4 Senior Advisor <span class="job-company">Concentrix Korea</span></div>
+        <div class="job-period">2018.04 – 2019.02</div>
+      </div>
+      <div class="job-desc">Apple 글로벌 본사 및 클라이언트 표준에 부합하는 상담사 인력 스케줄링 운영, Apple Tier 4 고객 대상 상위급 기술지원 직접 수행. Fortune 50 다국적 기업 운영 표준 체득.</div>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">인사·재무 행정병 <span class="job-company">대한민국 육군 제4217부대 (세종)</span></div>
+        <div class="job-period">2012.10 – 2014.07</div>
+      </div>
+      <div class="job-desc">부대 인사·재무 행정 — 부사관·장교 인사기록 관리, 부대 청구·회계연도 보고 수행. 명문화된 군 규정 기반의 컴플라이언스 업무 기반 형성.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">교육</div>
+    <div class="edu-grid">
+      <div>
+        <div class="edu-school">Miami University, USA (Ohio)</div>
+        <div class="edu-degree">국제학 학사 (B.A. International Studies) — 경제개발 전공</div>
+      </div>
+      <div>
+        <div class="edu-school">IBM × RedHat AI Transformation</div>
+        <div class="edu-degree">AX Academy 수료 — 최우수상 수상</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">대외협력·정책 역량 (케이뱅크 GR 직접 부합)</div>
+    <div class="skills-grid">
+      <div class="skill-row"><span class="skill-label">금융당국 대관</span><span class="skill-items">정무위 소관 기관(금융위·금감원·공정위) 의제 직접 경험 · 국정감사·예산결산 과정 관찰 · 정책 점검 자료 가공</span></div>
+      <div class="skill-row"><span class="skill-label">국회 채널</span><span class="skill-items">의원실 6년간 의안 입법 지원 · 공동발의 협조 · 법안 비교법 연구 · 중진의원 연석회의 배석</span></div>
+      <div class="skill-row"><span class="skill-label">정책·규제 문서</span><span class="skill-items">규제 개선 건의서·정책 문서 작성 · 외부 커뮤니케이션 자료 가공 · 다국어 공식 서신 처리</span></div>
+      <div class="skill-row"><span class="skill-label">산업 협의체</span><span class="skill-items">한국금융투자협회(KOFIA) 공동주관 포럼 운영 · 10대 금융기관 협업 · 은행연합회 등 협의체 즉시 적용 가능</span></div>
+      <div class="skill-row"><span class="skill-label">언어·IT</span><span class="skill-items">한국어(원어) · 영어(미국 K-12·대학, 업무 활용) · 중국어(회화) · MS Office 고급 · IT 활용 능력(IBM × RedHat 최우수상)</span></div>
+    </div>
+  </div>
+
+</body>
+
+</html>

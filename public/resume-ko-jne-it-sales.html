@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전현식 — 제이엔테크놀러지 IT 인프라 기술영업 이력서</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @page { size: A4; margin: 12mm 14mm; }
+
+    :root {
+      --accent: #1e40af;
+      --accent-soft: #dbeafe;
+      --accent-bg: #f0f6ff;
+      --ink: #0f172a;
+      --text: #1f2937;
+      --muted: #555;
+      --rule: #d4d4d8;
+    }
+
+    body {
+      font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.45;
+      color: var(--text);
+      background: white;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2.5px solid var(--accent);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .header-left h1 {
+      font-size: 22pt;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .header-left .subtitle {
+      font-size: 11pt;
+      color: var(--accent);
+      margin-top: 3px;
+      font-weight: 700;
+    }
+
+    .header-left .contacts {
+      font-size: 8.5pt;
+      color: var(--muted);
+      margin-top: 5px;
+      line-height: 1.5;
+    }
+
+    .header-photo {
+      width: 78px;
+      height: 96px;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .section { margin-bottom: 9px; }
+
+    .section-title {
+      font-size: 10pt;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: var(--accent);
+      border-bottom: 1.5px solid var(--accent);
+      padding: 0 0 3px 11px;
+      margin-bottom: 6px;
+      position: relative;
+      text-transform: uppercase;
+    }
+
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 2px;
+      width: 4px;
+      height: 11pt;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .bio {
+      font-size: 9pt;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .highlight-box {
+      background: var(--accent-bg);
+      border-left: 3px solid var(--accent);
+      padding: 6px 10px;
+      margin-top: 6px;
+      font-size: 8.5pt;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .highlight-box strong { color: var(--accent); }
+
+    .job { margin-bottom: 8px; page-break-inside: avoid; }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 3px;
+      border-bottom: 1px dotted var(--rule);
+      padding-bottom: 2px;
+    }
+
+    .job-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .job-title .job-company {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-style: italic;
+      font-weight: 500;
+      margin-left: 5px;
+    }
+
+    .job-period {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .job-desc {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 2px;
+      line-height: 1.5;
+    }
+
+    ul.compact {
+      list-style: none;
+      padding: 0;
+      margin: 3px 0 0;
+    }
+
+    ul.compact li {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 3px;
+      line-height: 1.5;
+      padding-left: 11px;
+      position: relative;
+    }
+
+    ul.compact li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px;
+      width: 4px; height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 14px;
+    }
+
+    .edu-school { font-size: 9pt; font-weight: 700; color: var(--ink); }
+    .edu-degree { font-size: 8.5pt; color: var(--muted); margin-top: 1px; line-height: 1.45; }
+
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .skill-row {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      line-height: 1.45;
+    }
+
+    .skill-label {
+      font-size: 8.5pt;
+      font-weight: 700;
+      width: 138px;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .skill-items { font-size: 8.5pt; color: var(--text); }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="header-left">
+      <h1>전현식 (全賢植)</h1>
+      <div class="subtitle">IT 인프라 · AI 솔루션 기술영업 — Production Cloud 직접 운영 + 6년 BD</div>
+      <div class="contacts">
+        <div>jeonhs9110@gmail.com &nbsp;·&nbsp; +82 10-4092-0628 &nbsp;·&nbsp; 서울특별시 영등포구 여의도동 (구로 본사 통근 편리)</div>
+        <div>Portfolio: portfolio-app-5ca9.vercel.app &nbsp;·&nbsp; GitHub: github.com/jeonhs9110 &nbsp;·&nbsp; LinkedIn: jeonhyunsik</div>
+      </div>
+    </div>
+    <img src="jeon-id-2023.jpg" alt="전현식" class="header-photo" />
+  </div>
+
+  <div class="section">
+    <div class="section-title">Resume Summary</div>
+    <div class="bio">IT 인프라·AI 솔루션 기술영업 지원자 (BD 6년 + Production Cloud/AI 단독 빌드 경험 결합). <strong>IBM × RedHat AX Academy 최우수상</strong> 수상자로 GCP Cloud Run·Cloud SQL·ChromaDB·LangGraph 기반 production AI 백엔드 2건(AIIM 24/7 운영, Vaccine Daily)을 단독 빌드한 기술 이해 + 6년간 한국 기관과 해외 정부·기업·SWF 간 cross-border 사업개발(KOFIA × 10대 금융기관 × UAE/싱가포르 SWF 공동투자 LOI 체결)을 주도한 영업 실적을 결합한 프로필. <strong>고객 요구 분석 → 시스템 컨설팅 → 솔루션 제안 → 계약 체결</strong>의 전 사이클을 기술·비즈니스 양쪽 도메인 모두에서 책임져본 경력.</div>
+    <div class="highlight-box">
+      <strong>핵심 차별화</strong> · ① <strong>빠른 MVP·POC 모델 직접 제작으로 클라이언트 설득·계약 체결한 실적</strong> — KOKKOK Garden e-commerce 풀스택 + 콘텐츠 크리에이터 매칭 시스템(AIIM) 제작 시 경쟁사 대비 압도적 속도의 동작 프로토타입으로 의사결정자 설득 · ② 6년간 multi-stakeholder cross-border deal closing 실적 (KOFIA/10대 금융기관/UAE 국부펀드 등 institutional 단위) · ③ 영어 원어민 수준 + 해외 출장 결격사유 없음 + 구로구 본사 도보권 통근
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">역량 (JD 직접 매핑)</div>
+    <div class="skills-grid">
+      <div class="skill-row"><span class="skill-label">IT 인프라 도메인</span><span class="skill-items">GCP Cloud Run · Cloud SQL · PostgreSQL · Supabase (Row-Level Security) · ChromaDB (Vector DB) · LangGraph (멀티에이전트 LLM) · 24/7 production 운영 직접 경험</span></div>
+      <div class="skill-row"><span class="skill-label">Server / Storage / Solution</span><span class="skill-items">클라우드 인스턴스·스토리지·DB·벡터DB·API 인프라를 단독 설계·배포·운영해본 실무 (AIIM 14개 언어 5,300+ 운영)</span></div>
+      <div class="skill-row"><span class="skill-label">고객 요구 분석·컨설팅</span><span class="skill-items">6년간 한국 정부·금융기관·해외 카운터파트의 사업 요구를 시스템·구조 단위로 분해해 솔루션 제안한 cross-border BD 실무</span></div>
+      <div class="skill-row"><span class="skill-label">시장 동향 파악</span><span class="skill-items">중동·아시아 국부펀드 투자 테제 상시 리서치 6년 + IBM × RedHat AX Academy 데이터 분석 프로젝트 최우수상</span></div>
+      <div class="skill-row"><span class="skill-label">프로젝트 관리</span><span class="skill-items">한-중동 지속발전 포럼 사무장 — 100명+ 참석자(국회의장·14명 의원·5개국 대사·대기업 임원) 행사 운영 협력 주도</span></div>
+      <div class="skill-row"><span class="skill-label">언어 (우대 충족)</span><span class="skill-items"><strong>영어 원어민 수준</strong> (미국 K-12·대학 학습) · 한국어 (원어) · 중국어 (회화) · 6년간 영문 공식 서신·MOU 협상 일상</span></div>
+      <div class="skill-row"><span class="skill-label">툴 (우대 충족)</span><span class="skill-items">MS Office 고급 — <strong>PPT 보고서·제안서 작성 6년 일상 사용</strong> · Git · Python · TypeScript · 컴퓨터 활용 능력 우수</span></div>
+      <div class="skill-row"><span class="skill-label">기타 (우대 충족)</span><span class="skill-items">해외근무 가능 · 해외 출장 결격사유 없음 · 5년 이상 관련 분야 경력 · 구로구 본사 통근 편리 (여의도 거주)</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">경력</div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">풀스택 개발 (Backend 중심, 현재 운영중) <span class="job-company">KOKKOK Garden — K-Beauty 다국가 e-commerce 플랫폼</span></div>
+        <div class="job-period">2026.03 – 현재</div>
+      </div>
+      <ul class="compact">
+        <li><strong>Supabase 백엔드 스키마 설계</strong> — 6개 엔티티 관계형 스키마, Row-Level Security 정책 적용, 결제·재고·고객 데이터 통합 관리 구조 직접 설계 (Next.js 16 · PostgreSQL)</li>
+        <li><strong>다국어 자동 번역 시스템 구축</strong> — GPT-4o mini API 활용한 상품 정보 5개 언어 자동 번역 파이프라인, KR/Global 자동 라우팅 구현</li>
+        <li><strong>운영 대시보드 구축</strong> — 마케팅팀이 직접 사용할 수 있는 /admin 대시보드 설계·배포, 데이터 흐름 모니터링 체계 수립 (kokv2.vercel.app)</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">AI 백엔드 개발 · IBM × RedHat AX Academy 수료 <span class="job-company">개인 production 프로젝트 + Academy 졸업 작품</span></div>
+        <div class="job-period">2025.08 – 2026.02</div>
+      </div>
+      <ul class="compact">
+        <li><strong>AIIM production 시스템 단독 운영</strong> — Python · FastAPI · LangGraph · GraphRAG · <strong>GCP Cloud Run + Cloud SQL</strong>. 14개 언어 5,300+ 크리에이터 데이터 ingest, 24/7 production 운영 (인프라 단독 구축·관리)</li>
+        <li><strong>Vaccine Daily 멀티에이전트 LLM 백엔드 단독 설계</strong> — HDBSCAN 사전 클러스터링으로 LLM API 호출 비용 대폭 감축한 cost-aware 아키텍처. ChromaDB · ko-sroberta · Kiwi 형태소 분석. <strong>AX Academy 최우수상 수상</strong></li>
+        <li><strong>FOBO AI 8-stage ML/RL 파이프라인 설계</strong> — PyTorch · Transformer · GAT · PPO 강화학습 앙상블. 13개 유럽 리그 대상, 앙상블 ~90% 정확도</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">외교·해외업무 담당관 (Cross-Border BD · 솔루션 매칭) <span class="job-company">법무법인 광장 (Lee &amp; Ko) — 김정훈 前국회의원 보좌</span></div>
+        <div class="job-period">2022.04 – 2025.06 (3년 2개월)</div>
+      </div>
+      <ul class="compact">
+        <li><strong>한-중동 지속발전 포럼 사무장</strong> — 공동투자 LOI: 한국금융투자협회(KOFIA) 공동주관 하 국내 10대 금융기관 × UAE·싱가포르 국부펀드 간 고위급 회의 운영, LOI 체결까지 전 과정 협력 주도</li>
+        <li><strong>SNU 치과병원 × Mubadala Health(아부다비) MOU 체결 협력 주도 (2024)</strong> — cold outreach부터 signed terms까지 전 과정 협력 주도. Khalifa University 레지던트의 SNU 순환 근무 + SNU 시니어 교수의 UAE 강의 순환 양방향 구조화</li>
+        <li><strong>중동 국부펀드 시장 동향 상시 리서치</strong> — UAE Mubadala·ADIA, Saudi PIF, Qatar QIA, Singapore GIC·Temasek 등 주요 국부펀드의 투자 테제·섹터 관심 상시 추적 후 한국 측 사업기회와 매칭</li>
+        <li><strong>2023년 8월 국회 의원회관 한·중동 경제포럼 운영</strong> — 100명+ 참석자(국회의장·14명 현직 의원·5개국 대사·대기업 임원). 발제자 초청·장소 섭외·외교단·기업 outreach 전 과정 책임</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">외교·해외업무 담당관 (Cross-Border 무역·산업 안건 발굴) <span class="job-company">법무법인 충정 (HMP Law) — 김정훈 前국회의원 보좌</span></div>
+        <div class="job-period">2020.07 – 2022.04 (1년 9개월)</div>
+      </div>
+      <ul class="compact">
+        <li><strong>Sourced 이라크 LNG 파이프라인 EPC 안건</strong> — 이라크 정부 측 신규 거래 발굴, 한국 EPC 컨소시엄 측 매칭, 협상 자료 작성</li>
+        <li><strong>Originated 나이지리아 철강 인수 안건</strong> — 서아프리카 산업 자산 cross-border 인수 진행, 외국 정부·기업 카운터파트 응대</li>
+        <li><strong>Drafted 오만 국방부 안건 (현대로템 경로)</strong> — 오만 측 정부 협의 채널 구축, 한국 측 현대로템 매칭, DAPA 승인 단계까지 진행</li>
+        <li>외국 정부·기업 카운터파트 응대, 다자 이해관계자 협상 자료 작성, 영문 공식 서신·통역의뢰 처리 일상 수행</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">7급 비서 · 외교업무 담당관 <span class="job-company">대한민국 국회 김정훈 의원실</span></div>
+        <div class="job-period">2019.07 – 2020.05 (11개월)</div>
+      </div>
+      <ul class="compact">
+        <li><strong>주한 외교사절 응대</strong> — UAE·카타르·오만·싱가포르·쿠웨이트 대사·정부 고위 관계자 영문 공식 서신 작성, 통역의뢰 처리, VIP 의전 관리</li>
+        <li><strong>국립중앙박물관 × Louvre Abu Dhabi MOU 협의 주도</strong> — 한국 국립 문화기관과 UAE 측 카운터파트 협의 진행 (cross-border 문화 협력)</li>
+        <li><strong>UAE 대사관저 격주 외교단 비공식 포럼 정례 참석</strong> (2019–2025 누적) — 6년간의 중동 외교·자산가 네트워크의 시작점</li>
+        <li><strong>정무위원회 의제 직접 경험</strong> — 의원실 차원에서 정무위 예산결산 회의 및 중진의원 연석회의 배석. 금융위·금감원·공정거래위 등 정무위 소관 기관 점검 과정 관찰</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Workforce Manager · Apple Tier 4 Senior Advisor <span class="job-company">Concentrix Korea (Apple ecosystem)</span></div>
+        <div class="job-period">2018.04 – 2019.02 (11개월)</div>
+      </div>
+      <ul class="compact">
+        <li>Apple 글로벌 본사 및 클라이언트 표준에 따른 콜센터 상담사 인력 스케줄링 운영</li>
+        <li>Apple Tier 4 (최상위 등급) 고객 대상 영문 기술지원 직접 수행 — 글로벌 기술지원 표준 체득</li>
+        <li>Fortune 50 다국적 기업의 운영·고객 응대 품질 기준 체득 — 다국적 기업 대상 영업·기술응대의 기본 표준 학습</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">인사·재무 행정병 <span class="job-company">대한민국 육군 제4217부대 (세종)</span></div>
+        <div class="job-period">2012.10 – 2014.07 (1년 9개월)</div>
+      </div>
+      <div class="job-desc">부대 인사·재무 행정 — 부사관·장교 인사기록 관리, 부대 청구·회계연도 보고 수행. 명문화된 군 규정 기반 컴플라이언스 업무 체득. 만기 전역.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">학력 · 자격</div>
+    <div class="edu-grid">
+      <div>
+        <div class="edu-school">IBM × RedHat AI Transformation Academy</div>
+        <div class="edu-degree">AX Academy 수료 (2025.08–2026.02) — <strong>최우수상 수상</strong></div>
+      </div>
+      <div>
+        <div class="edu-school">Miami University, USA (Ohio)</div>
+        <div class="edu-degree">국제학 학사 (B.A. International Studies, 경제개발 전공)</div>
+      </div>
+      <div>
+        <div class="edu-school">대전외국인학교 (TCIS, Taejon Christian International School)</div>
+        <div class="edu-degree">IB Certificate (2008.08–2010.05) — 영어 환경 학습</div>
+      </div>
+      <div>
+        <div class="edu-school">Daegu American High School (미국 DOD 학교)</div>
+        <div class="edu-degree">High School Diploma — 미국 K-12 영어 환경 학습</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

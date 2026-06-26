@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전현식 — 한국수입협회 대외협력본부 지원서</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @page { size: A4; margin: 0; }
+
+    :root {
+      --accent: #4338ca;
+      --accent-soft: #eef2ff;
+      --ink: #0f172a;
+      --text: #1f2937;
+      --muted: #555;
+      --rule: #d4d4d8;
+    }
+
+    body {
+      font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.5;
+      color: var(--text);
+      background: white;
+      width: 210mm;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      padding: 12mm 16mm;
+      page-break-after: always;
+      position: relative;
+    }
+
+    .page:last-child { page-break-after: auto; }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2.5px solid var(--accent);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .header-left h1 {
+      font-size: 22pt;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .header-left .subtitle {
+      font-size: 10.5pt;
+      color: var(--accent);
+      margin-top: 2px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .header-left .contacts {
+      font-size: 8.5pt;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.45;
+    }
+
+    .header-photo {
+      width: 78px;
+      height: 96px;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .doc-header {
+      border-bottom: 3px solid var(--accent);
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+    }
+
+    .doc-header h1 {
+      font-size: 22pt;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+
+    .doc-header .subtitle {
+      font-size: 11pt;
+      color: var(--accent);
+      margin-top: 4px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .doc-header .meta {
+      font-size: 9pt;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .section { margin-bottom: 6px; }
+
+    .section-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--accent);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 0 2px 10px;
+      margin-bottom: 5px;
+      position: relative;
+    }
+
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 2px;
+      width: 3px;
+      height: 11pt;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .section-title-big {
+      font-size: 12pt;
+      font-weight: 800;
+      color: var(--accent);
+      border-bottom: 1.5px solid var(--accent);
+      padding: 0 0 5px 13px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .section-title-big::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 4px;
+      width: 4px;
+      height: 13pt;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .bio {
+      font-size: 9pt;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .job { margin-bottom: 5px; }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .job-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .job-title .job-company {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-style: italic;
+      font-weight: 500;
+      margin-left: 6px;
+    }
+
+    .job-period {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .job-desc {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 2px;
+      line-height: 1.5;
+    }
+
+    ul.compact {
+      list-style: none;
+      padding: 0;
+      margin: 2px 0 0;
+    }
+
+    ul.compact li {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 3px;
+      line-height: 1.5;
+      padding-left: 10px;
+      position: relative;
+    }
+
+    ul.compact li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px;
+      width: 4px; height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .edu-school { font-size: 9pt; font-weight: 700; color: var(--ink); }
+    .edu-degree { font-size: 8.5pt; color: var(--muted); margin-top: 1px; }
+
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .skill-row {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      line-height: 1.45;
+    }
+
+    .skill-label {
+      font-size: 8.5pt;
+      font-weight: 700;
+      width: 130px;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .skill-items { font-size: 8.5pt; color: var(--text); }
+
+    .essay-block {
+      margin-bottom: 14px;
+    }
+
+    .essay-block h3 {
+      font-size: 11pt;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 6px;
+      padding-left: 10px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .essay-block p {
+      font-size: 9.5pt;
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .essay-block ul {
+      margin-left: 16px;
+      margin-bottom: 8px;
+    }
+
+    .essay-block ul li {
+      font-size: 9.5pt;
+      line-height: 1.55;
+      margin-bottom: 3px;
+    }
+
+    .footer {
+      font-size: 8pt;
+      color: var(--muted);
+      text-align: right;
+      margin-top: 14px;
+      padding-top: 8px;
+      border-top: 1px solid var(--rule);
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ===================== PAGE 1: 이력서 ===================== -->
+<div class="page">
+
+  <div class="header">
+    <div class="header-left">
+      <h1>전현식 (全賢植)</h1>
+      <div class="subtitle">대외협력 · 해외기관 연계 · 국제행사 의전</div>
+      <div class="contacts">
+        <div><strong>Portfolio:</strong> portfolio-app-5ca9.vercel.app &nbsp;·&nbsp; jeonhs9110@gmail.com &nbsp;·&nbsp; +82 10-4092-0628</div>
+        <div>www.linkedin.com/in/jeonhyunsik &nbsp;·&nbsp; github.com/jeonhs9110 &nbsp;·&nbsp; 서울특별시 영등포구 여의도동</div>
+      </div>
+    </div>
+    <img src="hyunsik-picture.jpg" alt="전현식" class="header-photo" />
+  </div>
+
+  <div class="section">
+    <div class="section-title">자기소개</div>
+    <div class="bio">한국수입협회 대외협력본부 직무 6가지(해외 수입사절단, 수입박람회, 무역상담, 해외 시장조사, 대사관·유관기관 협력, 국제 행사 의전)에 <strong>직접 매핑되는 6년 실무 경력</strong>을 보유한 지원자입니다. 김정훈 前국회의원실 7급 비서로 시작해 법무법인 충정·광장에서 외교·해외업무 담당관으로 일하며 UAE·사우디·카타르·쿠웨이트·오만 등 GCC 전역의 정부·국부펀드·기업 카운터파트와 cross-border 안건을 일상적으로 진행해왔습니다. <strong>한국금융투자협회(KOFIA)와 공동주관한 한-중동 지속가능발전포럼 사무총장</strong>으로 국제 행사 운영·의전 전 과정을 단독 책임진 경험, <strong>UAE 대사관저 격주 외교단 포럼 6년 정례 참석</strong>으로 누적된 대사관·유관기관 네트워크가 가장 강한 자산입니다. 영어는 미국 K-12부터 대학교(마이에미 대학교 국제학과)까지 학습한 <strong>원어민 수준</strong>으로 회화·독해·작문 모두 업무 즉시 활용 가능하며, 중국어 회화도 가능합니다.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">경력</div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">외교·해외업무 담당관 <span class="job-company">법무법인 광장 · 법무법인 충정 · 대한민국 국회</span></div>
+        <div class="job-period">2019.07 – 2025.06 (6년)</div>
+      </div>
+      <ul class="compact">
+        <li><strong>법무법인 광장 (2022.04 – 2025.06)</strong> — 한-중동 지속가능발전포럼 사무총장. 한국금융투자협회(KOFIA) 공동주관 하 국제 포럼 운영 전 과정 책임(국제 행사 의전·기획·외빈 응대·후속 자료 작성). 서울대 치과병원 × Mubadala Health(아부다비) MOU 체결 주도(2024). 중동 국부펀드·정부·기업 카운터파트 상시 대응 및 매칭 outreach.</li>
+        <li><strong>법무법인 충정 (2020.07 – 2022.04)</strong> — Cross-border 안건 발굴·진행. 이라크 LNG 파이프라인 EPC, 나이지리아 철강 인수, 오만 국방부 안건 등 다양한 권역의 무역·산업 cross-border 거래의 외국 정부·기업 카운터파트 응대 및 협상 자료 작성.</li>
+        <li><strong>대한민국 국회 김정훈 의원실 (2019.07 – 2020.05)</strong> — 7급 비서·외교업무 담당관. 주한 카타르·오만·UAE·싱가포르·쿠웨이트 대사·정부 관계자 응대 일상 수행, 국립중앙박물관 × Louvre Abu Dhabi MOU 협의 주도. UAE 대사관저 격주 외교단 비공식 포럼 정례 참석(2019~2025, 6년 누적) — 대사관·유관기관 네트워크의 시작점.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">풀스택 개발자 <span class="job-company">KOKKOK Garden — K-Beauty 다국가 e-commerce</span></div>
+        <div class="job-period">2026.03 – 현재</div>
+      </div>
+      <div class="job-desc">K-Beauty 다국가 e-commerce 플랫폼 풀스택 개발 (Next.js, Supabase, GPT-4o mini 다국어 자동 번역). 마케팅팀 협업으로 해외 시장 데이터 수집·해외 거래처 직접 outreach 수행.</div>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Workforce Manager · Apple Tier 4 Senior Advisor <span class="job-company">Concentrix Korea</span></div>
+        <div class="job-period">2018.04 – 2019.02</div>
+      </div>
+      <div class="job-desc">Apple 글로벌 본사·클라이언트 표준에 부합하는 인력 스케줄링 운영. Apple Tier 4 (최상위 등급) 고객 대상 영문 기술지원 직접 수행 (Fortune 50 다국적 기업의 운영 표준 체득).</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">교육</div>
+    <div class="edu-grid">
+      <div>
+        <div class="edu-school">마이에미 대학교 (Miami University, USA Ohio)</div>
+        <div class="edu-degree">국제학 학사 (B.A. International Studies, 경제개발 전공) — 미국 K-12부터 대학교까지 영어 환경 학습</div>
+      </div>
+      <div>
+        <div class="edu-school">IBM × RedHat AI Transformation</div>
+        <div class="edu-degree">AX Academy 수료 — 최우수상 수상 (2024)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">역량 (KOIMA 대외협력본부 직무 직접 매핑)</div>
+    <div class="skills-grid">
+      <div class="skill-row"><span class="skill-label">해외 시장조사</span><span class="skill-items">중동·아시아 국부펀드·정부 투자 테제 상시 리서치 6년 · 해외 산업 사례 비교 분석 실무</span></div>
+      <div class="skill-row"><span class="skill-label">대사관·유관기관 협력</span><span class="skill-items">UAE 대사관저 격주 외교단 포럼 6년 정례 참석 · 카타르·오만·UAE·싱가포르·쿠웨이트·사우디 주한 대사·정부 관계자 상시 응대</span></div>
+      <div class="skill-row"><span class="skill-label">국제행사 의전·운영</span><span class="skill-items">한-중동 지속가능발전포럼 사무총장 — 콘퍼런스 기획·운영·참석자 의전·후속 자료 전 과정 단독 책임</span></div>
+      <div class="skill-row"><span class="skill-label">무역·해외 거래</span><span class="skill-items">이라크 LNG·나이지리아 철강·오만 국방부 안건 등 cross-border 무역·산업 거래 발굴·진행 실무</span></div>
+      <div class="skill-row"><span class="skill-label">영어</span><span class="skill-items"><strong>회화·독해·작문 모두 원어민 수준</strong>(미국 K-12·대학 학습, 6년간 영문 공식 서신·MOU 협상·VIP 응대 일상)</span></div>
+      <div class="skill-row"><span class="skill-label">기타 어학·툴</span><span class="skill-items">한국어(원어) · 중국어(회화) · MS Office 고급(Word·Excel·PowerPoint·Outlook)</span></div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ===================== PAGE 2: 자기소개서 ===================== -->
+<div class="page">
+
+  <div class="doc-header">
+    <h1>자기소개서</h1>
+    <div class="subtitle">전현식 (全賢植) · 한국수입협회 대외협력본부 지원</div>
+    <div class="meta">jeonhs9110@gmail.com · +82 10-4092-0628 · 2026년 5월</div>
+  </div>
+
+  <div class="essay-block">
+    <h3>지원동기 — 6년의 일을 그대로 옮길 수 있는 자리</h3>
+    <p>한국수입협회 대외협력본부 채용 공고를 읽으며 6가지 담당업무(해외 수입사절단·수입박람회·무역상담·해외 시장조사·대사관 및 유관기관 협력·국제 행사 의전)가 제 6년 경력의 핵심 업무와 거의 1:1로 매핑된다는 점이 가장 먼저 보였습니다. 김정훈 前국회의원실 7급 비서로 시작해 법무법인 충정·광장에서 외교·해외업무 담당관으로 일하는 동안 일상이 한국 측 기관·기업과 외국 측 정부·기업·국부펀드 사이에 서서 cross-border 안건을 발굴·연결·진행하는 일이었습니다. 한국수입협회가 한국 수입업계와 해외 거래 파트너 사이에서 같은 역할을 한다는 점에서, 도메인이 정책·법무에서 무역·수입으로 바뀔 뿐 본질적인 일의 형태는 동일하다고 봅니다.</p>
+    <p>또 하나의 이유는 협회 환경에 끌린다는 점입니다. 광장 시절 한국금융투자협회(KOFIA)와 공동주관한 한-중동 지속가능발전포럼을 사무총장으로 운영하며 한국 산업 협의체의 운영 구조와 회원사 응대·정부 협력의 흐름을 가까이서 학습할 수 있었습니다. 협회는 회원사·정부·해외기관 사이의 중간 노드로서 단순 업체 이상의 산업 단위 관점을 갖춘다는 점에서, 6년간 multi-stakeholder를 응대해온 제 자세와 잘 맞는다고 생각합니다.</p>
+  </div>
+
+  <div class="essay-block">
+    <h3>직무 적합성 — 담당업무 6가지 직접 매핑</h3>
+    <ul>
+      <li><strong>해외 수입사절단·국제 행사 의전</strong>: 한-중동 지속가능발전포럼 사무총장으로서 정례 포럼의 콘퍼런스 기획·참석자 다이어리 관리·의전·통역·호텔 디렉팅·후속 자료 작성까지 전 과정을 단독 책임진 경험. 2023년 8월 국회 의원회관 한-중동 경제포럼에서 국회의장·14명 의원·5개국 대사·대기업 임원 100명 이상 참석한 행사를 행정·실무 책임자로 운영.</li>
+      <li><strong>수입박람회·무역상담</strong>: 법무법인 충정 재직 시 이라크 LNG 파이프라인 EPC, 나이지리아 철강 인수 등 cross-border 무역·산업 거래의 외국 정부·기업 카운터파트 응대 및 협상 자료 작성. 한국 측 기업과 외국 측 파트너 사이의 매칭·협의 실무 6년.</li>
+      <li><strong>해외 시장조사</strong>: 광장 시절 중동 국부펀드(UAE Mubadala·ADIA, Saudi PIF, Qatar QIA, Kuwait KIA, Singapore GIC·Temasek)의 투자 테제·섹터 관심·지역 배분 변화를 상시 추적해 한국 측 사업기회와 매칭하는 리서치 기반 매칭 실무를 수행. 동일한 리서치 방법론을 수입·무역 측 글로벌 거래처 분석에 그대로 적용 가능.</li>
+      <li><strong>대사관 및 유관기관 협력</strong>: UAE 대사관저 격주 외교단 비공식 포럼 정례 참석(2019~2025, 6년 누적)으로 누적된 카타르·오만·UAE·싱가포르·쿠웨이트·사우디 주한 대사·정부 고위 관계자 네트워크. 영문 공식 서신 작성, 통역의뢰 처리, VIP 의전 관리가 일상 업무.</li>
+    </ul>
+  </div>
+
+  <div class="essay-block">
+    <h3>강점 — 영어 + GCC 네트워크 + 의전 감각</h3>
+    <p>JD가 강조하는 영어 회화·독해·작문 능통은 미국 K-12부터 대학교(마이에미 대학교 국제학과)까지 영어 환경에서 학습한 토대 위에, 6년간 영문 공식 서신·MOU 협상·외교단 응대를 일상적으로 수행한 경험으로 검증되어 있습니다. 추가로 어린 시절 삼성 주재원 가족으로 중국에서 생활하며 중국어 회화도 가능합니다.</p>
+    <p>JD에 명시된 우대사항 중 "해당직무 인턴경력자"에 정확히 부합하지는 않지만, 의원실·법무법인 환경에서 6년간 정확히 같은 형태의 일을 정규 담당관으로 수행한 이력이 인턴 경력 이상의 직무 친화도를 보장한다고 봅니다.</p>
+  </div>
+
+  <div class="essay-block">
+    <h3>입사 후 계획 · 포부</h3>
+    <p>첫째, 입사 후 3개월 계약 기간 내에 회원사·정부 거래처·해외 파트너 명단을 빠르게 정리하고, 본인이 보유한 GCC 외교단·정부·자산가 네트워크 중 KOIMA 회원사의 잠재 거래처가 될 수 있는 라인을 식별합니다. 단순 introduction을 넘어 실제 무역 안건 매칭으로 이어질 수 있는 채널 정리를 우선으로 합니다.</p>
+    <p>둘째, JD 우대사항인 <strong>수입관리사 자격증</strong>을 입사 후 6개월 내 취득해 정통 수입업 도메인 갭을 메웁니다. 무역 실무·통관·외환 등 협회 회원사 응대에 필요한 기본 지식 학습을 병행합니다.</p>
+    <p>셋째, 정규직 전환 이후에는 본인의 GCC 네트워크와 영문 의전·이벤트 운영 역량을 활용해 한국수입협회의 중동 권역 수입사절단·박람회 운영의 차별화된 성과를 만들고 싶습니다. 한국 수입업계의 GCC 시장 진출을 직접 지원하는 자리를 만들어가는 것이 중장기 목표입니다.</p>
+  </div>
+
+</div>
+
+</body>
+
+</html>
+</parameter>
