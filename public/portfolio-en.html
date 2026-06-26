@@ -338,6 +338,80 @@
         </div>
     </div>
 
+    <!-- PAGE: Play_BALL -->
+    <div class="page">
+        <div class="section">
+            <div class="section-title">Featured Project 06</div>
+            <div class="project-card">
+                <h2>Play_BALL — Multi-Agent Baseball Prediction Pipeline <span class="participants">Hyunsik Jeon (Solo)</span></h2>
+                <div class="tech">Python · PyTorch · XGBoost · LightGBM · PyMC (Bayesian) · Ollama qwen2.5 · faster-whisper · Streamlit · SQLite · MLB Stats API · pybaseball</div>
+                <div class="desc"><strong>An 8-agent baseball prediction pipeline that ports the FOBO AI orchestration discipline to MLB, KBO, and NPB.</strong> Hierarchical Bayesian pitcher rating → negative-binomial run model → XGBoost win/totals → Platt calibration → conformal intervals — ships predictions with confidence ranges, not single point estimates. YouTube pundit signal extracted by yt-dlp + faster-whisper, then structured into picks by a local Ollama LLM — zero external LLM API spend. Bayesian model averaging across model / pundits / market with fractional Kelly sizing.</div>
+
+                <div class="pipeline">
+                    <h4>8-Agent System Architecture</h4>
+                    <ul>
+                        <li><strong>A1 Schedule</strong> Pulls upcoming MLB games via MLB Stats API</li>
+                        <li><strong>A2 Info Scraper</strong> Lineups, probable pitchers, sabermetrics, park factors, weather, umpires</li>
+                        <li><strong>A3 ML Predictor</strong> Hierarchical Bayesian pitcher rating → NB run model → XGBoost win/totals → Platt calibration → conformal intervals</li>
+                        <li><strong>A4 Pundit Aggregator</strong> YouTube (yt-dlp + faster-whisper + Ollama) / ESPN / CBS / Action Network → structured picks</li>
+                        <li><strong>A5 Authenticator</strong> Beta-Bernoulli reliability tracker per pundit per market</li>
+                        <li><strong>A6 Market / Odds</strong> The Odds API → vig-adjusted implied probabilities</li>
+                        <li><strong>A7 Final Aggregator</strong> Bayesian model averaging (ML × pundits × market) + fractional Kelly</li>
+                        <li><strong>A8 Outcome Tracker</strong> Closes the loop — updates A3 training set and A5 reliability posteriors after games settle</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE: Synthetic Video -->
+    <div class="page">
+        <div class="section">
+            <div class="section-title">Featured Project 07</div>
+            <div class="project-card">
+                <h2>Synthetic Video — Local GenAI 9:16 Vertical Reel Pipeline <span class="participants">Hyunsik Jeon (Solo)</span></h2>
+                <div class="tech">ComfyUI · Wan 2.2 14B GGUF · Flux schnell · PuLID · IP-Adapter · ControlNet · Florence-2 · WD14 · Depth Anything V2 · Kokoro-82M · Whisper · Stable Audio Open</div>
+                <div class="desc"><strong>Two finished 9:16 vertical reels delivered entirely on a local GPU.</strong> PuLID-Flux locks character likeness across shots, Wan 2.2 14B drives motion, Stable Audio Open generates the music bed, all composited in ComfyUI. Reel 1 (Lila venue arc): a fictional K-pop dancer ascending from a Jakarta back-alley to a stadium finale in 7 beats. Reel 2 (Mika in Tokyo 1972): a burnt-out 2026 content creator time-travels to the height of the Japanese economic boom. Each clip is 41 s @ 480 × 832, normalised to −14 LUFS streaming standard, captions baked in — ready to upload to YouTube Shorts / TikTok / Reels with no further editing.</div>
+
+                <div class="pipeline">
+                    <h4>Reusable Pipeline</h4>
+                    <ul>
+                        <li><strong>1. Character lock</strong> PuLID-Flux face conditioning fixes Lila and Mika across every shot — reusable host characters for future episodes</li>
+                        <li><strong>2. Motion generation</strong> Wan 2.2 14B GGUF (HighNoise + LowNoise Q4_K_M) + Wan VAE + UMT5 drives clip-to-clip motion; Wan-Lightning LoRA speeds inference</li>
+                        <li><strong>3. Stills</strong> Flux schnell GGUF for storyboard frames; IP-Adapter + ControlNet for tight per-shot composition control</li>
+                        <li><strong>4. Captions + voice</strong> Whisper large-v3 transcribes auto-pronounced lines from Kokoro-82M TTS; captions baked into the video</li>
+                        <li><strong>5. Music</strong> Stable Audio Open generates per-reel music bed (Reel 1: EDM; Reel 2: 1970s Japanese city-pop instrumental)</li>
+                        <li><strong>6. Template</strong> Per-episode dir of CHARACTER.md + STORYBOARD.md + MUSIC.md; one script chain runs ~75–85 min unattended on a single GPU and outputs the finished mp4</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE: Image Finder -->
+    <div class="page">
+        <div class="section">
+            <div class="section-title">Featured Project 08</div>
+            <div class="project-card">
+                <h2>Image Finder — On-Device AI Photo Search Android App <span class="participants">Hyunsik Jeon (Solo)</span></h2>
+                <div class="tech">React Native · Expo SDK 56 · YuNet (MIT) · SFace (Apache-2.0) · OpenCLIP ViT-B-32 DataComp.XL (MIT) · ONNX Runtime · AdMob (planned) · Google Play Billing (planned)</div>
+                <div class="desc"><strong>Privacy-by-default photo-search Android app.</strong> Face detection, 128-dimensional face embedding, and CLIP image+text search all run on-device — no user content leaves the handset; verified zero network egress. Personally swapped every non-commercial model (InsightFace, Apple MobileCLIP) out for an MIT / Apache-2.0 equivalent so the app is safe for an ad-monetised release. APK built; remaining work is Play Console submission, AdMob wiring, and Google Play Billing for the $3/mo ad-free tier.</div>
+
+                <div class="pipeline">
+                    <h4>Technical Pipeline Detail</h4>
+                    <ul>
+                        <li><strong>1. Face detection</strong> YuNet 2023mar (MIT) replaces SCRFD / buffalo_s — ad-monetisation-safe</li>
+                        <li><strong>2. Face recognition</strong> SFace 2021dec (Apache-2.0) replaces ArcFace, producing 128-d embeddings; cluster threshold retuned to 0.33 for per-user identity grouping</li>
+                        <li><strong>3. Image+text search</strong> OpenCLIP ViT-B-32 DataComp.XL (MIT) replaces non-commercial MobileCLIP-S2 — natural-language search over the user's photo library</li>
+                        <li><strong>4. Resumable migration</strong> FACE_MODEL_VERSION + CLIP_EMBED_VERSION bumps drive automatic re-detection on next launch; existing installs migrate seamlessly</li>
+                        <li><strong>5. Privacy + permissions</strong> READ_MEDIA_IMAGES / READ_MEDIA_VIDEO only; blocks SYSTEM_ALERT_WINDOW, WRITE/READ_EXTERNAL_STORAGE — minimises Play scrutiny</li>
+                        <li><strong>6. Consent + deletion</strong> BIPA/GDPR-compliant consent flow; Settings → Data & privacy → Delete all face data lets users erase biometric identifiers on demand</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>

@@ -337,6 +337,80 @@
         </div>
     </div>
 
+    <!-- PAGE: Play_BALL -->
+    <div class="page">
+        <div class="section">
+            <div class="section-title">Featured Project 06</div>
+            <div class="project-card">
+                <h2>Play_BALL — MLB·KBO·NPB 멀티 에이전트 야구 예측 파이프라인 <span class="participants">전현식 (1인 개발)</span></h2>
+                <div class="tech">Python · PyTorch · XGBoost · LightGBM · PyMC (베이지안) · Ollama qwen2.5 · faster-whisper · Streamlit · SQLite · MLB Stats API · pybaseball</div>
+                <div class="desc"><strong>FOBO AI의 운영 원칙을 야구 도메인에 옮긴 8개 에이전트 파이프라인.</strong> 계층적 베이지안 투수 평가 → 음이항 득점 모델 → XGBoost 승부·득점합 → Platt 보정 → 컨포멀 구간으로 이어지는 4단 ML 예측 구조. 점추정이 아니라 신뢰구간을 함께 산출. 유튜브 펀딧 의견은 yt-dlp + faster-whisper로 음성 추출 후 로컬 Ollama LLM이 구조화된 픽으로 변환 — 외부 LLM API 호출 비용 없음. 최종 결합은 ML × 펀딧 × 시장 베이지안 모델 평균에 fractional Kelly 배팅 사이징.</div>
+
+                <div class="pipeline">
+                    <h4>8개 에이전트 시스템 아키텍처</h4>
+                    <ul>
+                        <li><strong>A1 일정</strong> MLB Stats API로 경기 일정 수집</li>
+                        <li><strong>A2 정보 수집</strong> 라인업 · 선발 투수 · 세이버메트릭 · 구장 팩터 · 날씨 · 심판</li>
+                        <li><strong>A3 ML 예측</strong> 계층적 베이지안 투수 평가 → 음이항 득점 → XGBoost 승부·득점합 → Platt 보정 → 컨포멀 구간</li>
+                        <li><strong>A4 펀딧 통합</strong> YouTube (yt-dlp + faster-whisper + Ollama) / ESPN / CBS / Action Network → 구조화된 픽</li>
+                        <li><strong>A5 신뢰도 추적</strong> 펀딧·마켓별 베타-베르누이 신뢰도 추적</li>
+                        <li><strong>A6 시장 오즈</strong> The Odds API → 베팅 마진 보정 후 내재 확률</li>
+                        <li><strong>A7 최종 통합</strong> 베이지안 모델 평균 (ML × 펀딧 × 시장) + fractional Kelly</li>
+                        <li><strong>A8 결과 추적</strong> 경기 결과로 A3 학습 데이터 및 A5 신뢰도 갱신 — 루프 클로즈</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE: Synthetic Video -->
+    <div class="page">
+        <div class="section">
+            <div class="section-title">Featured Project 07</div>
+            <div class="project-card">
+                <h2>Synthetic Video — 로컬 GenAI 기반 9:16 영상 제작 파이프라인 <span class="participants">전현식 (1인 개발)</span></h2>
+                <div class="tech">ComfyUI · Wan 2.2 14B GGUF · Flux schnell · PuLID · IP-Adapter · ControlNet · Florence-2 · WD14 · Depth Anything V2 · Kokoro-82M · Whisper · Stable Audio Open</div>
+                <div class="desc"><strong>로컬 GPU 한 대로 9:16 세로 영상 2편을 완주.</strong> PuLID-Flux로 캐릭터 얼굴을 모든 컷에서 고정하고, Wan 2.2 14B가 움직임을 만들고, Stable Audio Open이 음악을 생성, ComfyUI에서 합성. 1편(Lila 베뉴 아크): 자카르타 뒷골목에서 시작해 7개의 비트를 거쳐 스타디움 피날레까지 올라가는 가상의 K-pop 댄서. 2편(Mika in Tokyo 1972): 2026년의 번아웃된 크리에이터가 일본 경제 호황기로 시간 여행. 각 영상은 41초 / 480×832, -14 LUFS 표준화, 자막 인입 완료 — YouTube Shorts·TikTok·Reels에 추가 편집 없이 그대로 업로드 가능.</div>
+
+                <div class="pipeline">
+                    <h4>재사용 가능한 파이프라인</h4>
+                    <ul>
+                        <li><strong>1. 캐릭터 고정</strong> PuLID-Flux 얼굴 조건화로 Lila와 Mika의 외모를 모든 컷에서 일관 유지 — 후속 에피소드 재사용 가능</li>
+                        <li><strong>2. 영상 생성</strong> Wan 2.2 14B GGUF (HighNoise + LowNoise Q4_K_M) + Wan VAE + UMT5; Wan-Lightning LoRA로 추론 속도 향상</li>
+                        <li><strong>3. 정지 이미지</strong> Flux schnell GGUF으로 스토리보드 프레임 생성; IP-Adapter + ControlNet으로 컷별 정교한 구도 제어</li>
+                        <li><strong>4. 자막 + 음성</strong> Kokoro-82M TTS로 음성 합성, Whisper large-v3로 전사, 자막 영상에 직접 인입</li>
+                        <li><strong>5. 음악</strong> Stable Audio Open으로 에피소드별 음악 생성 (1편: EDM / 2편: 1970년대 일본 시티팝 인스트루멘탈)</li>
+                        <li><strong>6. 템플릿</strong> 에피소드별 CHARACTER.md + STORYBOARD.md + MUSIC.md 디렉터리; 스크립트 체인이 단일 GPU에서 약 75–85분 무인 가동되어 완성 mp4 출고</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE: Image Finder -->
+    <div class="page">
+        <div class="section">
+            <div class="section-title">Featured Project 08</div>
+            <div class="project-card">
+                <h2>Image Finder — 온디바이스 AI 사진 검색 안드로이드 앱 <span class="participants">전현식 (1인 개발)</span></h2>
+                <div class="tech">React Native · Expo SDK 56 · YuNet (MIT) · SFace (Apache-2.0) · OpenCLIP ViT-B-32 DataComp.XL (MIT) · ONNX Runtime · AdMob (예정) · Google Play Billing (예정)</div>
+                <div class="desc"><strong>프라이버시 우선 사진 검색 앱.</strong> 얼굴 인식, 128차원 얼굴 임베딩, CLIP 이미지+텍스트 검색이 모두 단말기 안에서 실행 — 사용자 데이터가 외부로 전송되지 않음(네트워크 송신 0 검증 완료). 광고 수익화 출시를 위해 비상업 라이선스 모델(InsightFace, Apple MobileCLIP)을 직접 MIT/Apache-2.0 모델로 전면 교체. APK 빌드 완료 — 남은 작업은 구글 플레이 콘솔 등록, AdMob 연동, 월 $3 광고 제거 구독을 위한 Google Play Billing 연결.</div>
+
+                <div class="pipeline">
+                    <h4>기술 파이프라인 상세</h4>
+                    <ul>
+                        <li><strong>1. 얼굴 검출</strong> YuNet 2023mar (MIT)로 SCRFD / buffalo_s 교체 — 광고 수익화 안전</li>
+                        <li><strong>2. 얼굴 인식</strong> SFace 2021dec (Apache-2.0)로 ArcFace 교체, 128차원 임베딩 생성; 클러스터 임계값 0.33으로 재조정해 사용자별 동일인 그룹핑</li>
+                        <li><strong>3. 이미지+텍스트 검색</strong> OpenCLIP ViT-B-32 DataComp.XL (MIT)로 비상업 MobileCLIP-S2 교체 — 자연어 검색으로 사용자 사진 라이브러리 탐색</li>
+                        <li><strong>4. 재개 가능한 마이그레이션</strong> FACE_MODEL_VERSION + CLIP_EMBED_VERSION 버전 업으로 다음 실행 시 자동 재검출; 기존 설치 사용자 무중단 이행</li>
+                        <li><strong>5. 권한 최소화</strong> READ_MEDIA_IMAGES / READ_MEDIA_VIDEO만 허용; SYSTEM_ALERT_WINDOW · WRITE/READ_EXTERNAL_STORAGE 차단 — 플레이 심사 리스크 최소화</li>
+                        <li><strong>6. 동의 + 삭제</strong> BIPA/GDPR 대응 동의 플로우; 설정 → 데이터 & 개인정보 → 전체 얼굴 데이터 삭제로 생체정보 즉시 삭제 가능</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
