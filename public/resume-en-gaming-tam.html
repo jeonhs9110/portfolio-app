@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hyunsik Jeon — Technical Account Coordination Resume</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @page { size: A4; margin: 0; }
+
+    :root {
+      --accent: #16a34a;
+      --accent-soft: #dcfce7;
+      --ink: #111;
+      --text: #1f2937;
+      --muted: #555;
+      --rule: #d4d4d8;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 9pt;
+      line-height: 1.35;
+      color: var(--text);
+      background: white;
+      width: 210mm;
+      min-height: 297mm;
+      padding: 6mm 15mm;
+      position: relative;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2.5px solid var(--accent);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .header-left h1 {
+      font-size: 22pt;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .header-left .subtitle {
+      font-size: 10.5pt;
+      color: var(--accent);
+      margin-top: 2px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .header-left .contacts {
+      font-size: 8.5pt;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.45;
+    }
+
+    .header-photo {
+      width: 78px;
+      height: 96px;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .section { margin-bottom: 4px; }
+
+    .section-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      color: var(--accent);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 0 2px 10px;
+      margin-bottom: 6px;
+      position: relative;
+    }
+
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 2px;
+      width: 3px;
+      height: 11pt;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .bio {
+      font-size: 9pt;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .job { margin-bottom: 6px; }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .job-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .job-title .job-company {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-style: italic;
+      font-weight: 500;
+      margin-left: 6px;
+    }
+
+    .job-period {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .job-desc {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 2px;
+      line-height: 1.5;
+    }
+
+    ul.compact {
+      list-style: none;
+      padding: 0;
+      margin: 2px 0 0;
+    }
+
+    ul.compact li {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 3px;
+      line-height: 1.5;
+      padding-left: 10px;
+      position: relative;
+    }
+
+    ul.compact li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px;
+      width: 4px; height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .edu-school { font-size: 9pt; font-weight: 700; color: var(--ink); }
+    .edu-degree { font-size: 8.5pt; color: var(--muted); margin-top: 1px; }
+
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .skill-row {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      line-height: 1.45;
+    }
+
+    .skill-label {
+      font-size: 8.5pt;
+      font-weight: 700;
+      width: 148px;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .skill-items { font-size: 8.5pt; color: var(--text); }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="header-left">
+      <h1>Hyunsik Jeon</h1>
+      <div class="subtitle">Technical Account Coordination · Bilingual Event Management</div>
+      <div class="contacts">
+        <div><strong>Portfolio:</strong> portfolio-app-5ca9.vercel.app &nbsp;·&nbsp; jeonhs9110@gmail.com &nbsp;·&nbsp; +82 10-4092-0628</div>
+        <div>www.linkedin.com/in/jeonhyunsik &nbsp;·&nbsp; github.com/jeonhs9110 &nbsp;·&nbsp; Seoul, Korea (remote-ready)</div>
+      </div>
+    </div>
+    <img src="hyunsik-picture.jpg" alt="Hyunsik Jeon" class="header-photo" />
+  </div>
+
+  <div class="section">
+    <div class="section-title">Professional Summary</div>
+    <div class="bio">Bilingual senior-event coordinator with six years of cross-border account and partner management. <strong>Native Korean, fluent English (US K–12 through college)</strong> — Korean–English consecutive interpretation in senior-stakeholder settings has been daily work. As <strong>Secretary-General of the Korea–Middle East Sustainable Development Forum</strong> (Lee &amp; Ko, 2023, co-produced with the Korea Financial Investment Association), owned marketing schedules, conference logistics, attendee diaries, on-site coordination, and post-meeting follow-up materials for high-level meetings between Korea's top-10 financial institutions and UAE / Singapore sovereign wealth funds — engagements producing co-investment LOIs. Day-to-day across Lee &amp; Ko, HMP Law, and the National Assembly meant translating between technical, legal, and business audiences across MOUs, regulatory documents, and partner agreements. Currently full-stack developer at KOKKOK Garden plus an independent AI build portfolio (AIIM agentic LLM platform on GCP, Vaccine Daily multi-agent pipeline — <strong>IBM × RedHat AX Academy Top Award</strong>), comfortable engaging with technical domains as a working practitioner. Gaming-specific stack (engine workflows, mesh/material/texture structures, real-time graphics optimization) is the ramp area; the bilingual interpretation and event-production foundation underneath it is already built.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Experience</div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Secretary-General · Korea–Middle East Sustainable Development Forum <span class="job-company">Lee &amp; Ko (with KOFIA co-production)</span></div>
+        <div class="job-period">2022.04 – 2025.06</div>
+      </div>
+      <ul class="compact">
+        <li><strong>Event production end-to-end</strong> — flagship event (2023, National Assembly Hall): Korea–Middle East Economic Forum, 100+ attendees including the Speaker of the National Assembly, 14 sitting Assembly Members, 5 Gulf-state ambassadors, and Korean conglomerate executives. Invited the panelists, secured the venue, ran diplomatic + corporate outreach.</li>
+        <li><strong>Account &amp; partner relationships</strong> — separate stream produced high-level meetings between Korea's top-10 financial institutions and UAE / Singapore sovereign wealth funds, yielding co-investment LOIs.</li>
+        <li><strong>Partner agreement and program advisory</strong> — led the SNU Dental Hospital × Mubadala Health MOU (2024), structured from cold outreach through signed terms. Ongoing relationship management with Gulf sovereign funds and KFIA.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Foreign Administrative Manager · Cross-Border Account Coordination <span class="job-company">HMP Law · National Assembly of Korea</span></div>
+        <div class="job-period">2019.07 – 2022.04</div>
+      </div>
+      <ul class="compact">
+        <li><strong>HMP Law (2020.07 – 2022.04)</strong> — Cross-border opportunity origination across energy (Iraqi LNG EPC), heavy industry (Nigerian steel), and defense engagements. Foreign-counterparty management, multi-stakeholder progression, document preparation under tight deadlines.</li>
+        <li><strong>National Assembly of Korea (2019.07 – 2020.05)</strong> — Foreign-affairs aide to Rep. Kim Jung-Hoon. Korean–English correspondence with embassies and senior counterparts (UAE, Qatar, Oman, Singapore, Kuwait, Saudi). Led the National Museum of Korea × Louvre Abu Dhabi MOU discussions.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Full Stack Developer · Independent AI Builder <span class="job-company">KOKKOK Garden + AI portfolio (IBM × RedHat Top Award)</span></div>
+        <div class="job-period">2026.03 – Present (plus 2024–2025 AI portfolio)</div>
+      </div>
+      <ul class="compact">
+        <li><strong>KOKKOK Garden</strong> — K-Beauty e-commerce full-stack (Next.js, Supabase, GPT-4o mini). <strong>AIIM</strong> — agentic LLM platform on GCP, 14 languages. <strong>Vaccine Daily</strong> — multi-agent pipeline, IBM × RedHat AX Academy Top Award. Working foundation for ramping into game-engine asset-production and real-time graphics topics.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Workforce Manager · Apple Tier 4 Senior Advisor <span class="job-company">Concentrix Korea (Apple ecosystem)</span></div>
+        <div class="job-period">2018.04 – 2019.02</div>
+      </div>
+      <div class="job-desc">Inbound senior-advisor technical support for Apple Tier 4 customers (English); workforce scheduling to Apple global-office and client standards. First exposure to operating under Fortune-50 multinational service standards.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Education</div>
+    <div class="edu-grid">
+      <div>
+        <div class="edu-school">Miami University, USA (OH)</div>
+        <div class="edu-degree">B.A. International Studies — Economic Development concentration. US K–12 through college.</div>
+      </div>
+      <div>
+        <div class="edu-school">IBM × RedHat AI Transformation</div>
+        <div class="edu-degree">AX Academy — Certificate (Top Award recipient)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Skills (mapped to role requirements)</div>
+    <div class="skills-grid">
+      <div class="skill-row"><span class="skill-label">Languages</span><span class="skill-items"><strong>Korean</strong> (native) · <strong>English</strong> (fluent, US K–12 through college; 6 years KR–EN consecutive interpretation in senior settings) · <strong>Mandarin</strong> (spoken)</span></div>
+      <div class="skill-row"><span class="skill-label">Event &amp; Account Ops</span><span class="skill-items">Full event lifecycle (marketing schedule · conference logistics · attendee diaries · on-site · follow-up) · 6-year partner relationship mgmt · LOI / MOU drafting</span></div>
+      <div class="skill-row"><span class="skill-label">Technical &amp; Tools</span><span class="skill-items">Python · TypeScript · LLM / RAG · GPU compute · vector data structures · multi-agent systems · MS Office advanced · CRM-ready · Git</span></div>
+    </div>
+  </div>
+
+</body>
+
+</html>

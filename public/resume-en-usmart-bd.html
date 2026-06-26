@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hyunsik Jeon — BD Manager (Partnerships, Korea)</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @page { size: A4; margin: 0; }
+
+    :root {
+      --accent: #1d4ed8;
+      --accent-soft: #dbeafe;
+      --ink: #0f172a;
+      --text: #1f2937;
+      --muted: #555;
+      --rule: #d4d4d8;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 9pt;
+      line-height: 1.35;
+      color: var(--text);
+      background: white;
+      width: 210mm;
+      min-height: 297mm;
+      padding: 6mm 15mm;
+      position: relative;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2.5px solid var(--accent);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .header-left h1 {
+      font-size: 22pt;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .header-left .subtitle {
+      font-size: 10.5pt;
+      color: var(--accent);
+      margin-top: 2px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .header-left .contacts {
+      font-size: 8.5pt;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.45;
+    }
+
+    .header-photo {
+      width: 78px;
+      height: 96px;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .section { margin-bottom: 4px; }
+
+    .section-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      color: var(--accent);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 0 2px 10px;
+      margin-bottom: 6px;
+      position: relative;
+    }
+
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 2px;
+      width: 3px;
+      height: 11pt;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .bio {
+      font-size: 9pt;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .job { margin-bottom: 5px; }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .job-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .job-title .job-company {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-style: italic;
+      font-weight: 500;
+      margin-left: 6px;
+    }
+
+    .job-period {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .job-desc {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 2px;
+      line-height: 1.5;
+    }
+
+    ul.compact {
+      list-style: none;
+      padding: 0;
+      margin: 2px 0 0;
+    }
+
+    ul.compact li {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 3px;
+      line-height: 1.5;
+      padding-left: 10px;
+      position: relative;
+    }
+
+    ul.compact li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px;
+      width: 4px; height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .edu-school { font-size: 9pt; font-weight: 700; color: var(--ink); }
+    .edu-degree { font-size: 8.5pt; color: var(--muted); margin-top: 1px; }
+
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .skill-row {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      line-height: 1.45;
+    }
+
+    .skill-label {
+      font-size: 8.5pt;
+      font-weight: 700;
+      width: 148px;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .skill-items { font-size: 8.5pt; color: var(--text); }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="header-left">
+      <h1>Hyunsik Jeon</h1>
+      <div class="subtitle">Business Development · Strategic Partnerships · Korea–APAC</div>
+      <div class="contacts">
+        <div><strong>Portfolio:</strong> portfolio-app-5ca9.vercel.app &nbsp;·&nbsp; jeonhs9110@gmail.com &nbsp;·&nbsp; +82 10-4092-0628</div>
+        <div>www.linkedin.com/in/jeonhyunsik &nbsp;·&nbsp; github.com/jeonhs9110 &nbsp;·&nbsp; Seoul, Korea</div>
+      </div>
+    </div>
+    <img src="hyunsik-picture.jpg" alt="Hyunsik Jeon" class="header-photo" />
+  </div>
+
+  <div class="section">
+    <div class="section-title">Professional Summary</div>
+    <div class="bio">Korean business development professional with six years originating, structuring, and closing strategic partnerships between Korean financial institutions and global capital pools. At Lee &amp; Ko (2022–2025), ran a research-led practice connecting Korea's top-10 financial institutions with UAE and <strong>Singapore sovereign wealth funds (GIC, Temasek)</strong> — engagements that produced co-investment LOIs through the <strong>Korea Financial Investment Association (KOFIA)</strong> partnership. Led the SNU Dental Hospital × Mubadala Health MOU (2024) from cold outreach to signed terms. Six-year run as Foreign Administrative Manager to a former Korean National Assemblyman, including direct exposure to the National Assembly's Political Affairs Committee (정무위) — the committee overseeing the Financial Services Commission and Financial Supervisory Service, giving working familiarity with the Korean regulatory landscape that fintech and securities partners navigate daily. Currently full-stack developer at KOKKOK Garden plus independent AI builder portfolio (IBM × RedHat AX Academy Top Award). <strong>Native Korean, fluent English (US K–12 through college), conversational Mandarin.</strong></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Experience</div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Foreign Administrative Manager · Strategic Partnerships &amp; Cross-Border BD <span class="job-company">Lee &amp; Ko · HMP Law · National Assembly of Korea</span></div>
+        <div class="job-period">Jul. 2019 – Jun. 2025</div>
+      </div>
+      <ul class="compact">
+        <li><strong>Lee &amp; Ko (Apr. 2022 – Jun. 2025)</strong> — Ran a research-led Korea ↔ Middle East / Singapore capital-introduction practice. Continuously tracked institutional investor theses, mapped Korea-side opportunities, and ran direct outreach. <strong>2023 KOFIA-co-produced engagement</strong> brokered meetings between Korea's top-10 financial institutions (banks, securities, asset managers) and UAE + Singapore sovereign wealth funds, producing co-investment LOIs. Owned the full life-cycle: marketing schedule, conference logistics, attendee diaries, on-site coordination, and post-meeting follow-up. <strong>2024 SNU Dental Hospital × Mubadala Health MOU</strong> — structured from cold outreach through signed terms.</li>
+        <li><strong>HMP Law (Jul. 2020 – Apr. 2022)</strong> — Cross-border opportunity origination across energy, heavy industry, and defense. Foreign-counterparty management, multi-stakeholder progression, document preparation under tight deadlines.</li>
+        <li><strong>National Assembly of Korea (Jul. 2019 – May. 2020)</strong> — Foreign-affairs aide to Rep. Kim Jung-Hoon. Direct exposure to the <strong>Political Affairs Committee (정무위)</strong> — the National Assembly committee overseeing the Financial Services Commission (FSC) and Financial Supervisory Service (FSS). Comparative foreign-legislation research that supported enacted Korean bills, including in the insurance and financial sector.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Full Stack Developer · Independent AI Builder <span class="job-company">KOKKOK Garden + AI portfolio (IBM × RedHat AX Academy Top Award)</span></div>
+        <div class="job-period">Mar. 2026 – Present (plus 2024–2025 AI portfolio)</div>
+      </div>
+      <div class="job-desc">KOKKOK Garden — multi-region K-Beauty e-commerce platform full-stack (Next.js, Supabase, GPT-4o mini multi-language translation, KR/global auto-routing). AIIM — production agentic LLM platform on GCP across 14 languages. Vaccine Daily — multi-agent news-intelligence pipeline (IBM × RedHat Top Award). Comfortable in technical conversations about data pipelines, APIs, multi-language content workflows — useful for fintech product / partner integration discussions.</div>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Workforce Manager · Apple Tier 4 Senior Advisor <span class="job-company">Concentrix Korea (Apple ecosystem)</span></div>
+        <div class="job-period">Apr. 2018 – Feb. 2019</div>
+      </div>
+      <div class="job-desc">Inbound senior-advisor technical support for Apple Tier 4 customers (English); workforce scheduling to Apple global-office and client standards. First exposure to operating under Fortune-50 multinational service standards.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Education</div>
+    <div class="edu-grid">
+      <div>
+        <div class="edu-school">Miami University, USA (OH)</div>
+        <div class="edu-degree">B.A. International Studies — concentration in Economic Development</div>
+      </div>
+      <div>
+        <div class="edu-school">IBM × RedHat AI Transformation</div>
+        <div class="edu-degree">AX Academy — Certificate (Top Award recipient, 2024)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Skills (Mapped to uSMART JD)</div>
+    <div class="skills-grid">
+      <div class="skill-row"><span class="skill-label">Korean FI Partnerships</span><span class="skill-items">KOFIA partnership · direct work with Korea's top-10 banks, securities firms, and asset managers · partner onboarding, agreement structuring, long-term relationship management</span></div>
+      <div class="skill-row"><span class="skill-label">Regulatory Familiarity</span><span class="skill-items">National Assembly Political Affairs Committee (정무위) exposure — committee overseeing FSC / FSS. Working understanding of the Korean fintech and securities regulatory landscape</span></div>
+      <div class="skill-row"><span class="skill-label">Industry Events &amp; PR</span><span class="skill-items">Forum Secretary-General — 2023 KOFIA-co-produced forum (100+ senior attendees including the Speaker of the National Assembly, sitting members, ambassadors, conglomerate executives)</span></div>
+      <div class="skill-row"><span class="skill-label">Singapore Network</span><span class="skill-items">Direct brokerage of Korea ↔ Singapore SWF engagements (GIC, Temasek) — natural alignment with uSMART's Singapore HQ</span></div>
+      <div class="skill-row"><span class="skill-label">Languages &amp; Tools</span><span class="skill-items"><strong>Korean</strong> (native) · <strong>English</strong> (fluent, US K–12 through college) · <strong>Mandarin</strong> (conversational) · MS Office advanced · CRM-ready · Python / TypeScript</span></div>
+    </div>
+  </div>
+
+</body>
+
+</html>
+</parameter>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyunsik Jeon — Equity Research Associate Resume</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        @page { size: A4; margin: 0; }
+
+        :root {
+            --accent: #4338ca;
+            --accent-soft: #eef2ff;
+            --ink: #111;
+            --text: #1f2937;
+            --muted: #555;
+            --rule: #d4d4d8;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 9pt;
+            line-height: 1.4;
+            color: var(--text);
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 8mm 15mm;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2.5px solid var(--accent);
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+        }
+
+        .header-left h1 {
+            font-size: 22pt;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--ink);
+            line-height: 1.1;
+        }
+
+        .header-left .subtitle {
+            font-size: 10.5pt;
+            color: var(--accent);
+            margin-top: 2px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .header-left .contacts {
+            font-size: 8.5pt;
+            color: var(--muted);
+            margin-top: 4px;
+            line-height: 1.45;
+        }
+
+        .header-left .contacts a { color: var(--muted); text-decoration: none; }
+
+        .header-photo {
+            width: 78px;
+            height: 96px;
+            border: 1px solid var(--rule);
+            border-radius: 4px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .section { margin-bottom: 7px; }
+
+        .section-title {
+            font-size: 9.5pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            color: var(--accent);
+            border-bottom: 1px solid var(--rule);
+            padding: 0 0 2px 10px;
+            margin-bottom: 6px;
+            position: relative;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 2px;
+            width: 3px;
+            height: 11pt;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .bio {
+            font-size: 9pt;
+            color: var(--text);
+            line-height: 1.55;
+        }
+
+        .job { margin-bottom: 6px; }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+        }
+
+        .job-title {
+            font-size: 9.5pt;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .job-title .job-company {
+            font-size: 8.5pt;
+            color: var(--muted);
+            font-style: italic;
+            font-weight: 500;
+            margin-left: 6px;
+        }
+
+        .job-period {
+            font-size: 8.5pt;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .job-desc {
+            font-size: 8.5pt;
+            color: var(--text);
+            margin-bottom: 2px;
+            line-height: 1.5;
+        }
+
+        ul.compact {
+            list-style: none;
+            padding: 0;
+            margin: 2px 0 0;
+        }
+
+        ul.compact li {
+            font-size: 8.5pt;
+            color: var(--text);
+            margin-bottom: 3px;
+            line-height: 1.5;
+            padding-left: 10px;
+            position: relative;
+        }
+
+        ul.compact li::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 6px;
+            width: 4px; height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .edu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .edu-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .edu-logo {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .edu-school { font-size: 9pt; font-weight: 700; color: var(--ink); }
+        .edu-degree { font-size: 8.5pt; color: var(--muted); margin-top: 1px; }
+
+        .skills-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .skill-row {
+            display: flex;
+            gap: 10px;
+            align-items: baseline;
+            line-height: 1.45;
+        }
+
+        .skill-label {
+            font-size: 8.5pt;
+            font-weight: 700;
+            width: 152px;
+            flex-shrink: 0;
+            color: var(--accent);
+        }
+
+        .skill-items { font-size: 8.5pt; color: var(--text); }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="header-left">
+            <h1>Hyunsik Jeon</h1>
+            <div class="subtitle">Equity Research · Associate</div>
+            <div class="contacts">
+                <div><strong>Portfolio:</strong> portfolio-app-5ca9.vercel.app &nbsp;·&nbsp; jeonhs9110@gmail.com &nbsp;·&nbsp; +82 10-4092-0628</div>
+                <div>www.linkedin.com/in/jeonhyunsik &nbsp;·&nbsp; github.com/jeonhs9110 &nbsp;·&nbsp; Seoul, Korea</div>
+            </div>
+        </div>
+        <img src="hyunsik-picture.jpg" alt="Hyunsik Jeon" class="header-photo" />
+    </div>
+
+    <div class="section">
+        <div class="section-title">Professional Summary</div>
+        <div class="bio">Six years coordinating senior cross-border deal work as foreign-affairs aide to a former Korean National Assemblyman, across the Assembly and two top-tier Korean law firms (Lee &amp; Ko, HMP Law). At Lee &amp; Ko, ran a <strong>research-led Korea–Middle East investment-matching practice</strong>: continuously researched Middle East sovereign wealth fund investing patterns and ran direct outreach on Korea-side opportunities aligned to each fund's interest. Co-produced the Korea–Middle East Sustainable Development Forum with the Korea Financial Investment Association (KFIA), convening Korea's top-10 financial institutions and UAE / Singapore SWFs; owned marketing schedule, conference logistics, attendee diaries, and post-meeting materials end-to-end. The engagements produced co-investment LOIs. Inside the Assembly, the parallel workstream was <strong>comparative foreign-legislation research</strong> that supported enacted Korean bills, work that meant turning dense regulatory material into briefs senior decision-makers could act on under tight deadlines. Detail orientation runs through MOU and LOI drafting, confidential senior-stakeholder communications, and overlapping deadlines. <strong>Native Korean and fluent English</strong> from US K–12 through college, with conversational Mandarin. Microsoft Office (Excel, Word, PowerPoint) at advanced level, daily tooling throughout the law-firm tenure.</div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Experience</div>
+
+        <div class="job">
+            <div class="job-header">
+                <div class="job-title">Cross-Border &amp; Financial-Services Coordination <span class="job-company">Foreign-Affairs Aide to a Former Korean Assemblyman — Lee &amp; Ko · HMP Law · National Assembly</span></div>
+                <div class="job-period">Jul. 2019 – Jun. 2025</div>
+            </div>
+            <ul class="compact">
+                <li><strong>Lee &amp; Ko (Apr. 2022 – Jun. 2025)</strong> — Ran a <strong>research-led Korea–Middle East investment-matching practice</strong>: continuously tracked Middle East SWF investing patterns (sector appetite, thesis shifts, regional allocation) and ran direct outreach to those funds on Korea-side opportunities aligned to their interest. Served as Secretary-General of the Korea–Middle East Sustainable Development Forum (the practice's visible output). <strong>2023</strong>: co-produced the forum with the <strong>Korea Financial Investment Association (KFIA)</strong> — managed marketing schedule, conference logistics, attendee diaries, and post-meeting follow-up across Korea's top-10 financial institutions and UAE + Singapore SWF counterparts; the engagements produced <strong>co-investment LOIs</strong>. <strong>2024</strong>: led the SNU Dental Hospital × Mubadala Health MOU.</li>
+                <li><strong>HMP Law (Jul. 2020 – Apr. 2022)</strong> — Cross-border opportunity origination across energy (Iraqi LNG EPC), heavy industry (Nigerian steel acquisition), and defense engagements. Foreign-counterparty management, multi-stakeholder progression, document preparation under tight deadlines.</li>
+                <li><strong>National Assembly of Korea (Jul. 2019 – May. 2020)</strong> — Foreign-affairs aide to Rep. Kim Jung-Hoon. Comparative foreign-legislation research that supported enacted Korean bills. Participated in senior-member proceedings (중진의원연석회의) and Political Affairs Committee budget-audit sessions (정무위 예산결산). Led MOU discussions between the National Museum of Korea and Louvre Abu Dhabi.</li>
+            </ul>
+        </div>
+
+        <div class="job">
+            <div class="job-header">
+                <div class="job-title">Workforce Manager · Apple Tier 4 Senior Advisor <span class="job-company">Concentrix Korea (Apple ecosystem)</span></div>
+                <div class="job-period">Apr. 2018 – Feb. 2019</div>
+            </div>
+            <div class="job-desc">Inbound senior technical support to Apple Tier 4 customers; workforce scheduling held to Apple global-office and client standards; process-inefficiency teardown across the support floor. First exposure to operating to Fortune-50 service standards.</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Education</div>
+        <div class="edu-grid">
+            <div class="edu-row">
+                <img src="miami-logo.png" alt="Miami University" class="edu-logo" />
+                <div>
+                    <div class="edu-school">Miami University, USA (OH)</div>
+                    <div class="edu-degree">B.A. International Studies — concentration in Economic Development</div>
+                </div>
+            </div>
+            <div class="edu-row">
+                <img src="ibmxredhat-logo.png" alt="IBM × RedHat" class="edu-logo" />
+                <div>
+                    <div class="edu-school">IBM × RedHat AI Transformation</div>
+                    <div class="edu-degree">AX Academy — Certificate (Top Award recipient)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Skills</div>
+        <div class="skills-grid">
+            <div class="skill-row"><span class="skill-label">Research Operations</span><span class="skill-items">Forum / conference production · marketing-schedule and attendee-diary management · post-meeting follow-up materials · multi-stakeholder coordination · committee-process exposure (중진의원연석회의, 정무위 예산결산)</span></div>
+            <div class="skill-row"><span class="skill-label">Financial-Services</span><span class="skill-items">KFIA partnership · Korea top-10 financial institutions engagement · UAE and Singapore SWF coordination · co-investment LOI execution</span></div>
+            <div class="skill-row"><span class="skill-label">Analysis &amp; Documentation</span><span class="skill-items">Comparative legislation research · regulatory briefing · MOU / LOI drafting · oversight-data analysis · confidential senior-stakeholder communications</span></div>
+            <div class="skill-row"><span class="skill-label">Languages</span><span class="skill-items"><strong>Korean</strong> (native) · <strong>English</strong> (fluent, US K–12 through college) · <strong>Mandarin Chinese</strong> (conversational, Samsung-expat childhood in mainland China)</span></div>
+            <div class="skill-row"><span class="skill-label">Tools &amp; Technical</span><span class="skill-items">Microsoft Office (Excel, Word, PowerPoint — advanced) · CRM-ready · data and AI fluency from IBM × RedHat AX Academy</span></div>
+        </div>
+    </div>
+
+</body>
+
+</html>

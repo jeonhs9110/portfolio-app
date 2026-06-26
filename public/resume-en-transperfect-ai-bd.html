@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyunsik Jeon — AI Solutions BD Resume</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        @page { size: A4; margin: 0; }
+
+        :root {
+            --accent: #4338ca;
+            --accent-soft: #eef2ff;
+            --ink: #111;
+            --text: #1f2937;
+            --muted: #555;
+            --rule: #d4d4d8;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 9pt;
+            line-height: 1.35;
+            color: var(--text);
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 6mm 15mm;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2.5px solid var(--accent);
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+        }
+
+        .header-left h1 {
+            font-size: 22pt;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--ink);
+            line-height: 1.1;
+        }
+
+        .header-left .subtitle {
+            font-size: 10.5pt;
+            color: var(--accent);
+            margin-top: 2px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .header-left .contacts {
+            font-size: 8.5pt;
+            color: var(--muted);
+            margin-top: 4px;
+            line-height: 1.45;
+        }
+
+        .header-left .contacts a { color: var(--muted); text-decoration: none; }
+
+        .header-photo {
+            width: 78px;
+            height: 96px;
+            border: 1px solid var(--rule);
+            border-radius: 4px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .section { margin-bottom: 4px; }
+
+        .section-title {
+            font-size: 9.5pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            color: var(--accent);
+            border-bottom: 1px solid var(--rule);
+            padding: 0 0 2px 10px;
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 2px;
+            width: 3px;
+            height: 11pt;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .bio {
+            font-size: 9pt;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .job { margin-bottom: 5px; }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+        }
+
+        .job-title {
+            font-size: 9.5pt;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .job-title .job-company {
+            font-size: 8.5pt;
+            color: var(--muted);
+            font-style: italic;
+            font-weight: 500;
+            margin-left: 6px;
+        }
+
+        .job-period {
+            font-size: 8.5pt;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .job-desc {
+            font-size: 8.5pt;
+            color: var(--text);
+            margin-bottom: 2px;
+            line-height: 1.45;
+        }
+
+        ul.compact {
+            list-style: none;
+            padding: 0;
+            margin: 2px 0 0;
+        }
+
+        ul.compact li {
+            font-size: 8.5pt;
+            color: var(--text);
+            margin-bottom: 3px;
+            line-height: 1.45;
+            padding-left: 10px;
+            position: relative;
+        }
+
+        ul.compact li::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 6px;
+            width: 4px; height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .project-line {
+            font-size: 8.7pt;
+            line-height: 1.45;
+            margin-bottom: 4px;
+        }
+
+        .project-line strong { color: var(--ink); font-weight: 700; }
+
+        .project-line .tag {
+            display: inline-block;
+            font-size: 7.5pt;
+            color: var(--accent);
+            background: var(--accent-soft);
+            border-radius: 3px;
+            padding: 1px 6px;
+            margin-left: 4px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        .edu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .edu-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .edu-logo {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .edu-school { font-size: 9pt; font-weight: 700; color: var(--ink); }
+        .edu-degree { font-size: 8.5pt; color: var(--muted); margin-top: 1px; }
+
+        .skills-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .skill-row {
+            display: flex;
+            gap: 10px;
+            align-items: baseline;
+            line-height: 1.35;
+        }
+
+        .skill-label {
+            font-size: 8.5pt;
+            font-weight: 700;
+            width: 140px;
+            flex-shrink: 0;
+            color: var(--accent);
+        }
+
+        .skill-items { font-size: 8.5pt; color: var(--text); }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="header-left">
+            <h1>Hyunsik Jeon</h1>
+            <div class="subtitle">AI Solutions · Business Development</div>
+            <div class="contacts">
+                <div><strong>Portfolio:</strong> portfolio-app-5ca9.vercel.app &nbsp;·&nbsp; jeonhs9110@gmail.com &nbsp;·&nbsp; +82 10-4092-0628</div>
+                <div>www.linkedin.com/in/jeonhyunsik &nbsp;·&nbsp; github.com/jeonhs9110 &nbsp;·&nbsp; Seoul, Korea</div>
+            </div>
+        </div>
+        <img src="hyunsik-picture.jpg" alt="Hyunsik Jeon" class="header-photo" />
+    </div>
+
+    <div class="section">
+        <div class="section-title">Professional Summary</div>
+        <div class="bio">Cross-border business developer with six years of <strong>research-led practice</strong> and a hands-on <strong>AI engineering portfolio</strong>. At Lee &amp; Ko (2022–2025), ran a Korea–Middle East investment-matching practice: continuously researched sovereign wealth fund theses and ran direct outreach on Korea-side opportunities matched to each fund's interest, producing <strong>co-investment LOIs</strong> between Korea's top-10 financial institutions and UAE / Singapore SWFs. Currently full-stack developer at KOKKOK Garden, a multi-region K-Beauty e-commerce platform. AI builds shipped solo, end-to-end from data pipeline through deployment: AIIM (production agentic LLM on GCP, 14 languages) and Vaccine Daily (multi-agent news-intelligence pipeline, <strong>IBM × RedHat AX Academy Top Award</strong>). Result: technical fluency to engage AI engineering buyers as a peer, and a routine operating tempo across Korea, Middle East, US, and Singapore time zones. <strong>Native Korean</strong>, fluent English (US K–12 through college), spoken Mandarin from a Samsung-expat childhood in mainland China.</div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Experience</div>
+
+        <div class="job">
+            <div class="job-header">
+                <div class="job-title">Full Stack Developer <span class="job-company">KOKKOK Garden — K-Beauty Multi-region E-commerce</span></div>
+                <div class="job-period">Mar. 2026 – Present</div>
+            </div>
+            <div class="job-desc">Full-stack development of the new K-Beauty platform (Next.js 16, Supabase, GPT-4o mini for 5-language product translation, KR/GL auto-routing). Working with the marketing team on social-media intelligence pipelines and direct creator outreach — lead-generation and partnership work at the edge of the build.</div>
+        </div>
+
+        <div class="job">
+            <div class="job-header">
+                <div class="job-title">Foreign Administrative Manager · Cross-Border Business Development <span class="job-company">Lee &amp; Ko · HMP Law · National Assembly of Korea</span></div>
+                <div class="job-period">Jul. 2019 – Jun. 2025</div>
+            </div>
+            <ul class="compact">
+                <li><strong>Lee &amp; Ko (Apr. 2022 – Jun. 2025)</strong> — Ran a research-led Korea–Middle East investment-matching practice: continuously tracked Middle East SWF investing patterns (sector appetite, thesis shifts, regional allocation) and ran direct outreach on Korea-side opportunities aligned to each fund's interest. Owned account life-cycle from cold introduction through closing. Co-produced the Korea–Middle East Sustainable Development Forum with the <strong>Korea Financial Investment Association (KFIA)</strong>, convening Korea's top-10 financial institutions and UAE + Singapore SWFs; the engagements produced co-investment LOIs at institutional scale. <strong>2024</strong>: led the SNU Dental Hospital × Mubadala Health MOU.</li>
+                <li><strong>HMP Law (Jul. 2020 – Apr. 2022)</strong> — Cross-border opportunity origination across energy (Iraqi LNG EPC), heavy industry (Nigerian steel acquisition), and defense engagements. Foreign-counterparty management, multi-stakeholder progression through closing, document preparation under tight deadlines.</li>
+                <li><strong>National Assembly of Korea (Jul. 2019 – May. 2020)</strong> — Foreign-affairs aide to Rep. Kim Jung-Hoon. Comparative foreign-legislation research that supported enacted Korean bills; led MOU discussions between the National Museum of Korea and Louvre Abu Dhabi.</li>
+            </ul>
+        </div>
+
+        <div class="job">
+            <div class="job-header">
+                <div class="job-title">Workforce Manager · Apple Tier 4 Senior Advisor <span class="job-company">Concentrix Korea (Apple ecosystem)</span></div>
+                <div class="job-period">Apr. 2018 – Feb. 2019</div>
+            </div>
+            <div class="job-desc">Inbound senior technical support to Apple Tier 4 customers; workforce scheduling to Apple global-office standards.</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">AI / Data Builds (shipped solo, end-to-end)</div>
+
+        <div class="project-line"><strong>AIIM — AI Influencer Match</strong> <span class="tag">Python · FastAPI · LangGraph · GraphRAG · GCP</span><br>
+            Production agentic LLM platform on GCP Cloud Run + Cloud SQL. Ingests 5,300+ creators across YouTube · Instagram · TikTok in <strong>14 languages</strong>, brand-fit ranked via LangGraph over GraphRAG — the same multi-language ingestion / enrichment pattern at the centre of training-data services. <em>aiim-frontend-559416574965.asia-northeast3.run.app</em></div>
+
+        <div class="project-line"><strong>Vaccine Daily — AI News Intelligence Pipeline</strong> <span class="tag">React · FastAPI · ChromaDB · GraphRAG</span> <span class="tag">IBM × RedHat Top Award</span><br>
+            Multi-agent LLM pipeline comparing reporting-tone across Korean outlets. Built on training-data primitives: <strong>HDBSCAN clustering, ko-sroberta embeddings, Kiwi morphology, ChromaDB vector store</strong>, with a Writer → Critic → Editor agent loop catching hallucinations before publish. <em>jeonhs9110.github.io/vaccine-daily/</em></div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Education</div>
+        <div class="edu-grid">
+            <div class="edu-row">
+                <img src="miami-logo.png" alt="Miami University" class="edu-logo" />
+                <div>
+                    <div class="edu-school">Miami University, USA (OH)</div>
+                    <div class="edu-degree">B.A. International Studies — concentration in Economic Development</div>
+                </div>
+            </div>
+            <div class="edu-row">
+                <img src="ibmxredhat-logo.png" alt="IBM × RedHat" class="edu-logo" />
+                <div>
+                    <div class="edu-school">IBM × RedHat AI Transformation</div>
+                    <div class="edu-degree">AX Academy — Certificate (Top Award recipient)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Skills</div>
+        <div class="skills-grid">
+            <div class="skill-row"><span class="skill-label">AI &amp; Data</span><span class="skill-items">Training-data pipelines · multi-agent LLM design · embedding models (ko-sroberta) · vector stores (ChromaDB) · GraphRAG · clustering (HDBSCAN) · agentic workflows (LangGraph) · GCP / AWS</span></div>
+            <div class="skill-row"><span class="skill-label">Business Development</span><span class="skill-items">Research-led prospecting · multi-stakeholder deal progression · LOI / MOU execution · cross-border negotiation · industry-association partnership (KFIA)</span></div>
+            <div class="skill-row"><span class="skill-label">Languages</span><span class="skill-items"><strong>Korean</strong> (native) · <strong>English</strong> (fluent, US K–12 through college) · <strong>Mandarin</strong> (spoken fluency, limited literacy)</span></div>
+            <div class="skill-row"><span class="skill-label">Tools</span><span class="skill-items">MS Office advanced (Word, Excel, PowerPoint, Outlook) · CRM-ready · Python · TypeScript</span></div>
+        </div>
+    </div>
+
+</body>
+
+</html>

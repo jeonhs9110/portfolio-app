@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hyunsik Jeon — English Speaking Test Evaluator</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @page { size: A4; margin: 0; }
+
+    :root {
+      --accent: #0e7490;
+      --accent-soft: #ecfeff;
+      --ink: #0f172a;
+      --text: #1f2937;
+      --muted: #555;
+      --rule: #d4d4d8;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 9pt;
+      line-height: 1.45;
+      color: var(--text);
+      background: white;
+      width: 210mm;
+      min-height: 297mm;
+      padding: 8mm 15mm;
+      position: relative;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2.5px solid var(--accent);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .header-left h1 {
+      font-size: 22pt;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .header-left .subtitle {
+      font-size: 10.5pt;
+      color: var(--accent);
+      margin-top: 2px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .header-left .contacts {
+      font-size: 8.5pt;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.45;
+    }
+
+    .header-photo {
+      width: 78px;
+      height: 96px;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .section { margin-bottom: 6px; }
+
+    .section-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--accent);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 0 2px 10px;
+      margin-bottom: 5px;
+      position: relative;
+    }
+
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 2px;
+      width: 3px;
+      height: 11pt;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .bio {
+      font-size: 9pt;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .eligibility {
+      background: var(--accent-soft);
+      border-left: 3px solid var(--accent);
+      padding: 6px 10px;
+      margin: 6px 0;
+      font-size: 9pt;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .job { margin-bottom: 5px; }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .job-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .job-title .job-company {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-style: italic;
+      font-weight: 500;
+      margin-left: 6px;
+    }
+
+    .job-period {
+      font-size: 8.5pt;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .job-desc {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 2px;
+      line-height: 1.5;
+    }
+
+    ul.compact {
+      list-style: none;
+      padding: 0;
+      margin: 2px 0 0;
+    }
+
+    ul.compact li {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 3px;
+      line-height: 1.5;
+      padding-left: 10px;
+      position: relative;
+    }
+
+    ul.compact li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px;
+      width: 4px; height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .edu-school { font-size: 9pt; font-weight: 700; color: var(--ink); }
+    .edu-degree { font-size: 8.5pt; color: var(--muted); margin-top: 1px; }
+
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .skill-row {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      line-height: 1.45;
+    }
+
+    .skill-label {
+      font-size: 8.5pt;
+      font-weight: 700;
+      width: 148px;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .skill-items { font-size: 8.5pt; color: var(--text); }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="header-left">
+      <h1>Hyunsik Jeon</h1>
+      <div class="subtitle">English Speaking Test Evaluator · Native-Level English · Business Professional Assessment</div>
+      <div class="contacts">
+        <div>jeonhs9110@gmail.com &nbsp;·&nbsp; +82 10-4092-0628 &nbsp;·&nbsp; Seoul, South Korea (Apgujeong-accessible)</div>
+        <div>Portfolio: portfolio-app-5ca9.vercel.app &nbsp;·&nbsp; www.linkedin.com/in/jeonhyunsik</div>
+      </div>
+    </div>
+    <img src="hyunsik-picture.jpg" alt="Hyunsik Jeon" class="header-photo" />
+  </div>
+
+  <div class="section">
+    <div class="section-title">Professional Summary</div>
+    <div class="bio"><strong>Native-level English speaker educated entirely in US English-language schools from K–12 through Bachelor's degree (Miami University, Ohio, USA).</strong> Six years of professional English-language work in business, legal, and diplomatic settings — including direct English-language interpretation, drafting of official English correspondence, and senior-stakeholder English communication at the Korean National Assembly and two top-tier Korean law firms (Lee &amp; Ko, HMP Law). Started in-house at Concentrix Korea as an Apple Tier 4 Senior Advisor providing English-language technical support to global customers. Meticulous attention to detail, analytical orientation (IBM × RedHat AX Academy Top Award for a data-analysis project, 2024), and professional demeanor honed in legal and parliamentary environments. Comfortable with extensive domestic travel — Korean national with no visa or work-authorization constraints.</div>
+  </div>
+
+  <div class="eligibility">
+    <strong>Eligibility for this role</strong>: Korean national (no E2/F visa required) · Bachelor's degree from an accredited four-year US university (Miami University, Ohio) · Native-level English from K–12 through college in the US education system · Available to start ASAP · Comfortable with extensive domestic travel and Saturday testing schedules · Based in Seoul (Apgujeong commute-ready).
+  </div>
+
+  <div class="section">
+    <div class="section-title">Relevant Experience</div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Foreign Affairs Manager · English Communication Lead <span class="job-company">Lee &amp; Ko · HMP Law · National Assembly of Korea</span></div>
+        <div class="job-period">Jul. 2019 – Jun. 2025 (6 years)</div>
+      </div>
+      <ul class="compact">
+        <li><strong>Direct English-language interpretation and communication</strong> across high-stakes meetings — Korea–Middle East forum sessions, MOU negotiations, senior diplomatic meetings (UAE, Saudi Arabia, Qatar, Singapore, Kuwait, Oman counterparts). Real-time consecutive interpretation in formal settings.</li>
+        <li><strong>Drafting of English official correspondence</strong> with foreign embassies, ministries, and corporate counterparts. Professional English written communication daily for six years.</li>
+        <li><strong>Analysis and report writing</strong> — comparative foreign-legislation research (English-language source material) translated into Korean briefs for legislative use. The same analytical discipline that test-and-score reports require.</li>
+        <li>Professional demeanor and confidentiality discipline maintained daily in legal and parliamentary environments — directly relevant to maintaining a professional evaluation environment for business professionals.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Apple Tier 4 Senior Advisor (English-language) <span class="job-company">Concentrix Korea (Apple ecosystem)</span></div>
+        <div class="job-period">Apr. 2018 – Feb. 2019</div>
+      </div>
+      <div class="job-desc">Senior-tier English-language technical support directly to Apple customers. Comfortable assessing customer communication clarity, identifying comprehension issues, and adjusting English communication style to match the listener — directly transferable to oral proficiency evaluation. Workforce-scheduling sub-role provided exposure to detailed performance tracking and scoring frameworks.</div>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Full Stack Developer · Independent AI Builder <span class="job-company">KOKKOK Garden + AI portfolio</span></div>
+        <div class="job-period">Mar. 2026 – Present</div>
+      </div>
+      <div class="job-desc">Demonstrated analytical and detail-oriented work (IBM × RedHat AX Academy Top Award, 2024 — for a comparative-data-analysis project). Comfortable with data entry, structured reporting, and analytical work environments that an evaluator role requires.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Education</div>
+    <div class="edu-grid">
+      <div>
+        <div class="edu-school">Miami University, Oxford, Ohio, USA</div>
+        <div class="edu-degree">B.A. International Studies (Economic Development) — K–12 through college in US English-language education system</div>
+      </div>
+      <div>
+        <div class="edu-school">IBM × RedHat AI Transformation</div>
+        <div class="edu-degree">AX Academy — Certificate (Top Award recipient, 2024)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Skills (Mapped to Role Requirements)</div>
+    <div class="skills-grid">
+      <div class="skill-row"><span class="skill-label">English Proficiency</span><span class="skill-items">Native-level — clear, coherent pronunciation. Educated entirely in US English-language schools (K–12 through Bachelor's). 6 years of professional English communication in legal, diplomatic, and corporate environments.</span></div>
+      <div class="skill-row"><span class="skill-label">Bilingual Advantage</span><span class="skill-items">Native Korean speaker — useful for evaluating Korean business professionals' English performance with cultural and linguistic context an evaluator-only-in-English may lack</span></div>
+      <div class="skill-row"><span class="skill-label">Analytical / Detail</span><span class="skill-items">6-year legal-document and legislative-analysis discipline · IBM × RedHat AX Academy Top Award for data-analysis project · structured report writing</span></div>
+      <div class="skill-row"><span class="skill-label">Professional Demeanor</span><span class="skill-items">Law firm and parliamentary environments daily for 6 years · confidentiality protocols · appropriate appearance and conduct in senior-stakeholder settings</span></div>
+    </div>
+  </div>
+
+</body>
+
+</html>
+</parameter>

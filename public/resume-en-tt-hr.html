@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyunsik Jeon — HR Assistant Resume</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        @page { size: A4; margin: 0; }
+
+        :root {
+            --accent: #4338ca;
+            --accent-soft: #eef2ff;
+            --ink: #111;
+            --text: #1f2937;
+            --muted: #555;
+            --rule: #d4d4d8;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 9pt;
+            line-height: 1.4;
+            color: var(--text);
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 8mm 15mm;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2.5px solid var(--accent);
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+        }
+
+        .header-left h1 {
+            font-size: 22pt;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--ink);
+            line-height: 1.1;
+        }
+
+        .header-left .subtitle {
+            font-size: 10.5pt;
+            color: var(--accent);
+            margin-top: 2px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .header-left .contacts {
+            font-size: 8.5pt;
+            color: var(--muted);
+            margin-top: 4px;
+            line-height: 1.45;
+        }
+
+        .header-left .contacts a { color: var(--muted); text-decoration: none; }
+
+        .header-photo {
+            width: 78px;
+            height: 96px;
+            border: 1px solid var(--rule);
+            border-radius: 4px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .section { margin-bottom: 6px; }
+
+        .section-title {
+            font-size: 9.5pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            color: var(--accent);
+            border-bottom: 1px solid var(--rule);
+            padding: 0 0 2px 10px;
+            margin-bottom: 6px;
+            position: relative;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 2px;
+            width: 3px;
+            height: 11pt;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .bio {
+            font-size: 9pt;
+            color: var(--text);
+            line-height: 1.55;
+        }
+
+        .job { margin-bottom: 6px; }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+        }
+
+        .job-title {
+            font-size: 9.5pt;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .job-title .job-company {
+            font-size: 8.5pt;
+            color: var(--muted);
+            font-style: italic;
+            font-weight: 500;
+            margin-left: 6px;
+        }
+
+        .job-period {
+            font-size: 8.5pt;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .job-desc {
+            font-size: 8.5pt;
+            color: var(--text);
+            margin-bottom: 2px;
+            line-height: 1.5;
+        }
+
+        ul.compact {
+            list-style: none;
+            padding: 0;
+            margin: 2px 0 0;
+        }
+
+        ul.compact li {
+            font-size: 8.5pt;
+            color: var(--text);
+            margin-bottom: 3px;
+            line-height: 1.5;
+            padding-left: 10px;
+            position: relative;
+        }
+
+        ul.compact li::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 6px;
+            width: 4px; height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .edu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .edu-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .edu-logo {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .edu-school { font-size: 9pt; font-weight: 700; color: var(--ink); }
+        .edu-degree { font-size: 8.5pt; color: var(--muted); margin-top: 1px; }
+
+        .skills-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .skill-row {
+            display: flex;
+            gap: 10px;
+            align-items: baseline;
+            line-height: 1.45;
+        }
+
+        .skill-label {
+            font-size: 8.5pt;
+            font-weight: 700;
+            width: 148px;
+            flex-shrink: 0;
+            color: var(--accent);
+        }
+
+        .skill-items { font-size: 8.5pt; color: var(--text); }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="header-left">
+            <h1>Hyunsik Jeon</h1>
+            <div class="subtitle">HR &amp; Administrative Operations</div>
+            <div class="contacts">
+                <div><strong>Portfolio:</strong> portfolio-app-5ca9.vercel.app &nbsp;·&nbsp; jeonhs9110@gmail.com &nbsp;·&nbsp; +82 10-4092-0628</div>
+                <div>www.linkedin.com/in/jeonhyunsik &nbsp;·&nbsp; github.com/jeonhs9110 &nbsp;·&nbsp; Seoul, Korea</div>
+            </div>
+        </div>
+        <img src="hyunsik-picture.jpg" alt="Hyunsik Jeon" class="header-photo" />
+    </div>
+
+    <div class="section">
+        <div class="section-title">Professional Summary</div>
+        <div class="bio">Detail-focused administrator with a continuous arc of HR-adjacent and compliance-heavy operations work in Korea. Began as a <strong>Financial Administrative Clerk in the Korean Army (2012–2014)</strong> handling HR affairs for Non-Commissioned Officers and Officers alongside billing and fiscal-year reports under strict military guideline discipline. Workforce Manager at Concentrix Korea (2018–2019) running workforce scheduling for Apple Tier 4 senior technical support operations to global-office standards. Six years (2019–2025) as Foreign Administrative Manager to a former Korean National Assemblyman across Lee &amp; Ko and HMP Law — daily work centred on confidential senior-stakeholder communications, multi-jurisdictional compliance research, and document preparation under tight deadlines. Currently full-stack developer at KOKKOK Garden, comfortable with HRIS-style data systems and reporting automation. <strong>Native Korean</strong>, fluent English (US K–12 through college) for regional and global team communication.</div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Experience</div>
+
+        <div class="job">
+            <div class="job-header">
+                <div class="job-title">Full Stack Developer <span class="job-company">KOKKOK Garden — K-Beauty Multi-region E-commerce</span></div>
+                <div class="job-period">Mar. 2026 – Present</div>
+            </div>
+            <div class="job-desc">End-to-end build of the K-Beauty platform (Next.js, Supabase). Day-to-day involves structured data systems, reporting automation, and operational workflows — directly applicable to HRIS data maintenance and HR reporting work.</div>
+        </div>
+
+        <div class="job">
+            <div class="job-header">
+                <div class="job-title">Foreign Administrative Manager <span class="job-company">Lee &amp; Ko · HMP Law · National Assembly of Korea</span></div>
+                <div class="job-period">Jul. 2019 – Jun. 2025</div>
+            </div>
+            <ul class="compact">
+                <li><strong>Lee &amp; Ko (Apr. 2022 – Jun. 2025)</strong> — Confidential documentation and senior-stakeholder coordination across high-sensitivity cross-border engagements. Multi-stakeholder MOU and LOI drafting accuracy, regulatory and contractual research, and process discipline under partner-level review. Routine handling of sensitive personal and financial information at sovereign / institutional level.</li>
+                <li><strong>HMP Law (Jul. 2020 – Apr. 2022)</strong> — Document preparation under tight deadlines, foreign-counterparty coordination, multi-party process management.</li>
+                <li><strong>National Assembly of Korea (Jul. 2019 – May. 2020)</strong> — Comparative <strong>foreign-legislation research</strong> that supported enacted Korean bills — translatable to monitoring labor-law changes and proposing policy updates as the JD requires. Parliamentary oversight committee exposure (중진의원연석회의, 정무위 예산결산) where audit and compliance review were the daily work.</li>
+            </ul>
+        </div>
+
+        <div class="job">
+            <div class="job-header">
+                <div class="job-title">Workforce Manager · Apple Tier 4 Senior Advisor <span class="job-company">Concentrix Korea (Apple ecosystem)</span></div>
+                <div class="job-period">Apr. 2018 – Feb. 2019</div>
+            </div>
+            <ul class="compact">
+                <li>Workforce scheduling for the Apple Tier 4 senior-advisor support floor — headcount planning, shift coverage, absence management, and capacity adjustments to meet Apple's global-office service standards.</li>
+                <li>Process-inefficiency teardown across the support floor; data-driven schedule corrections that improved coverage and reduced overtime exposure.</li>
+                <li>First exposure to multinational employer operational standards and confidential workforce data handling.</li>
+            </ul>
+        </div>
+
+        <div class="job">
+            <div class="job-header">
+                <div class="job-title">Financial Administrative Clerk · HR &amp; Finance <span class="job-company">Republic of Korea Army, Unit 4217 (Sejong)</span></div>
+                <div class="job-period">Oct. 2012 – Jul. 2014</div>
+            </div>
+            <ul class="compact">
+                <li><strong>HR affairs for Non-Commissioned Officers and Officers</strong> — personnel records, leave and assignment administration, change-of-status handling under formal military guideline framework.</li>
+                <li>Managed unit billing and fiscal-year reporting; accuracy and audit-readiness required.</li>
+                <li>Handled any-other-situation administrative tasks through rigorous adherence to written military guidelines — strong foundation for compliance-driven HR work.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Education</div>
+        <div class="edu-grid">
+            <div class="edu-row">
+                <img src="miami-logo.png" alt="Miami University" class="edu-logo" />
+                <div>
+                    <div class="edu-school">Miami University, USA (OH)</div>
+                    <div class="edu-degree">B.A. International Studies — concentration in Economic Development</div>
+                </div>
+            </div>
+            <div class="edu-row">
+                <img src="ibmxredhat-logo.png" alt="IBM × RedHat" class="edu-logo" />
+                <div>
+                    <div class="edu-school">IBM × RedHat AI Transformation</div>
+                    <div class="edu-degree">AX Academy — Certificate (Top Award recipient)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Skills</div>
+        <div class="skills-grid">
+            <div class="skill-row"><span class="skill-label">HR / Admin Operations</span><span class="skill-items">Personnel records · HR affairs administration (military) · workforce scheduling · onboarding-style processes · confidential data handling · compliance documentation · audit-readiness reporting</span></div>
+            <div class="skill-row"><span class="skill-label">Compliance &amp; Research</span><span class="skill-items">Comparative legislation research → enacted bills · multi-jurisdictional document accuracy · regulatory monitoring · process discipline under partner-level review</span></div>
+            <div class="skill-row"><span class="skill-label">Languages</span><span class="skill-items"><strong>Korean</strong> (native) · <strong>English</strong> (fluent, US K–12 through college) · Mandarin (conversational)</span></div>
+            <div class="skill-row"><span class="skill-label">Tools</span><span class="skill-items">MS Office advanced (Word, Excel, PowerPoint, Outlook) · HRIS-ready · structured-data systems (Supabase, PostgreSQL) · reporting automation</span></div>
+        </div>
+    </div>
+
+</body>
+
+</html>

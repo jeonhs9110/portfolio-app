@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hyunsik Jeon — UBS Investment Banking Analyst (Korea)</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @page { size: A4; margin: 10mm 14mm; }
+
+    :root {
+      --accent: #1e40af;
+      --accent-soft: #dbeafe;
+      --accent-bg: #f0f6ff;
+      --ink: #0f172a;
+      --text: #1f2937;
+      --muted: #555;
+      --rule: #d4d4d8;
+    }
+
+    body {
+      font-family: 'Calibri', 'Segoe UI', 'Malgun Gothic', sans-serif;
+      font-size: 9pt;
+      line-height: 1.4;
+      color: var(--text);
+      background: white;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2.5px solid var(--accent);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .header-left h1 {
+      font-size: 22pt;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .header-left .subtitle {
+      font-size: 11pt;
+      color: var(--accent);
+      margin-top: 3px;
+      font-weight: 700;
+    }
+
+    .header-left .contacts {
+      font-size: 8.5pt;
+      color: var(--muted);
+      margin-top: 5px;
+      line-height: 1.5;
+    }
+
+    .header-photo {
+      width: 78px;
+      height: 96px;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .section { margin-bottom: 7px; }
+
+    .section-title {
+      font-size: 10pt;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: var(--accent);
+      border-bottom: 1.5px solid var(--accent);
+      padding: 0 0 3px 11px;
+      margin-bottom: 6px;
+      position: relative;
+      text-transform: uppercase;
+    }
+
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 2px;
+      width: 4px;
+      height: 11pt;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .bio { font-size: 9pt; line-height: 1.55; }
+
+    .highlight-box {
+      background: var(--accent-bg);
+      border-left: 3px solid var(--accent);
+      padding: 6px 10px;
+      margin-top: 6px;
+      font-size: 8.5pt;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .highlight-box strong { color: var(--accent); }
+
+    .job { margin-bottom: 6px; page-break-inside: avoid; }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 3px;
+      border-bottom: 1px dotted var(--rule);
+      padding-bottom: 2px;
+    }
+
+    .job-title { font-size: 9.5pt; font-weight: 700; color: var(--ink); }
+    .job-title .job-company { font-size: 8.5pt; color: var(--muted); font-style: italic; font-weight: 500; margin-left: 5px; }
+    .job-period { font-size: 8.5pt; color: var(--muted); font-weight: 600; white-space: nowrap; }
+    .job-desc { font-size: 8.5pt; color: var(--text); margin-bottom: 2px; line-height: 1.5; }
+
+    ul.compact { list-style: none; padding: 0; margin: 3px 0 0; }
+    ul.compact li {
+      font-size: 8.5pt;
+      color: var(--text);
+      margin-bottom: 3px;
+      line-height: 1.5;
+      padding-left: 11px;
+      position: relative;
+    }
+    ul.compact li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px;
+      width: 4px; height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .deals-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.5pt;
+      margin-top: 3px;
+    }
+    .deals-table th, .deals-table td {
+      text-align: left;
+      padding: 3px 6px;
+      border-bottom: 1px solid var(--rule);
+      vertical-align: top;
+    }
+    .deals-table th {
+      background: var(--accent-bg);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .deals-table td.year { white-space: nowrap; color: var(--muted); font-weight: 600; width: 70px; }
+    .deals-table td.deal strong { color: var(--ink); }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 14px;
+    }
+    .edu-school { font-size: 9pt; font-weight: 700; color: var(--ink); }
+    .edu-degree { font-size: 8.5pt; color: var(--muted); margin-top: 1px; line-height: 1.45; }
+
+    .skills-grid { display: flex; flex-direction: column; gap: 3px; }
+    .skill-row { display: flex; gap: 10px; align-items: baseline; line-height: 1.45; }
+    .skill-label { font-size: 8.5pt; font-weight: 700; width: 145px; flex-shrink: 0; color: var(--accent); }
+    .skill-items { font-size: 8.5pt; color: var(--text); }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="header-left">
+      <h1>Hyunsik Jeon</h1>
+      <div class="subtitle">Investment Banking Analyst Candidate — Korea Coverage</div>
+      <div class="contacts">
+        <div>jeonhs9110@gmail.com &nbsp;·&nbsp; +82 10-4092-0628 &nbsp;·&nbsp; Yeouido, Yeongdeungpo-gu, Seoul, Republic of Korea</div>
+        <div>Portfolio: portfolio-app-5ca9.vercel.app &nbsp;·&nbsp; GitHub: github.com/jeonhs9110 &nbsp;·&nbsp; LinkedIn: jeonhyunsik</div>
+      </div>
+    </div>
+    <img src="jeon-id-2023.jpg" alt="Hyunsik Jeon" class="header-photo" />
+  </div>
+
+  <div class="section">
+    <div class="section-title">Profile</div>
+    <div class="bio">Cross-border deal practitioner with <strong>6+ years of execution experience</strong> at two of Korea's top-tier law firms (Lee &amp; Ko, HMP Law), where I built and ran a <strong>capital-introduction practice between Korean institutional clients and Middle Eastern sovereign wealth funds</strong> — research, origination, multi-stakeholder coordination, and document drafting through signing. Native-fluent English (U.S. K-12 through B.A. at Miami University) paired with native Korean. Quantitative grounding strengthened by recent completion of the IBM × RedHat AI Transformation Academy (Top Award) and hands-on financial-modeling work (ensemble ML/RL pipelines, production cloud systems). Looking to apply this deal-execution muscle, bilingual capability, and analytical rigor to UBS Global Banking Korea coverage.</div>
+    <div class="highlight-box">
+      <strong>Why UBS Korea Coverage</strong> · ① Already operate at the intersection of Korean institutional clients and global sovereign capital — directly relevant to a wealth-led universal bank · ② Have closed real cross-border transaction documentation (LOIs, MOUs) end-to-end as the working-level lead · ③ Native bilingual EN/KR; can switch register between senior-banker pitch language and Korean counterparty diplomacy without latency
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Selected Transactions & Engagements</div>
+    <table class="deals-table">
+      <thead>
+        <tr><th>Year</th><th>Transaction / Engagement</th><th>Role</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="year">2023</td>
+          <td class="deal"><strong>Co-investment LOI</strong> — Korea Financial Investment Association (KOFIA) &times; Top-10 Korean financial institutions &times; UAE / Singapore sovereign wealth funds</td>
+          <td>Forum Secretary (사무장) — coordinated origination, scheduling, and document workflow through LOI signing</td>
+        </tr>
+        <tr>
+          <td class="year">2024</td>
+          <td class="deal"><strong>Cross-border MOU</strong> — Seoul National University Dental Hospital &times; Mubadala Health (Abu Dhabi)</td>
+          <td>Cold outreach through signed terms; bilateral structure (Khalifa University residents → SNU; SNU senior-faculty rotation → UAE)</td>
+        </tr>
+        <tr>
+          <td class="year">2020–22</td>
+          <td class="deal"><strong>Sourced Iraq LNG pipeline EPC mandate</strong> — paired Iraqi MoO counterparties with a Korean EPC consortium; produced negotiation materials</td>
+          <td>Origination lead, working level</td>
+        </tr>
+        <tr>
+          <td class="year">2020–22</td>
+          <td class="deal"><strong>Originated Nigeria steel-asset acquisition</strong> — West African cross-border industrial asset; foreign government &amp; corporate counterparts</td>
+          <td>Origination lead, working level</td>
+        </tr>
+        <tr>
+          <td class="year">2020–22</td>
+          <td class="deal"><strong>Drafted Oman Ministry of Defense mandate</strong> (Hyundai Rotem channel) — through DAPA-approval stage; Hyundai Motor Group ecosystem cross-border work</td>
+          <td>Counterparty access &amp; documentation</td>
+        </tr>
+        <tr>
+          <td class="year">2019</td>
+          <td class="deal"><strong>National Museum of Korea &times; Louvre Abu Dhabi MOU discussions</strong> — Korean national cultural institution × UAE counterpart (cross-border cultural cooperation)</td>
+          <td>Working-level coordination on Korean side</td>
+        </tr>
+        <tr>
+          <td class="year">Ongoing</td>
+          <td class="deal"><strong>Sovereign-capital research desk</strong> — continuous thesis tracking of ADIA, Mubadala, PIF, QIA, GIC, Temasek; sector-thesis matching against Korean opportunities</td>
+          <td>Research lead</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Professional Experience</div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Foreign Affairs &amp; Cross-Border Deal Staff — Office of Rep. Kim Jung-Hoon <span class="job-company">Lee &amp; Ko (법무법인 광장) — Korea's top-tier law firm</span></div>
+        <div class="job-period">Apr 2022 – Jun 2025 (3 yrs 3 mos)</div>
+      </div>
+      <ul class="compact">
+        <li><strong>Built &amp; ran a Korea ↔ Middle East capital-introduction practice</strong> — continuous SWF research (thesis shifts, sector preference, regional appetite) → direct outreach to ADIA / Mubadala / PIF / QIA / GIC / Temasek → bidirectional matching with Korean institutional and corporate principals.</li>
+        <li><strong>Forum Secretary (사무장), Korea–Middle East Sustainable Development Forum</strong> — produced bilingual pitch materials, agenda, and follow-up packages; led the working-level coordination through the KOFIA × Top-10 Korean FIs × UAE/Singapore SWF co-investment LOI.</li>
+        <li><strong>Coordinated SNU Dental × Mubadala Health MOU end-to-end (2024)</strong> — from cold outreach through signed terms; structured the bilateral residency-and-faculty-rotation framework with senior partners.</li>
+        <li><strong>Executed the August-2023 National Assembly Korea–Middle East Economic Forum</strong> — 100+ attendees including the Speaker of the National Assembly, 14 sitting legislators, and ambassadors of five Gulf states; produced all bilingual program materials.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Foreign Affairs &amp; Cross-Border Deal Staff — Office of Rep. Kim Jung-Hoon <span class="job-company">HMP Law (법무법인 충정) — Korea's top-tier law firm</span></div>
+        <div class="job-period">Jul 2020 – Apr 2022 (1 yr 9 mos)</div>
+      </div>
+      <ul class="compact">
+        <li><strong>Sourced &amp; originated cross-border transactions</strong> — Iraq LNG EPC mandate, Nigeria steel-asset acquisition, Oman Ministry of Defense channel (Hyundai Rotem); produced negotiation materials and coordinated multi-party counterparts.</li>
+        <li><strong>Drafted English-language formal correspondence, briefing memos, and MOU language</strong> for foreign government / corporate / SWF counterparts; partnered with senior law-firm partners on document review.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Grade-7 Secretary &amp; Foreign Affairs Liaison <span class="job-company">National Assembly of the Republic of Korea — Office of Rep. Kim Jung-Hoon</span></div>
+        <div class="job-period">Jul 2019 – May 2020 (11 mos)</div>
+      </div>
+      <ul class="compact">
+        <li><strong>Direct engagement with the diplomatic corps</strong> — ambassadors and senior diplomats of UAE, Saudi Arabia, Qatar, Kuwait, Oman, Singapore; English correspondence, VIP protocol, biweekly UAE Ambassador's Residence diplomatic gatherings (2019–2025 cumulative).</li>
+        <li><strong>Direct exposure to the National Policy Committee (정무위원회) agenda</strong> — sat in on budget &amp; settlement sessions and senior-member coordination meetings covering FSC, FSS, and KFTC oversight matters.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Workforce Manager &amp; Apple Tier 4 Senior Technical Advisor <span class="job-company">Concentrix Korea — Apple ecosystem (Fortune 50 client)</span></div>
+        <div class="job-period">Apr 2018 – Feb 2019 (11 mos)</div>
+      </div>
+      <ul class="compact">
+        <li>Operated agent scheduling against Apple's global service standards; delivered Tier-4 English-language technical support — disciplined precision under client-defined SLAs.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">HR &amp; Finance Administrative NCO (mandatory military service) <span class="job-company">Republic of Korea Army — Unit 4217 (Sejong)</span></div>
+        <div class="job-period">Oct 2012 – Jul 2014 (1 yr 9 mos)</div>
+      </div>
+      <div class="job-desc">Unit personnel records, fiscal-year reporting; honorable discharge.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Personal Projects (Quantitative &amp; Production Builds)</div>
+    <ul class="compact">
+      <li><strong>AIIM</strong> (Python · FastAPI · LangGraph · GraphRAG · GCP Cloud Run + Cloud SQL) — production agentic LLM platform, 24/7 live with 5,300+ creators across 14 languages; full-stack sole build.</li>
+      <li><strong>Vaccine Daily</strong> (ChromaDB · GraphRAG · ko-sroberta · HDBSCAN) — cost-aware multi-agent LLM pipeline; <strong>IBM × RedHat AX Academy Top Award (최우수상)</strong>.</li>
+      <li><strong>FOBO AI</strong> (PyTorch · Transformer · GAT · PPO · XGBoost · LightGBM) — 8-stage ML + RL ensemble for European football, ~90% accuracy across 13 leagues.</li>
+      <li><strong>KOKKOK Garden</strong> (Next.js 16 · Supabase / PostgreSQL + RLS · GPT-4o mini) — multi-country K-Beauty e-commerce; full-stack sole build with 5-language auto-translation.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Education</div>
+    <div class="edu-grid">
+      <div>
+        <div class="edu-school">Miami University, Ohio, USA</div>
+        <div class="edu-degree">B.A. International Studies, concentration in Economic Development</div>
+      </div>
+      <div>
+        <div class="edu-school">IBM × RedHat AI Transformation Academy</div>
+        <div class="edu-degree">AX Academy Certificate (2025.08–2026.02) — <strong>Top Award (최우수상)</strong></div>
+      </div>
+      <div>
+        <div class="edu-school">Taejon Christian International School (TCIS)</div>
+        <div class="edu-degree">IB Certificate (2008.08–2010.05) — English-medium IB curriculum</div>
+      </div>
+      <div>
+        <div class="edu-school">Daegu American High School (U.S. DoD School)</div>
+        <div class="edu-degree">High School Diploma — U.S. K-12 English-medium education</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Skills · Languages · Other</div>
+    <div class="skills-grid">
+      <div class="skill-row"><span class="skill-label">Languages</span><span class="skill-items"><strong>English — native-fluent</strong> (U.S. K-12 through B.A.) · <strong>Korean — native</strong> · Mandarin Chinese — conversational</span></div>
+      <div class="skill-row"><span class="skill-label">Deal Execution</span><span class="skill-items">Pitch material drafting · MOU / LOI negotiation support · multi-stakeholder coordination (legal, tax, counterparty) · due-diligence workstream support · bilingual transaction documentation</span></div>
+      <div class="skill-row"><span class="skill-label">Financial Analysis</span><span class="skill-items">Macroeconomic &amp; sovereign-capital thesis research (6 yrs working vocabulary) · Excel modeling · PowerPoint pitch books (6 yrs daily output) · ML / quantitative ensemble modeling (PyTorch, XGB/LGB)</span></div>
+      <div class="skill-row"><span class="skill-label">Technical</span><span class="skill-items">Python · SQL / PostgreSQL · GCP (Cloud Run, Cloud SQL) · Git · Bloomberg-style data wrangling pipelines · production AI/ML systems</span></div>
+      <div class="skill-row"><span class="skill-label">Other</span><span class="skill-items">Republic of Korea citizen · available immediately · willing to travel · Yeouido-based (CBD access)</span></div>
+    </div>
+  </div>
+
+</body>
+
+</html>
