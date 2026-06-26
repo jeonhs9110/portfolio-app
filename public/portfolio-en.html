@@ -241,18 +241,18 @@
             <div class="section-title">Featured Project 02</div>
             <div class="project-card">
                 <h2>KOKKOK Garden — K-Beauty Multi-region E-commerce <span class="participants">Hyunsik Jeon (Solo)</span></h2>
-                <div class="tech">Next.js 16 · TypeScript · Supabase (PostgreSQL + Auth + Storage) · Tailwind CSS 4 · OpenAI GPT-4o mini · Vercel</div>
-                <div class="desc"><strong>A sustainable e-commerce designed for an administrator to keep running long after the initial build</strong>. Six core data entities (products · orders · cart · users · media_stories · YouTube Shorts) are normalised into a Supabase (PostgreSQL) schema under proper RLS and relational constraints; every entity has a unified `/admin` CRUD + image-upload + state flow so a non-developer can operate the store. KR (purchasable) / GL (viewing + AI chatbot) routing and GPT-4o mini 5-language product translation all run from one codebase. <b>Live:</b> https://kokv2.vercel.app &nbsp;·&nbsp; <b>GitHub:</b> github.com/jeonhs9110/kok_v2</div>
+                <div class="tech">Next.js 16 · React 19 · TypeScript · Tailwind CSS 4 · AWS EC2 (t4g.small ARM64) · ALB · RDS PostgreSQL 16 · AWS Cognito · CloudFront · ACM · CloudTrail · Terraform IaC</div>
+                <div class="desc"><strong>A sustainable e-commerce designed for an administrator to keep running long after the initial build, fully owned and operated on AWS.</strong> Migrated from a Supabase-backed V1 to an AWS-native stack — EC2 + ALB + RDS PostgreSQL + Cognito + CloudFront — all provisioned with Terraform, with VPC, security groups, ACM cert provisioning, and CloudTrail audit posture personally owned. Six core data entities (products · orders · cart · users · media_stories · YouTube Shorts) live on RDS under RLS and relational constraints; every entity has a unified `/admin` CRUD + image-upload + state flow so a non-developer can operate the store. KR (purchasable) / GL (viewing) routing and 5-language product translation all run from one codebase. <b>Live:</b> ALB endpoint &nbsp;·&nbsp; <b>GitHub:</b> github.com/jeonhs9110/kok_v2</div>
 
                 <div class="pipeline">
-                    <h4>Technical Pipeline Detail</h4>
+                    <h4>System Engineering Pipeline</h4>
                     <ul>
-                        <li><strong>1. Sustainable admin tooling</strong> `/admin` dashboard — product · Shorts · media CRUD + image upload, operable without a developer</li>
-                        <li><strong>2. Normalised DB schema</strong> Six entities on Supabase (PostgreSQL) — users · products · orders · cart_items · media_stories · shorts — with RLS and relational constraints</li>
-                        <li><strong>3. Unified auth</strong> Supabase Auth + cookie-based admin session — login, permissions, and RLS handled in one layer</li>
-                        <li><strong>4. Multi-region routing</strong> KR/GL split via `x-user-country`, six language routes</li>
-                        <li><strong>5. AI translation + chatbot</strong> GPT-4o mini 5-language translation + unstable_cache 24h caching, with a K-beauty consultation chatbot on the GL store</li>
-                        <li><strong>6. Deploy</strong> Vercel · https://kokv2.vercel.app</li>
+                        <li><strong>1. AWS-native infrastructure</strong> Full stack on AWS: EC2 (ARM64) behind ALB, RDS PostgreSQL 16 in private subnets, CloudFront in front of static assets, ACM-issued wildcard cert, CloudTrail audit trail</li>
+                        <li><strong>2. Terraform IaC</strong> Every resource (VPC, subnets, security groups, IAM, ALB, RDS subnet group, parameter group, Cognito) declared in Terraform; reproducible across environments</li>
+                        <li><strong>3. Sustainable admin tooling</strong> `/admin` dashboard — product · Shorts · media CRUD + image upload, operable without a developer</li>
+                        <li><strong>4. Normalised RDS schema</strong> Six entities on RDS PostgreSQL — users · products · orders · cart_items · media_stories · shorts — with RLS and relational constraints</li>
+                        <li><strong>5. AWS Cognito auth</strong> JWT verified at the Next.js middleware layer; legacy cookie path blocked</li>
+                        <li><strong>6. Multi-region routing</strong> KR/GL split via `x-user-country`, six language routes; auto-translation with 24h cache</li>
                     </ul>
                 </div>
                 <img src="projects/pinned/kokkok-home.png" alt="KOKKOK Garden screenshot" class="screenshot" style="max-height: 240px;" />
@@ -344,20 +344,21 @@
             <div class="section-title">Featured Project 06</div>
             <div class="project-card">
                 <h2>Play_BALL — Multi-Agent Baseball Prediction Pipeline <span class="participants">Hyunsik Jeon (Solo)</span></h2>
-                <div class="tech">Python · PyTorch · XGBoost · LightGBM · PyMC (Bayesian) · Ollama qwen2.5 · faster-whisper · Streamlit · SQLite · MLB Stats API · pybaseball</div>
-                <div class="desc"><strong>An 8-agent baseball prediction pipeline that ports the FOBO AI orchestration discipline to MLB, KBO, and NPB.</strong> Hierarchical Bayesian pitcher rating → negative-binomial run model → XGBoost win/totals → Platt calibration → conformal intervals — ships predictions with confidence ranges, not single point estimates. YouTube pundit signal extracted by yt-dlp + faster-whisper, then structured into picks by a local Ollama LLM — zero external LLM API spend. Bayesian model averaging across model / pundits / market with fractional Kelly sizing.</div>
+                <div class="tech">Python · PyTorch · XGBoost · LightGBM · PyMC (Bayesian) · Knowledge Graph + vector search · faster-whisper · Streamlit · SQLite · MLB Stats API · pybaseball</div>
+                <div class="desc"><strong>A 9-agent baseball prediction pipeline that ports the FOBO AI orchestration discipline to MLB, KBO, and NPB.</strong> Hierarchical Bayesian pitcher rating → negative-binomial run model → XGBoost win/totals → Platt calibration → conformal intervals — ships predictions with confidence ranges, not single point estimates. A Knowledge Graph Reasoner extracts team-and-player entity-relation facts from Korean news, stores them as vectors, and at prediction time retrieves semantically similar past contexts to compute home/away trend signals. Bayesian model averaging across model / pundits / market / KG with fractional Kelly sizing.</div>
 
                 <div class="pipeline">
-                    <h4>8-Agent System Architecture</h4>
+                    <h4>9-Agent System Architecture</h4>
                     <ul>
                         <li><strong>A1 Schedule</strong> Pulls upcoming MLB games via MLB Stats API</li>
                         <li><strong>A2 Info Scraper</strong> Lineups, probable pitchers, sabermetrics, park factors, weather, umpires</li>
                         <li><strong>A3 ML Predictor</strong> Hierarchical Bayesian pitcher rating → NB run model → XGBoost win/totals → Platt calibration → conformal intervals</li>
-                        <li><strong>A4 Pundit Aggregator</strong> YouTube (yt-dlp + faster-whisper + Ollama) / ESPN / CBS / Action Network → structured picks</li>
+                        <li><strong>A4 Pundit Aggregator</strong> YouTube (yt-dlp + faster-whisper) / ESPN / CBS / Action Network → structured picks via local LLM</li>
                         <li><strong>A5 Authenticator</strong> Beta-Bernoulli reliability tracker per pundit per market</li>
                         <li><strong>A6 Market / Odds</strong> The Odds API → vig-adjusted implied probabilities</li>
-                        <li><strong>A7 Final Aggregator</strong> Bayesian model averaging (ML × pundits × market) + fractional Kelly</li>
+                        <li><strong>A7 Final Aggregator</strong> Bayesian model averaging (ML × pundits × market × KG) + fractional Kelly</li>
                         <li><strong>A8 Outcome Tracker</strong> Closes the loop — updates A3 training set and A5 reliability posteriors after games settle</li>
+                        <li><strong>A9 Knowledge Graph Reasoner</strong> Naver news → entity-relation facts → vector store; at inference, semantic search for similar past contexts yields a home/away trend signal that feeds A7 as a fourth independent input</li>
                     </ul>
                 </div>
             </div>

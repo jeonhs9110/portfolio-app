@@ -326,10 +326,10 @@
         <div class="project__badge">Live &middot; Mar 2026&ndash;Present</div>
       </div>
       <div class="project__role">Founder &amp; Operator</div>
-      <div class="project__stack"><span class="project__stack-label">Stack:</span>Next.js, React, TypeScript, Tailwind v4, Supabase, PostgreSQL + RLS, GPT-4o-mini, Vercel</div>
+      <div class="project__stack"><span class="project__stack-label">Stack:</span>Next.js 16, React 19, TypeScript, Tailwind 4, AWS EC2 (ARM64) + ALB + RDS PostgreSQL 16, AWS Cognito, CloudFront, ACM, CloudTrail, Terraform IaC</div>
       <ul class="bullets">
-        <li>Live multi-region platform with <strong>GPT-4o-mini-powered automatic product translation across 5 languages</strong> (24-hour cache), serving a Korean purchase storefront and a global viewing + AI-consultation route from one codebase.</li>
-        <li>PostgreSQL Row-Level Security multi-tenant architecture with an LLM K-beauty consultation assistant on the global storefront; <strong>14 admin modules</strong> let a single non-technical operator run the catalog end to end &mdash; transfers directly to any cross-border e-commerce.</li>
+        <li>Built the entire <strong>AWS stack with Terraform IaC</strong> &mdash; EC2 + ALB + RDS PostgreSQL 16 + Cognito + CloudFront, migrated from a Supabase-backed V1. Owns the VPC, security groups, ACM certificate provisioning, and CloudTrail audit posture personally.</li>
+        <li>PostgreSQL Row-Level Security multi-tenant architecture with <strong>14 admin modules</strong> letting a single non-technical operator run the catalog end to end. Automatic product-catalog translation across 5 languages (24-hour cache) splits a Korean purchase storefront and a global viewing route from one codebase.</li>
       </ul>
     </div>
 
@@ -340,11 +340,11 @@
         <div class="project__badge">In Build &middot; 2026&ndash;Present</div>
       </div>
       <div class="project__role">Architect &amp; Operator</div>
-      <div class="project__stack"><span class="project__stack-label">Stack:</span>PyTorch, XGBoost, LightGBM, PyMC (Bayesian), Ollama qwen2.5, faster-whisper, Streamlit, SQLite</div>
+      <div class="project__stack"><span class="project__stack-label">Stack:</span>PyTorch, XGBoost, LightGBM, PyMC (Bayesian), Knowledge Graph + vector search, faster-whisper, Streamlit, SQLite</div>
       <ul class="bullets">
-        <li>Designed and built an <strong>8-agent pipeline</strong> (schedule &rarr; info &rarr; ML predictor &rarr; pundit aggregator &rarr; reliability tracker &rarr; market odds &rarr; final aggregator &rarr; outcome tracker) &mdash; ports the orchestration discipline from FOBO AI (football) into the baseball domain.</li>
+        <li>Designed and built a <strong>9-agent pipeline</strong> (schedule &rarr; info &rarr; ML predictor &rarr; pundit aggregator &rarr; reliability tracker &rarr; market odds &rarr; final aggregator &rarr; outcome tracker &rarr; KG reasoner) &mdash; ports the orchestration discipline from FOBO AI (football) into the baseball domain.</li>
         <li>ML predictor is a four-stage stack: <strong>hierarchical Bayesian pitcher rating &rarr; negative-binomial run model &rarr; XGBoost win/totals &rarr; Platt calibration &rarr; conformal intervals</strong> &mdash; ships predictions with confidence ranges, not single point estimates.</li>
-        <li>Pundit signal extracted from YouTube via yt-dlp + faster-whisper, then structured into picks by a local Ollama LLM &mdash; zero external LLM API spend.</li>
+        <li><strong>A9 Knowledge Graph Reasoner</strong> extracts team-and-player entity-relation facts from Korean news, stores them as vectors, and at prediction time retrieves semantically similar past contexts to compute home/away trend signals. Feeds A7 as a fourth signal alongside ML, pundits, and market.</li>
       </ul>
     </div>
 
