@@ -4,6 +4,87 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
 import { FiDownload } from 'react-icons/fi';
 
+// Goal/Result keywords we expect inside achievement strings. Lines that
+// start with one of these get pulled into a labelled block so the eye
+// reads ACTION → GOAL → RESULT without parsing prose.
+const GOAL_PREFIXES = ['목표:', '목표 :', 'Objective:', 'Objective :', 'Goal:', 'Goal :'];
+const RESULT_PREFIXES = ['결과:', '결과 :', 'Outcome:', 'Outcome :', 'Result:', 'Result :'];
+
+function matchPrefix(line, prefixes) {
+    for (const p of prefixes) {
+        if (line.trimStart().startsWith(p)) {
+            return line.trimStart().slice(p.length).trimStart();
+        }
+    }
+    return null;
+}
+
+/**
+ * Parse one achievement string (with embedded <strong> tags) into action
+ * text + an optional goal block + an optional result block. Items that
+ * don't follow this shape stay as a single span — many of the smaller
+ * bullets (interpretation, network maintenance, etc) don't need
+ * goal/result framing.
+ */
+function parseDealItem(html) {
+    const lines = html.split('\n');
+    const actionLines = [];
+    let goal = null;
+    let result = null;
+    for (const line of lines) {
+        const g = matchPrefix(line, GOAL_PREFIXES);
+        if (g !== null) { goal = g; continue; }
+        const r = matchPrefix(line, RESULT_PREFIXES);
+        if (r !== null) { result = r; continue; }
+        actionLines.push(line);
+    }
+    return { action: actionLines.join('\n'), goal, result };
+}
+
+function DealItem({ html, lang }) {
+    const { action, goal, result } = parseDealItem(html);
+
+    // No goal/result markers — render as the original single span.
+    if (!goal && !result) {
+        return (
+            <span
+                style={{ fontSize: '0.85rem', lineHeight: '1.65', whiteSpace: 'pre-line' }}
+                dangerouslySetInnerHTML={{ __html: html }}
+            />
+        );
+    }
+
+    const goalLabel = lang === 'ko' ? '목표' : 'Goal';
+    const resultLabel = lang === 'ko' ? '결과' : 'Result';
+
+    return (
+        <div className="experience__deal">
+            <div
+                className="experience__deal-action"
+                dangerouslySetInnerHTML={{ __html: action }}
+            />
+            {goal && (
+                <div className="experience__deal-block experience__deal-block--goal">
+                    <span className="experience__deal-label">{goalLabel}</span>
+                    <span
+                        className="experience__deal-text"
+                        dangerouslySetInnerHTML={{ __html: goal }}
+                    />
+                </div>
+            )}
+            {result && (
+                <div className="experience__deal-block experience__deal-block--result">
+                    <span className="experience__deal-label">{resultLabel}</span>
+                    <span
+                        className="experience__deal-text"
+                        dangerouslySetInnerHTML={{ __html: result }}
+                    />
+                </div>
+            )}
+        </div>
+    );
+}
+
 const fadeUp = {
     hidden: { opacity: 0, y: 32 },
     visible: (i) => ({
@@ -14,7 +95,7 @@ const fadeUp = {
 };
 
 export default function Experience() {
-    const { t } = useLanguage();
+    const { t, lang } = useLanguage();
 
     return (
         <section className="experience" id="experience">
@@ -72,10 +153,7 @@ export default function Experience() {
                                             {ach.items.map((item, idxx) => (
                                                 <li key={idxx} className="experience__achieved-item" style={{ marginBottom: '14px', alignItems: 'flex-start' }}>
                                                     <span className="experience__dot" style={{ marginTop: '8px' }} />
-                                                    <span
-                                                        style={{ fontSize: '0.85rem', lineHeight: '1.65', whiteSpace: 'pre-line' }}
-                                                        dangerouslySetInnerHTML={{ __html: item }}
-                                                    />
+                                                    <DealItem html={item} lang={lang} />
                                                 </li>
                                             ))}
                                         </ul>

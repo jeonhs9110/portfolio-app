@@ -56,7 +56,11 @@ export default function Navbar() {
                 </ul>
 
                 <div className="navbar__right">
-                    <button className="lang-toggle" onClick={toggleLang}>
+                    <button
+                        className="lang-toggle"
+                        onClick={toggleLang}
+                        aria-label={lang === 'ko' ? 'Switch language to English' : '한국어로 언어 변경'}
+                    >
                         {lang === 'ko' ? 'EN' : '한국어'}
                     </button>
                     <button
@@ -92,6 +96,7 @@ export default function Navbar() {
                     <button
                         className="lang-toggle"
                         onClick={() => { toggleLang(); }}
+                        aria-label={lang === 'ko' ? 'Switch language to English' : '한국어로 언어 변경'}
                     >
                         {lang === 'ko' ? 'English' : '한국어'}
                     </button>

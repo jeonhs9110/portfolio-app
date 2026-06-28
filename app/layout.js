@@ -1,10 +1,45 @@
 import './globals.css';
 import { LanguageProvider } from '@/context/LanguageContext';
 
+const SITE_URL = 'https://portfolio-app-5ca9.vercel.app';
+const TITLE = 'Hyunsik Jeon · 전현식 — Global AI Strategist';
+const DESCRIPTION =
+  'Production AI builder × cross-border dealmaker. Six years bridging Korea and the Middle East at the National Assembly and Korea\'s top-tier law firms, now shipping production AI systems end-to-end.';
+
 export const metadata = {
-  title: '전현식 포트폴리오 | Hyunsik Jeon Portfolio',
-  description:
-    '전현식 (Hyunsik Jeon) — 프론트엔드 & AI 개발자 포트폴리오. Frontend & AI Developer Portfolio.',
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  keywords: [
+    'Hyunsik Jeon', '전현식', 'Global AI Strategist',
+    'cross-border BD', 'production AI', 'AI strategy',
+    'Korea Middle East', 'Seoul AI', 'Lee & Ko', 'HMP Law',
+  ],
+  authors: [{ name: 'Hyunsik Jeon', url: SITE_URL }],
+  openGraph: {
+    type: 'profile',
+    locale: 'ko_KR',
+    alternateLocale: ['en_US'],
+    url: SITE_URL,
+    siteName: 'Hyunsik Jeon · 전현식',
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [
+      {
+        url: '/jeon_pose_contact.png',
+        width: 1200,
+        height: 630,
+        alt: 'Hyunsik Jeon — Global AI Strategist',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ['/jeon_pose_contact.png'],
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }) {
