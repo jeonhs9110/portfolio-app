@@ -204,8 +204,12 @@ h3 {
   animation: aura-shiny 8s linear infinite;
 }
 
-/* Section titles get a static white-to-light vertical fade — premium feel
-   without the readability hit of an animated dark-to-light sweep. */
+/* Section titles get a static white-to-light vertical fade + a soft cyan
+   inner-glow halo so the big "About / Experience / Projects" headers
+   feel intentional rather than just text. drop-shadow (not text-shadow)
+   because background-clip:text + transparent fill won't accept text-shadow.
+   Two layered shadows: a tight near-shadow for crispness, a wider one
+   for the ambient halo. */
 .section-title,
 .contact__title {
   background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.78) 100%);
@@ -213,6 +217,9 @@ h3 {
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
+  filter:
+    drop-shadow(0 1px 1px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 0 22px rgba(147, 197, 253, 0.32));
 }
 
 /* Heading tracking — match the Aura aesthetic (-0.02em → -0.03em). */
@@ -227,14 +234,20 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .kw {
   font-weight: 700;
   color: #ffffff;
+  /* Thicker, brighter marker band — was too pale to read as emphasis on a
+     moving dark video. Band now occupies the bottom 40% of the line at
+     ~0.45 alpha cyan, ramping to a brighter tip toward the right edge. */
   background: linear-gradient(
-    transparent 68%,
-    rgba(147, 197, 253, 0.22) 68%,
-    rgba(147, 197, 253, 0.22) 96%,
+    transparent 60%,
+    rgba(147, 197, 253, 0.42) 60%,
+    rgba(167, 232, 252, 0.50) 96%,
     transparent 96%
   );
-  padding: 0 1px;
-  border-radius: 2px;
+  padding: 1px 3px;
+  border-radius: 3px;
+  /* A subtle text glow so the keyword reads as the focal point of the
+     sentence, not just as bolded text on a marker band. */
+  text-shadow: 0 0 14px rgba(147, 197, 253, 0.45);
 }
 
 /* ---- Buttons ---- */
