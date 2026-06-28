@@ -9,8 +9,10 @@ import { useLanguage } from '@/context/LanguageContext';
 // Delivers a "3D spin" effect using real images, photoreal quality end-to-end.
 const Hero360Viewer = dynamic(() => import('./Hero360Viewer'), { ssr: false });
 
-const VELDARA_VIDEO_URL =
-    'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260616_212935_bbf608da-62d1-4f25-9be4-c346e4d09cc8.mp4';
+// Local Gemini-Veo turntable clip. Replaces the previous Cloudfront URL —
+// hosted on the same origin so no CORS round-trip, no third-party fragility,
+// and we control the asset (8s rotation, 720p, 2.5MB).
+const VELDARA_VIDEO_URL = '/jeon_landing_360.mp4';
 
 function Pinwheel() {
     return (
@@ -683,11 +685,12 @@ export default function Hero() {
                 }
 
                 .aurai-role {
-                    color: rgba(255, 255, 255, 0.6);
+                    color: rgba(255, 255, 255, 0.85);
                     font-size: 0.75rem;
                     letter-spacing: 0.18em;
                     text-transform: uppercase;
                     margin-bottom: 0.25rem;
+                    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
                 }
 
                 .aurai-heading {
@@ -704,10 +707,11 @@ export default function Hero() {
                 @media (min-width: 1024px) { .aurai-heading { font-size: 3.75rem; } }
 
                 .aurai-subtitle {
-                    color: rgba(255, 255, 255, 0.72);
+                    color: rgba(255, 255, 255, 0.88);
                     font-size: 0.8125rem;
                     max-width: 560px;
                     line-height: 1.55;
+                    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
                 }
                 @media (min-width: 768px) { .aurai-subtitle { font-size: 0.9375rem; } }
 
@@ -745,14 +749,14 @@ export default function Hero() {
                     font-size: 0.6875rem;
                     letter-spacing: 0.16em;
                     text-transform: uppercase;
-                    color: rgba(255, 255, 255, 0.55);
-                    font-weight: 500;
+                    color: rgba(255, 255, 255, 0.78);
+                    font-weight: 600;
                 }
                 @media (min-width: 768px) {
                     .aurai-sitemap-label { font-size: 0.75rem; }
                 }
                 .aurai-sitemap-summary {
-                    color: rgba(255, 255, 255, 0.86);
+                    color: rgba(255, 255, 255, 0.94);
                     font-size: 0.75rem;
                     line-height: 1.45;
                 }
@@ -782,7 +786,7 @@ export default function Hero() {
                 @media (min-width: 640px) {
                     .aurai-email-input { padding: 1rem 1.5rem; }
                 }
-                .aurai-email-input::placeholder { color: rgba(255, 255, 255, 0.55); }
+                .aurai-email-input::placeholder { color: rgba(255, 255, 255, 0.72); }
                 .aurai-email-submit {
                     position: absolute;
                     right: 0.375rem;
@@ -1023,9 +1027,10 @@ export default function Hero() {
                 }
                 #hj-hero .hj-subtitle {
                     font-size: 0.875rem;
-                    color: #9ca3af;
+                    color: #d1d5db;
                     margin-bottom: 1rem;
                     letter-spacing: 0.05em;
+                    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
                 }
                 #hj-hero h1 {
                     font-size: clamp(1.5rem, 5vw, 3.75rem);
@@ -1095,7 +1100,7 @@ export default function Hero() {
                 #hj-hero .hj-bounce-arrow svg {
                     width: 1.5rem;
                     height: 1.5rem;
-                    color: #6b7280;
+                    color: rgba(255, 255, 255, 0.65);
                     animation: hj-bounce 1s infinite;
                 }
                 @keyframes hj-bounce {
