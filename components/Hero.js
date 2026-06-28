@@ -245,6 +245,7 @@ export default function Hero() {
                 <div id="hj-hero-badge" className="hj-hero-badge">
                     <span className="hj-hero-eyebrow">{t.aurai.role}</span>
                     <h1 className="hj-hero-name">{t.hero.identity}</h1>
+                    <p className="hj-hero-elevator">{t.hero.elevator}</p>
                     <p className="hj-hero-tag">{t.aurai.pills.join(' · ')}</p>
                     <div className="hj-hero-scroll" aria-hidden="true">
                         <span>scroll</span>
@@ -369,6 +370,16 @@ export default function Hero() {
                     color: #ffffff;
                     margin: 0;
                     text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+                }
+                .hj-hero-elevator {
+                    margin: 0.75rem auto 0;
+                    max-width: 36rem;
+                    font-size: clamp(0.9375rem, 2.2vw, 1.0625rem);
+                    line-height: 1.5;
+                    color: rgba(255, 255, 255, 0.92);
+                    font-weight: 400;
+                    letter-spacing: -0.005em;
+                    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
                 }
                 .hj-hero-tag {
                     margin: 0.625rem 0 0 0;

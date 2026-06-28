@@ -40,6 +40,17 @@ export default function Contact() {
                     {t.contact.subtitle}
                 </motion.p>
 
+                <motion.p
+                    className="contact__open-to"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.7, delay: 0.18 }}
+                >
+                    <span className="contact__open-to-dot" aria-hidden="true" />
+                    {t.contact.openTo}
+                </motion.p>
+
                 <motion.div
                     className="contact__row"
                     initial={{ opacity: 0, y: 20 }}
@@ -139,6 +150,40 @@ export default function Contact() {
                 }
                 @media (min-width: 768px) {
                     .contact__subtitle { font-size: 1.0625rem; }
+                }
+
+                /* "Currently open to..." availability strip — small, deliberate,
+                   with a pulsing accent dot so it reads as a live signal. */
+                .contact__open-to {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.625rem;
+                    margin: 0.25rem 0 1.5rem 0;
+                    padding: 0.625rem 1rem;
+                    border-radius: 9999px;
+                    background: rgba(8, 14, 28, 0.55);
+                    border: 1px solid rgba(147, 197, 253, 0.32);
+                    color: rgba(255, 255, 255, 0.94);
+                    font-size: 0.875rem;
+                    line-height: 1.35;
+                    max-width: 42rem;
+                    backdrop-filter: blur(10px);
+                    -webkit-backdrop-filter: blur(10px);
+                    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+                }
+                .contact__open-to-dot {
+                    width: 0.5rem;
+                    height: 0.5rem;
+                    border-radius: 9999px;
+                    background: #4ade80;
+                    flex-shrink: 0;
+                    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+                    animation: contact-pulse 2.2s ease-out infinite;
+                }
+                @keyframes contact-pulse {
+                    0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+                    70% { box-shadow: 0 0 0 10px rgba(74, 222, 128, 0); }
+                    100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
                 }
                 .contact__row {
                     display: flex;
