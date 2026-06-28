@@ -1,12 +1,13 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 
 // Two decoupled layers:
-//   - BG (motionsight): autoplays + loops on its own clock, never tied to scroll
+//   - BG (Mux HLS stream): autoplays + loops on its own clock, never tied to scroll
 //   - FIGURE (alpha-channel side-by-side mp4): scroll scrubs its currentTime,
 //     and a canvas masks the figure on top of the bg every animation frame
-const BG_SRC = '/motionsight_bg.mp4';
+const BG_HLS_SRC = 'https://stream.mux.com/tLkHO1qZoaaQOUeVWo8hEBeGQfySP02EPS02BmnNFyXys.m3u8';
 const FIGURE_SRC = '/jeon_figure_sbs.mp4';
 
 // Source frame size for one half of the side-by-side mp4
@@ -33,12 +34,35 @@ const SBS_HALF_H = 720;
  * The bg has no transform — it stays full-bleed independent of the zoom.
  */
 export default function Hero() {
+    const { t } = useLanguage();
+
     useEffect(() => {
         const bgEl = document.getElementById('hj-bg-motion');
         const figureEl = document.getElementById('hj-figure-video');
         const stage = document.getElementById('hj-figure-stage');
         const canvas = document.getElementById('hj-figure-canvas');
         if (!bgEl || !figureEl || !stage || !canvas) return;
+
+        // BG layer is a Mux HLS stream — Safari plays HLS natively, every other
+        // browser needs hls.js. Lazy-import so it doesn't ship in the initial
+        // SSR bundle, and pass enableWorker: false for Vercel edge stability.
+        let hls = null;
+        if (bgEl.canPlayType('application/vnd.apple.mpegurl')) {
+            bgEl.src = BG_HLS_SRC;
+        } else {
+            import('hls.js').then(({ default: Hls }) => {
+                if (!Hls.isSupported()) {
+                    // Last-resort fallback: try native src and hope for the best
+                    bgEl.src = BG_HLS_SRC;
+                    return;
+                }
+                hls = new Hls({ enableWorker: false });
+                hls.loadSource(BG_HLS_SRC);
+                hls.attachMedia(bgEl);
+            }).catch(() => {
+                bgEl.src = BG_HLS_SRC;
+            });
+        }
 
         const ctx = canvas.getContext('2d', { alpha: true });
         const buf = document.createElement('canvas');
@@ -144,6 +168,17 @@ export default function Hero() {
             const z = getZoomProgress();
             const zoom = 1.95 - z * 0.95;
             stage.style.setProperty('--zoom', String(zoom));
+
+            // Fade the recruiter-facing identity badge out across the first 60vh
+            // of scroll, so it owns the landing view but quietly steps aside as
+            // soon as the visitor commits to reading the page.
+            const badge = document.getElementById('hj-hero-badge');
+            if (badge) {
+                const fade = Math.max(0, 1 - window.scrollY / (window.innerHeight * 0.6));
+                badge.style.opacity = String(fade);
+                badge.style.pointerEvents = fade > 0.05 ? 'auto' : 'none';
+            }
+
             raf = requestAnimationFrame(tick);
         }
 
@@ -166,16 +201,19 @@ export default function Hero() {
             cancelAnimationFrame(raf);
             figureEl.removeEventListener('seeked', onSeeked);
             window.removeEventListener('resize', resize);
+            if (hls) {
+                try { hls.destroy(); } catch (_) {}
+            }
         };
     }, []);
 
     return (
         <>
             <div id="hj-bg-container" aria-hidden="true">
-                {/* Background motionsight video — autoplays, loops, ignores scroll */}
+                {/* Background HLS stream — autoplays, loops, ignores scroll.
+                    src is set by hls.js in the effect (or natively on Safari). */}
                 <video
                     id="hj-bg-motion"
-                    src={BG_SRC}
                     autoPlay
                     loop
                     muted
@@ -201,7 +239,21 @@ export default function Hero() {
                 <div id="hj-bg-tint" />
             </div>
 
-            <section id="hero" className="hj-spacer" />
+            <section id="hero" className="hj-spacer">
+                {/* Minimal identity badge — who, what, why.
+                    Fades out as the visitor scrolls past the hero. */}
+                <div id="hj-hero-badge" className="hj-hero-badge">
+                    <span className="hj-hero-eyebrow">{t.aurai.role}</span>
+                    <h1 className="hj-hero-name">{t.hero.identity}</h1>
+                    <p className="hj-hero-tag">{t.aurai.pills.join(' · ')}</p>
+                    <div className="hj-hero-scroll" aria-hidden="true">
+                        <span>scroll</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M12 5v14M5 12l7 7 7-7" />
+                        </svg>
+                    </div>
+                </div>
+            </section>
 
             <style jsx global>{`
                 #hj-bg-container {
@@ -280,6 +332,76 @@ export default function Hero() {
                     position: relative;
                     z-index: 1;
                     pointer-events: none;
+                }
+
+                /* ---------- Recruiter-facing identity badge ---------- */
+                .hj-hero-badge {
+                    position: absolute;
+                    left: 50%;
+                    bottom: clamp(2.5rem, 6vh, 5rem);
+                    transform: translateX(-50%);
+                    text-align: center;
+                    width: min(94%, 720px);
+                    padding: 1rem 1.25rem;
+                    pointer-events: auto;
+                    transition: opacity 0.18s linear;
+                }
+                .hj-hero-eyebrow {
+                    display: inline-block;
+                    font-size: 0.6875rem;
+                    letter-spacing: 0.22em;
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    color: rgba(255, 255, 255, 0.78);
+                    margin-bottom: 0.625rem;
+                    padding: 0.3125rem 0.75rem;
+                    border-radius: 9999px;
+                    background: rgba(8, 14, 28, 0.55);
+                    border: 1px solid rgba(255, 255, 255, 0.16);
+                    backdrop-filter: blur(10px);
+                    -webkit-backdrop-filter: blur(10px);
+                }
+                .hj-hero-name {
+                    font-size: clamp(1.5rem, 4.5vw, 2.625rem);
+                    font-weight: 700;
+                    letter-spacing: -0.025em;
+                    line-height: 1.05;
+                    color: #ffffff;
+                    margin: 0;
+                    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+                }
+                .hj-hero-tag {
+                    margin: 0.625rem 0 0 0;
+                    font-size: clamp(0.75rem, 2vw, 0.875rem);
+                    color: rgba(255, 255, 255, 0.78);
+                    letter-spacing: 0.04em;
+                    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
+                }
+                .hj-hero-scroll {
+                    margin-top: 1.5rem;
+                    display: inline-flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 0.25rem;
+                    font-size: 0.625rem;
+                    letter-spacing: 0.28em;
+                    text-transform: uppercase;
+                    color: rgba(255, 255, 255, 0.55);
+                    animation: hj-bounce 1.8s infinite;
+                }
+                .hj-hero-scroll svg {
+                    width: 1rem;
+                    height: 1rem;
+                }
+                @keyframes hj-bounce {
+                    0%, 100% { transform: translateY(0); opacity: 0.6; }
+                    50% { transform: translateY(4px); opacity: 1; }
+                }
+                @media (max-width: 640px) {
+                    .hj-hero-badge {
+                        bottom: clamp(1.5rem, 4vh, 3rem);
+                        padding: 0.75rem 1rem;
+                    }
                 }
             `}</style>
         </>
