@@ -1,17 +1,52 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 
-const VIDEO_URL =
+const AURAI_VIDEO_URL =
+    'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260618_174853_aac61aa2-0f3f-4cf1-bc78-7f657dd11164.mp4';
+const VELDARA_VIDEO_URL =
     'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260616_212935_bbf608da-62d1-4f25-9be4-c346e4d09cc8.mp4';
+
+function Pinwheel() {
+    return (
+        <svg viewBox="0 0 256 256" fill="currentColor" className="aurai-logo-svg">
+            <path d="M 228 0 C 172.772 0 128 44.772 128 100 L 128 0 L 0 0 L 0 28 C 0 83.228 44.772 128 100 128 L 0 128 L 0 256 L 28 256 C 83.228 256 128 211.228 128 156 L 128 256 L 256 256 L 256 228 C 256 172.772 211.228 128 156 128 L 256 128 L 256 0 Z" />
+        </svg>
+    );
+}
+
+function HamburgerIcon({ open }) {
+    return open ? (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+    ) : (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+    );
+}
 
 export default function Hero() {
     const { t } = useLanguage();
     const cards = t.hero.cards;
-    const headline = t.hero.headline; // [prefix, underlined, suffix]
-    const heroRootRef = useRef(null);
+    const headline = t.hero.headline;
+    const aurai = t.aurai;
+
+    const [email, setEmail] = useState('');
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const submitEmail = (e) => {
+        e.preventDefault();
+        const subject = encodeURIComponent('Reaching out — portfolio');
+        const body = encodeURIComponent(email ? `From: ${email}\n\n` : '');
+        window.location.href = `mailto:jeonhs9110@gmail.com?subject=${subject}&body=${body}`;
+    };
 
     useEffect(() => {
         const canvas = document.getElementById('hj-video-canvas');
@@ -39,7 +74,7 @@ export default function Hero() {
 
         async function extractFrames() {
             try {
-                const response = await fetch(VIDEO_URL, { mode: 'cors' });
+                const response = await fetch(VELDARA_VIDEO_URL, { mode: 'cors' });
                 const blob = await response.blob();
                 const objectUrl = URL.createObjectURL(blob);
                 const video = document.createElement('video');
@@ -79,13 +114,14 @@ export default function Hero() {
                 }
                 URL.revokeObjectURL(objectUrl);
             } catch (e) {
-                // fallback path: silent — videoEl element handles playback
+                // silent fallback to direct video seeking
             }
         }
 
         function getScrollBounds() {
             const vh = window.innerHeight;
-            return { start: vh * 0.5, end: document.documentElement.scrollHeight - vh };
+            // Veldara scrub starts AFTER the Aurai section (which is 100vh)
+            return { start: vh * 1.5, end: document.documentElement.scrollHeight - vh };
         }
 
         function getProgress() {
@@ -183,10 +219,12 @@ export default function Hero() {
         window.addEventListener('resize', resizeParticles);
         animateParticles();
 
-        // Hero fade on scroll
+        // Veldara hero fade (kicks in after the Aurai section is scrolled past)
         const heroSection = document.getElementById('hj-hero');
         function updateHeroOpacity() {
-            const fade = Math.max(0, 1 - window.scrollY / (window.innerHeight * 0.3));
+            const vh = window.innerHeight;
+            const past = Math.max(0, window.scrollY - vh);
+            const fade = Math.max(0, 1 - past / (vh * 0.3));
             if (heroSection) heroSection.style.opacity = fade;
         }
         window.addEventListener('scroll', updateHeroOpacity, { passive: true });
@@ -267,101 +305,453 @@ export default function Hero() {
     }, []);
 
     return (
-        <div ref={heroRootRef} className="hj-hero-root">
-            {/* Scroll-reactive video background */}
-            <div id="hj-scroll-video-container">
-                <canvas id="hj-video-canvas" />
+        <>
+            {/* ════════════════════ AURAI-STYLE TOP HERO ════════════════════ */}
+            <section className="aurai-hero">
                 <video
-                    id="hj-video-fallback"
+                    className="aurai-video"
+                    src={AURAI_VIDEO_URL}
+                    autoPlay
+                    loop
                     muted
                     playsInline
-                    preload="auto"
-                    crossOrigin="anonymous"
-                    src={VIDEO_URL}
                 />
-                <div className="hj-overlay" />
-            </div>
-
-            {/* Particles */}
-            <canvas id="hj-particles-canvas" />
-
-            {/* Fixed cards */}
-            <div id="hj-fixed-cards">
-                <div className="hj-grid">
-                    {cards.map((c, i) => (
-                        <div key={i} className="hj-card">
-                            <h3>{c.title}</h3>
-                            <p>{c.body}</p>
+                <div className="aurai-layer">
+                    <nav className="aurai-nav">
+                        <div className="aurai-nav-pill">
+                            <span className="aurai-logo"><Pinwheel /></span>
+                            <span className="aurai-brand">{aurai.brand}</span>
+                            <button
+                                className="aurai-menu-toggle"
+                                aria-label="menu"
+                                onClick={() => setMenuOpen((v) => !v)}
+                            >
+                                <HamburgerIcon open={menuOpen} />
+                            </button>
                         </div>
-                    ))}
-                </div>
-            </div>
+                        <button className="aurai-cta-right" onClick={submitEmail}>
+                            {aurai.joinButton}
+                        </button>
+                    </nav>
 
-            {/* Hero section */}
-            <section id="hj-hero">
-                <div className="hj-gradient-overlay" />
-                <div className="hj-content">
-                    <p className="hj-subtitle">{t.hero.identity}</p>
-                    <h1>
-                        {headline[0]}
-                        <span className="hj-underlined">
-                            <span className="hj-line" />
-                            <span>{headline[1]}</span>
-                        </span>
-                        {headline[2]}
-                    </h1>
-                    <div className="hj-ctas">
-                        <div className="hj-code-box">
-                            <span className="hj-prompt">&gt;</span>
-                            <code>linkedin.com/in/jeonhyunsik</code>
+                    {menuOpen && (
+                        <div className="aurai-mobile-menu">
+                            <a href="#about" onClick={() => setMenuOpen(false)}>{aurai.navItems[0]}</a>
+                            <a href="#experience" onClick={() => setMenuOpen(false)}>{aurai.navItems[1]}</a>
+                            <a href="#projects" onClick={() => setMenuOpen(false)}>{aurai.navItems[2]}</a>
+                            <a href="#contact" onClick={() => setMenuOpen(false)}>{aurai.navItems[3]}</a>
+                            <button onClick={submitEmail} className="aurai-mobile-cta">
+                                {aurai.joinButton}
+                            </button>
                         </div>
-                        <a href="#projects" className="hj-cta-btn">
-                            {t.hero.ctaButton} <span>→</span>
-                        </a>
-                    </div>
-                </div>
-                <div className="hj-bounce-arrow">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                    </svg>
-                </div>
-            </section>
+                    )}
 
-            {/* Spacer before cards */}
-            <div style={{ height: '150vh' }} />
-
-            {/* Cards trigger zone */}
-            <div id="hj-cards-trigger" style={{ height: '200vh' }} />
-
-            {/* Spacer before section 3 */}
-            <div style={{ height: '100vh' }} />
-
-            {/* Section 3 — Presenting */}
-            <section id="hj-section-three">
-                <div className="hj-inner" id="hj-section-three-inner">
-                    <p>{t.hero.presenting}</p>
-                    <h2>{t.hero.presentingName}</h2>
-                    <div className="hj-portrait">
-                        <Image
-                            src="/jeon-id-2023.jpg"
-                            alt="Hyunsik Jeon"
-                            width={240}
-                            height={300}
-                            priority
-                            style={{ objectFit: 'cover', borderRadius: '12px' }}
-                        />
+                    <div className="aurai-spacer" />
+                    <div className="aurai-content">
+                        <div className="aurai-left">
+                            <h1 className="aurai-heading">{aurai.heading}</h1>
+                            <p className="aurai-subtitle">{aurai.subtitle}</p>
+                            <form className="aurai-email-pill" onSubmit={submitEmail}>
+                                <input
+                                    type="email"
+                                    placeholder={aurai.emailPlaceholder}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className="aurai-email-input"
+                                />
+                                <button type="submit" className="aurai-email-submit">
+                                    {aurai.emailSubmit}
+                                </button>
+                            </form>
+                            <div className="aurai-pills aurai-pills-mobile">
+                                {aurai.pills.map((p) => (
+                                    <span key={p} className="aurai-pill">{p}</span>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="aurai-right">
+                            {aurai.pills.map((p) => (
+                                <span key={p} className="aurai-pill">{p}</span>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </section>
+
+            {/* ════════════════════ VELDARA SCROLL-REACTIVE SECTION ════════════════════ */}
+            <div className="hj-hero-root">
+                <div id="hj-scroll-video-container">
+                    <canvas id="hj-video-canvas" />
+                    <video
+                        id="hj-video-fallback"
+                        muted
+                        playsInline
+                        preload="auto"
+                        crossOrigin="anonymous"
+                        src={VELDARA_VIDEO_URL}
+                    />
+                    <div className="hj-overlay" />
+                </div>
+
+                <canvas id="hj-particles-canvas" />
+
+                <div id="hj-fixed-cards">
+                    <div className="hj-grid">
+                        {cards.map((c, i) => (
+                            <div key={i} className="hj-card">
+                                <h3>{c.title}</h3>
+                                <p>{c.body}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <section id="hj-hero">
+                    <div className="hj-gradient-overlay" />
+                    <div className="hj-content">
+                        <p className="hj-subtitle">{t.hero.identity}</p>
+                        <h1>
+                            {headline[0]}
+                            <span className="hj-underlined">
+                                <span className="hj-line" />
+                                <span>{headline[1]}</span>
+                            </span>
+                            {headline[2]}
+                        </h1>
+                        <div className="hj-ctas">
+                            <div className="hj-code-box">
+                                <span className="hj-prompt">&gt;</span>
+                                <code>linkedin.com/in/jeonhyunsik</code>
+                            </div>
+                            <a href="#projects" className="hj-cta-btn">
+                                {t.hero.ctaButton} <span>→</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div className="hj-bounce-arrow">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </div>
+                </section>
+
+                <div style={{ height: '150vh' }} />
+                <div id="hj-cards-trigger" style={{ height: '200vh' }} />
+                <div style={{ height: '100vh' }} />
+
+                <section id="hj-section-three">
+                    <div className="hj-inner" id="hj-section-three-inner">
+                        <p>{t.hero.presenting}</p>
+                        <h2>{t.hero.presentingName}</h2>
+                        <div className="hj-portrait">
+                            <Image
+                                src="/jeon-id-2023.jpg"
+                                alt="Hyunsik Jeon"
+                                width={240}
+                                height={300}
+                                priority
+                                style={{ objectFit: 'cover', borderRadius: '12px' }}
+                            />
+                        </div>
+                    </div>
+                </section>
+            </div>
 
             <style jsx global>{`
+                /* Askan Light font for the brand & headline */
+                @import url('https://db.onlinewebfonts.com/c/304a6edcec9f8858eeaafc2ac18243f4?family=Askan+Light');
+
+                .aurai-hero {
+                    position: relative;
+                    height: 100vh;
+                    width: 100%;
+                    overflow: hidden;
+                    background: #050505;
+                }
+
+                .aurai-video {
+                    position: absolute;
+                    inset: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: 80% center;
+                    z-index: 0;
+                }
+
+                @media (min-width: 768px) {
+                    .aurai-video { object-position: right center; }
+                }
+                @media (min-width: 1024px) {
+                    .aurai-video { object-position: center center; }
+                }
+
+                .aurai-layer {
+                    position: absolute;
+                    inset: 0;
+                    z-index: 10;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 1rem 1rem;
+                }
+                @media (min-width: 640px) {
+                    .aurai-layer { padding: 2rem 2.5rem; }
+                }
+                @media (min-width: 1024px) {
+                    .aurai-layer { padding: 2rem 3rem; }
+                }
+
+                .aurai-nav {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                .aurai-nav-pill {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    background: rgba(0, 0, 0, 0.2);
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
+                    border-radius: 1rem;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    padding: 0.625rem 1rem;
+                    color: #fff;
+                }
+                @media (min-width: 640px) {
+                    .aurai-nav-pill { padding: 1rem 1.5rem; gap: 0.75rem; }
+                }
+
+                .aurai-logo {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 1.25rem;
+                    height: 1.25rem;
+                    color: #fff;
+                }
+                @media (min-width: 640px) {
+                    .aurai-logo { width: 1.75rem; height: 1.75rem; }
+                }
+                .aurai-logo-svg { width: 100%; height: 100%; display: block; }
+
+                .aurai-brand {
+                    font-family: 'Askan Light', 'Inter', serif;
+                    font-size: 1rem;
+                    letter-spacing: 0.05em;
+                    color: #fff;
+                }
+                @media (min-width: 640px) {
+                    .aurai-brand { font-size: 1.25rem; }
+                }
+
+                .aurai-menu-toggle {
+                    background: transparent;
+                    border: 0;
+                    padding: 0;
+                    margin-left: 1rem;
+                    color: #fff;
+                    cursor: pointer;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 1.5rem;
+                    height: 1.5rem;
+                }
+                @media (min-width: 640px) { .aurai-menu-toggle { margin-left: 8rem; } }
+                @media (min-width: 768px) { .aurai-menu-toggle { margin-left: 16rem; } }
+                @media (min-width: 1024px) { .aurai-menu-toggle { margin-left: 24rem; } }
+                .aurai-menu-toggle svg { width: 100%; height: 100%; display: block; }
+
+                .aurai-cta-right {
+                    display: none;
+                    background: #fff;
+                    color: #111827;
+                    font-weight: 500;
+                    font-size: 0.875rem;
+                    padding: 0.75rem 1.5rem;
+                    border-radius: 9999px;
+                    border: 0;
+                    cursor: pointer;
+                    transition: opacity 0.2s;
+                }
+                .aurai-cta-right:hover { opacity: 0.9; }
+                @media (min-width: 640px) { .aurai-cta-right { display: inline-block; } }
+
+                .aurai-mobile-menu {
+                    position: absolute;
+                    top: 4.5rem;
+                    left: 1rem;
+                    right: 1rem;
+                    background: rgba(0, 0, 0, 0.3);
+                    backdrop-filter: blur(18px);
+                    -webkit-backdrop-filter: blur(18px);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    border-radius: 1rem;
+                    padding: 1.25rem;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.75rem;
+                    z-index: 20;
+                }
+                @media (min-width: 640px) { .aurai-mobile-menu { display: none; } }
+                .aurai-mobile-menu a {
+                    color: #fff;
+                    text-decoration: none;
+                    font-size: 0.9375rem;
+                    padding: 0.25rem 0;
+                }
+                .aurai-mobile-cta {
+                    margin-top: 0.5rem;
+                    width: 100%;
+                    background: #fff;
+                    color: #111827;
+                    border: 0;
+                    border-radius: 9999px;
+                    padding: 0.75rem;
+                    font-weight: 500;
+                    font-size: 0.875rem;
+                    cursor: pointer;
+                }
+
+                .aurai-spacer { flex: 1; }
+                @media (min-width: 640px) { .aurai-spacer { display: none; } }
+
+                .aurai-content {
+                    display: flex;
+                    flex-direction: column;
+                    padding-bottom: 1rem;
+                }
+                @media (min-width: 640px) {
+                    .aurai-content {
+                        flex-direction: row;
+                        align-items: flex-end;
+                        flex: 1;
+                        margin-top: auto;
+                        padding-bottom: 3rem;
+                    }
+                }
+                @media (min-width: 1024px) {
+                    .aurai-content { padding-bottom: 4rem; }
+                }
+
+                .aurai-left {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1rem;
+                    flex: 1;
+                }
+                @media (min-width: 640px) {
+                    .aurai-left { gap: 1.5rem; }
+                }
+
+                .aurai-heading {
+                    font-family: 'Askan Light', 'Inter', serif;
+                    color: #fff;
+                    font-size: 2rem;
+                    line-height: 1.05;
+                    letter-spacing: -0.02em;
+                    max-width: 700px;
+                    font-weight: 400;
+                }
+                @media (min-width: 640px) { .aurai-heading { font-size: 3.5rem; } }
+                @media (min-width: 768px) { .aurai-heading { font-size: 4.5rem; } }
+                @media (min-width: 1024px) { .aurai-heading { font-size: 5.5rem; } }
+
+                .aurai-subtitle {
+                    color: rgba(255, 255, 255, 0.72);
+                    font-size: 0.75rem;
+                    max-width: 520px;
+                    line-height: 1.55;
+                }
+                @media (min-width: 640px) { .aurai-subtitle { font-size: 1rem; } }
+                @media (min-width: 768px) { .aurai-subtitle { font-size: 1.125rem; } }
+
+                .aurai-email-pill {
+                    position: relative;
+                    background: rgba(0, 0, 0, 0.3);
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
+                    border-radius: 9999px;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    max-width: 480px;
+                }
+                .aurai-email-input {
+                    width: 100%;
+                    background: transparent;
+                    border: 0;
+                    outline: none;
+                    color: #fff;
+                    padding: 0.75rem 1rem;
+                    font-size: 0.875rem;
+                    font-family: inherit;
+                }
+                @media (min-width: 640px) {
+                    .aurai-email-input { padding: 1rem 1.5rem; }
+                }
+                .aurai-email-input::placeholder { color: rgba(255, 255, 255, 0.55); }
+                .aurai-email-submit {
+                    position: absolute;
+                    right: 0.375rem;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background: #fff;
+                    color: #111827;
+                    border: 0;
+                    border-radius: 9999px;
+                    padding: 0.5rem 0.75rem;
+                    font-size: 0.75rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                }
+                @media (min-width: 640px) {
+                    .aurai-email-submit { padding: 0.75rem 1.5rem; font-size: 0.875rem; }
+                }
+
+                .aurai-pills {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 0.5rem;
+                }
+                .aurai-pills-mobile { margin-top: 0.5rem; }
+                @media (min-width: 640px) { .aurai-pills-mobile { display: none; } }
+
+                .aurai-pill {
+                    background: rgba(0, 0, 0, 0.3);
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
+                    color: #fff;
+                    font-size: 0.75rem;
+                    padding: 0.375rem 0.75rem;
+                    border-radius: 9999px;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    white-space: nowrap;
+                }
+                @media (min-width: 640px) {
+                    .aurai-pill { font-size: 0.875rem; padding: 0.5rem 1rem; }
+                }
+
+                .aurai-right {
+                    display: none;
+                }
+                @media (min-width: 640px) {
+                    .aurai-right {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-end;
+                        gap: 0.5rem;
+                        align-self: flex-end;
+                    }
+                }
+
+                /* ════════════════════ VELDARA SECTION (unchanged structure) ════════════════════ */
                 .hj-hero-root {
                     position: relative;
                     color: #fff;
                     background: #010101;
                 }
 
-                /* Scroll-reactive video */
                 #hj-scroll-video-container {
                     position: fixed;
                     inset: 0;
@@ -383,7 +773,6 @@ export default function Hero() {
                     background: rgba(0, 0, 0, 0.35);
                 }
 
-                /* Particles */
                 #hj-particles-canvas {
                     position: fixed;
                     inset: 0;
@@ -393,7 +782,6 @@ export default function Hero() {
                     z-index: 3;
                 }
 
-                /* Hero */
                 #hj-hero {
                     position: relative;
                     height: 100vh;
@@ -430,10 +818,7 @@ export default function Hero() {
                     line-height: 1.15;
                     max-width: 56rem;
                 }
-                #hj-hero h1 .hj-underlined {
-                    position: relative;
-                    display: inline-block;
-                }
+                #hj-hero h1 .hj-underlined { position: relative; display: inline-block; }
                 #hj-hero h1 .hj-underlined .hj-line {
                     position: absolute;
                     bottom: 0.25rem;
@@ -443,9 +828,7 @@ export default function Hero() {
                     background: #2c5c88;
                     border-radius: 2px;
                 }
-                #hj-hero h1 .hj-underlined > span:last-child {
-                    position: relative;
-                }
+                #hj-hero h1 .hj-underlined > span:last-child { position: relative; }
                 #hj-hero .hj-ctas {
                     display: flex;
                     align-items: center;
@@ -486,9 +869,7 @@ export default function Hero() {
                     text-decoration: none;
                     transition: background 0.2s;
                 }
-                #hj-hero .hj-cta-btn:hover {
-                    background: #3a7aad;
-                }
+                #hj-hero .hj-cta-btn:hover { background: #3a7aad; }
                 #hj-hero .hj-bounce-arrow {
                     position: relative;
                     z-index: 10;
@@ -507,7 +888,6 @@ export default function Hero() {
                     50% { transform: translateY(-25%); }
                 }
 
-                /* Fixed cards */
                 #hj-fixed-cards {
                     position: fixed;
                     bottom: 0;
@@ -537,7 +917,6 @@ export default function Hero() {
                     line-height: 1.6;
                 }
 
-                /* Section 3 */
                 #hj-section-three {
                     position: relative;
                     min-height: 100vh;
@@ -591,6 +970,6 @@ export default function Hero() {
                     #hj-section-three { padding-bottom: 5rem; }
                 }
             `}</style>
-        </div>
+        </>
     );
 }
