@@ -120,8 +120,8 @@ export default function Hero() {
 
         function getScrollBounds() {
             const vh = window.innerHeight;
-            // Veldara scrub starts AFTER the Aurai section (which is 100vh)
-            return { start: vh * 1.5, end: document.documentElement.scrollHeight - vh };
+            // Page starts at the figure section now — scrub begins from scroll 0.
+            return { start: 0, end: document.documentElement.scrollHeight - vh };
         }
 
         function getProgress() {
@@ -306,80 +306,7 @@ export default function Hero() {
 
     return (
         <>
-            {/* ════════════════════ CONDENSED-SITEMAP TOP HERO ════════════════════ */}
-            <section className="aurai-hero">
-                <div className="aurai-bg-aurora" />
-                <div className="aurai-layer">
-                    <nav className="aurai-nav">
-                        <div className="aurai-nav-pill">
-                            <span className="aurai-logo"><Pinwheel /></span>
-                            <span className="aurai-brand">{aurai.brand}</span>
-                            <button
-                                className="aurai-menu-toggle"
-                                aria-label="menu"
-                                onClick={() => setMenuOpen((v) => !v)}
-                            >
-                                <HamburgerIcon open={menuOpen} />
-                            </button>
-                        </div>
-                        <button className="aurai-cta-right" onClick={submitEmail}>
-                            {aurai.joinButton}
-                        </button>
-                    </nav>
-
-                    {menuOpen && (
-                        <div className="aurai-mobile-menu">
-                            {aurai.sitemap.map((s) => (
-                                <a key={s.href} href={s.href} onClick={() => setMenuOpen(false)}>
-                                    {s.label}
-                                </a>
-                            ))}
-                            <button onClick={submitEmail} className="aurai-mobile-cta">
-                                {aurai.joinButton}
-                            </button>
-                        </div>
-                    )}
-
-                    <div className="aurai-spacer" />
-                    <div className="aurai-content">
-                        <div className="aurai-left">
-                            <p className="aurai-role">{aurai.role}</p>
-                            <h1 className="aurai-heading">{aurai.heading}</h1>
-                            <p className="aurai-subtitle">{aurai.subtitle}</p>
-
-                            <div className="aurai-sitemap">
-                                {aurai.sitemap.map((s) => (
-                                    <a key={s.href} href={s.href} className="aurai-sitemap-card">
-                                        <div className="aurai-sitemap-label">{s.label}</div>
-                                        <div className="aurai-sitemap-summary">{s.summary}</div>
-                                    </a>
-                                ))}
-                            </div>
-
-                            <form className="aurai-email-pill" onSubmit={submitEmail}>
-                                <input
-                                    type="email"
-                                    placeholder={aurai.emailPlaceholder}
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    className="aurai-email-input"
-                                />
-                                <button type="submit" className="aurai-email-submit">
-                                    {aurai.emailSubmit}
-                                </button>
-                            </form>
-
-                            <div className="aurai-pill-row">
-                                {aurai.pills.map((p) => (
-                                    <span key={p} className="aurai-pill">{p}</span>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* ════════════════════ VELDARA SCROLL-REACTIVE SECTION ════════════════════ */}
+            {/* ════════════════════ TURNTABLE SCROLL-REACTIVE LANDING ════════════════════ */}
             <div className="hj-hero-root">
                 <div id="hj-scroll-video-container">
                     <canvas id="hj-video-canvas" />
@@ -814,8 +741,11 @@ export default function Hero() {
                     position: fixed;
                     inset: 0;
                     z-index: -10;
-                    background: #0a0a0a;
-                    top: -20%;
+                    /* Deep navy so any letterbox area reads as the page background,
+                       not an empty void. */
+                    background:
+                        radial-gradient(70% 60% at 50% 35%, rgba(44, 92, 136, 0.35), transparent 70%),
+                        linear-gradient(180deg, #050811 0%, #04060f 100%);
                 }
                 #hj-scroll-video-container canvas,
                 #hj-scroll-video-container video {
@@ -823,12 +753,18 @@ export default function Hero() {
                     inset: 0;
                     width: 100%;
                     height: 100%;
-                    object-fit: cover;
+                    /* Best-fit instead of cover so the full figure — head down to feet —
+                       stays in frame on every viewport. The video already has its own
+                       padding above the head and below the feet, so the letterbox bars
+                       are minimal and blend into the dark backdrop. */
+                    object-fit: contain;
+                    object-position: center center;
                 }
                 #hj-scroll-video-container .hj-overlay {
                     position: absolute;
                     inset: 0;
-                    background: rgba(0, 0, 0, 0.35);
+                    background: rgba(0, 0, 0, 0.22);
+                    pointer-events: none;
                 }
 
                 #hj-particles-canvas {
