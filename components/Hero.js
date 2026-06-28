@@ -538,15 +538,14 @@ export default function Hero() {
                     background: #050505;
                 }
 
-                /* Subtle gradient veil — sits between the 3D scene and the content
-                   so the figure shows through but text stays readable. */
+                /* Very light veil — keeps text legible without hiding the 3D figure */
                 .aurai-bg-aurora {
                     position: absolute;
                     inset: 0;
                     background:
-                        radial-gradient(60% 50% at 20% 20%, rgba(44, 92, 136, 0.22), transparent 70%),
-                        radial-gradient(55% 50% at 80% 90%, rgba(30, 58, 138, 0.28), transparent 70%),
-                        linear-gradient(140deg, rgba(5, 8, 17, 0.55) 0%, rgba(10, 14, 26, 0.30) 50%, rgba(5, 5, 5, 0.55) 100%);
+                        radial-gradient(60% 50% at 20% 20%, rgba(44, 92, 136, 0.10), transparent 70%),
+                        radial-gradient(55% 50% at 80% 90%, rgba(30, 58, 138, 0.12), transparent 70%),
+                        linear-gradient(180deg, rgba(0, 0, 0, 0.0) 0%, rgba(0, 0, 0, 0.15) 60%, rgba(0, 0, 0, 0.45) 100%);
                     z-index: 1;
                     animation: aurai-aurora 18s ease-in-out infinite alternate;
                     pointer-events: none;
