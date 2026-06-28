@@ -7,53 +7,55 @@ import * as THREE from 'three';
 
 useGLTF.preload('/hyunsik.glb');
 
-function HyunsikModel({ scrollRef }) {
+function HyunsikModel({ mouseRef, onLandingRef }) {
     const { scene } = useGLTF('/hyunsik.glb');
-    const groupRef = useRef();
+    const orientRef = useRef();   // outer: fixes upright orientation
+    const spinRef = useRef();     // inner: mouse-driven Y rotation
 
     useEffect(() => {
         scene.traverse((child) => {
             if (child.isMesh) {
-                child.castShadow = false;
-                child.receiveShadow = false;
                 if (child.material) {
                     child.material.roughness = 0.55;
                     child.material.metalness = 0.05;
-                    child.material.envMapIntensity = 0.7;
+                    child.material.envMapIntensity = 0.8;
                 }
             }
         });
     }, [scene]);
 
-    useFrame((state) => {
-        if (!groupRef.current) return;
-        const t = scrollRef.current; // 0..1
+    useFrame((state, delta) => {
+        if (!spinRef.current) return;
         const time = state.clock.elapsedTime;
-        // Idle rotation + scroll-driven extra spin
-        groupRef.current.rotation.y = time * 0.18 + t * Math.PI * 0.5;
-        groupRef.current.position.y = Math.sin(time * 0.9) * 0.018 - 0.02;
+
+        // Target rotation: idle drift + mouse-driven horizontal lean.
+        // When the visitor leaves the landing page, mouseRef is forced to 0
+        // (returns to neutral spin).
+        const onLanding = onLandingRef.current;
+        const targetMouseRot = onLanding ? mouseRef.current * 0.9 : 0; // ~ +/- 50°
+        const idleDrift = time * 0.10;
+        const desired = idleDrift + targetMouseRot;
+
+        // Smooth easing toward desired rotation
+        const current = spinRef.current.rotation.y;
+        const next = current + (desired - current) * Math.min(1, delta * 4);
+        spinRef.current.rotation.y = next;
+
+        // Subtle breathing
+        spinRef.current.position.y = Math.sin(time * 0.9) * 0.018;
     });
 
     return (
         <Center>
-            <group ref={groupRef} scale={2.0}>
-                <primitive object={scene} />
+            {/* Outer: rotate -90 around Z so TripoSR's X-axis (height) maps to world Y */}
+            <group ref={orientRef} rotation={[0, 0, -Math.PI / 2]}>
+                {/* Inner: dynamic Y rotation around the figure's spine */}
+                <group ref={spinRef} scale={2.0}>
+                    <primitive object={scene} />
+                </group>
             </group>
         </Center>
     );
-}
-
-function ScrollCamera({ scrollRef }) {
-    const { camera } = useThree();
-    useFrame(() => {
-        const t = scrollRef.current;
-        const distance = 2.7 + t * 0.6;
-        const height = 0.05 + t * 0.15;
-        const horizontal = (t - 0.5) * 0.25;
-        camera.position.lerp(new THREE.Vector3(horizontal, height, distance), 0.08);
-        camera.lookAt(0, 0.05 + t * 0.05, 0);
-    });
-    return null;
 }
 
 function SceneLighting() {
@@ -68,7 +70,8 @@ function SceneLighting() {
 }
 
 export default function HeroScene3D() {
-    const scrollRef = useRef(0);
+    const mouseRef = useRef(0);       // -1 .. +1, horizontal mouse fraction
+    const onLandingRef = useRef(true); // true only while scrollY < first viewport
     const [enabled, setEnabled] = useState(true);
 
     useEffect(() => {
@@ -79,13 +82,20 @@ export default function HeroScene3D() {
         mediaSmall.addEventListener('change', decide);
         mediaReduce.addEventListener('change', decide);
 
+        const onMouse = (e) => {
+            // Map cursor X across the whole viewport to -1..+1
+            const x = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseRef.current = Math.max(-1, Math.min(1, x));
+        };
         const onScroll = () => {
-            const vh = window.innerHeight;
-            scrollRef.current = Math.min(1, window.scrollY / (vh * 0.9));
+            // Mouse interaction only applies while user is on the landing viewport
+            onLandingRef.current = window.scrollY < window.innerHeight * 0.85;
         };
         onScroll();
+        window.addEventListener('mousemove', onMouse, { passive: true });
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => {
+            window.removeEventListener('mousemove', onMouse);
             window.removeEventListener('scroll', onScroll);
             mediaSmall.removeEventListener('change', decide);
             mediaReduce.removeEventListener('change', decide);
@@ -110,8 +120,7 @@ export default function HeroScene3D() {
             >
                 <Suspense fallback={null}>
                     <SceneLighting />
-                    <HyunsikModel scrollRef={scrollRef} />
-                    <ScrollCamera scrollRef={scrollRef} />
+                    <HyunsikModel mouseRef={mouseRef} onLandingRef={onLandingRef} />
                     <Environment preset="city" environmentIntensity={0.4} />
                 </Suspense>
             </Canvas>
