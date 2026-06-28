@@ -67,7 +67,14 @@ export default function Projects() {
                                 className="project-card project-card--clickable"
                                 style={{ textDecoration: 'none', color: 'inherit' }}
                             >
-                                <span className="project-card__num">0{proj.id}</span>
+                                <div className="project-card__topline">
+                                    <span className="project-card__num">0{proj.id}</span>
+                                    {(proj.statusEn || proj.statusKo) && (
+                                        <span className={`project-card__status project-card__status--${proj.statusTone || 'live'}`}>
+                                            {lang === 'ko' ? (proj.statusKo || proj.statusEn) : (proj.statusEn || proj.statusKo)}
+                                        </span>
+                                    )}
+                                </div>
 
                                 <div className="project-card__main">
                                     <h3 className="project-card__title">

@@ -552,6 +552,66 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   background: transparent;
 }
 
+/* Key Wins strip — recruiter-scan row of 4 quantified metrics, sits above
+   the bio prose so the deal + tech proof points hit the eye first. */
+.about__wins {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 56px;
+  margin-top: 8px;
+}
+@media (max-width: 900px) {
+  .about__wins {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+}
+.about__win {
+  padding: 18px 18px 16px;
+  border-radius: var(--radius);
+  background: rgba(8, 14, 28, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 12px 32px -12px rgba(0,0,0,0.45);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  overflow: hidden;
+}
+.about__win-metric {
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: #ffffff;
+  background: linear-gradient(180deg, #ffffff 0%, #cfe7ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 14px rgba(147, 197, 253, 0.32));
+}
+@media (max-width: 900px) {
+  .about__win-metric { font-size: 1.5rem; }
+}
+.about__win-label {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.94);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  line-height: 1.35;
+}
+.about__win-detail {
+  font-size: 0.6875rem;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
 .about__grid {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
@@ -897,7 +957,61 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   font-size: 0.75rem;
   color: var(--accent-violet);
   font-weight: 600;
-  margin-bottom: 8px;
+}
+
+/* Topline = number + status badge on one row */
+.project-card__topline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.project-card__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 100px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  line-height: 1;
+}
+.project-card__status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: currentColor;
+}
+.project-card__status--live {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.10);
+  border-color: rgba(74, 222, 128, 0.32);
+}
+.project-card__status--award {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.10);
+  border-color: rgba(251, 191, 36, 0.32);
+}
+.project-card__status--shipped {
+  color: #93c5fd;
+  background: rgba(147, 197, 253, 0.10);
+  border-color: rgba(147, 197, 253, 0.32);
+}
+.project-card__status--archive {
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+.project-card__status--archive::before {
+  background: transparent;
+  border: 1px solid currentColor;
 }
 
 .project-card__title {

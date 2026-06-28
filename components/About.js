@@ -25,6 +25,27 @@ export default function About() {
                     {t.about.section}
                 </motion.p>
 
+                {/* Key Wins strip — 4 quantified achievements for the recruiter
+                    scan, surfaces the resume's deal + tech proof points above
+                    the bio prose. */}
+                {t.about.wins && (
+                    <motion.div
+                        className="about__wins"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: '-60px' }}
+                        variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
+                    >
+                        {t.about.wins.map((w, i) => (
+                            <motion.div key={i} className="about__win" variants={fadeUp}>
+                                <div className="about__win-metric">{w.metric}</div>
+                                <div className="about__win-label">{w.label}</div>
+                                <div className="about__win-detail">{w.detail}</div>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                )}
+
                 <div className="about__grid">
                     {/* Left — text */}
                     <div>
