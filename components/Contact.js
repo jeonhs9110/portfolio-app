@@ -111,7 +111,7 @@ export default function Contact() {
                 </motion.div>
             </div>
 
-            <style jsx>{`
+            <style jsx global>{`
                 .contact--finale {
                     position: relative;
                     overflow: hidden;

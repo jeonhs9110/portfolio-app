@@ -38,6 +38,18 @@ html {
   background-color: #04060f;
 }
 
+/* When a visitor clicks a navbar link, the browser scrolls the section to
+   the top of the viewport — but the 64px fixed navbar then covers the
+   section's eyebrow label. scroll-margin-top reserves that strip so the
+   eyebrow ("01 / ABOUT" etc.) lands just below the navbar. */
+#about,
+#experience,
+#projects,
+#skills,
+#contact {
+  scroll-margin-top: 84px;
+}
+
 body {
   background-color: var(--bg);
   color: var(--text-primary);

@@ -64,9 +64,13 @@ export default function Hero() {
             });
         }
 
-        const ctx = canvas.getContext('2d', { alpha: true });
+        // willReadFrequently: true asks the browser to back this 2D context with
+        // a software canvas optimised for getImageData calls (which we do every
+        // frame to convert grayscale luminance → alpha for the figure mask).
+        // Without it, Chrome logs a perf warning on the console.
+        const ctx = canvas.getContext('2d', { alpha: true, willReadFrequently: true });
         const buf = document.createElement('canvas');
-        let bufCtx = buf.getContext('2d', { alpha: true });
+        let bufCtx = buf.getContext('2d', { alpha: true, willReadFrequently: true });
 
         let raf = 0;
         let lastScrubT = -1;
