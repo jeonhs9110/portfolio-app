@@ -178,6 +178,12 @@ export default function Hero() {
                 badge.style.opacity = String(fade);
                 badge.style.pointerEvents = fade > 0.05 ? 'auto' : 'none';
             }
+            // Same fade curve for the top-of-hero slogan
+            const slogan = document.getElementById('hj-hero-slogan');
+            if (slogan) {
+                const fade = Math.max(0, 1 - window.scrollY / (window.innerHeight * 0.55));
+                slogan.style.opacity = String(fade);
+            }
 
             raf = requestAnimationFrame(tick);
         }
@@ -240,6 +246,16 @@ export default function Hero() {
             </div>
 
             <section id="hero" className="hj-spacer">
+                {/* Big invitational slogan — anchors the top of the landing,
+                    fades out as the visitor scrolls past the hero. */}
+                <div id="hj-hero-slogan" className="hj-hero-slogan">
+                    <h2>
+                        {t.hero.slogan.before}
+                        <span className="aura-shiny">{t.hero.slogan.highlight}</span>
+                        {t.hero.slogan.after}
+                    </h2>
+                </div>
+
                 {/* Minimal identity badge — who, what, why.
                     Fades out as the visitor scrolls past the hero. */}
                 <div id="hj-hero-badge" className="hj-hero-badge">
@@ -333,6 +349,29 @@ export default function Hero() {
                     position: relative;
                     z-index: 1;
                     pointer-events: none;
+                }
+
+                /* ---------- Top-of-hero invitational slogan ---------- */
+                .hj-hero-slogan {
+                    position: absolute;
+                    top: clamp(5rem, 14vh, 9rem);
+                    left: 0;
+                    right: 0;
+                    text-align: center;
+                    padding: 0 1.5rem;
+                    pointer-events: none;
+                    transition: opacity 0.18s linear;
+                }
+                .hj-hero-slogan h2 {
+                    font-size: clamp(2rem, 7vw, 4.75rem);
+                    font-weight: 800;
+                    letter-spacing: -0.04em;
+                    line-height: 0.96;
+                    color: #ffffff;
+                    margin: 0 auto;
+                    max-width: 22ch;
+                    text-shadow: 0 6px 26px rgba(0, 0, 0, 0.6);
+                    text-wrap: balance;
                 }
 
                 /* ---------- Recruiter-facing identity badge ---------- */
