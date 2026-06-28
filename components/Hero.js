@@ -131,6 +131,23 @@ export default function Hero() {
                     height: 100%;
                     object-fit: contain;
                     object-position: center center;
+                    /* Fade the bottom ~28% of the video to transparent so the
+                       turntable disc and the Gemini watermark sparkle dissolve
+                       into the page background instead of being visible. */
+                    -webkit-mask-image: linear-gradient(
+                        to bottom,
+                        black 0%,
+                        black 72%,
+                        rgba(0, 0, 0, 0.35) 88%,
+                        transparent 100%
+                    );
+                    mask-image: linear-gradient(
+                        to bottom,
+                        black 0%,
+                        black 72%,
+                        rgba(0, 0, 0, 0.35) 88%,
+                        transparent 100%
+                    );
                 }
                 #hj-bg-tint {
                     position: absolute;
