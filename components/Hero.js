@@ -325,7 +325,6 @@ export default function Hero() {
     return (
         <>
             {/* ════════════════════ CONDENSED-SITEMAP TOP HERO ════════════════════ */}
-            <HeroScene3D />
             <section className="aurai-hero">
                 <div className="aurai-bg-aurora" />
                 <div className="aurai-layer">
@@ -389,58 +388,13 @@ export default function Hero() {
                             </form>
                         </div>
                         <div className="aurai-right">
-                            <div
-                                className="aurai-portrait-card"
-                                onMouseEnter={() => setPaused(true)}
-                                onMouseMove={(e) => {
-                                    const card = e.currentTarget;
-                                    const r = card.getBoundingClientRect();
-                                    const px = (e.clientX - r.left) / r.width;
-                                    const py = (e.clientY - r.top) / r.height;
-                                    const rx = (0.5 - py) * 16;
-                                    const ry = (px - 0.5) * 18;
-                                    card.style.setProperty('--rx', `${rx}deg`);
-                                    card.style.setProperty('--ry', `${ry}deg`);
-                                    card.style.setProperty('--gx', `${px * 100}%`);
-                                    card.style.setProperty('--gy', `${py * 100}%`);
-                                }}
-                                onMouseLeave={(e) => {
-                                    const card = e.currentTarget;
-                                    card.style.setProperty('--rx', `0deg`);
-                                    card.style.setProperty('--ry', `0deg`);
-                                    card.style.setProperty('--gx', `50%`);
-                                    card.style.setProperty('--gy', `50%`);
-                                    setPaused(false);
-                                }}
-                                onClick={() => setPortraitIdx((i) => (i + 1) % PORTRAITS.length)}
-                            >
-                                <div className="aurai-portrait-inner">
-                                    {PORTRAITS.map((src, i) => (
-                                        <Image
-                                            key={src}
-                                            src={src}
-                                            alt={aurai.brand}
-                                            width={280}
-                                            height={360}
-                                            priority={i === 0}
-                                            className={`aurai-portrait-img${i === portraitIdx ? ' is-active' : ''}`}
-                                        />
-                                    ))}
-                                    <div className="aurai-portrait-sheen" />
-                                    <div className="aurai-portrait-dots">
-                                        {PORTRAITS.map((_, i) => (
-                                            <span
-                                                key={i}
-                                                className={`aurai-portrait-dot${i === portraitIdx ? ' is-active' : ''}`}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="aurai-portrait-pills">
-                                    {aurai.pills.map((p) => (
-                                        <span key={p} className="aurai-pill">{p}</span>
-                                    ))}
-                                </div>
+                            <div className="aurai-model-card">
+                                <HeroScene3D />
+                            </div>
+                            <div className="aurai-portrait-pills">
+                                {aurai.pills.map((p) => (
+                                    <span key={p} className="aurai-pill">{p}</span>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -538,15 +492,17 @@ export default function Hero() {
                     background: #050505;
                 }
 
-                /* Very light veil — keeps text legible without hiding the 3D figure */
+                /* Constellation aurora background — three large radial pools that
+                   pulse via the aurai-aurora keyframes for ambient color motion */
                 .aurai-bg-aurora {
                     position: absolute;
                     inset: 0;
                     background:
-                        radial-gradient(60% 50% at 20% 20%, rgba(44, 92, 136, 0.10), transparent 70%),
-                        radial-gradient(55% 50% at 80% 90%, rgba(30, 58, 138, 0.12), transparent 70%),
-                        linear-gradient(180deg, rgba(0, 0, 0, 0.0) 0%, rgba(0, 0, 0, 0.15) 60%, rgba(0, 0, 0, 0.45) 100%);
-                    z-index: 1;
+                        radial-gradient(60% 50% at 20% 20%, rgba(44, 92, 136, 0.45), transparent 70%),
+                        radial-gradient(50% 45% at 80% 30%, rgba(58, 122, 173, 0.35), transparent 70%),
+                        radial-gradient(55% 50% at 50% 90%, rgba(30, 58, 138, 0.4), transparent 70%),
+                        linear-gradient(140deg, #050811 0%, #0a0e1a 50%, #050505 100%);
+                    z-index: 0;
                     animation: aurai-aurora 18s ease-in-out infinite alternate;
                     pointer-events: none;
                 }
@@ -859,7 +815,7 @@ export default function Hero() {
                     .aurai-pill { font-size: 0.8125rem; padding: 0.4375rem 0.875rem; }
                 }
 
-                /* Right column: portrait card */
+                /* Right column: 3D model card */
                 .aurai-right {
                     display: none;
                 }
@@ -871,6 +827,30 @@ export default function Hero() {
                         gap: 0.75rem;
                         flex-shrink: 0;
                     }
+                }
+
+                .aurai-model-card {
+                    position: relative;
+                    width: 320px;
+                    height: 420px;
+                    border-radius: 1rem;
+                    overflow: hidden;
+                    background: linear-gradient(160deg, rgba(20, 28, 48, 0.55), rgba(5, 10, 22, 0.65));
+                    border: 1px solid rgba(255, 255, 255, 0.10);
+                    box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+                    backdrop-filter: blur(8px);
+                    -webkit-backdrop-filter: blur(8px);
+                }
+                .aurai-model-card::before {
+                    content: '';
+                    position: absolute;
+                    inset: -20%;
+                    background: radial-gradient(circle, rgba(58, 122, 173, 0.35), transparent 60%);
+                    z-index: -1;
+                    filter: blur(40px);
+                }
+                @media (min-width: 1024px) {
+                    .aurai-model-card { width: 360px; height: 480px; }
                 }
 
                 .aurai-portrait-card {
