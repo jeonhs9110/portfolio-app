@@ -72,7 +72,10 @@ export default function Experience() {
                                             {ach.items.map((item, idxx) => (
                                                 <li key={idxx} className="experience__achieved-item" style={{ marginBottom: '14px', alignItems: 'flex-start' }}>
                                                     <span className="experience__dot" style={{ marginTop: '8px' }} />
-                                                    <span style={{ fontSize: '0.85rem', lineHeight: '1.65', whiteSpace: 'pre-line' }}>{item}</span>
+                                                    <span
+                                                        style={{ fontSize: '0.85rem', lineHeight: '1.65', whiteSpace: 'pre-line' }}
+                                                        dangerouslySetInnerHTML={{ __html: item }}
+                                                    />
                                                 </li>
                                             ))}
                                         </ul>

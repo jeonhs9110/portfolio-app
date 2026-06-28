@@ -232,22 +232,12 @@ h1, h2, h3 { letter-spacing: -0.02em; }
    translations file, rendered through dangerouslySetInnerHTML where the
    parent paragraph is a single string. */
 .kw {
+  /* Bold only — no marker band, no glow, no padded background. The cyan
+     band read as noise against the moving HLS video; just bumping weight
+     and lifting the colour to pure white is enough to make the keyword
+     pop against the parent's 0.85-alpha white body copy. */
   font-weight: 700;
   color: #ffffff;
-  /* Thicker, brighter marker band — was too pale to read as emphasis on a
-     moving dark video. Band now occupies the bottom 40% of the line at
-     ~0.45 alpha cyan, ramping to a brighter tip toward the right edge. */
-  background: linear-gradient(
-    transparent 60%,
-    rgba(147, 197, 253, 0.42) 60%,
-    rgba(167, 232, 252, 0.50) 96%,
-    transparent 96%
-  );
-  padding: 1px 3px;
-  border-radius: 3px;
-  /* A subtle text glow so the keyword reads as the focal point of the
-     sentence, not just as bolded text on a marker band. */
-  text-shadow: 0 0 14px rgba(147, 197, 253, 0.45);
 }
 
 /* ---- Buttons ---- */
