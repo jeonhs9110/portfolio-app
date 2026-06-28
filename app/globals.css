@@ -612,6 +612,69 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   margin-top: 2px;
 }
 
+/* "Where I've worked" strip — uniform-typography wordmarks of direct
+   employers only (no counterparties). Monochrome white at lowered
+   opacity, hover bumps to 100%. */
+.about__workplaces {
+  display: flex;
+  align-items: center;
+  gap: 20px 32px;
+  flex-wrap: wrap;
+  padding: 18px 22px;
+  margin-bottom: 56px;
+  background: rgba(8, 14, 28, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+@media (max-width: 900px) {
+  .about__workplaces { margin-bottom: 36px; gap: 14px 22px; padding: 14px 16px; }
+}
+.about__workplaces-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(147, 197, 253, 0.85);
+  white-space: nowrap;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  padding-right: 22px;
+}
+@media (max-width: 900px) {
+  .about__workplaces-label {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding-right: 0;
+    padding-bottom: 8px;
+    width: 100%;
+  }
+}
+.about__workplaces-row {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+@media (max-width: 600px) {
+  .about__workplaces-row { gap: 16px 22px; }
+}
+.about__workplaces-mark {
+  font-family: 'Inter', 'Noto Sans KR', system-ui, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: rgba(255, 255, 255, 0.62);
+  transition: color 0.2s ease, transform 0.2s ease;
+  cursor: default;
+  white-space: nowrap;
+}
+.about__workplaces-mark:hover {
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
 .about__grid {
   display: grid;
   grid-template-columns: 1.2fr 1fr;

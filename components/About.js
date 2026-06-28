@@ -46,6 +46,26 @@ export default function About() {
                     </motion.div>
                 )}
 
+                {/* "Where I've worked" wordmark strip — uniform white text on
+                    dark, just direct employers (no counterparties / clients,
+                    which would imply endorsement). */}
+                {t.about.workplaces && (
+                    <motion.div
+                        className="about__workplaces"
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-40px' }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                    >
+                        <span className="about__workplaces-label">{t.about.workplacesLabel}</span>
+                        <div className="about__workplaces-row">
+                            {t.about.workplaces.map((name) => (
+                                <span key={name} className="about__workplaces-mark">{name}</span>
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
+
                 <div className="about__grid">
                     {/* Left — text */}
                     <div>
