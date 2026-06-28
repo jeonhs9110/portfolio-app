@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar';
 import ScrollProgress from '@/components/ScrollProgress';
+import SiloReveal from '@/components/SiloReveal';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
 import Experience from '@/components/Experience';
@@ -14,11 +15,11 @@ export default function Home() {
       <ScrollProgress />
       <Navbar />
       <Hero />
-      <About />
-      <Experience />
-      <Projects />
-      <Skills />
-      <Contact />
+      <SiloReveal><About /></SiloReveal>
+      <SiloReveal><Experience /></SiloReveal>
+      <SiloReveal><Projects /></SiloReveal>
+      <SiloReveal><Skills /></SiloReveal>
+      <SiloReveal><Contact /></SiloReveal>
       <Footer />
     </main>
   );

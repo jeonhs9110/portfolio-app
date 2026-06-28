@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import { FiMail, FiPhone, FiFileText, FiFolder, FiGithub, FiLinkedin } from 'react-icons/fi';
 
@@ -9,7 +10,30 @@ export default function Contact() {
 
     return (
         <section className="contact contact--finale" id="contact">
-            <div className="container contact__inner-finale">
+            <div className="container contact__inner-finale contact__inner-finale--two-col">
+                {/* AI-generated portrait floats on the right alongside the
+                    action buttons. Stacks above on mobile so the buttons
+                    stay accessible. */}
+                <motion.div
+                    className="contact__portrait"
+                    initial={{ opacity: 0, scale: 0.94 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true, margin: '-80px' }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                    aria-hidden="true"
+                >
+                    <span className="contact__portrait-glow" />
+                    <Image
+                        src="/jeon-portrait-1.jpg"
+                        alt="Hyunsik Jeon"
+                        width={520}
+                        height={520}
+                        className="contact__portrait-img"
+                        priority={false}
+                    />
+                </motion.div>
+
+                <div className="contact__copy">
                 <motion.p
                     className="section-label contact__label"
                     initial={{ opacity: 0, y: 20 }}
@@ -109,6 +133,7 @@ export default function Contact() {
                         {t.contact.portfolio_en}
                     </a>
                 </motion.div>
+                </div>
             </div>
 
             <style jsx global>{`
@@ -128,6 +153,68 @@ export default function Contact() {
                     align-items: flex-start;
                     gap: 1.125rem;
                     max-width: 760px;
+                }
+                /* Two-column finale: copy + buttons on the left, AI portrait
+                   on the right. Stacks on tablet and below. */
+                .contact__inner-finale--two-col {
+                    max-width: none;
+                    display: grid;
+                    grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
+                    gap: 3rem;
+                    align-items: center;
+                }
+                .contact__inner-finale--two-col .contact__copy {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 1.125rem;
+                    min-width: 0;
+                }
+                .contact__portrait {
+                    position: relative;
+                    grid-column: 2;
+                    grid-row: 1;
+                    width: 100%;
+                    max-width: 360px;
+                    aspect-ratio: 1 / 1;
+                    border-radius: 24px;
+                    overflow: hidden;
+                    isolation: isolate;
+                    border: 1px solid rgba(255, 255, 255, 0.14);
+                    box-shadow:
+                        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+                        0 32px 64px -16px rgba(0, 0, 0, 0.55),
+                        0 0 0 1px rgba(147, 197, 253, 0.08);
+                    backdrop-filter: blur(8px);
+                    -webkit-backdrop-filter: blur(8px);
+                    background: rgba(8, 14, 28, 0.25);
+                }
+                .contact__portrait-glow {
+                    position: absolute;
+                    inset: -25%;
+                    pointer-events: none;
+                    z-index: -1;
+                    background: radial-gradient(50% 50% at 50% 50%, rgba(147, 197, 253, 0.32), transparent 60%);
+                    filter: blur(40px);
+                }
+                .contact__portrait :global(.contact__portrait-img) {
+                    width: 100% !important;
+                    height: 100% !important;
+                    object-fit: cover;
+                    object-position: center top;
+                    border-radius: 24px;
+                }
+                @media (max-width: 900px) {
+                    .contact__inner-finale--two-col {
+                        grid-template-columns: 1fr;
+                        gap: 2rem;
+                    }
+                    .contact__portrait {
+                        grid-column: 1;
+                        grid-row: 1;
+                        max-width: 200px;
+                        justify-self: flex-start;
+                    }
                 }
                 .contact__label { color: #93c5fd; margin-bottom: 0; }
                 .contact__title {

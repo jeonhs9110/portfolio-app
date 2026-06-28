@@ -238,6 +238,82 @@ h3 {
 h1, h2, h3 { letter-spacing: -0.02em; }
 .section-title { letter-spacing: -0.03em; }
 
+/* ============================================
+   SILO REVEAL — section-level scroll-in choreography that simulates each
+   section emerging from the cyan/green "silos" of the HLS background.
+   See components/SiloReveal.js. Two coordinated animations:
+     1. A thin vertical light column grows from the bottom of the wrapper
+        (height 0% → 100%) over ~650ms, then fades out
+     2. The wrapped content eases in: scale(0.96) → 1, opacity 0 → 1,
+        blur(8px) → 0, translateY(40px) → 0 over ~750ms
+   ============================================ */
+.silo-reveal {
+  position: relative;
+  /* Reserve a small isolation context so the beam never bleeds onto
+     anything outside this section. */
+  isolation: isolate;
+}
+.silo-reveal__beam {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 4px;
+  height: 0%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: -1;
+  background: linear-gradient(
+    to top,
+    rgba(74, 222, 128, 0.0) 0%,
+    rgba(74, 222, 128, 0.62) 30%,
+    rgba(147, 197, 253, 0.85) 55%,
+    rgba(255, 255, 255, 0.92) 78%,
+    rgba(147, 197, 253, 0.55) 92%,
+    transparent 100%
+  );
+  filter: blur(2px) drop-shadow(0 0 14px rgba(147, 197, 253, 0.55));
+  opacity: 0;
+  border-radius: 100px;
+}
+.silo-reveal__content {
+  opacity: 0;
+  transform: scale(0.96) translateY(40px);
+  filter: blur(8px);
+  will-change: opacity, transform, filter;
+}
+
+/* When revealed: content settles, beam grows then fades. */
+.silo-reveal.is-revealed .silo-reveal__beam {
+  animation: silo-beam 1100ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.silo-reveal.is-revealed .silo-reveal__content {
+  animation: silo-content 750ms cubic-bezier(0.22, 1, 0.36, 1) 80ms forwards;
+}
+@keyframes silo-beam {
+  0%   { height: 0%;    opacity: 0; }
+  25%  { height: 40%;   opacity: 0.85; }
+  55%  { height: 100%;  opacity: 0.9; }
+  75%  { height: 100%;  opacity: 0.55; }
+  100% { height: 100%;  opacity: 0; }
+}
+@keyframes silo-content {
+  0%   { opacity: 0; transform: scale(0.96) translateY(40px); filter: blur(8px); }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .silo-reveal__beam,
+  .silo-reveal.is-revealed .silo-reveal__beam { display: none; }
+  .silo-reveal__content,
+  .silo-reveal.is-revealed .silo-reveal__content {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    animation: none;
+  }
+}
+
 /* Keyword emphasis — bold + subtle cyan marker band underneath the lower
    third of the glyph, so the eye locks onto the key terms when skimming
    long-form copy. Used inline via <strong class="kw">…</strong> in the
