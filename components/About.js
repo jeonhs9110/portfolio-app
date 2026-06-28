@@ -104,11 +104,19 @@ export default function About() {
                         >
                             {t.about.stats.map((s) => (
                                 <motion.div key={s.label} className="about__stat" variants={fadeUp} style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                                    {s.image && (
+                                    {s.images && s.images.length > 1 ? (
+                                        <div style={{ flexShrink: 0, width: '48px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+                                            {s.images.map((src) => (
+                                                <div key={src} style={{ position: 'relative', width: '46px', height: '18px' }}>
+                                                    <Image src={src} alt={`${s.label} logo`} fill style={{ objectFit: 'contain' }} />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ) : s.image ? (
                                         <div style={{ flexShrink: 0, width: '40px', height: '40px', position: 'relative' }}>
                                             <Image src={s.image} alt={s.label} fill style={{ objectFit: 'contain' }} />
                                         </div>
-                                    )}
+                                    ) : null}
                                     <div>
                                         <p className="about__stat-label">{s.label}</p>
                                         <p className="about__stat-value">{s.value}</p>
