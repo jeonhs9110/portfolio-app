@@ -158,23 +158,31 @@ h3 {
   100% { background-position:  200% center; }
 }
 .aura-shiny {
+  /* Bright-only stops so the word stays readable for every frame of the
+     animation on a dark page. The original Aura gradient had two near-black
+     stops (#091020, #0B2551) that disappeared into the HLS background —
+     killed those and replaced them with sky-blue + light-cyan + white, so
+     the sweep is now "soft blue → cyan → white → cyan → soft blue" with
+     no dark trough. */
   background-image: linear-gradient(
     to right,
-    #091020 0%,
-    #0B2551 12.5%,
-    #A4F4FD 32.5%,
-    #00d2ff 50%,
-    #0B2551 67.5%,
-    #091020 87.5%,
-    #091020 100%
+    #93c5fd 0%,
+    #A4F4FD 25%,
+    #ffffff 50%,
+    #A4F4FD 75%,
+    #93c5fd 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-  filter: url(#aura-noise);
+  /* Chain noise + a soft cyan drop-shadow halo. drop-shadow works through
+     transparent-fill text (text-shadow does not), so it gives the word a
+     gentle glow that lifts it cleanly off the dark video. */
+  filter: url(#aura-noise) drop-shadow(0 0 14px rgba(147, 197, 253, 0.45));
   animation: aura-shiny 6s linear infinite;
+  font-weight: 900;
 }
 
 /* Section eyebrow / label gets a subtle perpetual sheen so the page has
