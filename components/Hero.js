@@ -368,15 +368,39 @@ export default function Hero() {
                             </form>
                         </div>
                         <div className="aurai-right">
-                            <div className="aurai-portrait-card">
-                                <Image
-                                    src="/jeon-id-2023.jpg"
-                                    alt={aurai.brand}
-                                    width={280}
-                                    height={360}
-                                    priority
-                                    className="aurai-portrait-img"
-                                />
+                            <div
+                                className="aurai-portrait-card"
+                                onMouseMove={(e) => {
+                                    const card = e.currentTarget;
+                                    const r = card.getBoundingClientRect();
+                                    const px = (e.clientX - r.left) / r.width;
+                                    const py = (e.clientY - r.top) / r.height;
+                                    const rx = (0.5 - py) * 16;
+                                    const ry = (px - 0.5) * 18;
+                                    card.style.setProperty('--rx', `${rx}deg`);
+                                    card.style.setProperty('--ry', `${ry}deg`);
+                                    card.style.setProperty('--gx', `${px * 100}%`);
+                                    card.style.setProperty('--gy', `${py * 100}%`);
+                                }}
+                                onMouseLeave={(e) => {
+                                    const card = e.currentTarget;
+                                    card.style.setProperty('--rx', `0deg`);
+                                    card.style.setProperty('--ry', `0deg`);
+                                    card.style.setProperty('--gx', `50%`);
+                                    card.style.setProperty('--gy', `50%`);
+                                }}
+                            >
+                                <div className="aurai-portrait-inner">
+                                    <Image
+                                        src="/jeon-id-2023.jpg"
+                                        alt={aurai.brand}
+                                        width={280}
+                                        height={360}
+                                        priority
+                                        className="aurai-portrait-img"
+                                    />
+                                    <div className="aurai-portrait-sheen" />
+                                </div>
                                 <div className="aurai-portrait-pills">
                                     {aurai.pills.map((p) => (
                                         <span key={p} className="aurai-pill">{p}</span>
@@ -826,15 +850,35 @@ export default function Hero() {
                     flex-direction: column;
                     align-items: center;
                     gap: 0.75rem;
+                    /* CSS variables driven by mousemove for 3D tilt */
+                    --rx: 0deg;
+                    --ry: 0deg;
+                    --gx: 50%;
+                    --gy: 50%;
+                    transform-style: preserve-3d;
+                    perspective: 900px;
+                    transition: transform 0.25s ease;
+                    cursor: pointer;
                 }
 
                 .aurai-portrait-card::before {
                     content: '';
                     position: absolute;
                     inset: -30%;
-                    background: radial-gradient(circle, rgba(58, 122, 173, 0.35), transparent 60%);
+                    background: radial-gradient(circle at var(--gx) var(--gy), rgba(58, 122, 173, 0.55), transparent 55%);
                     z-index: -1;
                     filter: blur(40px);
+                    transition: background 0.15s linear;
+                }
+
+                .aurai-portrait-inner {
+                    position: relative;
+                    transform: rotateX(var(--rx)) rotateY(var(--ry));
+                    transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+                    transform-style: preserve-3d;
+                    will-change: transform;
+                    border-radius: 0.625rem;
+                    overflow: hidden;
                 }
 
                 .aurai-portrait-img {
@@ -846,6 +890,19 @@ export default function Hero() {
                 }
                 @media (min-width: 1024px) {
                     .aurai-portrait-img { width: 260px; height: 330px; }
+                }
+
+                /* Holographic sheen that follows the cursor — gives the photo a 3D-card feel */
+                .aurai-portrait-sheen {
+                    position: absolute;
+                    inset: 0;
+                    pointer-events: none;
+                    background:
+                        radial-gradient(circle at var(--gx) var(--gy), rgba(255, 255, 255, 0.18), transparent 35%),
+                        linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.08) 50%, transparent 70%);
+                    mix-blend-mode: screen;
+                    transition: background 0.12s linear;
+                    border-radius: 0.625rem;
                 }
 
                 .aurai-portrait-pills {
