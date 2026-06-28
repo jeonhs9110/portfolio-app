@@ -239,6 +239,53 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .section-title { letter-spacing: -0.03em; }
 
 /* ============================================
+   SCROLL SPOTLIGHT — every card-like element grows as it passes
+   through the viewport center, shrinks as it leaves. See
+   components/ScrollSpotlight.js. The JS writes --spot-scale per
+   element; CSS picks it up here. Cards that ALSO have a hover
+   translate (project-card) compose translate + scale via separate
+   variables so neither overrides the other.
+   ============================================ */
+.experience__card,
+.skills__category,
+.about__win,
+.about__feature-card,
+.about__stat {
+  --spot-scale: 1;
+  transform: scale(var(--spot-scale));
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: center center;
+  will-change: transform;
+}
+/* project-card has a hover translateY — compose it with the spotlight
+   scale via two separate variables. */
+.project-card {
+  --spot-scale: 1;
+  --card-translate-y: 0px;
+  transform: translateY(var(--card-translate-y)) scale(var(--spot-scale));
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+              background 0.3s,
+              border-color 0.3s;
+  transform-origin: center center;
+  will-change: transform;
+}
+.project-card:hover {
+  --card-translate-y: -4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .experience__card,
+  .skills__category,
+  .about__win,
+  .about__feature-card,
+  .about__stat,
+  .project-card {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ============================================
    SILO REVEAL — section-level scroll-in choreography that simulates each
    section emerging from the cyan/green "silos" of the HLS background.
    See components/SiloReveal.js. Two coordinated animations:
@@ -1155,7 +1202,8 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .project-card:hover {
   background: var(--bg-surface-hover);
   border-color: var(--accent-violet);
-  transform: translateY(-4px);
+  /* translateY is now driven by --card-translate-y so the scroll
+     spotlight scale isn't clobbered. See above. */
 }
 
 .project-card__num {
