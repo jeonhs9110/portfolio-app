@@ -2,7 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { useLanguage } from '@/context/LanguageContext';
+
+// Three.js scene is client-only (WebGL); skip SSR
+const HeroScene3D = dynamic(() => import('./HeroScene3D'), { ssr: false });
 
 const VELDARA_VIDEO_URL =
     'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260616_212935_bbf608da-62d1-4f25-9be4-c346e4d09cc8.mp4';
@@ -321,6 +325,7 @@ export default function Hero() {
     return (
         <>
             {/* ════════════════════ CONDENSED-SITEMAP TOP HERO ════════════════════ */}
+            <HeroScene3D />
             <section className="aurai-hero">
                 <div className="aurai-bg-aurora" />
                 <div className="aurai-layer">
@@ -533,17 +538,18 @@ export default function Hero() {
                     background: #050505;
                 }
 
-                /* Aurora background — slow ambient color movement, no video, no 3D */
+                /* Subtle gradient veil — sits between the 3D scene and the content
+                   so the figure shows through but text stays readable. */
                 .aurai-bg-aurora {
                     position: absolute;
                     inset: 0;
                     background:
-                        radial-gradient(60% 50% at 20% 20%, rgba(44, 92, 136, 0.45), transparent 70%),
-                        radial-gradient(50% 45% at 80% 30%, rgba(58, 122, 173, 0.35), transparent 70%),
-                        radial-gradient(55% 50% at 50% 90%, rgba(30, 58, 138, 0.4), transparent 70%),
-                        linear-gradient(140deg, #050811 0%, #0a0e1a 50%, #050505 100%);
-                    z-index: 0;
+                        radial-gradient(60% 50% at 20% 20%, rgba(44, 92, 136, 0.22), transparent 70%),
+                        radial-gradient(55% 50% at 80% 90%, rgba(30, 58, 138, 0.28), transparent 70%),
+                        linear-gradient(140deg, rgba(5, 8, 17, 0.55) 0%, rgba(10, 14, 26, 0.30) 50%, rgba(5, 5, 5, 0.55) 100%);
+                    z-index: 1;
                     animation: aurai-aurora 18s ease-in-out infinite alternate;
+                    pointer-events: none;
                 }
                 @keyframes aurai-aurora {
                     0% {
