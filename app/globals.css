@@ -11,17 +11,19 @@
 }
 
 :root {
-  --bg: #f8fafc;
-  --bg-surface: #ffffff;
-  --bg-surface-hover: #f1f5f9;
-  --border: #e2e8f0;
-  --border-bright: #cbd5e1;
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-muted: #64748b;
-  --accent-violet: #6366f1;
-  --accent-blue: #3b82f6;
-  --accent-gradient: linear-gradient(135deg, #6366f1, #3b82f6);
+  /* Page background is the fixed 360 turntable video. Everything paints on
+     top as semi-transparent dark glass so the figure stays visible behind. */
+  --bg: transparent;
+  --bg-surface: rgba(8, 14, 28, 0.62);
+  --bg-surface-hover: rgba(20, 32, 56, 0.72);
+  --border: rgba(255, 255, 255, 0.14);
+  --border-bright: rgba(255, 255, 255, 0.28);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.85);
+  --text-muted: rgba(255, 255, 255, 0.62);
+  --accent-violet: #93c5fd;
+  --accent-blue: #60a5fa;
+  --accent-gradient: linear-gradient(135deg, #60a5fa, #3a7aad);
   --radius: 16px;
   --radius-sm: 8px;
   --section-pad: 120px 0;
@@ -31,6 +33,9 @@
 
 html {
   scroll-behavior: smooth;
+  /* Fallback dark colour for the strip behind the fixed video container,
+     should anything ever leak through (e.g. very tall ultrawide viewport). */
+  background-color: #04060f;
 }
 
 body {
@@ -40,34 +45,6 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-}
-
-/* Background ambient glows */
-body::before,
-body::after {
-  content: '';
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  filter: blur(100px);
-  opacity: 0.06;
-}
-
-body::before {
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, #6366f1, transparent 70%);
-  top: -200px;
-  right: -200px;
-}
-
-body::after {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, #3b82f6, transparent 70%);
-  bottom: 10%;
-  left: -150px;
 }
 
 .container {
@@ -118,6 +95,21 @@ h3 {
   background: var(--bg-surface-hover);
   border-color: var(--border-bright);
   transform: translateY(-4px);
+}
+
+/* All semi-transparent card variants get a backdrop blur so the 360 video
+   behind them reads as a glass-frosted backdrop rather than a moving
+   distraction behind text. */
+.about__stat,
+.about__feature-card,
+.experience__card,
+.skills__category,
+.project-card,
+.project-detail__tech-card,
+.project-detail__sidebar-card {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.55);
 }
 
 /* ---- Buttons ---- */
@@ -219,7 +211,7 @@ h3 {
   justify-content: space-between;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(5, 8, 17, 0.55);
   border-bottom: 1px solid var(--border);
   transition: background 0.3s;
 }
@@ -310,7 +302,7 @@ h3 {
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1;
-  background: linear-gradient(135deg, #0f172a 0%, #64748b 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #93c5fd 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -458,7 +450,7 @@ h3 {
 .about__big-number {
   font-size: clamp(5rem, 12vw, 9rem);
   font-weight: 700;
-  color: rgba(0, 0, 0, 0.04);
+  color: rgba(255, 255, 255, 0.06);
   line-height: 1;
   letter-spacing: -0.04em;
   margin-bottom: -20px;
@@ -592,7 +584,7 @@ h3 {
   font-size: 0.85rem;
   color: var(--text-muted);
   font-family: monospace;
-  background: rgba(0, 0, 0, 0.04);
+  background: rgba(255, 255, 255, 0.08);
   padding: 4px 10px;
   border-radius: 100px;
   white-space: nowrap;
@@ -701,7 +693,7 @@ h3 {
   border-radius: 100px;
   font-size: 0.82rem;
   font-weight: 500;
-  background: rgba(0, 0, 0, 0.03);
+  background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--border);
   color: var(--text-secondary);
   transition: all 0.2s;
