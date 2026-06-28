@@ -97,9 +97,15 @@ h3 {
   transform: translateY(-4px);
 }
 
-/* All semi-transparent card variants get a backdrop blur so the 360 video
-   behind them reads as a glass-frosted backdrop rather than a moving
-   distraction behind text. */
+/* "Liquid-glass" card treatment borrowed from the Aura landing aesthetic.
+   Every card variant gets:
+     - a very dim translucent fill so the 360 video shows through
+     - a generous backdrop blur so the moving figure becomes a frosted backdrop
+     - a top-edge highlight and bottom-edge depth via dual inset box-shadows
+     - a long downward drop-shadow so the card lifts off the page
+     - a faint top-to-bottom border gradient via ::after that's brightest at
+       the top and bottom edges, fading to nothing at the middle — the
+       signature liquid-glass rim light */
 .about__stat,
 .about__feature-card,
 .experience__card,
@@ -107,10 +113,103 @@ h3 {
 .project-card,
 .project-detail__tech-card,
 .project-detail__sidebar-card {
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.55);
+  background: rgba(8, 14, 28, 0.48);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+    0 24px 60px -18px rgba(0, 0, 0, 0.6);
+  position: relative;
+  isolation: isolate;
 }
+.about__stat::after,
+.about__feature-card::after,
+.experience__card::after,
+.skills__category::after,
+.project-card::after,
+.project-detail__tech-card::after,
+.project-detail__sidebar-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.2px;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.42) 0%,
+    rgba(255, 255, 255, 0.14) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.14) 80%,
+    rgba(255, 255, 255, 0.42) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Shiny gradient headline utility (Aura aesthetic). The gradient runs
+   navy → bright cyan → navy across 200% of the element, and the
+   animation slides it across the visible text on a 6s loop, with a
+   subtle film-grain layered on via the global #aura-noise SVG filter. */
+@keyframes aura-shiny {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+.aura-shiny {
+  background-image: linear-gradient(
+    to right,
+    #091020 0%,
+    #0B2551 12.5%,
+    #A4F4FD 32.5%,
+    #00d2ff 50%,
+    #0B2551 67.5%,
+    #091020 87.5%,
+    #091020 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: url(#aura-noise);
+  animation: aura-shiny 6s linear infinite;
+}
+
+/* Section eyebrow / label gets a subtle perpetual sheen so the page has
+   ambient motion everywhere. Short text, no readability hit. */
+.section-label {
+  background-image: linear-gradient(
+    to right,
+    rgba(147, 197, 253, 0.5) 0%,
+    #A4F4FD 35%,
+    #ffffff 50%,
+    #A4F4FD 65%,
+    rgba(147, 197, 253, 0.5) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: aura-shiny 8s linear infinite;
+}
+
+/* Section titles get a static white-to-light vertical fade — premium feel
+   without the readability hit of an animated dark-to-light sweep. */
+.section-title,
+.contact__title {
+  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.78) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Heading tracking — match the Aura aesthetic (-0.02em → -0.03em). */
+h1, h2, h3 { letter-spacing: -0.02em; }
+.section-title { letter-spacing: -0.03em; }
 
 /* ---- Buttons ---- */
 .btn {
@@ -128,26 +227,37 @@ h3 {
   font-family: var(--font-sans);
 }
 
+/* Apple-style primary pill — solid white on dark page, black text. */
 .btn-primary {
-  background: var(--accent-gradient);
-  color: #fff;
+  background: #ffffff;
+  color: #000000;
+  font-weight: 500;
+  box-shadow: 0 6px 24px -8px rgba(255, 255, 255, 0.18);
 }
 
 .btn-primary:hover {
-  opacity: 0.85;
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.92);
+  transform: translateY(-1px);
 }
 
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+/* Outline pill — semi-transparent glass with a faint white rim. */
 .btn-outline {
-  background: transparent;
-  border: 1px solid var(--border-bright);
-  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .btn-outline:hover {
-  background: var(--bg-surface-hover);
-  border-color: var(--accent-violet);
-  color: var(--accent-violet);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  transform: translateY(-1px);
 }
 
 /* ---- Tag chips ---- */
