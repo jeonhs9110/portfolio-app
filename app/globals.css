@@ -211,6 +211,24 @@ h3 {
 h1, h2, h3 { letter-spacing: -0.02em; }
 .section-title { letter-spacing: -0.03em; }
 
+/* Keyword emphasis — bold + subtle cyan marker band underneath the lower
+   third of the glyph, so the eye locks onto the key terms when skimming
+   long-form copy. Used inline via <strong class="kw">…</strong> in the
+   translations file, rendered through dangerouslySetInnerHTML where the
+   parent paragraph is a single string. */
+.kw {
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(
+    transparent 68%,
+    rgba(147, 197, 253, 0.22) 68%,
+    rgba(147, 197, 253, 0.22) 96%,
+    transparent 96%
+  );
+  padding: 0 1px;
+  border-radius: 2px;
+}
+
 /* ---- Buttons ---- */
 .btn {
   display: inline-flex;

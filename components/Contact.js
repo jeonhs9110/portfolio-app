@@ -48,7 +48,7 @@ export default function Contact() {
                     transition={{ duration: 0.7, delay: 0.18 }}
                 >
                     <span className="contact__open-to-dot" aria-hidden="true" />
-                    {t.contact.openTo}
+                    <span dangerouslySetInnerHTML={{ __html: t.contact.openTo }} />
                 </motion.p>
 
                 <motion.div

@@ -46,7 +46,11 @@ export default function About() {
                             variants={{ ...fadeUp, visible: { ...fadeUp.visible, transition: { ...fadeUp.visible.transition, delay: 0.1 } } }}
                         >
                             {t.about.bio.split('\n\n').map((para, i) => (
-                                <p key={i} style={{ marginTop: i === 0 ? 0 : '14px' }}>{para}</p>
+                                <p
+                                    key={i}
+                                    style={{ marginTop: i === 0 ? 0 : '14px' }}
+                                    dangerouslySetInnerHTML={{ __html: para }}
+                                />
                             ))}
                         </motion.div>
 
