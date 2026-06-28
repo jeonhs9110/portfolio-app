@@ -2,107 +2,205 @@
 
 import { useEffect } from 'react';
 
-// Local Gemini-Veo turntable clip — 10s, 1280x720, full 360 rotation.
-const TURNTABLE_SRC = '/jeon_landing_360.mp4';
+// Two decoupled layers:
+//   - BG (motionsight): autoplays + loops on its own clock, never tied to scroll
+//   - FIGURE (alpha-channel side-by-side mp4): scroll scrubs its currentTime,
+//     and a canvas masks the figure on top of the bg every animation frame
+const BG_SRC = '/motionsight_bg.mp4';
+const FIGURE_SRC = '/jeon_figure_sbs.mp4';
+
+// Source frame size for one half of the side-by-side mp4
+const SBS_HALF_W = 1280;
+const SBS_HALF_H = 720;
 
 /**
- * The hero now is the page background.
+ * Page background = a motionsight video (always playing on its own) +
+ * a figure layer (scroll-scrubbed and masked via canvas compositing).
  *
- * A fixed full-viewport video container plays the turntable behind every
- * section. Scroll position drives two simultaneous effects on the video:
+ * Why side-by-side + canvas instead of an alpha-channel WebM:
+ *   libvpx-vp9 on Windows ffmpeg builds doesn't reliably encode yuva420p
+ *   (we tested — it silently strips alpha). The bulletproof cross-browser
+ *   alternative is a 2x-wide h264 mp4 (RGB on the left, alpha as grayscale
+ *   on the right) plus a canvas that composites them at runtime using
+ *   destination-in.
  *
- *   1. SCRUB — early scroll plays through the rotation, so the figure
- *      spins as the visitor moves down. We seek the underlying <video>
- *      element rather than playing it, so cadence tracks scroll exactly.
+ * Scroll position drives the figure layer twice:
+ *   1. SCRUB — seeks figure.currentTime so the figure rotates as we scroll.
+ *   2. ZOOM — the first 70vh of scroll eases a 1.95x → 1.0x scale anchored
+ *      to the top of the canvas, opening on a tight upper-body framing
+ *      and easing out to head-to-toe.
  *
- *   2. ZOOM — first 60vh of scroll smoothly zooms the video out from a
- *      tight upper-body framing to the full head-to-toe view, anchored
- *      to the head so the face stays in frame the whole way.
- *
- * A 100vh spacer at the top gives the visitor room to register the
- * figure before the content sections begin overlapping it.
+ * The bg has no transform — it stays full-bleed independent of the zoom.
  */
 export default function Hero() {
     useEffect(() => {
-        const video = document.getElementById('hj-bg-video');
-        const stage = document.getElementById('hj-bg-stage');
-        if (!video || !stage) return;
+        const bgEl = document.getElementById('hj-bg-motion');
+        const figureEl = document.getElementById('hj-figure-video');
+        const stage = document.getElementById('hj-figure-stage');
+        const canvas = document.getElementById('hj-figure-canvas');
+        if (!bgEl || !figureEl || !stage || !canvas) return;
+
+        const ctx = canvas.getContext('2d', { alpha: true });
+        const buf = document.createElement('canvas');
+        let bufCtx = buf.getContext('2d', { alpha: true });
 
         let raf = 0;
         let lastScrubT = -1;
         let videoSeeking = false;
         let cancelled = false;
 
+        function resize() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            // Display canvas matches the viewport size at DPR
+            const cw = Math.round(window.innerWidth * dpr);
+            const ch = Math.round(window.innerHeight * dpr);
+            if (canvas.width !== cw || canvas.height !== ch) {
+                canvas.width = cw;
+                canvas.height = ch;
+                buf.width = cw;
+                buf.height = ch;
+            }
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
         const onSeeked = () => { videoSeeking = false; };
-        video.addEventListener('seeked', onSeeked);
+        figureEl.addEventListener('seeked', onSeeked);
 
         function getProgress() {
             const totalScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
             return Math.max(0, Math.min(1, window.scrollY / totalScroll));
         }
-
         function getZoomProgress() {
-            // Zoom completes within the first 70% of viewport height of scroll.
             const span = window.innerHeight * 0.7;
             return Math.max(0, Math.min(1, window.scrollY / span));
         }
 
+        function computeFit(videoHalfW, videoHalfH) {
+            // object-fit: contain — preserve aspect ratio of one half of the SBS source
+            // inside the display canvas
+            const cw = canvas.width, ch = canvas.height;
+            const srcA = videoHalfW / videoHalfH;
+            const dstA = cw / ch;
+            let dw, dh;
+            if (srcA > dstA) {
+                // source wider than canvas — fit by width
+                dw = cw;
+                dh = cw / srcA;
+            } else {
+                dh = ch;
+                dw = ch * srcA;
+            }
+            return { dx: (cw - dw) / 2, dy: (ch - dh) / 2, dw, dh };
+        }
+
+        function renderFigure() {
+            if (figureEl.readyState < 2) return;
+            const { dx, dy, dw, dh } = computeFit(SBS_HALF_W, SBS_HALF_H);
+
+            // Step 1 — draw the alpha mask half (right side of SBS) into the buffer
+            bufCtx.globalCompositeOperation = 'source-over';
+            bufCtx.clearRect(0, 0, buf.width, buf.height);
+            bufCtx.drawImage(
+                figureEl,
+                SBS_HALF_W, 0, SBS_HALF_W, SBS_HALF_H,   // source rect: right half
+                dx, dy, dw, dh                            // destination rect
+            );
+            // Convert the buffer's R channel (grayscale luminance) into the alpha channel,
+            // because destination-in only honours alpha. After this pass the buffer holds
+            // a fully-opaque RGB image with alpha varying by figure luminance.
+            const img = bufCtx.getImageData(0, 0, buf.width, buf.height);
+            const data = img.data;
+            for (let i = 0; i < data.length; i += 4) {
+                data[i + 3] = data[i];   // alpha = R (grayscale)
+            }
+            bufCtx.putImageData(img, 0, 0);
+
+            // Step 2 — draw the RGB half (left side of SBS) onto the display canvas
+            ctx.globalCompositeOperation = 'copy';
+            ctx.drawImage(
+                figureEl,
+                0, 0, SBS_HALF_W, SBS_HALF_H,
+                dx, dy, dw, dh
+            );
+
+            // Step 3 — mask via destination-in using the buffer canvas (which now has alpha)
+            ctx.globalCompositeOperation = 'destination-in';
+            ctx.drawImage(buf, 0, 0);
+        }
+
         function tick() {
             if (cancelled) return;
-            const dur = video.duration;
+            const dur = figureEl.duration;
             if (dur && isFinite(dur)) {
                 const target = getProgress() * (dur - 0.05);
                 if (!videoSeeking && Math.abs(target - lastScrubT) > 0.04) {
                     videoSeeking = true;
                     lastScrubT = target;
-                    try { video.currentTime = target; } catch (e) { videoSeeking = false; }
+                    try { figureEl.currentTime = target; } catch (e) { videoSeeking = false; }
                 }
             }
-            // Drive the zoom transform via a CSS variable read by .hj-bg-stage.
-            // Scale anchors at the TOP of the stage (transform-origin 50% 0%),
-            // so the figure's head stays pinned near the top of the viewport
-            // while the rest of the body is hidden below, then drifts into view
-            // as the user scrolls and zoom relaxes back to 1.
+            renderFigure();
             const z = getZoomProgress();
-            const zoom = 1.95 - z * 0.95;  // 1.95 → 1.00 across the first 70vh
+            const zoom = 1.95 - z * 0.95;
             stage.style.setProperty('--zoom', String(zoom));
             raf = requestAnimationFrame(tick);
         }
 
-        const startPlay = () => {
-            // We never autoplay — scroll is the playhead. But touching .play()
-            // some browsers requires before currentTime sticks reliably.
-            video.pause();
+        const startFigure = () => {
+            figureEl.pause();
             tick();
         };
-        if (video.readyState >= 1) startPlay();
-        else video.addEventListener('loadedmetadata', startPlay, { once: true });
+        if (figureEl.readyState >= 1) startFigure();
+        else figureEl.addEventListener('loadedmetadata', startFigure, { once: true });
+
+        const startBg = () => {
+            const p = bgEl.play();
+            if (p && typeof p.catch === 'function') p.catch(() => {});
+        };
+        if (bgEl.readyState >= 2) startBg();
+        else bgEl.addEventListener('loadeddata', startBg, { once: true });
 
         return () => {
             cancelled = true;
             cancelAnimationFrame(raf);
-            video.removeEventListener('seeked', onSeeked);
+            figureEl.removeEventListener('seeked', onSeeked);
+            window.removeEventListener('resize', resize);
         };
     }, []);
 
     return (
         <>
-            {/* Fixed full-viewport video plays behind every section on the page. */}
             <div id="hj-bg-container" aria-hidden="true">
-                <div id="hj-bg-stage">
-                    <video
-                        id="hj-bg-video"
-                        src={TURNTABLE_SRC}
-                        muted
-                        playsInline
-                        preload="auto"
-                    />
+                {/* Background motionsight video — autoplays, loops, ignores scroll */}
+                <video
+                    id="hj-bg-motion"
+                    src={BG_SRC}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="auto"
+                    className="hj-bg-motion"
+                />
+                {/* Figure source — hidden, fed to canvas, scroll-scrubbed */}
+                <video
+                    id="hj-figure-video"
+                    src={FIGURE_SRC}
+                    muted
+                    playsInline
+                    preload="auto"
+                    crossOrigin="anonymous"
+                    className="hj-figure-source"
+                />
+                {/* Figure canvas — masked figure rendered here, gets the zoom transform */}
+                <div id="hj-figure-stage">
+                    <canvas id="hj-figure-canvas" />
                 </div>
-                {/* Dim the video just enough to keep section copy readable across the page. */}
+                {/* Thin dim layer between bg+figure and the page content */}
                 <div id="hj-bg-tint" />
             </div>
 
-            {/* 100vh spacer so the visitor sees the figure before any section overlaps it. */}
             <section id="hero" className="hj-spacer" />
 
             <style jsx global>{`
@@ -111,44 +209,59 @@ export default function Hero() {
                     inset: 0;
                     z-index: -10;
                     overflow: hidden;
-                    background:
-                        radial-gradient(70% 60% at 50% 35%, rgba(44, 92, 136, 0.30), transparent 70%),
-                        linear-gradient(180deg, #050811 0%, #04060f 100%);
+                    background: #04060f;
                 }
-                #hj-bg-stage {
+
+                .hj-bg-motion {
+                    position: absolute;
+                    inset: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: center center;
+                }
+
+                .hj-figure-source {
+                    position: absolute;
+                    left: -99999px;
+                    top: -99999px;
+                    width: 1px;
+                    height: 1px;
+                    opacity: 0;
+                    pointer-events: none;
+                }
+
+                #hj-figure-stage {
                     position: absolute;
                     inset: 0;
                     --zoom: 1.95;
                     transform: scale(var(--zoom));
                     transform-origin: 50% 0%;
-                    transition: none;
                     will-change: transform;
                 }
-                #hj-bg-video {
+                #hj-figure-canvas {
                     position: absolute;
                     inset: 0;
                     width: 100%;
                     height: 100%;
-                    object-fit: contain;
-                    object-position: center center;
-                    /* Fade the bottom ~28% of the video to transparent so the
-                       turntable disc and the Gemini watermark sparkle dissolve
-                       into the page background instead of being visible. */
+                    /* Same bottom-fade as before so any tiny stray turntable disc
+                       still attached to the figure dissolves into the bg. */
                     -webkit-mask-image: linear-gradient(
                         to bottom,
                         black 0%,
-                        black 72%,
-                        rgba(0, 0, 0, 0.35) 88%,
+                        black 78%,
+                        rgba(0, 0, 0, 0.4) 92%,
                         transparent 100%
                     );
                     mask-image: linear-gradient(
                         to bottom,
                         black 0%,
-                        black 72%,
-                        rgba(0, 0, 0, 0.35) 88%,
+                        black 78%,
+                        rgba(0, 0, 0, 0.4) 92%,
                         transparent 100%
                     );
                 }
+
                 #hj-bg-tint {
                     position: absolute;
                     inset: 0;
@@ -156,8 +269,8 @@ export default function Hero() {
                     background:
                         linear-gradient(
                             180deg,
-                            rgba(5, 8, 17, 0.30) 0%,
-                            rgba(5, 8, 17, 0.55) 100%
+                            rgba(5, 8, 17, 0.20) 0%,
+                            rgba(5, 8, 17, 0.50) 100%
                         );
                 }
 
