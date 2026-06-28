@@ -1,13 +1,8 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
 import { useLanguage } from '@/context/LanguageContext';
-
-// 360-degree photoreal viewer — 8 Flux+PuLID angle renders cycling on mouse X.
-// Delivers a "3D spin" effect using real images, photoreal quality end-to-end.
-const Hero360Viewer = dynamic(() => import('./Hero360Viewer'), { ssr: false });
 
 // Local Gemini-Veo turntable clip. Replaces the previous Cloudfront URL —
 // hosted on the same origin so no CORS round-trip, no third-party fragility,
@@ -37,14 +32,6 @@ function HamburgerIcon({ open }) {
     );
 }
 
-const PORTRAITS = [
-    '/jeon-id-2023.jpg',
-    '/jeon-portrait-1.jpg',
-    '/jeon-portrait-2.jpg',
-    '/jeon-portrait-3.jpg',
-    '/jeon-portrait-4.jpg',
-];
-
 export default function Hero() {
     const { t } = useLanguage();
     const cards = t.hero.cards;
@@ -53,14 +40,6 @@ export default function Hero() {
 
     const [email, setEmail] = useState('');
     const [menuOpen, setMenuOpen] = useState(false);
-    const [portraitIdx, setPortraitIdx] = useState(0);
-    const [paused, setPaused] = useState(false);
-
-    useEffect(() => {
-        if (paused) return;
-        const id = setInterval(() => setPortraitIdx((i) => (i + 1) % PORTRAITS.length), 4500);
-        return () => clearInterval(id);
-    }, [paused]);
 
     const submitEmail = (e) => {
         e.preventDefault();
@@ -389,12 +368,8 @@ export default function Hero() {
                                     {aurai.emailSubmit}
                                 </button>
                             </form>
-                        </div>
-                        <div className="aurai-right">
-                            <div className="aurai-model-card">
-                                <Hero360Viewer />
-                            </div>
-                            <div className="aurai-portrait-pills">
+
+                            <div className="aurai-pill-row">
                                 {aurai.pills.map((p) => (
                                     <span key={p} className="aurai-pill">{p}</span>
                                 ))}
@@ -678,7 +653,7 @@ export default function Hero() {
                     gap: 0.875rem;
                     flex: 1;
                     min-width: 0;
-                    max-width: 760px;
+                    max-width: 920px;
                 }
                 @media (min-width: 768px) {
                     .aurai-left { gap: 1.125rem; }
@@ -820,148 +795,12 @@ export default function Hero() {
                     .aurai-pill { font-size: 0.8125rem; padding: 0.4375rem 0.875rem; }
                 }
 
-                /* Right column: 3D model card */
-                .aurai-right {
-                    display: none;
-                }
-                @media (min-width: 768px) {
-                    .aurai-right {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: flex-end;
-                        gap: 0.75rem;
-                        flex-shrink: 0;
-                    }
-                }
-
-                .aurai-model-card {
-                    position: relative;
-                    width: 320px;
-                    height: 420px;
-                    border-radius: 1rem;
-                    overflow: hidden;
-                    background: linear-gradient(160deg, rgba(20, 28, 48, 0.55), rgba(5, 10, 22, 0.65));
-                    border: 1px solid rgba(255, 255, 255, 0.10);
-                    box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
-                    backdrop-filter: blur(8px);
-                    -webkit-backdrop-filter: blur(8px);
-                }
-                .aurai-model-card::before {
-                    content: '';
-                    position: absolute;
-                    inset: -20%;
-                    background: radial-gradient(circle, rgba(58, 122, 173, 0.35), transparent 60%);
-                    z-index: -1;
-                    filter: blur(40px);
-                }
-                @media (min-width: 1024px) {
-                    .aurai-model-card { width: 360px; height: 480px; }
-                }
-
-                .aurai-portrait-card {
-                    position: relative;
-                    background: rgba(0, 0, 0, 0.3);
-                    backdrop-filter: blur(14px);
-                    -webkit-backdrop-filter: blur(14px);
-                    border: 1px solid rgba(255, 255, 255, 0.12);
-                    border-radius: 1rem;
-                    padding: 0.5rem;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    gap: 0.75rem;
-                    /* CSS variables driven by mousemove for 3D tilt */
-                    --rx: 0deg;
-                    --ry: 0deg;
-                    --gx: 50%;
-                    --gy: 50%;
-                    transform-style: preserve-3d;
-                    perspective: 900px;
-                    transition: transform 0.25s ease;
-                    cursor: pointer;
-                }
-
-                .aurai-portrait-card::before {
-                    content: '';
-                    position: absolute;
-                    inset: -30%;
-                    background: radial-gradient(circle at var(--gx) var(--gy), rgba(58, 122, 173, 0.55), transparent 55%);
-                    z-index: -1;
-                    filter: blur(40px);
-                    transition: background 0.15s linear;
-                }
-
-                .aurai-portrait-inner {
-                    position: relative;
-                    transform: rotateX(var(--rx)) rotateY(var(--ry));
-                    transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
-                    transform-style: preserve-3d;
-                    will-change: transform;
-                    border-radius: 0.625rem;
-                    overflow: hidden;
-                }
-
-                .aurai-portrait-img {
-                    width: 220px;
-                    height: 280px;
-                    object-fit: cover;
-                    border-radius: 0.625rem;
-                    display: block;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    opacity: 0;
-                    transition: opacity 1s ease-in-out;
-                }
-                .aurai-portrait-img.is-active { opacity: 1; }
-                /* First image holds the box height in place */
-                .aurai-portrait-img:first-child { position: relative; }
-                @media (min-width: 1024px) {
-                    .aurai-portrait-img { width: 260px; height: 330px; }
-                }
-
-                .aurai-portrait-dots {
-                    position: absolute;
-                    bottom: 0.5rem;
-                    left: 0;
-                    right: 0;
-                    display: flex;
-                    justify-content: center;
-                    gap: 0.375rem;
-                    z-index: 5;
-                    pointer-events: none;
-                }
-                .aurai-portrait-dot {
-                    width: 5px;
-                    height: 5px;
-                    border-radius: 9999px;
-                    background: rgba(255, 255, 255, 0.35);
-                    transition: background 0.3s ease, transform 0.3s ease;
-                }
-                .aurai-portrait-dot.is-active {
-                    background: #fff;
-                    transform: scale(1.4);
-                }
-
-                /* Holographic sheen that follows the cursor — gives the photo a 3D-card feel */
-                .aurai-portrait-sheen {
-                    position: absolute;
-                    inset: 0;
-                    pointer-events: none;
-                    background:
-                        radial-gradient(circle at var(--gx) var(--gy), rgba(255, 255, 255, 0.18), transparent 35%),
-                        linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.08) 50%, transparent 70%);
-                    mix-blend-mode: screen;
-                    transition: background 0.12s linear;
-                    border-radius: 0.625rem;
-                }
-
-                .aurai-portrait-pills {
+                /* Pill row sits under the email pill in the left column */
+                .aurai-pill-row {
                     display: flex;
                     flex-wrap: wrap;
-                    justify-content: center;
-                    gap: 0.375rem;
-                    max-width: 280px;
+                    gap: 0.5rem;
+                    margin-top: 0.625rem;
                 }
 
                 /* ════════════════════ VELDARA SECTION (unchanged structure) ════════════════════ */
