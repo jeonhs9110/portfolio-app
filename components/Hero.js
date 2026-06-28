@@ -4,8 +4,6 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 
-const AURAI_VIDEO_URL =
-    'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260618_174853_aac61aa2-0f3f-4cf1-bc78-7f657dd11164.mp4';
 const VELDARA_VIDEO_URL =
     'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260616_212935_bbf608da-62d1-4f25-9be4-c346e4d09cc8.mp4';
 
@@ -306,16 +304,9 @@ export default function Hero() {
 
     return (
         <>
-            {/* ════════════════════ AURAI-STYLE TOP HERO ════════════════════ */}
+            {/* ════════════════════ CONDENSED-SITEMAP TOP HERO ════════════════════ */}
             <section className="aurai-hero">
-                <video
-                    className="aurai-video"
-                    src={AURAI_VIDEO_URL}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                />
+                <div className="aurai-bg-aurora" />
                 <div className="aurai-layer">
                     <nav className="aurai-nav">
                         <div className="aurai-nav-pill">
@@ -336,10 +327,11 @@ export default function Hero() {
 
                     {menuOpen && (
                         <div className="aurai-mobile-menu">
-                            <a href="#about" onClick={() => setMenuOpen(false)}>{aurai.navItems[0]}</a>
-                            <a href="#experience" onClick={() => setMenuOpen(false)}>{aurai.navItems[1]}</a>
-                            <a href="#projects" onClick={() => setMenuOpen(false)}>{aurai.navItems[2]}</a>
-                            <a href="#contact" onClick={() => setMenuOpen(false)}>{aurai.navItems[3]}</a>
+                            {aurai.sitemap.map((s) => (
+                                <a key={s.href} href={s.href} onClick={() => setMenuOpen(false)}>
+                                    {s.label}
+                                </a>
+                            ))}
                             <button onClick={submitEmail} className="aurai-mobile-cta">
                                 {aurai.joinButton}
                             </button>
@@ -349,8 +341,19 @@ export default function Hero() {
                     <div className="aurai-spacer" />
                     <div className="aurai-content">
                         <div className="aurai-left">
+                            <p className="aurai-role">{aurai.role}</p>
                             <h1 className="aurai-heading">{aurai.heading}</h1>
                             <p className="aurai-subtitle">{aurai.subtitle}</p>
+
+                            <div className="aurai-sitemap">
+                                {aurai.sitemap.map((s) => (
+                                    <a key={s.href} href={s.href} className="aurai-sitemap-card">
+                                        <div className="aurai-sitemap-label">{s.label}</div>
+                                        <div className="aurai-sitemap-summary">{s.summary}</div>
+                                    </a>
+                                ))}
+                            </div>
+
                             <form className="aurai-email-pill" onSubmit={submitEmail}>
                                 <input
                                     type="email"
@@ -363,16 +366,23 @@ export default function Hero() {
                                     {aurai.emailSubmit}
                                 </button>
                             </form>
-                            <div className="aurai-pills aurai-pills-mobile">
-                                {aurai.pills.map((p) => (
-                                    <span key={p} className="aurai-pill">{p}</span>
-                                ))}
-                            </div>
                         </div>
                         <div className="aurai-right">
-                            {aurai.pills.map((p) => (
-                                <span key={p} className="aurai-pill">{p}</span>
-                            ))}
+                            <div className="aurai-portrait-card">
+                                <Image
+                                    src="/jeon-id-2023.jpg"
+                                    alt={aurai.brand}
+                                    width={280}
+                                    height={360}
+                                    priority
+                                    className="aurai-portrait-img"
+                                />
+                                <div className="aurai-portrait-pills">
+                                    {aurai.pills.map((p) => (
+                                        <span key={p} className="aurai-pill">{p}</span>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -463,27 +473,33 @@ export default function Hero() {
 
                 .aurai-hero {
                     position: relative;
-                    height: 100vh;
+                    min-height: 100vh;
                     width: 100%;
                     overflow: hidden;
                     background: #050505;
                 }
 
-                .aurai-video {
+                /* Aurora background — slow ambient color movement, no video, no 3D */
+                .aurai-bg-aurora {
                     position: absolute;
                     inset: 0;
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    object-position: 80% center;
+                    background:
+                        radial-gradient(60% 50% at 20% 20%, rgba(44, 92, 136, 0.45), transparent 70%),
+                        radial-gradient(50% 45% at 80% 30%, rgba(58, 122, 173, 0.35), transparent 70%),
+                        radial-gradient(55% 50% at 50% 90%, rgba(30, 58, 138, 0.4), transparent 70%),
+                        linear-gradient(140deg, #050811 0%, #0a0e1a 50%, #050505 100%);
                     z-index: 0;
+                    animation: aurai-aurora 18s ease-in-out infinite alternate;
                 }
-
-                @media (min-width: 768px) {
-                    .aurai-video { object-position: right center; }
-                }
-                @media (min-width: 1024px) {
-                    .aurai-video { object-position: center center; }
+                @keyframes aurai-aurora {
+                    0% {
+                        background-position: 0% 0%, 100% 0%, 50% 100%, 0% 0%;
+                        filter: hue-rotate(0deg);
+                    }
+                    100% {
+                        background-position: 15% 5%, 85% 10%, 55% 95%, 0% 0%;
+                        filter: hue-rotate(20deg);
+                    }
                 }
 
                 .aurai-layer {
@@ -615,58 +631,118 @@ export default function Hero() {
                     cursor: pointer;
                 }
 
-                .aurai-spacer { flex: 1; }
-                @media (min-width: 640px) { .aurai-spacer { display: none; } }
+                .aurai-spacer { flex: 1; min-height: 1rem; }
 
                 .aurai-content {
                     display: flex;
                     flex-direction: column;
-                    padding-bottom: 1rem;
+                    gap: 2rem;
+                    padding-bottom: 1.5rem;
+                    align-items: flex-start;
                 }
-                @media (min-width: 640px) {
+                @media (min-width: 768px) {
                     .aurai-content {
                         flex-direction: row;
                         align-items: flex-end;
                         flex: 1;
                         margin-top: auto;
-                        padding-bottom: 3rem;
+                        padding-bottom: 2.5rem;
+                        gap: 2.5rem;
                     }
                 }
                 @media (min-width: 1024px) {
-                    .aurai-content { padding-bottom: 4rem; }
+                    .aurai-content { padding-bottom: 3.5rem; gap: 3rem; }
                 }
 
                 .aurai-left {
                     display: flex;
                     flex-direction: column;
-                    gap: 1rem;
+                    gap: 0.875rem;
                     flex: 1;
+                    min-width: 0;
+                    max-width: 760px;
                 }
-                @media (min-width: 640px) {
-                    .aurai-left { gap: 1.5rem; }
+                @media (min-width: 768px) {
+                    .aurai-left { gap: 1.125rem; }
+                }
+
+                .aurai-role {
+                    color: rgba(255, 255, 255, 0.6);
+                    font-size: 0.75rem;
+                    letter-spacing: 0.18em;
+                    text-transform: uppercase;
+                    margin-bottom: 0.25rem;
                 }
 
                 .aurai-heading {
                     font-family: 'Askan Light', 'Inter', serif;
                     color: #fff;
-                    font-size: 2rem;
+                    font-size: 1.875rem;
                     line-height: 1.05;
                     letter-spacing: -0.02em;
                     max-width: 700px;
                     font-weight: 400;
                 }
-                @media (min-width: 640px) { .aurai-heading { font-size: 3.5rem; } }
-                @media (min-width: 768px) { .aurai-heading { font-size: 4.5rem; } }
-                @media (min-width: 1024px) { .aurai-heading { font-size: 5.5rem; } }
+                @media (min-width: 640px) { .aurai-heading { font-size: 2.75rem; } }
+                @media (min-width: 768px) { .aurai-heading { font-size: 3.25rem; } }
+                @media (min-width: 1024px) { .aurai-heading { font-size: 3.75rem; } }
 
                 .aurai-subtitle {
                     color: rgba(255, 255, 255, 0.72);
-                    font-size: 0.75rem;
-                    max-width: 520px;
+                    font-size: 0.8125rem;
+                    max-width: 560px;
                     line-height: 1.55;
                 }
-                @media (min-width: 640px) { .aurai-subtitle { font-size: 1rem; } }
-                @media (min-width: 768px) { .aurai-subtitle { font-size: 1.125rem; } }
+                @media (min-width: 768px) { .aurai-subtitle { font-size: 0.9375rem; } }
+
+                /* Condensed sitemap grid — 4 cards (About / Experience / Projects / Contact) */
+                .aurai-sitemap {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 0.625rem;
+                    margin-top: 0.5rem;
+                }
+                @media (min-width: 640px) {
+                    .aurai-sitemap { grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
+                }
+
+                .aurai-sitemap-card {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.375rem;
+                    background: rgba(0, 0, 0, 0.32);
+                    backdrop-filter: blur(14px);
+                    -webkit-backdrop-filter: blur(14px);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    border-radius: 0.75rem;
+                    padding: 0.875rem 0.9375rem;
+                    color: #fff;
+                    text-decoration: none;
+                    transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+                }
+                .aurai-sitemap-card:hover {
+                    background: rgba(44, 92, 136, 0.32);
+                    border-color: rgba(255, 255, 255, 0.2);
+                    transform: translateY(-2px);
+                }
+                .aurai-sitemap-label {
+                    font-size: 0.6875rem;
+                    letter-spacing: 0.16em;
+                    text-transform: uppercase;
+                    color: rgba(255, 255, 255, 0.55);
+                    font-weight: 500;
+                }
+                @media (min-width: 768px) {
+                    .aurai-sitemap-label { font-size: 0.75rem; }
+                }
+                .aurai-sitemap-summary {
+                    color: rgba(255, 255, 255, 0.86);
+                    font-size: 0.75rem;
+                    line-height: 1.45;
+                }
+                @media (min-width: 768px) {
+                    .aurai-sitemap-summary { font-size: 0.8125rem; }
+                }
 
                 .aurai-email-pill {
                     position: relative;
@@ -709,14 +785,6 @@ export default function Hero() {
                     .aurai-email-submit { padding: 0.75rem 1.5rem; font-size: 0.875rem; }
                 }
 
-                .aurai-pills {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 0.5rem;
-                }
-                .aurai-pills-mobile { margin-top: 0.5rem; }
-                @media (min-width: 640px) { .aurai-pills-mobile { display: none; } }
-
                 .aurai-pill {
                     background: rgba(0, 0, 0, 0.3);
                     backdrop-filter: blur(12px);
@@ -729,20 +797,63 @@ export default function Hero() {
                     white-space: nowrap;
                 }
                 @media (min-width: 640px) {
-                    .aurai-pill { font-size: 0.875rem; padding: 0.5rem 1rem; }
+                    .aurai-pill { font-size: 0.8125rem; padding: 0.4375rem 0.875rem; }
                 }
 
+                /* Right column: portrait card */
                 .aurai-right {
                     display: none;
                 }
-                @media (min-width: 640px) {
+                @media (min-width: 768px) {
                     .aurai-right {
                         display: flex;
                         flex-direction: column;
                         align-items: flex-end;
-                        gap: 0.5rem;
-                        align-self: flex-end;
+                        gap: 0.75rem;
+                        flex-shrink: 0;
                     }
+                }
+
+                .aurai-portrait-card {
+                    position: relative;
+                    background: rgba(0, 0, 0, 0.3);
+                    backdrop-filter: blur(14px);
+                    -webkit-backdrop-filter: blur(14px);
+                    border: 1px solid rgba(255, 255, 255, 0.12);
+                    border-radius: 1rem;
+                    padding: 0.5rem;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 0.75rem;
+                }
+
+                .aurai-portrait-card::before {
+                    content: '';
+                    position: absolute;
+                    inset: -30%;
+                    background: radial-gradient(circle, rgba(58, 122, 173, 0.35), transparent 60%);
+                    z-index: -1;
+                    filter: blur(40px);
+                }
+
+                .aurai-portrait-img {
+                    width: 220px;
+                    height: 280px;
+                    object-fit: cover;
+                    border-radius: 0.625rem;
+                    display: block;
+                }
+                @media (min-width: 1024px) {
+                    .aurai-portrait-img { width: 260px; height: 330px; }
+                }
+
+                .aurai-portrait-pills {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    gap: 0.375rem;
+                    max-width: 280px;
                 }
 
                 /* ════════════════════ VELDARA SECTION (unchanged structure) ════════════════════ */
