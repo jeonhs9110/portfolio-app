@@ -75,9 +75,13 @@ export default function Hero() {
 
         function resize() {
             const dpr = Math.min(window.devicePixelRatio || 1, 2);
-            // Display canvas matches the viewport size at DPR
-            const cw = Math.round(window.innerWidth * dpr);
-            const ch = Math.round(window.innerHeight * dpr);
+            // Canvas matches the figure stage box (which is shifted down to sit
+            // BELOW the slogan), not the whole viewport — so the figure renders
+            // at native resolution into that smaller box instead of being
+            // upscaled past the source's 720p pixel density.
+            const rect = stage.getBoundingClientRect();
+            const cw = Math.max(1, Math.round(rect.width * dpr));
+            const ch = Math.max(1, Math.round(rect.height * dpr));
             if (canvas.width !== cw || canvas.height !== ch) {
                 canvas.width = cw;
                 canvas.height = ch;
@@ -94,10 +98,6 @@ export default function Hero() {
         function getProgress() {
             const totalScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
             return Math.max(0, Math.min(1, window.scrollY / totalScroll));
-        }
-        function getZoomProgress() {
-            const span = window.innerHeight * 0.7;
-            return Math.max(0, Math.min(1, window.scrollY / span));
         }
 
         function computeFit(videoHalfW, videoHalfH) {
@@ -165,9 +165,6 @@ export default function Hero() {
                 }
             }
             renderFigure();
-            const z = getZoomProgress();
-            const zoom = 1.95 - z * 0.95;
-            stage.style.setProperty('--zoom', String(zoom));
 
             // Fade the recruiter-facing identity badge out across the first 60vh
             // of scroll, so it owns the landing view but quietly steps aside as
@@ -304,12 +301,22 @@ export default function Hero() {
                 }
 
                 #hj-figure-stage {
+                    /* Stage is shifted down so the figure's head sits BELOW
+                       the top-of-hero slogan instead of overlapping it. The
+                       canvas matches this box at native resolution, which
+                       also fixes the upscaling that was killing 720p sharpness
+                       under the old 1.95x zoom. */
                     position: absolute;
-                    inset: 0;
-                    --zoom: 1.95;
-                    transform: scale(var(--zoom));
-                    transform-origin: 50% 0%;
+                    top: clamp(20vh, 27vh, 32vh);
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
                     will-change: transform;
+                }
+                @media (max-width: 768px) {
+                    #hj-figure-stage {
+                        top: clamp(22vh, 26vh, 30vh);
+                    }
                 }
                 #hj-figure-canvas {
                     position: absolute;
@@ -357,7 +364,7 @@ export default function Hero() {
                 /* ---------- Top-of-hero invitational slogan ---------- */
                 .hj-hero-slogan {
                     position: absolute;
-                    top: clamp(5rem, 14vh, 9rem);
+                    top: clamp(4.5rem, 10vh, 7rem);
                     left: 0;
                     right: 0;
                     text-align: center;
@@ -366,15 +373,20 @@ export default function Hero() {
                     transition: opacity 0.18s linear;
                 }
                 .hj-hero-slogan h2 {
-                    font-size: clamp(2rem, 7vw, 4.75rem);
+                    font-size: clamp(1.75rem, 5.5vw, 3.75rem);
                     font-weight: 800;
-                    letter-spacing: -0.04em;
-                    line-height: 0.96;
+                    letter-spacing: -0.035em;
+                    line-height: 1.02;
                     color: #ffffff;
                     margin: 0 auto;
-                    max-width: 22ch;
+                    max-width: 24ch;
                     text-shadow: 0 6px 26px rgba(0, 0, 0, 0.6);
                     text-wrap: balance;
+                }
+                @media (max-width: 640px) {
+                    .hj-hero-slogan h2 {
+                        font-size: clamp(1.5rem, 7vw, 2.5rem);
+                    }
                 }
 
                 /* ---------- Recruiter-facing identity badge ---------- */
