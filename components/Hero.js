@@ -30,6 +30,14 @@ function HamburgerIcon({ open }) {
     );
 }
 
+const PORTRAITS = [
+    '/jeon-id-2023.jpg',
+    '/jeon-portrait-1.jpg',
+    '/jeon-portrait-2.jpg',
+    '/jeon-portrait-3.jpg',
+    '/jeon-portrait-4.jpg',
+];
+
 export default function Hero() {
     const { t } = useLanguage();
     const cards = t.hero.cards;
@@ -38,6 +46,14 @@ export default function Hero() {
 
     const [email, setEmail] = useState('');
     const [menuOpen, setMenuOpen] = useState(false);
+    const [portraitIdx, setPortraitIdx] = useState(0);
+    const [paused, setPaused] = useState(false);
+
+    useEffect(() => {
+        if (paused) return;
+        const id = setInterval(() => setPortraitIdx((i) => (i + 1) % PORTRAITS.length), 4500);
+        return () => clearInterval(id);
+    }, [paused]);
 
     const submitEmail = (e) => {
         e.preventDefault();
@@ -370,6 +386,7 @@ export default function Hero() {
                         <div className="aurai-right">
                             <div
                                 className="aurai-portrait-card"
+                                onMouseEnter={() => setPaused(true)}
                                 onMouseMove={(e) => {
                                     const card = e.currentTarget;
                                     const r = card.getBoundingClientRect();
@@ -388,18 +405,31 @@ export default function Hero() {
                                     card.style.setProperty('--ry', `0deg`);
                                     card.style.setProperty('--gx', `50%`);
                                     card.style.setProperty('--gy', `50%`);
+                                    setPaused(false);
                                 }}
+                                onClick={() => setPortraitIdx((i) => (i + 1) % PORTRAITS.length)}
                             >
                                 <div className="aurai-portrait-inner">
-                                    <Image
-                                        src="/jeon-id-2023.jpg"
-                                        alt={aurai.brand}
-                                        width={280}
-                                        height={360}
-                                        priority
-                                        className="aurai-portrait-img"
-                                    />
+                                    {PORTRAITS.map((src, i) => (
+                                        <Image
+                                            key={src}
+                                            src={src}
+                                            alt={aurai.brand}
+                                            width={280}
+                                            height={360}
+                                            priority={i === 0}
+                                            className={`aurai-portrait-img${i === portraitIdx ? ' is-active' : ''}`}
+                                        />
+                                    ))}
                                     <div className="aurai-portrait-sheen" />
+                                    <div className="aurai-portrait-dots">
+                                        {PORTRAITS.map((_, i) => (
+                                            <span
+                                                key={i}
+                                                className={`aurai-portrait-dot${i === portraitIdx ? ' is-active' : ''}`}
+                                            />
+                                        ))}
+                                    </div>
                                 </div>
                                 <div className="aurai-portrait-pills">
                                     {aurai.pills.map((p) => (
@@ -887,9 +917,40 @@ export default function Hero() {
                     object-fit: cover;
                     border-radius: 0.625rem;
                     display: block;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    opacity: 0;
+                    transition: opacity 1s ease-in-out;
                 }
+                .aurai-portrait-img.is-active { opacity: 1; }
+                /* First image holds the box height in place */
+                .aurai-portrait-img:first-child { position: relative; }
                 @media (min-width: 1024px) {
                     .aurai-portrait-img { width: 260px; height: 330px; }
+                }
+
+                .aurai-portrait-dots {
+                    position: absolute;
+                    bottom: 0.5rem;
+                    left: 0;
+                    right: 0;
+                    display: flex;
+                    justify-content: center;
+                    gap: 0.375rem;
+                    z-index: 5;
+                    pointer-events: none;
+                }
+                .aurai-portrait-dot {
+                    width: 5px;
+                    height: 5px;
+                    border-radius: 9999px;
+                    background: rgba(255, 255, 255, 0.35);
+                    transition: background 0.3s ease, transform 0.3s ease;
+                }
+                .aurai-portrait-dot.is-active {
+                    background: #fff;
+                    transform: scale(1.4);
                 }
 
                 /* Holographic sheen that follows the cursor — gives the photo a 3D-card feel */
