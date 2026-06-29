@@ -8,11 +8,11 @@ import { FiArrowRight, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import { useRouter } from 'next/navigation';
 
 const fadeUp = {
-    hidden: { opacity: 0, scale: 1.15 },
+    hidden: { opacity: 0, y: 20 },
     visible: (i) => ({
         opacity: 1,
-        scale: 1,
-        transition: { duration: 0.55, delay: i * 0.18, ease: [0.22, 1, 0.36, 1] },
+        y: 0,
+        transition: { duration: 0.55, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] },
     }),
 };
 

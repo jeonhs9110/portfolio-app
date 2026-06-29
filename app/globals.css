@@ -238,36 +238,17 @@ h3 {
 h1, h2, h3 { letter-spacing: -0.02em; }
 .section-title { letter-spacing: -0.03em; }
 
-/* ============================================
-   CARD SPOTLIGHT — one card at a time pops out as it passes through
-   a tight zone at viewport centre, returns to natural size as the
-   visitor keeps scrolling. ScrollSpotlight.js sets --spot-scale per
-   element; CSS picks it up here. Sharp 280ms transition so the
-   "active vs inactive" state reads as deliberate.
-   ============================================ */
-.experience__card,
-.about__feature-card,
-.about__stat {
-  --spot-scale: 1;
-  transform: scale(var(--spot-scale));
-  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
-  transform-origin: center center;
-  will-change: transform;
-}
-/* project-card has a hover translateY too — compose translate +
-   scale via separate variables so neither overrides the other. */
+/* Vertical-stack cards (Experience, Projects, About stats, feature
+   card) stay perfectly still on scroll. Removed the previous
+   in-place --spot-scale loop — it was adding jitter to dense text
+   sections without conveying any information. The only scroll-driven
+   attention these sections get now is the keyword glow on .kw inside
+   the prose. */
 .project-card {
-  --spot-scale: 1;
-  --card-translate-y: 0px;
-  transform: translateY(var(--card-translate-y)) scale(var(--spot-scale));
-  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
-              background 0.3s,
-              border-color 0.3s;
-  transform-origin: center center;
-  will-change: transform;
+  transition: background 0.3s, border-color 0.3s, transform 0.3s;
 }
 .project-card:hover {
-  --card-translate-y: -4px;
+  transform: translateY(-4px);
 }
 
 /* ============================================
@@ -402,56 +383,47 @@ h1, h2, h3 { letter-spacing: -0.02em; }
    translations file, rendered through dangerouslySetInnerHTML where the
    parent paragraph is a single string. */
 .kw {
-  /* Bold + scroll-driven cyan halo. ScrollSpotlight sets --kw-spot
-     (0 → 1) only when the keyword sits inside the central 10% of
-     the viewport — i.e. the line the user is actually reading.
-     Layered shadows so the peak reads as a real glow:
-       - Inner crisp halo (white-blue)  — 12px blur
-       - Outer wide bloom (deep cyan)   — 32px blur
-     A small persistent 4px shadow at --kw-spot: 0 keeps the
-     keyword visibly emphasised even outside the focal zone, so
-     it doesn't read as "off" between glow moments. */
+  /* The page's primary attention-grabbing effect. Bolded keywords
+     are always visibly emphasised (cyan-tinted text + permanent
+     soft glow), and as each keyword passes through the visitor's
+     reading band, it lights up brighter AND scales up slightly so
+     the eye locks onto it the instant it crosses into focus.
+     ScrollSpotlight.js sets --kw-spot (0 → 1) across a 12% viewport
+     zone — wider than before so each line's keywords hold a clear
+     peak rather than flickering on and off.
+     Layered text-shadows so the peak reads as a real glow:
+       - Inner crisp halo (white-blue)  — up to 16px blur
+       - Outer wide cyan bloom          — up to 40px blur */
   font-weight: 700;
-  color: #ffffff;
+  /* Tinted base colour — cyan-shifted white, so even at --kw-spot 0
+     the keyword reads as deliberately highlighted, not just bold. */
+  color: rgb(
+    calc(232 + var(--kw-spot, 0) * 23),
+    calc(243 + var(--kw-spot, 0) * 12),
+    255
+  );
   display: inline-block;
+  /* Slight upscale at peak so the eye perceives motion + emphasis
+     as the keyword crosses into the reading band. Stays within
+     the line-box because of display: inline-block. */
+  transform: scale(calc(1 + var(--kw-spot, 0) * 0.08));
+  transform-origin: center center;
   text-shadow:
     /* Persistent base + dynamic inner halo */
-    0 0 calc(4px + var(--kw-spot, 0) * 14px) rgba(207, 231, 255, calc(0.22 + var(--kw-spot, 0) * 0.85)),
-    /* Dynamic wide cyan bloom — only present at peak */
-    0 0 calc(var(--kw-spot, 0) * 32px) rgba(103, 232, 249, calc(var(--kw-spot, 0) * 0.65));
-  transition: text-shadow 140ms ease;
-}
-
-/* Keyword pop — when a section enters via SiloReveal, every <strong class="kw">
-   inside it briefly scales up and gets a cyan halo, then settles back to a
-   subtle persistent shadow. Reads as the bold terms "popping" without
-   disturbing layout (display: inline-block + scale stays within the
-   line-box). */
-.silo-reveal.is-revealed .kw {
-  animation: kw-pop 900ms cubic-bezier(0.22, 1, 0.36, 1) 250ms backwards;
-}
-@keyframes kw-pop {
-  0% {
-    transform: scale(0.96);
-    text-shadow: 0 0 0 rgba(147, 197, 253, 0);
-    color: rgba(255, 255, 255, 0.85);
-  }
-  55% {
-    transform: scale(1.08);
-    text-shadow: 0 0 18px rgba(147, 197, 253, 0.85);
-    color: #ffffff;
-  }
-  100% {
-    transform: scale(1);
-    text-shadow: 0 0 8px rgba(147, 197, 253, 0.32);
-    color: #ffffff;
-  }
+    0 0 calc(6px + var(--kw-spot, 0) * 16px) rgba(207, 231, 255, calc(0.35 + var(--kw-spot, 0) * 0.85)),
+    /* Dynamic wide cyan bloom — really lights up at peak */
+    0 0 calc(var(--kw-spot, 0) * 40px) rgba(103, 232, 249, calc(var(--kw-spot, 0) * 0.95));
+  transition:
+    text-shadow 180ms ease,
+    color 180ms ease,
+    transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .silo-reveal.is-revealed .kw {
-    animation: none;
-    text-shadow: 0 0 8px rgba(147, 197, 253, 0.32);
+  .kw {
+    transform: none;
+    transition: none;
+    text-shadow: 0 0 8px rgba(147, 197, 253, 0.4);
   }
 }
 

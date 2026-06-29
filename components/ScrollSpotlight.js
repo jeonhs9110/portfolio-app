@@ -3,34 +3,28 @@
 import { useEffect } from 'react';
 
 /**
- * Three scroll-driven effects, all driven by a single RAF loop.
+ * Two scroll-driven effects, both driven by a single RAF loop.
  *
- *   1. WINS ZOOM-TO-CENTRE — for any row of "sequence" tiles (the
- *      About key-wins row, with 4 tiles side by side), the row owns
- *      a long virtual scroll range. As the visitor scrolls through
- *      that range, exactly one tile at a time literally translates
- *      to the centre of the viewport AND scales up. Continuing to
- *      scroll returns that tile to its grid position while the
- *      next tile flies in.
+ *   1. SCROLL-JACKED ZOOM-TO-CENTRE — for each tall outer container
+ *      that pins a tile group at viewport centre via sticky
+ *      positioning, the inner tiles take turns flying to centre as
+ *      the visitor scrolls through the container's virtual scroll
+ *      range. Currently applied to: About key-wins row (4 tiles),
+ *      Skills 2×2 grid (4 categories).
  *
- *      Implementation: progress runs 0 → 1 as the row's centre
- *      crosses through a region around the viewport centre. Each
- *      tile peaks at progress = (i + 0.5) / N. The translation
- *      and scale are blended via a smoothstep so adjacent tiles
- *      hand off cleanly.
+ *   2. KEYWORD GLOW — every <strong class="kw"> picks up a cyan
+ *      halo as it enters the visitor's reading band (12% of viewport
+ *      around centre). At peak the keyword scales slightly AND has a
+ *      bright cyan glow, so the bolded words actually read as the
+ *      visitor's eye reaches them — the page's primary
+ *      attention-grabbing effect outside the scroll-jacked spotlights.
  *
- *   2. CARD IN-PLACE SCALE — for vertical-stack cards (Experience
- *      jobs, project cards, skills categories, About stats, etc),
- *      each card scales to 1.15 when its centre is within 15% of
- *      the viewport centre and returns to 1 as it leaves. Because
- *      these stacks are vertical, only one card's centre can be at
- *      the viewport centre at any time, which gives the same
- *      "one at a time" feel as the wins zoom but without the
- *      horizontal translation.
- *
- *   3. KEYWORD GLOW — every <strong class="kw"> picks up a cyan
- *      halo when its centre sits inside a 5% zone around viewport
- *      centre. Just the line being read lights up.
+ * NOTE on what was deliberately REMOVED:
+ *   - In-place card scaling on vertical-stack cards (Experience,
+ *     Projects, About stats, feature card). It made the page feel
+ *     jittery — cards visibly resizing as the visitor scrolled past
+ *     contributed to the "too messy" feel without conveying any
+ *     information. Cards now stay perfectly still.
  *
  * Disabled entirely for prefers-reduced-motion: reduce.
  */
@@ -44,39 +38,7 @@ const SPOTLIGHT_GROUPS = [
     { container: '.skills__spotlight', tile: '.skills__category' },
 ];
 
-// Vertical-stack cards that get in-place scale (no translate).
-const STACK_CARD_SELECTORS = [
-    '.experience__card',
-    '.project-card',
-    '.about__feature-card',
-    '.about__stat',
-];
-
 const KW_SELECTOR = '.kw';
-
-// Walk offsetParent chain to get the true layout (untransformed)
-// document position of an element. Critical for the zoom-to-centre
-// translate calculation — using getBoundingClientRect would feed
-// the previous frame's translate back into the next frame and the
-// tile would drift.
-function getDocumentTop(el) {
-    let top = 0;
-    let cur = el;
-    while (cur) {
-        top += cur.offsetTop;
-        cur = cur.offsetParent;
-    }
-    return top;
-}
-function getDocumentLeft(el) {
-    let left = 0;
-    let cur = el;
-    while (cur) {
-        left += cur.offsetLeft;
-        cur = cur.offsetParent;
-    }
-    return left;
-}
 
 export default function ScrollSpotlight() {
     useEffect(() => {
@@ -86,9 +48,7 @@ export default function ScrollSpotlight() {
 
         let raf = 0;
         let cancelled = false;
-        // Map: spotlight container element → ordered tile elements inside it.
         let spotlightsByContainer = new Map();
-        let stackCards = [];
         let kws = [];
 
         function refresh() {
@@ -106,9 +66,6 @@ export default function ScrollSpotlight() {
                     }
                 }
             }
-            stackCards = STACK_CARD_SELECTORS.flatMap((sel) =>
-                Array.from(document.querySelectorAll(sel))
-            );
             kws = Array.from(document.querySelectorAll(KW_SELECTOR));
         }
 
@@ -118,14 +75,8 @@ export default function ScrollSpotlight() {
             const viewportW = window.innerWidth;
             const viewportCenterY = viewportH / 2;
             const viewportCenterX = viewportW / 2;
-            const scrollY = window.scrollY || window.pageYOffset;
-            const scrollX = window.scrollX || window.pageXOffset;
 
-            // ── 1. WINS ZOOM-TO-CENTRE SEQUENCES ────────────────────
-            // Progress comes from how far the spotlight container has
-            // scrolled INTO the viewport. The row inside is pinned at
-            // viewport centre via sticky positioning, so each tile gets
-            // a full viewport's worth of scroll time at centre stage.
+            // ── 1. SCROLL-JACKED ZOOM-TO-CENTRE ─────────────────────
             for (const [container, tiles] of spotlightsByContainer) {
                 const N = tiles.length;
                 if (N < 1) continue;
@@ -133,19 +84,10 @@ export default function ScrollSpotlight() {
                 const containerRect = container.getBoundingClientRect();
                 const containerHeight = container.offsetHeight;
                 const scrollableDistance = containerHeight - viewportH;
-                // progress = 0 when container TOP hits viewport top
-                //          = 1 when container BOTTOM hits viewport bottom
-                // Outside [0, 1] the sticky child is no longer pinned
-                // and tiles return to their grid layout.
                 const progress = Math.max(
                     0,
                     Math.min(1, -containerRect.top / scrollableDistance)
                 );
-
-                // currentIndex runs 0 → N-1 continuously. Tile i peaks
-                // when currentIndex === i; adjacent tiles cross-fade at
-                // half-integer values. Carousel-style: at any progress,
-                // exactly one tile (or two mid-handoff) is highlighted.
                 const currentIndex = progress * (N - 1);
 
                 for (let i = 0; i < N; i++) {
@@ -162,11 +104,6 @@ export default function ScrollSpotlight() {
                         continue;
                     }
 
-                    // Untransformed visual centre = current rect centre
-                    // minus the translate we applied last frame. Stable
-                    // across frames even with sticky pinning (rect
-                    // reflects sticky offset; subtracting our translate
-                    // removes the only thing we wrote).
                     const rect = tile.getBoundingClientRect();
                     const currentTx =
                         parseFloat(
@@ -177,8 +114,6 @@ export default function ScrollSpotlight() {
 
                     const translateX =
                         (viewportCenterX - tileVisualCenterX) * eased;
-                    // translateY = 0 — row is pinned at viewport centre
-                    // already, no vertical movement needed.
                     const scale = 1.0 + eased * 0.5;
 
                     tile.style.setProperty(
@@ -197,35 +132,12 @@ export default function ScrollSpotlight() {
                 }
             }
 
-            // ── 2. VERTICAL CARD IN-PLACE SCALE ─────────────────────
-            const cardMaxDistance = viewportH * 0.15;
-            for (const el of stackCards) {
-                const rect = el.getBoundingClientRect();
-                if (
-                    rect.bottom < -100 ||
-                    rect.top > viewportH + 100
-                ) {
-                    if (el.style.getPropertyValue('--spot-scale')) {
-                        el.style.removeProperty('--spot-scale');
-                    }
-                    continue;
-                }
-                const itemCenter = rect.top + rect.height / 2;
-                const distance = Math.abs(itemCenter - viewportCenterY);
-                const linear = Math.max(
-                    0,
-                    1 - distance / cardMaxDistance
-                );
-                const eased =
-                    linear < 0.5
-                        ? 4 * linear * linear * linear
-                        : 1 - Math.pow(-2 * linear + 2, 3) / 2;
-                const scale = 1.0 + eased * 0.15;
-                el.style.setProperty('--spot-scale', scale.toFixed(3));
-            }
-
-            // ── 3. KEYWORD GLOW ─────────────────────────────────────
-            const kwMaxDistance = viewportH * 0.05;
+            // ── 2. KEYWORD GLOW ─────────────────────────────────────
+            // Wider zone now: 12% of viewport around centre instead
+            // of 5%. Keywords in the reading band hold a clear peak,
+            // and the dim-on-and-off is less twitchy as the visitor
+            // scrolls through dense text.
+            const kwMaxDistance = viewportH * 0.12;
             for (const el of kws) {
                 const rect = el.getBoundingClientRect();
                 if (

@@ -45,10 +45,10 @@ export default function About() {
                                         whileInView="visible"
                                         viewport={{ once: true, margin: '-40px' }}
                                         variants={{
-                                            hidden: { opacity: 0, scale: 1.4 },
+                                            hidden: { opacity: 0, y: 16 },
                                             visible: (j) => ({
-                                                opacity: 1, scale: 1,
-                                                transition: { duration: 0.6, delay: j * 0.22, ease: [0.22, 1, 0.36, 1] },
+                                                opacity: 1, y: 0,
+                                                transition: { duration: 0.5, delay: j * 0.08, ease: [0.22, 1, 0.36, 1] },
                                             }),
                                         }}
                                     >
@@ -128,10 +128,10 @@ export default function About() {
                                     whileInView="visible"
                                     viewport={{ once: true, margin: '-40px' }}
                                     variants={{
-                                        hidden: { opacity: 0, scale: 1.3 },
+                                        hidden: { opacity: 0, y: 16 },
                                         visible: (j) => ({
-                                            opacity: 1, scale: 1,
-                                            transition: { duration: 0.55, delay: j * 0.22, ease: [0.22, 1, 0.36, 1] },
+                                            opacity: 1, y: 0,
+                                            transition: { duration: 0.5, delay: j * 0.08, ease: [0.22, 1, 0.36, 1] },
                                         }),
                                     }}
                                 >
