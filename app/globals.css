@@ -247,7 +247,6 @@ h1, h2, h3 { letter-spacing: -0.02em; }
    ============================================ */
 .experience__card,
 .skills__category,
-.about__win,
 .about__feature-card,
 .about__stat {
   --spot-scale: 1;
@@ -272,6 +271,41 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   --card-translate-y: -4px;
 }
 
+/* ============================================
+   WINS ZOOM-TO-CENTRE — each tile in the 4-tile About wins row
+   FLIES to the centre of the screen as the visitor scrolls
+   through the row's spotlight range. ScrollSpotlight.js writes
+   --zoom-tx, --zoom-ty, --zoom-scale based on the tile's
+   untransformed position vs viewport centre, so the tile
+   literally translates to centre AND scales up while it's the
+   "active" one. z-index lift puts the active tile above its
+   neighbours during the flight.
+   ============================================ */
+.about__win {
+  --zoom-tx: 0px;
+  --zoom-ty: 0px;
+  --zoom-scale: 1;
+  --zoom-z: 0;
+  position: relative;
+  z-index: var(--zoom-z, 0);
+  transform: translate(var(--zoom-tx), var(--zoom-ty)) scale(var(--zoom-scale));
+  transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 380ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: center center;
+  will-change: transform;
+}
+/* Subtle cyan glow under the active tile so its centre-stage
+   moment reads as a real spotlight, not just a bigger box.
+   Intensity tracks --zoom-scale: at 1.0 (idle) the shadow is
+   the normal subtle card shadow; at 1.5 (peak) it's a big
+   cyan halo. */
+.about__win {
+  box-shadow:
+    0 calc((var(--zoom-scale, 1) - 1) * 40px)
+    calc((var(--zoom-scale, 1) - 1) * 80px)
+    rgba(34, 211, 238, calc((var(--zoom-scale, 1) - 1) * 0.7));
+}
+
 @media (prefers-reduced-motion: reduce) {
   .experience__card,
   .skills__category,
@@ -281,6 +315,7 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   .project-card {
     transform: none;
     transition: none;
+    box-shadow: none;
   }
 }
 
