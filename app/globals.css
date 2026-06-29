@@ -790,8 +790,14 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .about__win {
   padding: 18px 18px 16px;
   border-radius: var(--radius);
-  background: rgba(8, 14, 28, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  /* Background opacity tracks --zoom-scale: at rest (scale 1) the
+     tile is the original 0.55 alpha so the silo background reads
+     through; at peak (scale 1.5) it's near-opaque 0.96 so the
+     active tile's text is sharp and unobstructed even when the
+     tile flying out behind it would otherwise bleed through.
+       0.55 + (scale - 1) × 0.82  →  0.55 at rest, 0.96 at peak */
+  background: rgba(8, 14, 28, calc(0.55 + (var(--zoom-scale, 1) - 1) * 0.82));
+  border: 1px solid rgba(255, 255, 255, calc(0.12 + (var(--zoom-scale, 1) - 1) * 0.46));
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 12px 32px -12px rgba(0,0,0,0.45);
@@ -1251,8 +1257,14 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .skills__category {
   padding: 28px;
   border-radius: var(--radius);
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
+  /* Background opacity tracks --zoom-scale during the scroll-jacked
+     spotlight: at rest (scale 1) the tile uses the standard surface
+     opacity so the silo background reads through; at peak (scale 1.5)
+     it's near-opaque so the active category's text is sharp even
+     when adjacent tiles fly out behind it.
+       0.62 + (scale - 1) × 0.74  →  0.62 at rest, 0.99 at peak */
+  background: rgba(8, 14, 28, calc(0.62 + (var(--zoom-scale, 1) - 1) * 0.74));
+  border: 1px solid rgba(255, 255, 255, calc(0.14 + (var(--zoom-scale, 1) - 1) * 0.42));
   transition: all 0.25s;
 }
 
