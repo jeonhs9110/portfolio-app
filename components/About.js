@@ -29,21 +29,30 @@ export default function About() {
                     scan, surfaces the resume's deal + tech proof points above
                     the bio prose. */}
                 {t.about.wins && (
-                    <motion.div
-                        className="about__wins"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: '-60px' }}
-                        variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
-                    >
+                    <div className="about__wins">
                         {t.about.wins.map((w, i) => (
-                            <div key={i} className="about__win">
-                                <div className="about__win-metric">{w.metric}</div>
-                                <div className="about__win-label">{w.label}</div>
-                                <div className="about__win-detail">{w.detail}</div>
-                            </div>
+                            <motion.div
+                                key={i}
+                                custom={i}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, margin: '-40px' }}
+                                variants={{
+                                    hidden: { opacity: 0, y: 28, scale: 0.92 },
+                                    visible: (j) => ({
+                                        opacity: 1, y: 0, scale: 1,
+                                        transition: { duration: 0.55, delay: j * 0.15, ease: [0.22, 1, 0.36, 1] },
+                                    }),
+                                }}
+                            >
+                                <div className="about__win">
+                                    <div className="about__win-metric">{w.metric}</div>
+                                    <div className="about__win-label">{w.label}</div>
+                                    <div className="about__win-detail">{w.detail}</div>
+                                </div>
+                            </motion.div>
                         ))}
-                    </motion.div>
+                    </div>
                 )}
 
                 {/* "Where I've worked" wordmark strip — uniform white text on
@@ -102,8 +111,22 @@ export default function About() {
                             viewport={{ once: true, margin: '-80px' }}
                             variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.07 } } }}
                         >
-                            {t.about.stats.map((s) => (
-                                <div key={s.label} className="about__stat" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                            {t.about.stats.map((s, i) => (
+                                <motion.div
+                                    key={s.label}
+                                    custom={i}
+                                    initial="hidden"
+                                    whileInView="visible"
+                                    viewport={{ once: true, margin: '-40px' }}
+                                    variants={{
+                                        hidden: { opacity: 0, y: 22 },
+                                        visible: (j) => ({
+                                            opacity: 1, y: 0,
+                                            transition: { duration: 0.5, delay: j * 0.15, ease: [0.22, 1, 0.36, 1] },
+                                        }),
+                                    }}
+                                >
+                                <div className="about__stat" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                                     {s.images && s.images.length > 1 ? (
                                         <div style={{ flexShrink: 0, width: '48px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
                                             {s.images.map((src) => (
@@ -122,6 +145,7 @@ export default function About() {
                                         <p className="about__stat-value">{s.value}</p>
                                     </div>
                                 </div>
+                                </motion.div>
                             ))}
                         </motion.div>
                     </div>

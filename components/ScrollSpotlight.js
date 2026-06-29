@@ -19,7 +19,7 @@ import { useEffect } from 'react';
  *
  * Disabled entirely for `prefers-reduced-motion: reduce`.
  */
-const SELECTORS = [
+const CARD_SELECTORS = [
     '.experience__card',
     '.project-card',
     '.skills__category',
@@ -27,6 +27,11 @@ const SELECTORS = [
     '.about__feature-card',
     '.about__stat',
 ];
+
+// Bold keywords get their own treatment — a soft cyan halo whose
+// intensity peaks at viewport center. Doesn't scale (would distort
+// line-wrapping), only changes the text-shadow.
+const KW_SELECTOR = '.kw';
 
 export default function ScrollSpotlight() {
     useEffect(() => {
@@ -36,25 +41,29 @@ export default function ScrollSpotlight() {
 
         let raf = 0;
         let cancelled = false;
-        let targets = [];
+        let cards = [];
+        let kws = [];
 
         function refresh() {
-            targets = SELECTORS.flatMap((sel) =>
+            cards = CARD_SELECTORS.flatMap((sel) =>
                 Array.from(document.querySelectorAll(sel))
             );
+            kws = Array.from(document.querySelectorAll(KW_SELECTOR));
         }
 
         function update() {
             raf = 0;
             const viewportH = window.innerHeight;
             const viewportCenter = viewportH / 2;
-            // "Spotlight zone" — items inside this range from center grow.
-            // At ~0.45 * viewport height of distance, scale returns to base.
-            const maxDistance = viewportH * 0.45;
-            for (const el of targets) {
+            // Cards: 0.45 * viewport height of distance = fully shrunk.
+            const cardMaxDistance = viewportH * 0.45;
+            // Keywords: a tighter spotlight zone (0.25 * viewport) so
+            // exactly the line you're reading lights up. Sharper focal
+            // attention than a 45% zone would give.
+            const kwMaxDistance = viewportH * 0.25;
+
+            for (const el of cards) {
                 const rect = el.getBoundingClientRect();
-                // Skip items entirely off-screen — release the CSS var so
-                // hover / static state takes back over.
                 if (rect.bottom < -100 || rect.top > viewportH + 100) {
                     if (el.style.getPropertyValue('--spot-scale')) {
                         el.style.removeProperty('--spot-scale');
@@ -63,15 +72,31 @@ export default function ScrollSpotlight() {
                 }
                 const itemCenter = rect.top + rect.height / 2;
                 const distance = Math.abs(itemCenter - viewportCenter);
-                const linear = Math.max(0, 1 - distance / maxDistance);
-                // Smoothstep — softens the spotlight peak so items don't
-                // snap to max scale.
+                const linear = Math.max(0, 1 - distance / cardMaxDistance);
                 const eased = linear * linear * (3 - 2 * linear);
-                // Scale range: 0.92 (far) → 1.10 (center). Noticeable
-                // pop — items meaningfully grow as they enter focus
-                // and shrink as they leave.
-                const scale = 0.92 + eased * 0.18;
+                // Tighter 11% delta (was 18%) — large project cards and
+                // small win tiles now feel like the same amount of pop
+                // visually.
+                const scale = 0.95 + eased * 0.11;
                 el.style.setProperty('--spot-scale', scale.toFixed(3));
+            }
+
+            for (const el of kws) {
+                const rect = el.getBoundingClientRect();
+                if (rect.bottom < -50 || rect.top > viewportH + 50) {
+                    if (el.style.getPropertyValue('--kw-spot')) {
+                        el.style.removeProperty('--kw-spot');
+                    }
+                    continue;
+                }
+                const itemCenter = rect.top + rect.height / 2;
+                const distance = Math.abs(itemCenter - viewportCenter);
+                const linear = Math.max(0, 1 - distance / kwMaxDistance);
+                const eased = linear * linear * (3 - 2 * linear);
+                // --kw-spot is a 0 → 1 intensity that CSS turns into
+                // text-shadow blur radius + alpha. Highest when the
+                // keyword sits exactly at viewport center.
+                el.style.setProperty('--kw-spot', eased.toFixed(3));
             }
         }
 

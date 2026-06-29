@@ -12,7 +12,7 @@ const fadeUp = {
     visible: (i) => ({
         opacity: 1,
         y: 0,
-        transition: { duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
+        transition: { duration: 0.55, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] },
     }),
 };
 
@@ -53,8 +53,13 @@ export default function Projects() {
 
                 <div className="projects__list">
                     {visible.map((proj, i) => (
-                        <div
+                        <motion.div
                             key={proj.id}
+                            custom={i}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, margin: '-60px' }}
+                            variants={fadeUp}
                             style={{ position: 'relative' }}
                         >
                             <div
@@ -91,7 +96,7 @@ export default function Projects() {
                                     </span>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
 

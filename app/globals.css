@@ -367,14 +367,20 @@ h1, h2, h3 { letter-spacing: -0.02em; }
    translations file, rendered through dangerouslySetInnerHTML where the
    parent paragraph is a single string. */
 .kw {
-  /* Bold only — no marker band, no glow, no padded background. The cyan
-     band read as noise against the moving HLS video; just bumping weight
-     and lifting the colour to pure white is enough to make the keyword
-     pop against the parent's 0.85-alpha white body copy. */
+  /* Bold + scroll-driven cyan halo. ScrollSpotlight sets --kw-spot
+     (0 → 1) as the keyword passes through the viewport's reading
+     zone; the text-shadow blur radius and alpha track it, so the
+     EXACT line you're reading lights up cyan, and the previous /
+     next lines stay quiet.
+     Base shadow at --kw-spot: 0 is a faint persistent emphasis so
+     keywords still read as bold even outside the focal zone. */
   font-weight: 700;
   color: #ffffff;
-  display: inline-block; /* required for transform / scale to apply to inline text */
+  display: inline-block;
   transform-origin: center center;
+  text-shadow:
+    0 0 calc(4px + var(--kw-spot, 0) * 20px) rgba(147, 197, 253, calc(0.18 + var(--kw-spot, 0) * 0.7));
+  transition: text-shadow 180ms ease;
 }
 
 /* Keyword pop — when a section enters via SiloReveal, every <strong class="kw">

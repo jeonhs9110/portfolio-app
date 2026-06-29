@@ -41,8 +41,22 @@ export default function Skills() {
                     viewport={{ once: true, margin: '-80px' }}
                     variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
                 >
-                    {t.skills.categories.map((cat) => (
-                        <div key={cat.name} className="skills__category">
+                    {t.skills.categories.map((cat, i) => (
+                        <motion.div
+                            key={cat.name}
+                            custom={i}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, margin: '-40px' }}
+                            variants={{
+                                hidden: { opacity: 0, y: 24 },
+                                visible: (j) => ({
+                                    opacity: 1, y: 0,
+                                    transition: { duration: 0.5, delay: j * 0.13, ease: [0.22, 1, 0.36, 1] },
+                                }),
+                            }}
+                        >
+                        <div className="skills__category">
                             <p className="skills__cat-name">{cat.name}</p>
                             <div className="skills__items">
                                 {cat.items.map((item) => (
@@ -50,6 +64,7 @@ export default function Skills() {
                                 ))}
                             </div>
                         </div>
+                        </motion.div>
                     ))}
                 </motion.div>
             </div>

@@ -90,7 +90,7 @@ const fadeUp = {
     visible: (i) => ({
         opacity: 1,
         y: 0,
-        transition: { duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
+        transition: { duration: 0.55, delay: i * 0.18, ease: [0.22, 1, 0.36, 1] },
     }),
 };
 
@@ -124,10 +124,15 @@ export default function Experience() {
                 {/* Experience List */}
                 <div className="experience__list">
                     {t.experience.jobs.map((job, i) => (
-                        <div
+                        <motion.div
                             key={i}
-                            className="experience__card"
+                            custom={i}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, margin: '-60px' }}
+                            variants={fadeUp}
                         >
+                        <div className="experience__card">
                             <div className="experience__card-header">
                                 <div>
                                     <h3 className="experience__role">{job.role}</h3>
@@ -156,6 +161,7 @@ export default function Experience() {
                                 ))}
                             </div>
                         </div>
+                        </motion.div>
                     ))}
                 </div>
 
