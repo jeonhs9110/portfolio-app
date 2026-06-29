@@ -67,9 +67,10 @@ export default function ScrollSpotlight() {
                 // Smoothstep — softens the spotlight peak so items don't
                 // snap to max scale.
                 const eased = linear * linear * (3 - 2 * linear);
-                // Scale range: 0.96 (far) → 1.05 (center). ~9% delta is
-                // noticeable without feeling like a video-game zoom.
-                const scale = 0.96 + eased * 0.09;
+                // Scale range: 0.92 (far) → 1.10 (center). Noticeable
+                // pop — items meaningfully grow as they enter focus
+                // and shrink as they leave.
+                const scale = 0.92 + eased * 0.18;
                 el.style.setProperty('--spot-scale', scale.toFixed(3));
             }
         }

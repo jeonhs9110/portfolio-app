@@ -24,7 +24,7 @@ export default function Contact() {
                 >
                     <span className="contact__portrait-glow" />
                     <Image
-                        src="/jeon-portrait-1.jpg"
+                        src="/hyunsik-upper.png"
                         alt="Hyunsik Jeon"
                         width={520}
                         height={520}
