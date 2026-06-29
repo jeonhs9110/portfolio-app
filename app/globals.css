@@ -1025,40 +1025,32 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 }
 
 /* ============================================
-   COMPANY LOGO BADGES
-   Float OUTSIDE the experience card on the left or right at the
-   card's vertical centre, sliding in from further off-screen as the
-   card's --pop ramps from 0 → 1 (--pop inherited via CSS variable
-   cascading since the badge is a child of .experience__card).
-
-   On viewports wide enough to have clearance OUTSIDE the 1100px
-   container (>=1500px), the badge sits outside the card edge for
-   the full dramatic "appears from off-screen" effect.
-
-   On narrower viewports, the badge falls back to a static banner
-   row at the TOP of the card so it's always visible. The same
-   slide-from-side translateX still fires, just inside the card.
-
-   Per-company logo filter tweaks at the bottom of this block.
+   COMPANY WORDMARK BADGES
+   Floating outside each Experience card, sliding in from the side as
+   the card crosses viewport centre (driven by inherited --pop on the
+   card → child badge picks it up via CSS variable cascading).
+   Per-company typography differentiates the four employers without
+   using actual corporate logos (text wordmarks = no trademark issues).
+   Hidden on <=1100px viewports where there's no room outside the card.
    ============================================ */
 .experience__badge {
   position: absolute;
   top: 50%;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  width: 180px;
+  gap: 4px;
+  width: 200px;
   pointer-events: none;
   z-index: 5;
   opacity: var(--pop, 0);
-  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
-              opacity 600ms ease;
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 500ms ease;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.65);
 }
 .experience__badge--left {
   left: 0;
   transform: translate(
-    calc(-100% - 20px - (1 - var(--pop, 0)) * 100px),
+    calc(-100% - 24px - (1 - var(--pop, 0)) * 120px),
     -50%
   );
   align-items: flex-end;
@@ -1067,7 +1059,7 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .experience__badge--right {
   right: 0;
   transform: translate(
-    calc(100% + 20px + (1 - var(--pop, 0)) * 100px),
+    calc(100% + 24px + (1 - var(--pop, 0)) * 120px),
     -50%
   );
   align-items: flex-start;
@@ -1077,8 +1069,7 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   display: block;
   width: auto;
   height: auto;
-  max-height: 36px;
-  max-width: 180px;
+  max-width: 100%;
   filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.65));
   user-select: none;
 }
@@ -1086,55 +1077,44 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   font-size: 0.6875rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.62);
   font-weight: 500;
   line-height: 1.4;
 }
-/* Per-company image treatment.
-     Lee & Ko       — already white on transparent, no filter
-     HMP            — dark logo on white site header, invert to light
-     Nat'l Assembly — colourful emblem, add cyan glow to harmonise
-     Concentrix     — Wikimedia source is teal #25e2cc, NO invert
-                      (the prior invert was flipping teal to dark and
-                       making the logo invisible against the dark bg) */
+/* Per-company sizing — each logo has different aspect ratio + ideal
+   display size. SVG logos with light colours render fine on the dark
+   bg; the HMP PNG is a dark-on-light header asset so we invert it. */
 .experience__badge--lee-ko .experience__badge-logo {
-  max-height: 40px;
+  max-width: 200px;
+  margin-bottom: 12px;
 }
 .experience__badge--hmp .experience__badge-logo {
-  max-height: 32px;
-  filter: invert(1) brightness(1.18)
+  max-width: 200px;
+  margin-bottom: 12px;
+  /* HMP source is a dark-coloured logo for white headers — invert
+     + slight brightness lift so it reads on the dark bg. */
+  filter: invert(1) brightness(1.15)
           drop-shadow(0 4px 18px rgba(0, 0, 0, 0.55));
 }
 .experience__badge--national-assembly .experience__badge-logo {
-  max-height: 60px;
-  max-width: 60px;
-  filter: drop-shadow(0 0 18px rgba(103, 232, 249, 0.4))
-          drop-shadow(0 4px 12px rgba(0, 0, 0, 0.65));
+  max-width: 110px;
+  margin-bottom: 12px;
+  /* National Assembly emblem is colourful; we keep the colours but
+     add a soft cyan-tinted glow so it sits with the page palette. */
+  filter: drop-shadow(0 0 18px rgba(103, 232, 249, 0.35))
+          drop-shadow(0 4px 16px rgba(0, 0, 0, 0.65));
 }
 .experience__badge--concentrix .experience__badge-logo {
-  max-height: 28px;
+  max-width: 200px;
+  margin-bottom: 12px;
+  /* Concentrix wordmark from Wikimedia is dark blue; invert so it
+     reads on the dark bg, then tint toward our cyan accent. */
+  filter: invert(1)
+          drop-shadow(0 4px 18px rgba(0, 0, 0, 0.55));
 }
-
-/* Fallback for narrower viewports — not enough room outside the
-   1100px container for the badge to float beside the card without
-   being clipped by the viewport edge. Reset to in-flow at the TOP
-   of the card so the badge is always visible on common laptop
-   widths (1366-1499px). Same side-direction slide-in still plays. */
-@media (max-width: 1499px) {
-  .experience__badge {
-    position: static;
-    top: auto;
-    width: auto;
-    margin-bottom: 22px;
-  }
-  .experience__badge--left {
-    transform: translateX(calc((var(--pop, 0) - 1) * 100px));
-  }
-  .experience__badge--right {
-    transform: translateX(calc((1 - var(--pop, 0)) * 100px));
-  }
+@media (max-width: 1100px) {
+  .experience__badge { display: none; }
 }
-
 @media (prefers-reduced-motion: reduce) {
   .experience__badge { transition: none; }
 }
