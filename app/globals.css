@@ -1025,37 +1025,53 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 }
 
 /* ============================================
-   COMPANY LOGO BADGES — IN-CARD BANNERS
-   Each badge sits as a thin banner row at the TOP of the experience
-   card (above the role/period header). Slides in from its side
-   direction (left or right) as the card's --pop ramps from 0 → 1,
-   driven by ScrollSpotlight via CSS variable cascading (the badge
-   is a child of .experience__card so it inherits --pop).
+   COMPANY LOGO BADGES
+   Float OUTSIDE the experience card on the left or right at the
+   card's vertical centre, sliding in from further off-screen as the
+   card's --pop ramps from 0 → 1 (--pop inherited via CSS variable
+   cascading since the badge is a child of .experience__card).
 
-   In-flow inside the card guarantees visibility on every viewport —
-   no reliance on space outside the container.
+   On viewports wide enough to have clearance OUTSIDE the 1100px
+   container (>=1500px), the badge sits outside the card edge for
+   the full dramatic "appears from off-screen" effect.
+
+   On narrower viewports, the badge falls back to a static banner
+   row at the TOP of the card so it's always visible. The same
+   slide-from-side translateX still fires, just inside the card.
 
    Per-company logo filter tweaks at the bottom of this block.
    ============================================ */
 .experience__badge {
+  position: absolute;
+  top: 50%;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  margin-bottom: 22px;
+  width: 180px;
   pointer-events: none;
+  z-index: 5;
   opacity: var(--pop, 0);
-  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1),
-              opacity 500ms ease;
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 600ms ease;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.65);
 }
 .experience__badge--left {
-  align-items: flex-start;
-  text-align: left;
-  transform: translateX(calc((var(--pop, 0) - 1) * 100px));
-}
-.experience__badge--right {
+  left: 0;
+  transform: translate(
+    calc(-100% - 20px - (1 - var(--pop, 0)) * 100px),
+    -50%
+  );
   align-items: flex-end;
   text-align: right;
-  transform: translateX(calc((1 - var(--pop, 0)) * 100px));
+}
+.experience__badge--right {
+  right: 0;
+  transform: translate(
+    calc(100% + 20px + (1 - var(--pop, 0)) * 100px),
+    -50%
+  );
+  align-items: flex-start;
+  text-align: left;
 }
 .experience__badge-logo {
   display: block;
@@ -1082,7 +1098,7 @@ h1, h2, h3 { letter-spacing: -0.02em; }
                       (the prior invert was flipping teal to dark and
                        making the logo invisible against the dark bg) */
 .experience__badge--lee-ko .experience__badge-logo {
-  max-height: 38px;
+  max-height: 40px;
 }
 .experience__badge--hmp .experience__badge-logo {
   max-height: 32px;
@@ -1090,14 +1106,35 @@ h1, h2, h3 { letter-spacing: -0.02em; }
           drop-shadow(0 4px 18px rgba(0, 0, 0, 0.55));
 }
 .experience__badge--national-assembly .experience__badge-logo {
-  max-height: 52px;
-  max-width: 52px;
-  filter: drop-shadow(0 0 16px rgba(103, 232, 249, 0.35))
+  max-height: 60px;
+  max-width: 60px;
+  filter: drop-shadow(0 0 18px rgba(103, 232, 249, 0.4))
           drop-shadow(0 4px 12px rgba(0, 0, 0, 0.65));
 }
 .experience__badge--concentrix .experience__badge-logo {
   max-height: 28px;
 }
+
+/* Fallback for narrower viewports — not enough room outside the
+   1100px container for the badge to float beside the card without
+   being clipped by the viewport edge. Reset to in-flow at the TOP
+   of the card so the badge is always visible on common laptop
+   widths (1366-1499px). Same side-direction slide-in still plays. */
+@media (max-width: 1499px) {
+  .experience__badge {
+    position: static;
+    top: auto;
+    width: auto;
+    margin-bottom: 22px;
+  }
+  .experience__badge--left {
+    transform: translateX(calc((var(--pop, 0) - 1) * 100px));
+  }
+  .experience__badge--right {
+    transform: translateX(calc((1 - var(--pop, 0)) * 100px));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .experience__badge { transition: none; }
 }
