@@ -35,19 +35,19 @@ import { useEffect } from 'react';
  * Disabled entirely for prefers-reduced-motion: reduce.
  */
 
-// Horizontal sequence — the tall scroll-jacking SPOTLIGHT container
-// that wraps a pinned row of tiles. Progress is driven by how far
-// the container has scrolled INTO the viewport; the row inside is
-// kept at viewport centre via sticky positioning, so scroll position
-// and tile spotlight are decoupled from the rest of the page flow.
-const SPOTLIGHT_CONTAINER_SELECTOR = '.about__wins-spotlight';
-const SPOTLIGHT_TILE_SELECTOR = '.about__win';
+// Scroll-jacked spotlight groups. Each entry is { container, tile }:
+// container is the tall outer that pins via sticky; tile is the
+// inner element that takes its turn flying to centre. Progress is
+// driven by how far the container has scrolled INTO the viewport.
+const SPOTLIGHT_GROUPS = [
+    { container: '.about__wins-spotlight', tile: '.about__win' },
+    { container: '.skills__spotlight', tile: '.skills__category' },
+];
 
 // Vertical-stack cards that get in-place scale (no translate).
 const STACK_CARD_SELECTORS = [
     '.experience__card',
     '.project-card',
-    '.skills__category',
     '.about__feature-card',
     '.about__stat',
 ];
@@ -93,15 +93,17 @@ export default function ScrollSpotlight() {
 
         function refresh() {
             spotlightsByContainer = new Map();
-            const containers = document.querySelectorAll(
-                SPOTLIGHT_CONTAINER_SELECTOR
-            );
-            for (const container of containers) {
-                const tiles = Array.from(
-                    container.querySelectorAll(SPOTLIGHT_TILE_SELECTOR)
-                );
-                if (tiles.length > 0) {
-                    spotlightsByContainer.set(container, tiles);
+            for (const { container: containerSel, tile: tileSel } of
+                SPOTLIGHT_GROUPS) {
+                for (const container of document.querySelectorAll(
+                    containerSel
+                )) {
+                    const tiles = Array.from(
+                        container.querySelectorAll(tileSel)
+                    );
+                    if (tiles.length > 0) {
+                        spotlightsByContainer.set(container, tiles);
+                    }
                 }
             }
             stackCards = STACK_CARD_SELECTORS.flatMap((sel) =>

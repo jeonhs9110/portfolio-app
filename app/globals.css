@@ -246,7 +246,6 @@ h1, h2, h3 { letter-spacing: -0.02em; }
    "active vs inactive" state reads as deliberate.
    ============================================ */
 .experience__card,
-.skills__category,
 .about__feature-card,
 .about__stat {
   --spot-scale: 1;
@@ -281,7 +280,8 @@ h1, h2, h3 { letter-spacing: -0.02em; }
    "active" one. z-index lift puts the active tile above its
    neighbours during the flight.
    ============================================ */
-.about__win {
+.about__win,
+.skills__category {
   --zoom-tx: 0px;
   --zoom-ty: 0px;
   --zoom-scale: 1;
@@ -299,7 +299,8 @@ h1, h2, h3 { letter-spacing: -0.02em; }
    Intensity tracks --zoom-scale: at 1.0 (idle) the shadow is
    the normal subtle card shadow; at 1.5 (peak) it's a big
    cyan halo. */
-.about__win {
+.about__win,
+.skills__category {
   box-shadow:
     0 calc((var(--zoom-scale, 1) - 1) * 40px)
     calc((var(--zoom-scale, 1) - 1) * 80px)
@@ -1238,6 +1239,35 @@ h1, h2, h3 { letter-spacing: -0.02em; }
    ============================================= */
 .skills {
   border-top: 1px solid var(--border);
+}
+
+/* Same scroll-jacking pattern as .about__wins-spotlight: the 2x2 grid
+   of skill categories pins at viewport centre while the visitor scrolls
+   through 360vh of vertical space. ScrollSpotlight rotates the spotlight
+   through the 4 categories — each takes its turn flying to centre. */
+.skills__spotlight {
+  position: relative;
+  height: 360vh;
+  margin-bottom: 80px;
+}
+.skills__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.skills__sticky > .skills__grid {
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .skills__spotlight { height: auto; margin-bottom: 32px; }
+  .skills__sticky { position: static; height: auto; display: block; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skills__spotlight { height: auto; margin-bottom: 32px; }
+  .skills__sticky { position: static; height: auto; display: block; }
 }
 
 .skills__grid {
