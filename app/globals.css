@@ -38,6 +38,13 @@ html {
   background-color: #04060f;
 }
 
+/* On mobile, smooth-scroll fights momentum scrolling — touch users
+   expect natural inertial scroll. Disable the JS-driven smooth behaviour
+   on hover-less devices (= touch). */
+@media (hover: none) and (pointer: coarse) {
+  html { scroll-behavior: auto; }
+}
+
 /* When a visitor clicks a navbar link, the browser scrolls the section to
    the top of the viewport — but the 64px fixed navbar then covers the
    section's eyebrow label. scroll-margin-top reserves that strip so the
@@ -57,6 +64,17 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  /* Mobile niceties:
+     - kill the blue tap-highlight flash on touch devices
+     - lock iOS Safari's text inflation so font-size: clamp(...) reads as
+       designed instead of being upscaled on first paint
+     - contain overscroll so the page doesn't show the browser chrome
+       behind the fixed video bg when the visitor rubber-bands at the
+       top/bottom */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overscroll-behavior-y: contain;
 }
 
 .container {
@@ -1623,6 +1641,67 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 
   .navbar__logo {
     font-size: 0.9375rem;
+  }
+}
+
+/* =============================================
+   SMALL-PHONE POLISH (<=480px)
+   Tighter spacing, single-column wins, ensures every label fits
+   without awkward two-word wrapping.
+   ============================================= */
+@media (max-width: 480px) {
+  :root {
+    --section-pad: 56px 0;
+  }
+  .container {
+    padding: 0 16px;
+  }
+  /* Hero — wins/skills/experience/projects scroll-jacking is already
+     disabled below 768px (height:auto, position:static). On very narrow
+     phones we further tighten the slogan + badge so they don't crowd
+     the figure. */
+  .hj-hero-slogan {
+    top: clamp(3.25rem, 8vh, 5rem) !important;
+    padding: 0 1rem !important;
+  }
+  .hj-hero-slogan h2 {
+    font-size: clamp(1.35rem, 7.2vw, 2.25rem) !important;
+    max-width: 22ch !important;
+  }
+  .hj-hero-badge {
+    width: min(94%, 480px) !important;
+    bottom: clamp(1rem, 3vh, 2rem) !important;
+    padding: 0.625rem 0.875rem !important;
+  }
+  .hj-hero-name { font-size: clamp(1.3rem, 8vw, 2rem) !important; }
+  .hj-hero-elevator { font-size: 0.875rem !important; line-height: 1.5 !important; }
+  .hj-hero-tag { font-size: 0.6875rem !important; }
+  .hj-hero-scroll { margin-top: 0.875rem !important; }
+
+  /* About wins: 2-col gets cramped at <=400px; single column reads
+     cleaner and each label gets full width. */
+  .about__wins { grid-template-columns: 1fr; gap: 10px; margin-bottom: 32px; }
+  .about__win { padding: 16px 18px 14px; }
+  .about__win-metric { font-size: 1.6rem; }
+
+  /* Workplaces strip — vertical when very narrow. */
+  .about__workplaces { padding: 12px 14px; gap: 12px 18px; }
+  .about__workplaces-mark { font-size: 0.875rem; }
+
+  /* Skills 1-col is already set at 900px — make sure category cards
+     don't waste space. */
+  .skills__category { padding: 20px; }
+  .skills__cat-name { font-size: 1.05rem; }
+
+  /* Section titles — even tighter on small phones for vertical rhythm. */
+  .section-title { margin-bottom: 28px; }
+  .section-label { font-size: 0.6875rem; margin-bottom: 10px; }
+
+  /* Contact buttons — keep them comfortably finger-sized but tighter
+     padding for a narrower viewport. */
+  .contact__btn {
+    padding: 0.625rem 0.9375rem;
+    font-size: 0.8125rem;
   }
 }
 

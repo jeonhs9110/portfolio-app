@@ -42,6 +42,21 @@ export const metadata = {
   robots: { index: true, follow: true },
 };
 
+/**
+ * Viewport + theme-color (Next.js App Router preferred shape).
+ * themeColor matches the page's dark fallback background so the mobile
+ * browser chrome blends into the page rather than showing a default
+ * white strip above the address bar. viewportFit: 'cover' lets content
+ * extend behind the iPhone notch / status bar.
+ */
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#04060f',
+  colorScheme: 'dark',
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="ko">

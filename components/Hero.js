@@ -322,6 +322,29 @@ export default function Hero() {
                         top: clamp(22vh, 26vh, 30vh);
                     }
                 }
+                /* Very narrow phones — pull the figure stage up so the
+                   torso clears the badge area below. Also tighten the
+                   radial bg-tint so the alpha-mask holes between arms
+                   and waist still get hidden at this smaller figure size. */
+                @media (max-width: 480px) {
+                    #hj-figure-stage {
+                        top: clamp(20vh, 24vh, 28vh);
+                    }
+                    #hj-bg-tint {
+                        background:
+                            radial-gradient(
+                                ellipse 36% 28% at 50% 56%,
+                                rgba(2, 6, 14, 0.6) 0%,
+                                rgba(2, 6, 14, 0.32) 60%,
+                                transparent 100%
+                            ),
+                            linear-gradient(
+                                180deg,
+                                rgba(5, 8, 17, 0.20) 0%,
+                                rgba(5, 8, 17, 0.55) 100%
+                            );
+                    }
+                }
                 #hj-figure-canvas {
                     position: absolute;
                     inset: 0;
