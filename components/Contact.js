@@ -155,12 +155,17 @@ export default function Contact() {
                     max-width: 760px;
                 }
                 /* Two-column finale: copy + buttons on the left, AI portrait
-                   on the right. Stacks on tablet and below. */
+                   on the right. Capped at ~1080px and centred so both columns
+                   sit close to the middle of the viewport on wide screens —
+                   otherwise the silo background dominates the negative space
+                   between them. Stacks on tablet and below. */
                 .contact__inner-finale--two-col {
-                    max-width: none;
+                    max-width: 1080px;
+                    margin-left: auto;
+                    margin-right: auto;
                     display: grid;
-                    grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
-                    gap: 3rem;
+                    grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+                    gap: 2.5rem;
                     align-items: center;
                 }
                 .contact__inner-finale--two-col .contact__copy {
