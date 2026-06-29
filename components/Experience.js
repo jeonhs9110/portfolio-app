@@ -94,24 +94,6 @@ const fadeUp = {
     }),
 };
 
-/**
- * Wordmark badges per job (index-keyed, language-independent because
- * the company brand is the same in both languages). Slides in from one
- * side as the card crosses viewport centre, slides back out as it leaves
- * — driven entirely by --pop on the card, inherited via CSS variable
- * cascading.
- *
- * Sides alternate left/right for visual rhythm. Mark + tagline + style
- * is enough to produce per-company typography without trademark issues
- * (we render text wordmarks, not the actual corporate logos).
- */
-const COMPANY_BADGES = [
-    { mark: 'LEE & KO', tagline: '법무법인 광장 · ATTORNEYS AT LAW', style: 'lee-ko', side: 'left' },
-    { mark: 'HMP', tagline: '법무법인 충정 · HMP LAW', style: 'hmp', side: 'right' },
-    { mark: '국회', tagline: 'NATIONAL ASSEMBLY OF KOREA', style: 'national-assembly', side: 'left' },
-    { mark: 'CONCENTRIX', tagline: 'APPLE ECOSYSTEM SUPPORT', style: 'concentrix', side: 'right' },
-];
-
 export default function Experience() {
     const { t, lang } = useLanguage();
 
@@ -139,33 +121,26 @@ export default function Experience() {
                     {t.experience.title}
                 </motion.h2>
 
-                {/* Experience List — natural vertical scroll. Each card
-                    pops visually via ScrollSpotlight's --pop as it crosses
-                    viewport centre. */}
+                {/* Experience List — each job gets its own sticky frame so
+                    the card pins at viewport centre for ~one viewport of
+                    scroll while the visitor reads it, then unpins as the
+                    next job's frame takes over. ScrollSpotlight sets --pop
+                    based on proximity to viewport centre, driving the
+                    bg-opaque + scale + halo transitions. Falls back to
+                    normal flow on mobile + reduced motion. */}
                 <div className="experience__list">
-                    {t.experience.jobs.map((job, i) => {
-                        const badge = COMPANY_BADGES[i];
-                        return (
+                    {t.experience.jobs.map((job, i) => (
+                        <div key={i} className="experience__card-frame">
+                          <div className="experience__card-stage">
                         <motion.div
-                            key={i}
                             custom={i}
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true, margin: '-60px' }}
                             variants={fadeUp}
+                            style={{ width: '100%' }}
                         >
                         <div className="experience__card">
-                            {badge && (
-                                <div
-                                    className={`experience__badge experience__badge--${badge.side} experience__badge--${badge.style}`}
-                                    aria-hidden="true"
-                                >
-                                    <span className="experience__badge-mark">{badge.mark}</span>
-                                    {badge.tagline && (
-                                        <span className="experience__badge-tagline">{badge.tagline}</span>
-                                    )}
-                                </div>
-                            )}
                             <div className="experience__card-header">
                                 <div>
                                     <h3 className="experience__role">{job.role}</h3>
@@ -195,8 +170,9 @@ export default function Experience() {
                             </div>
                         </div>
                         </motion.div>
-                        );
-                    })}
+                          </div>
+                        </div>
+                    ))}
                 </div>
 
             </div>

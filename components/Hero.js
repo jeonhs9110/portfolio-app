@@ -244,19 +244,6 @@ export default function Hero() {
                 </div>
                 {/* Thin dim layer between bg+figure and the page content */}
                 <div id="hj-bg-tint" />
-                {/* Ambient floating particles — subtle cyan motes drifting
-                    in the hero area, adds depth and "AI" feel without
-                    competing with content. CSS-animated, no JS, GPU-cheap. */}
-                <div id="hj-bg-particles" aria-hidden="true">
-                    <span className="hj-particle hj-particle--1" />
-                    <span className="hj-particle hj-particle--2" />
-                    <span className="hj-particle hj-particle--3" />
-                    <span className="hj-particle hj-particle--4" />
-                    <span className="hj-particle hj-particle--5" />
-                    <span className="hj-particle hj-particle--6" />
-                    <span className="hj-particle hj-particle--7" />
-                    <span className="hj-particle hj-particle--8" />
-                </div>
             </div>
 
             <section id="hero" className="hj-spacer">
@@ -340,30 +327,18 @@ export default function Hero() {
                     inset: 0;
                     width: 100%;
                     height: 100%;
-                    /* drop-shadow softens the alpha-mask edge artifacts (rough
-                       ear silhouette, suit shoulder seam) by adding a dark soft
-                       halo that blends jagged transitions into the bg. */
-                    filter: drop-shadow(0 0 2px rgba(2, 6, 14, 0.85));
-                    /* Composite vertical mask:
-                         - top-fade  (0–6%)   feathers the head/ears area where
-                                              the source alpha clips the ears
-                         - solid     (8–78%)  body holds full visibility
-                         - bottom-fade (92–100%) hides any tiny turntable disc
-                           still attached to the figure base */
+                    /* Same bottom-fade as before so any tiny stray turntable disc
+                       still attached to the figure dissolves into the bg. */
                     -webkit-mask-image: linear-gradient(
                         to bottom,
-                        transparent 0%,
-                        rgba(0, 0, 0, 0.45) 4%,
-                        black 8%,
+                        black 0%,
                         black 78%,
                         rgba(0, 0, 0, 0.4) 92%,
                         transparent 100%
                     );
                     mask-image: linear-gradient(
                         to bottom,
-                        transparent 0%,
-                        rgba(0, 0, 0, 0.45) 4%,
-                        black 8%,
+                        black 0%,
                         black 78%,
                         rgba(0, 0, 0, 0.4) 92%,
                         transparent 100%
@@ -374,86 +349,12 @@ export default function Hero() {
                     position: absolute;
                     inset: 0;
                     pointer-events: none;
-                    /* Two layered tints:
-                         1. Radial dark spot centred where the figure's torso
-                            sits — hides the alpha-mask's interior pinholes
-                            (the gaps between arms and waist where the source
-                            removal left smudges of the original background)
-                            by darkening that whole zone so the smudges blend in.
-                         2. Subtle vertical top-to-bottom dim, unchanged, so
-                            text on top of bg reads against a consistent floor. */
                     background:
-                        radial-gradient(
-                            ellipse 28% 32% at 50% 56%,
-                            rgba(2, 6, 14, 0.55) 0%,
-                            rgba(2, 6, 14, 0.32) 60%,
-                            transparent 100%
-                        ),
                         linear-gradient(
                             180deg,
                             rgba(5, 8, 17, 0.20) 0%,
                             rgba(5, 8, 17, 0.50) 100%
                         );
-                }
-
-                /* ---------- Ambient floating particles ---------- */
-                #hj-bg-particles {
-                    position: absolute;
-                    inset: 0;
-                    pointer-events: none;
-                    overflow: hidden;
-                    z-index: 0;
-                }
-                .hj-particle {
-                    position: absolute;
-                    width: 5px;
-                    height: 5px;
-                    border-radius: 50%;
-                    background: rgba(103, 232, 249, 0.55);
-                    filter: blur(1px);
-                    box-shadow: 0 0 10px rgba(103, 232, 249, 0.5),
-                                0 0 22px rgba(103, 232, 249, 0.22);
-                    opacity: 0;
-                    will-change: transform, opacity;
-                }
-                .hj-particle--1 { left: 8%;  top: 18%; animation: hj-particle-drift-a 22s ease-in-out infinite; }
-                .hj-particle--2 { left: 88%; top: 28%; animation: hj-particle-drift-b 26s ease-in-out infinite 2s; }
-                .hj-particle--3 { left: 15%; top: 70%; animation: hj-particle-drift-c 30s ease-in-out infinite 4s; }
-                .hj-particle--4 { left: 82%; top: 75%; animation: hj-particle-drift-d 24s ease-in-out infinite 1s; }
-                .hj-particle--5 { left: 22%; top: 42%; animation: hj-particle-drift-b 28s ease-in-out infinite 6s; }
-                .hj-particle--6 { left: 76%; top: 50%; animation: hj-particle-drift-a 32s ease-in-out infinite 3s; }
-                .hj-particle--7 { left: 4%;  top: 52%; animation: hj-particle-drift-c 26s ease-in-out infinite 8s; }
-                .hj-particle--8 { left: 94%; top: 12%; animation: hj-particle-drift-d 34s ease-in-out infinite 5s; }
-                @keyframes hj-particle-drift-a {
-                    0%   { transform: translate(0, 0)        scale(0.8); opacity: 0; }
-                    20%  { opacity: 0.55; }
-                    50%  { transform: translate(36px, -64px) scale(1.1); opacity: 0.85; }
-                    80%  { opacity: 0.4; }
-                    100% { transform: translate(0, 0)        scale(0.8); opacity: 0; }
-                }
-                @keyframes hj-particle-drift-b {
-                    0%   { transform: translate(0, 0)         scale(0.7); opacity: 0; }
-                    25%  { opacity: 0.6; }
-                    50%  { transform: translate(-46px, -38px) scale(1.0); opacity: 0.8; }
-                    75%  { opacity: 0.35; }
-                    100% { transform: translate(0, 0)         scale(0.7); opacity: 0; }
-                }
-                @keyframes hj-particle-drift-c {
-                    0%   { transform: translate(0, 0)        scale(0.85); opacity: 0; }
-                    30%  { opacity: 0.5; }
-                    55%  { transform: translate(28px,  44px) scale(1.15); opacity: 0.75; }
-                    80%  { opacity: 0.35; }
-                    100% { transform: translate(0, 0)        scale(0.85); opacity: 0; }
-                }
-                @keyframes hj-particle-drift-d {
-                    0%   { transform: translate(0, 0)         scale(0.75); opacity: 0; }
-                    22%  { opacity: 0.55; }
-                    50%  { transform: translate(-32px,  52px) scale(1.05); opacity: 0.78; }
-                    78%  { opacity: 0.4; }
-                    100% { transform: translate(0, 0)         scale(0.75); opacity: 0; }
-                }
-                @media (prefers-reduced-motion: reduce) {
-                    .hj-particle { animation: none; opacity: 0.3; }
                 }
 
                 .hj-spacer {

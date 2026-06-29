@@ -239,12 +239,40 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .section-title { letter-spacing: -0.03em; }
 
 /* ============================================
-   STACK CARD POP — Experience + Project cards
-   Natural vertical scroll, no scroll-jacking. ScrollSpotlight writes
-   --pop (0 → 1) per card based on proximity to viewport centre.
-   At peak: bg near-opaque, scale 1.03x, soft cyan halo. At rest:
-   see-through so the silo background reads through.
+   STACK CARD SPOTLIGHT — Experience + Project cards
+   Each card sits in a sticky frame so it pins at viewport centre for
+   ~one viewport of scroll while the visitor reads it. ScrollSpotlight
+   writes --pop (0 → 1) based on proximity to viewport centre; at peak
+   the card's background goes near-opaque, it scales 1.03x, and a
+   subtle cyan halo lights it. At rest the card is semi-transparent
+   so the silo background reads through.
    ============================================ */
+.experience__card-frame,
+.project-card-frame {
+  height: 110vh;
+}
+.experience__card-stage,
+.project-card-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 768px) {
+  .experience__card-frame,
+  .project-card-frame { height: auto; margin-bottom: 18px; }
+  .experience__card-stage,
+  .project-card-stage { position: static; height: auto; display: block; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .experience__card-frame,
+  .project-card-frame { height: auto; margin-bottom: 18px; }
+  .experience__card-stage,
+  .project-card-stage { position: static; height: auto; display: block; }
+}
+
 .experience__card,
 .project-card {
   --pop: 0;
@@ -281,27 +309,31 @@ h1, h2, h3 { letter-spacing: -0.02em; }
    "active" one. z-index lift puts the active tile above its
    neighbours during the flight.
    ============================================ */
-/* Unified --pop spotlight applied to every "boxy" component.
-   ScrollSpotlight writes --pop (0 → 1) per card based on proximity
-   to viewport centre. CSS interpolates scale, bg opacity, border
-   alpha, and cyan halo. At rest the card is see-through; at peak
-   it's near-opaque and lit. Same vocabulary across About wins,
-   Skills categories, Experience jobs, Project cards — visitor reads
-   the same gesture everywhere. */
 .about__win,
 .skills__category {
-  --pop: 0;
+  --zoom-tx: 0px;
+  --zoom-ty: 0px;
+  --zoom-scale: 1;
+  --zoom-z: 0;
   position: relative;
-  transform: scale(calc(1 + var(--pop, 0) * 0.04));
+  z-index: var(--zoom-z, 0);
+  transform: translate(var(--zoom-tx), var(--zoom-ty)) scale(var(--zoom-scale));
   transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1),
-              background-color 380ms ease,
-              border-color 380ms ease,
-              box-shadow 380ms ease;
+              box-shadow 380ms cubic-bezier(0.22, 1, 0.36, 1);
   transform-origin: center center;
   will-change: transform;
+}
+/* Subtle cyan glow under the active tile so its centre-stage
+   moment reads as a real spotlight, not just a bigger box.
+   Intensity tracks --zoom-scale: at 1.0 (idle) the shadow is
+   the normal subtle card shadow; at 1.5 (peak) it's a big
+   cyan halo. */
+.about__win,
+.skills__category {
   box-shadow:
-    0 calc(var(--pop, 0) * 24px) calc(var(--pop, 0) * 48px)
-    rgba(34, 211, 238, calc(var(--pop, 0) * 0.45));
+    0 calc((var(--zoom-scale, 1) - 1) * 40px)
+    calc((var(--zoom-scale, 1) - 1) * 80px)
+    rgba(34, 211, 238, calc((var(--zoom-scale, 1) - 1) * 0.7));
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -745,6 +777,50 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 
 /* Key Wins strip — recruiter-scan row of 4 quantified metrics, sits above
    the bio prose so the deal + tech proof points hit the eye first. */
+/* Scroll-jacking container that holds the wins row at viewport centre
+   while the visitor scrolls through ~4 viewports of vertical space.
+   ScrollSpotlight reads scroll-into-container to pop each tile in turn
+   — the row stays put, the tiles take turns flying to centre.
+   On mobile + reduced motion, falls back to natural in-flow layout. */
+.about__wins-spotlight {
+  position: relative;
+  height: 360vh;
+  margin-bottom: 80px;
+}
+.about__wins-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.about__wins-sticky > .about__wins {
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .about__wins-spotlight {
+    height: auto;
+    margin-bottom: 32px;
+  }
+  .about__wins-sticky {
+    position: static;
+    height: auto;
+    display: block;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about__wins-spotlight {
+    height: auto;
+    margin-bottom: 32px;
+  }
+  .about__wins-sticky {
+    position: static;
+    height: auto;
+    display: block;
+  }
+}
+
 .about__wins {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -762,10 +838,14 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .about__win {
   padding: 18px 18px 16px;
   border-radius: var(--radius);
-  /* Background + border opacity track --pop: see-through at rest,
-     near-opaque at peak so the active tile's text is unobstructed. */
-  background: rgba(8, 14, 28, calc(0.55 + var(--pop, 0) * 0.41));
-  border: 1px solid rgba(255, 255, 255, calc(0.12 + var(--pop, 0) * 0.23));
+  /* Background opacity tracks --zoom-scale: at rest (scale 1) the
+     tile is the original 0.55 alpha so the silo background reads
+     through; at peak (scale 1.5) it's near-opaque 0.96 so the
+     active tile's text is sharp and unobstructed even when the
+     tile flying out behind it would otherwise bleed through.
+       0.55 + (scale - 1) × 0.82  →  0.55 at rest, 0.96 at peak */
+  background: rgba(8, 14, 28, calc(0.55 + (var(--zoom-scale, 1) - 1) * 0.82));
+  border: 1px solid rgba(255, 255, 255, calc(0.12 + (var(--zoom-scale, 1) - 1) * 0.46));
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 12px 32px -12px rgba(0,0,0,0.45);
@@ -1024,105 +1104,6 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   -webkit-backdrop-filter: blur(12px);
 }
 
-/* ============================================
-   COMPANY WORDMARK BADGES
-   Floating outside each Experience card, sliding in from the side as
-   the card crosses viewport centre (driven by inherited --pop on the
-   card → child badge picks it up via CSS variable cascading).
-   Per-company typography differentiates the four employers without
-   using actual corporate logos (text wordmarks = no trademark issues).
-   Hidden on <=1100px viewports where there's no room outside the card.
-   ============================================ */
-.experience__badge {
-  position: absolute;
-  top: 50%;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  width: 200px;
-  pointer-events: none;
-  z-index: 5;
-  opacity: var(--pop, 0);
-  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1),
-              opacity 500ms ease;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.65);
-}
-.experience__badge--left {
-  left: 0;
-  transform: translate(
-    calc(-100% - 24px - (1 - var(--pop, 0)) * 120px),
-    -50%
-  );
-  align-items: flex-end;
-  text-align: right;
-}
-.experience__badge--right {
-  right: 0;
-  transform: translate(
-    calc(100% + 24px + (1 - var(--pop, 0)) * 120px),
-    -50%
-  );
-  align-items: flex-start;
-  text-align: left;
-}
-.experience__badge-mark {
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  line-height: 1;
-}
-.experience__badge-tagline {
-  font-size: 0.6875rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.62);
-  font-weight: 500;
-  line-height: 1.4;
-}
-.experience__badge--lee-ko .experience__badge-mark {
-  font-family: 'Georgia', 'Cormorant Garamond', 'Noto Serif KR', serif;
-  font-size: 1.75rem;
-  letter-spacing: 0.08em;
-  color: #d8b878;
-}
-.experience__badge--lee-ko .experience__badge-tagline {
-  color: rgba(216, 184, 120, 0.75);
-}
-.experience__badge--hmp .experience__badge-mark {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 2.5rem;
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  color: #7cc4ff;
-}
-.experience__badge--hmp .experience__badge-tagline {
-  color: rgba(124, 196, 255, 0.78);
-}
-.experience__badge--national-assembly .experience__badge-mark {
-  font-family: 'Noto Serif KR', 'Nanum Myeongjo', Georgia, serif;
-  font-size: 2.1rem;
-  letter-spacing: -0.02em;
-  color: #e7c98e;
-}
-.experience__badge--national-assembly .experience__badge-tagline {
-  color: rgba(231, 201, 142, 0.72);
-}
-.experience__badge--concentrix .experience__badge-mark {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.45rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  color: #6fe7ff;
-}
-.experience__badge--concentrix .experience__badge-tagline {
-  color: rgba(111, 231, 255, 0.78);
-}
-@media (max-width: 1100px) {
-  .experience__badge { display: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .experience__badge { transition: none; }
-}
-
 .experience__card-header {
   display: flex;
   justify-content: space-between;
@@ -1290,6 +1271,35 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   border-top: 1px solid var(--border);
 }
 
+/* Same scroll-jacking pattern as .about__wins-spotlight: the 2x2 grid
+   of skill categories pins at viewport centre while the visitor scrolls
+   through 360vh of vertical space. ScrollSpotlight rotates the spotlight
+   through the 4 categories — each takes its turn flying to centre. */
+.skills__spotlight {
+  position: relative;
+  height: 360vh;
+  margin-bottom: 80px;
+}
+.skills__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.skills__sticky > .skills__grid {
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .skills__spotlight { height: auto; margin-bottom: 32px; }
+  .skills__sticky { position: static; height: auto; display: block; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skills__spotlight { height: auto; margin-bottom: 32px; }
+  .skills__sticky { position: static; height: auto; display: block; }
+}
+
 .skills__grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1299,10 +1309,14 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .skills__category {
   padding: 28px;
   border-radius: var(--radius);
-  /* Background + border opacity track --pop: see-through at rest,
-     near-opaque at peak. */
-  background: rgba(8, 14, 28, calc(0.62 + var(--pop, 0) * 0.37));
-  border: 1px solid rgba(255, 255, 255, calc(0.14 + var(--pop, 0) * 0.21));
+  /* Background opacity tracks --zoom-scale during the scroll-jacked
+     spotlight: at rest (scale 1) the tile uses the standard surface
+     opacity so the silo background reads through; at peak (scale 1.5)
+     it's near-opaque so the active category's text is sharp even
+     when adjacent tiles fly out behind it.
+       0.62 + (scale - 1) × 0.74  →  0.62 at rest, 0.99 at peak */
+  background: rgba(8, 14, 28, calc(0.62 + (var(--zoom-scale, 1) - 1) * 0.74));
+  border: 1px solid rgba(255, 255, 255, calc(0.14 + (var(--zoom-scale, 1) - 1) * 0.42));
   transition: all 0.25s;
 }
 
