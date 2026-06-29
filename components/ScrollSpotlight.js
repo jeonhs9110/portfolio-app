@@ -35,14 +35,13 @@ import { useEffect } from 'react';
  * Disabled entirely for prefers-reduced-motion: reduce.
  */
 
-// Horizontal sequence tiles + their container class. We look up
-// tiles by SEQUENCE_TILE_SELECTOR (e.g. .about__win), then walk
-// up to find the row ancestor matching SEQUENCE_ROW_CLASS so we
-// can group tiles by row. This avoids assuming the tile is a
-// direct child of the row — they might be wrapped in motion.divs
-// from framer-motion.
-const SEQUENCE_TILE_SELECTOR = '.about__win';
-const SEQUENCE_ROW_CLASS = 'about__wins';
+// Horizontal sequence — the tall scroll-jacking SPOTLIGHT container
+// that wraps a pinned row of tiles. Progress is driven by how far
+// the container has scrolled INTO the viewport; the row inside is
+// kept at viewport centre via sticky positioning, so scroll position
+// and tile spotlight are decoupled from the rest of the page flow.
+const SPOTLIGHT_CONTAINER_SELECTOR = '.about__wins-spotlight';
+const SPOTLIGHT_TILE_SELECTOR = '.about__win';
 
 // Vertical-stack cards that get in-place scale (no translate).
 const STACK_CARD_SELECTORS = [
@@ -87,29 +86,23 @@ export default function ScrollSpotlight() {
 
         let raf = 0;
         let cancelled = false;
-        // Map: row container element → ordered tile elements inside it.
-        let sequencesByRow = new Map();
+        // Map: spotlight container element → ordered tile elements inside it.
+        let spotlightsByContainer = new Map();
         let stackCards = [];
         let kws = [];
 
         function refresh() {
-            sequencesByRow = new Map();
-            const tiles = document.querySelectorAll(
-                SEQUENCE_TILE_SELECTOR
+            spotlightsByContainer = new Map();
+            const containers = document.querySelectorAll(
+                SPOTLIGHT_CONTAINER_SELECTOR
             );
-            for (const tile of tiles) {
-                let row = tile.parentElement;
-                while (
-                    row &&
-                    !row.classList.contains(SEQUENCE_ROW_CLASS)
-                ) {
-                    row = row.parentElement;
+            for (const container of containers) {
+                const tiles = Array.from(
+                    container.querySelectorAll(SPOTLIGHT_TILE_SELECTOR)
+                );
+                if (tiles.length > 0) {
+                    spotlightsByContainer.set(container, tiles);
                 }
-                if (!row) continue;
-                if (!sequencesByRow.has(row)) {
-                    sequencesByRow.set(row, []);
-                }
-                sequencesByRow.get(row).push(tile);
             }
             stackCards = STACK_CARD_SELECTORS.flatMap((sel) =>
                 Array.from(document.querySelectorAll(sel))
@@ -127,44 +120,36 @@ export default function ScrollSpotlight() {
             const scrollX = window.scrollX || window.pageXOffset;
 
             // ── 1. WINS ZOOM-TO-CENTRE SEQUENCES ────────────────────
-            // For each sequence row, calculate scroll progress and
-            // pop each tile in turn to the viewport centre.
-            for (const [row, tiles] of sequencesByRow) {
+            // Progress comes from how far the spotlight container has
+            // scrolled INTO the viewport. The row inside is pinned at
+            // viewport centre via sticky positioning, so each tile gets
+            // a full viewport's worth of scroll time at centre stage.
+            for (const [container, tiles] of spotlightsByContainer) {
                 const N = tiles.length;
                 if (N < 1) continue;
 
-                const rowDocTop = getDocumentTop(row);
-                const rowDocBottom = rowDocTop + row.offsetHeight;
-                const rowCenterDoc = (rowDocTop + rowDocBottom) / 2;
-
-                // Spotlight scroll window: from "row centre at 80% of
-                // viewport height" to "row centre at 20% of viewport
-                // height". Inside that window, progress runs 0 → 1.
-                // Outside, progress is clamped — tiles return to grid.
-                const viewportCenterDoc = scrollY + viewportCenterY;
-                const offsetFromCenter = viewportCenterDoc - rowCenterDoc;
-                const spotlightHalfRange = viewportH * 0.45;
+                const containerRect = container.getBoundingClientRect();
+                const containerHeight = container.offsetHeight;
+                const scrollableDistance = containerHeight - viewportH;
+                // progress = 0 when container TOP hits viewport top
+                //          = 1 when container BOTTOM hits viewport bottom
+                // Outside [0, 1] the sticky child is no longer pinned
+                // and tiles return to their grid layout.
                 const progress = Math.max(
                     0,
-                    Math.min(
-                        1,
-                        (offsetFromCenter + spotlightHalfRange) /
-                            (spotlightHalfRange * 2)
-                    )
+                    Math.min(1, -containerRect.top / scrollableDistance)
                 );
+
+                // currentIndex runs 0 → N-1 continuously. Tile i peaks
+                // when currentIndex === i; adjacent tiles cross-fade at
+                // half-integer values. Carousel-style: at any progress,
+                // exactly one tile (or two mid-handoff) is highlighted.
+                const currentIndex = progress * (N - 1);
 
                 for (let i = 0; i < N; i++) {
                     const tile = tiles[i];
-                    // Each tile's peak progress is at (i + 0.5) / N.
-                    // Active zone width = 1/N so adjacent tiles cross
-                    // over at the boundary between their segments.
-                    const peakProgress = (i + 0.5) / N;
-                    const segmentHalfWidth = 0.5 / N;
-                    const distance = Math.abs(progress - peakProgress);
-                    const linear = Math.max(
-                        0,
-                        1 - distance / segmentHalfWidth
-                    );
+                    const distance = Math.abs(i - currentIndex);
+                    const linear = Math.max(0, 1 - distance);
                     const eased = linear * linear * (3 - 2 * linear);
 
                     if (eased < 0.01) {
@@ -175,34 +160,30 @@ export default function ScrollSpotlight() {
                         continue;
                     }
 
-                    // Tile's UNTRANSFORMED screen-space centre. We use
-                    // offsetTop/offsetLeft chain rather than getBoundingClientRect
-                    // so previous frame's translate doesn't accumulate.
-                    const tileDocTop = getDocumentTop(tile);
-                    const tileDocLeft = getDocumentLeft(tile);
-                    const tileScreenTop = tileDocTop - scrollY;
-                    const tileScreenLeft = tileDocLeft - scrollX;
-                    const tileCenterY =
-                        tileScreenTop + tile.offsetHeight / 2;
-                    const tileCenterX =
-                        tileScreenLeft + tile.offsetWidth / 2;
+                    // Untransformed visual centre = current rect centre
+                    // minus the translate we applied last frame. Stable
+                    // across frames even with sticky pinning (rect
+                    // reflects sticky offset; subtracting our translate
+                    // removes the only thing we wrote).
+                    const rect = tile.getBoundingClientRect();
+                    const currentTx =
+                        parseFloat(
+                            tile.style.getPropertyValue('--zoom-tx')
+                        ) || 0;
+                    const tileVisualCenterX =
+                        (rect.left + rect.right) / 2 - currentTx;
 
                     const translateX =
-                        (viewportCenterX - tileCenterX) * eased;
-                    const translateY =
-                        (viewportCenterY - tileCenterY) * eased;
-                    // Peak scale 1.5 — visibly LARGER than its row
-                    // neighbours when at centre.
+                        (viewportCenterX - tileVisualCenterX) * eased;
+                    // translateY = 0 — row is pinned at viewport centre
+                    // already, no vertical movement needed.
                     const scale = 1.0 + eased * 0.5;
 
                     tile.style.setProperty(
                         '--zoom-tx',
                         `${translateX.toFixed(1)}px`
                     );
-                    tile.style.setProperty(
-                        '--zoom-ty',
-                        `${translateY.toFixed(1)}px`
-                    );
+                    tile.style.setProperty('--zoom-ty', '0px');
                     tile.style.setProperty(
                         '--zoom-scale',
                         scale.toFixed(3)

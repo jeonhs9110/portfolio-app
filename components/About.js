@@ -27,31 +27,40 @@ export default function About() {
 
                 {/* Key Wins strip — 4 quantified achievements for the recruiter
                     scan, surfaces the resume's deal + tech proof points above
-                    the bio prose. */}
+                    the bio prose.
+                    Wrapped in a tall scroll-jacking container: the row pins at
+                    viewport centre via sticky positioning, and ScrollSpotlight
+                    drives the sequential zoom-to-centre as the visitor scrolls
+                    through the container's vertical space. Each tile holds the
+                    centre for ~one viewport worth of scroll. */}
                 {t.about.wins && (
-                    <div className="about__wins">
-                        {t.about.wins.map((w, i) => (
-                            <motion.div
-                                key={i}
-                                custom={i}
-                                initial="hidden"
-                                whileInView="visible"
-                                viewport={{ once: true, margin: '-40px' }}
-                                variants={{
-                                    hidden: { opacity: 0, scale: 1.4 },
-                                    visible: (j) => ({
-                                        opacity: 1, scale: 1,
-                                        transition: { duration: 0.6, delay: j * 0.22, ease: [0.22, 1, 0.36, 1] },
-                                    }),
-                                }}
-                            >
-                                <div className="about__win">
-                                    <div className="about__win-metric">{w.metric}</div>
-                                    <div className="about__win-label">{w.label}</div>
-                                    <div className="about__win-detail">{w.detail}</div>
-                                </div>
-                            </motion.div>
-                        ))}
+                    <div className="about__wins-spotlight">
+                        <div className="about__wins-sticky">
+                            <div className="about__wins">
+                                {t.about.wins.map((w, i) => (
+                                    <motion.div
+                                        key={i}
+                                        custom={i}
+                                        initial="hidden"
+                                        whileInView="visible"
+                                        viewport={{ once: true, margin: '-40px' }}
+                                        variants={{
+                                            hidden: { opacity: 0, scale: 1.4 },
+                                            visible: (j) => ({
+                                                opacity: 1, scale: 1,
+                                                transition: { duration: 0.6, delay: j * 0.22, ease: [0.22, 1, 0.36, 1] },
+                                            }),
+                                        }}
+                                    >
+                                        <div className="about__win">
+                                            <div className="about__win-metric">{w.metric}</div>
+                                            <div className="about__win-label">{w.label}</div>
+                                            <div className="about__win-detail">{w.detail}</div>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 )}
 

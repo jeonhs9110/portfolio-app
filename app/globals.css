@@ -756,6 +756,50 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 
 /* Key Wins strip — recruiter-scan row of 4 quantified metrics, sits above
    the bio prose so the deal + tech proof points hit the eye first. */
+/* Scroll-jacking container that holds the wins row at viewport centre
+   while the visitor scrolls through ~4 viewports of vertical space.
+   ScrollSpotlight reads scroll-into-container to pop each tile in turn
+   — the row stays put, the tiles take turns flying to centre.
+   On mobile + reduced motion, falls back to natural in-flow layout. */
+.about__wins-spotlight {
+  position: relative;
+  height: 360vh;
+  margin-bottom: 80px;
+}
+.about__wins-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.about__wins-sticky > .about__wins {
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .about__wins-spotlight {
+    height: auto;
+    margin-bottom: 32px;
+  }
+  .about__wins-sticky {
+    position: static;
+    height: auto;
+    display: block;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about__wins-spotlight {
+    height: auto;
+    margin-bottom: 32px;
+  }
+  .about__wins-sticky {
+    position: static;
+    height: auto;
+    display: block;
+  }
+}
+
 .about__wins {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
