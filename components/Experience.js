@@ -86,11 +86,11 @@ function DealItem({ html, lang }) {
 }
 
 const fadeUp = {
-    hidden: { opacity: 0, y: 32 },
+    hidden: { opacity: 0, scale: 1.15 },
     visible: (i) => ({
         opacity: 1,
-        y: 0,
-        transition: { duration: 0.55, delay: i * 0.18, ease: [0.22, 1, 0.36, 1] },
+        scale: 1,
+        transition: { duration: 0.55, delay: i * 0.22, ease: [0.22, 1, 0.36, 1] },
     }),
 };
 
