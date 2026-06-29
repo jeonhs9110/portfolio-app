@@ -327,18 +327,30 @@ export default function Hero() {
                     inset: 0;
                     width: 100%;
                     height: 100%;
-                    /* Same bottom-fade as before so any tiny stray turntable disc
-                       still attached to the figure dissolves into the bg. */
+                    /* drop-shadow softens the alpha-mask edge artifacts (rough
+                       ear silhouette, suit shoulder seam) by adding a dark soft
+                       halo that blends jagged transitions into the bg. */
+                    filter: drop-shadow(0 0 2px rgba(2, 6, 14, 0.85));
+                    /* Composite vertical mask:
+                         - top-fade  (0–6%)   feathers the head/ears area where
+                                              the source alpha clips the ears
+                         - solid     (8–78%)  body holds full visibility
+                         - bottom-fade (92–100%) hides any tiny turntable disc
+                           still attached to the figure base */
                     -webkit-mask-image: linear-gradient(
                         to bottom,
-                        black 0%,
+                        transparent 0%,
+                        rgba(0, 0, 0, 0.45) 4%,
+                        black 8%,
                         black 78%,
                         rgba(0, 0, 0, 0.4) 92%,
                         transparent 100%
                     );
                     mask-image: linear-gradient(
                         to bottom,
-                        black 0%,
+                        transparent 0%,
+                        rgba(0, 0, 0, 0.45) 4%,
+                        black 8%,
                         black 78%,
                         rgba(0, 0, 0, 0.4) 92%,
                         transparent 100%
@@ -349,7 +361,21 @@ export default function Hero() {
                     position: absolute;
                     inset: 0;
                     pointer-events: none;
+                    /* Two layered tints:
+                         1. Radial dark spot centred where the figure's torso
+                            sits — hides the alpha-mask's interior pinholes
+                            (the gaps between arms and waist where the source
+                            removal left smudges of the original background)
+                            by darkening that whole zone so the smudges blend in.
+                         2. Subtle vertical top-to-bottom dim, unchanged, so
+                            text on top of bg reads against a consistent floor. */
                     background:
+                        radial-gradient(
+                            ellipse 28% 32% at 50% 56%,
+                            rgba(2, 6, 14, 0.55) 0%,
+                            rgba(2, 6, 14, 0.32) 60%,
+                            transparent 100%
+                        ),
                         linear-gradient(
                             180deg,
                             rgba(5, 8, 17, 0.20) 0%,
