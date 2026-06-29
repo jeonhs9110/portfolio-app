@@ -34,47 +34,41 @@ export default function Skills() {
                     {t.skills.title}
                 </motion.h2>
 
-                {/* Scroll-jacked spotlight: pins the 2×2 grid at viewport
-                    centre, each category takes its turn flying to centre
-                    one at a time. See ScrollSpotlight.js. Falls back to
-                    natural grid on mobile + reduced motion. */}
-                <div className="skills__spotlight">
-                    <div className="skills__sticky">
+                {/* 2x2 grid of skill categories. Each tile pops visually
+                    via ScrollSpotlight's --pop as it crosses viewport centre. */}
+                <motion.div
+                    className="skills__grid"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: '-80px' }}
+                    variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
+                >
+                    {t.skills.categories.map((cat, i) => (
                         <motion.div
-                            className="skills__grid"
+                            key={cat.name}
+                            custom={i}
                             initial="hidden"
                             whileInView="visible"
-                            viewport={{ once: true, margin: '-80px' }}
-                            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
+                            viewport={{ once: true, margin: '-40px' }}
+                            variants={{
+                                hidden: { opacity: 0, y: 16 },
+                                visible: (j) => ({
+                                    opacity: 1, y: 0,
+                                    transition: { duration: 0.5, delay: j * 0.08, ease: [0.22, 1, 0.36, 1] },
+                                }),
+                            }}
                         >
-                            {t.skills.categories.map((cat, i) => (
-                                <motion.div
-                                    key={cat.name}
-                                    custom={i}
-                                    initial="hidden"
-                                    whileInView="visible"
-                                    viewport={{ once: true, margin: '-40px' }}
-                                    variants={{
-                                        hidden: { opacity: 0, y: 16 },
-                                        visible: (j) => ({
-                                            opacity: 1, y: 0,
-                                            transition: { duration: 0.5, delay: j * 0.08, ease: [0.22, 1, 0.36, 1] },
-                                        }),
-                                    }}
-                                >
-                                <div className="skills__category">
-                                    <p className="skills__cat-name">{cat.name}</p>
-                                    <div className="skills__items">
-                                        {cat.items.map((item) => (
-                                            <span key={item} className="skills__item">{item}</span>
-                                        ))}
-                                    </div>
-                                </div>
-                                </motion.div>
-                            ))}
+                        <div className="skills__category">
+                            <p className="skills__cat-name">{cat.name}</p>
+                            <div className="skills__items">
+                                {cat.items.map((item) => (
+                                    <span key={item} className="skills__item">{item}</span>
+                                ))}
+                            </div>
+                        </div>
                         </motion.div>
-                    </div>
-                </div>
+                    ))}
+                </motion.div>
             </div>
         </section>
     );

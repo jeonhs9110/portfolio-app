@@ -121,24 +121,18 @@ export default function Experience() {
                     {t.experience.title}
                 </motion.h2>
 
-                {/* Experience List — each job gets its own sticky frame so
-                    the card pins at viewport centre for ~one viewport of
-                    scroll while the visitor reads it, then unpins as the
-                    next job's frame takes over. ScrollSpotlight sets --pop
-                    based on proximity to viewport centre, driving the
-                    bg-opaque + scale + halo transitions. Falls back to
-                    normal flow on mobile + reduced motion. */}
+                {/* Experience List — natural vertical scroll. Each card
+                    pops visually via ScrollSpotlight's --pop as it crosses
+                    viewport centre. */}
                 <div className="experience__list">
                     {t.experience.jobs.map((job, i) => (
-                        <div key={i} className="experience__card-frame">
-                          <div className="experience__card-stage">
                         <motion.div
+                            key={i}
                             custom={i}
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true, margin: '-60px' }}
                             variants={fadeUp}
-                            style={{ width: '100%' }}
                         >
                         <div className="experience__card">
                             <div className="experience__card-header">
@@ -170,8 +164,6 @@ export default function Experience() {
                             </div>
                         </div>
                         </motion.div>
-                          </div>
-                        </div>
                     ))}
                 </div>
 

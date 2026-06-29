@@ -51,21 +51,18 @@ export default function Projects() {
                     {t.projects.title}
                 </motion.h2>
 
-                {/* Each project gets a sticky frame so the card pins at
-                    viewport centre while the visitor reads it, then unpins
-                    as the next project takes over. Same spotlight pattern
-                    as Experience. */}
+                {/* Natural vertical list. Each card pops visually via
+                    ScrollSpotlight's --pop as it crosses viewport centre. */}
                 <div className="projects__list">
                     {visible.map((proj, i) => (
-                        <div key={proj.id} className="project-card-frame">
-                          <div className="project-card-stage">
                         <motion.div
+                            key={proj.id}
                             custom={i}
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true, margin: '-60px' }}
                             variants={fadeUp}
-                            style={{ position: 'relative', width: '100%' }}
+                            style={{ position: 'relative' }}
                         >
                             <div
                                 onClick={() => router.push(`/projects/${proj.slug}`)}
@@ -102,8 +99,6 @@ export default function Projects() {
                                 </div>
                             </div>
                         </motion.div>
-                          </div>
-                        </div>
                     ))}
                 </div>
 
