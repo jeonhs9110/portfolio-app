@@ -38,6 +38,13 @@ const SPOTLIGHT_GROUPS = [
     { container: '.skills__spotlight', tile: '.skills__category' },
 ];
 
+// Large vertical-stack cards that get the proximity-driven --pop
+// effect (bg opaque + slight scale + halo) while pinned at viewport
+// centre by their own sticky frames. Different from SPOTLIGHT_GROUPS
+// because there's no carousel sequence — each card just lights up
+// when it's the one currently pinned at centre.
+const STACK_POP_SELECTORS = ['.experience__card', '.project-card'];
+
 const KW_SELECTOR = '.kw';
 
 export default function ScrollSpotlight() {
@@ -49,6 +56,7 @@ export default function ScrollSpotlight() {
         let raf = 0;
         let cancelled = false;
         let spotlightsByContainer = new Map();
+        let stackPopCards = [];
         let kws = [];
 
         function refresh() {
@@ -66,6 +74,9 @@ export default function ScrollSpotlight() {
                     }
                 }
             }
+            stackPopCards = STACK_POP_SELECTORS.flatMap((sel) =>
+                Array.from(document.querySelectorAll(sel))
+            );
             kws = Array.from(document.querySelectorAll(KW_SELECTOR));
         }
 
@@ -132,7 +143,35 @@ export default function ScrollSpotlight() {
                 }
             }
 
-            // ── 2. KEYWORD GLOW ─────────────────────────────────────
+            // ── 2. LARGE-CARD STACK POP (Experience + Projects) ─────
+            // Each card sits in its own sticky frame, so it's pinned at
+            // viewport centre for most of one viewport's worth of scroll.
+            // While pinned, --pop drives bg → near-opaque + slight scale
+            // + halo. 35% zone so the ramp is comfortably wide and the
+            // peak holds throughout the sticky window.
+            const popMaxDistance = viewportH * 0.35;
+            for (const card of stackPopCards) {
+                const rect = card.getBoundingClientRect();
+                if (
+                    rect.bottom < -100 ||
+                    rect.top > viewportH + 100
+                ) {
+                    if (card.style.getPropertyValue('--pop')) {
+                        card.style.removeProperty('--pop');
+                    }
+                    continue;
+                }
+                const cardCenter = rect.top + rect.height / 2;
+                const distance = Math.abs(cardCenter - viewportCenterY);
+                const linear = Math.max(
+                    0,
+                    1 - distance / popMaxDistance
+                );
+                const eased = linear * linear * (3 - 2 * linear);
+                card.style.setProperty('--pop', eased.toFixed(3));
+            }
+
+            // ── 3. KEYWORD GLOW ─────────────────────────────────────
             // Wider zone now: 12% of viewport around centre instead
             // of 5%. Keywords in the reading band hold a clear peak,
             // and the dim-on-and-off is less twitchy as the visitor
