@@ -95,21 +95,26 @@ const fadeUp = {
 };
 
 /**
- * Wordmark badges per job (index-keyed, language-independent because
- * the company brand is the same in both languages). Slides in from one
- * side as the card crosses viewport centre, slides back out as it leaves
- * — driven entirely by --pop on the card, inherited via CSS variable
- * cascading.
+ * Real corporate logo badges per job (index-keyed, language-independent).
+ * Logos sourced from each company's official site / Wikimedia Commons
+ * and stored locally in /public/logos/. Slides in from one side as the
+ * card crosses viewport centre, slides back out as it leaves — driven
+ * entirely by --pop on the card, inherited via CSS variable cascading.
  *
- * Sides alternate left/right for visual rhythm. Mark + tagline + style
- * is enough to produce per-company typography without trademark issues
- * (we render text wordmarks, not the actual corporate logos).
+ * Sides alternate left/right for visual rhythm.
+ *
+ * Logo sources:
+ *   leeko-white.svg          leeko.com/images/logo/logo-white.svg
+ *   hmp.png                  hmplaw.com/image/common/logo2.png
+ *   national-assembly.svg    Wikimedia Commons (Emblem of the National
+ *                            Assembly of Korea, public domain)
+ *   concentrix.svg           Wikimedia Commons (Concentrix logo)
  */
 const COMPANY_BADGES = [
-    { mark: 'LEE & KO', tagline: '법무법인 광장 · ATTORNEYS AT LAW', style: 'lee-ko', side: 'left' },
-    { mark: 'HMP', tagline: '법무법인 충정 · HMP LAW', style: 'hmp', side: 'right' },
-    { mark: '국회', tagline: 'NATIONAL ASSEMBLY OF KOREA', style: 'national-assembly', side: 'left' },
-    { mark: 'CONCENTRIX', tagline: 'APPLE ECOSYSTEM SUPPORT', style: 'concentrix', side: 'right' },
+    { logo: '/logos/leeko-white.svg',       alt: 'Lee & Ko', tagline: '법무법인 광장', style: 'lee-ko',            side: 'left'  },
+    { logo: '/logos/hmp.png',               alt: 'HMP Law',  tagline: '법무법인 충정', style: 'hmp',               side: 'right' },
+    { logo: '/logos/national-assembly.svg', alt: '대한민국 국회', tagline: 'NATIONAL ASSEMBLY OF KOREA', style: 'national-assembly', side: 'left'  },
+    { logo: '/logos/concentrix.svg',        alt: 'Concentrix', tagline: 'APPLE ECOSYSTEM SUPPORT', style: 'concentrix', side: 'right' },
 ];
 
 export default function Experience() {
@@ -160,7 +165,12 @@ export default function Experience() {
                                     className={`experience__badge experience__badge--${badge.side} experience__badge--${badge.style}`}
                                     aria-hidden="true"
                                 >
-                                    <span className="experience__badge-mark">{badge.mark}</span>
+                                    <img
+                                        src={badge.logo}
+                                        alt={badge.alt}
+                                        className="experience__badge-logo"
+                                        loading="lazy"
+                                    />
                                     {badge.tagline && (
                                         <span className="experience__badge-tagline">{badge.tagline}</span>
                                     )}
