@@ -238,52 +238,12 @@ h3 {
 h1, h2, h3 { letter-spacing: -0.02em; }
 .section-title { letter-spacing: -0.03em; }
 
-/* ============================================
-   SCROLL SPOTLIGHT — every card-like element grows as it passes
-   through the viewport center, shrinks as it leaves. See
-   components/ScrollSpotlight.js. The JS writes --spot-scale per
-   element; CSS picks it up here. Cards that ALSO have a hover
-   translate (project-card) compose translate + scale via separate
-   variables so neither overrides the other.
-   ============================================ */
-.experience__card,
-.skills__category,
-.about__win,
-.about__feature-card,
-.about__stat {
-  --spot-scale: 1;
-  transform: scale(var(--spot-scale));
-  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
-  transform-origin: center center;
-  will-change: transform;
-}
-/* project-card has a hover translateY — compose it with the spotlight
-   scale via two separate variables. */
-.project-card {
-  --spot-scale: 1;
-  --card-translate-y: 0px;
-  transform: translateY(var(--card-translate-y)) scale(var(--spot-scale));
-  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
-              background 0.3s,
-              border-color 0.3s;
-  transform-origin: center center;
-  will-change: transform;
-}
-.project-card:hover {
-  --card-translate-y: -4px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .experience__card,
-  .skills__category,
-  .about__win,
-  .about__feature-card,
-  .about__stat,
-  .project-card {
-    transform: none;
-    transition: none;
-  }
-}
+/* Cards stay dormant — no scroll-driven scaling. The visitor's eye
+   needs a stable text layout to read; only the keyword spotlight
+   on .kw provides scroll-driven attention. project-card's hover
+   translateY is restored to a single transform property below at
+   its original rule (around line ~1200).
+   See components/ScrollSpotlight.js. */
 
 /* ============================================
    SILO REVEAL — section-level scroll-in choreography that simulates each
@@ -368,19 +328,23 @@ h1, h2, h3 { letter-spacing: -0.02em; }
    parent paragraph is a single string. */
 .kw {
   /* Bold + scroll-driven cyan halo. ScrollSpotlight sets --kw-spot
-     (0 → 1) as the keyword passes through the viewport's reading
-     zone; the text-shadow blur radius and alpha track it, so the
-     EXACT line you're reading lights up cyan, and the previous /
-     next lines stay quiet.
-     Base shadow at --kw-spot: 0 is a faint persistent emphasis so
-     keywords still read as bold even outside the focal zone. */
+     (0 → 1) only when the keyword sits inside the central 10% of
+     the viewport — i.e. the line the user is actually reading.
+     Layered shadows so the peak reads as a real glow:
+       - Inner crisp halo (white-blue)  — 12px blur
+       - Outer wide bloom (deep cyan)   — 32px blur
+     A small persistent 4px shadow at --kw-spot: 0 keeps the
+     keyword visibly emphasised even outside the focal zone, so
+     it doesn't read as "off" between glow moments. */
   font-weight: 700;
   color: #ffffff;
   display: inline-block;
-  transform-origin: center center;
   text-shadow:
-    0 0 calc(4px + var(--kw-spot, 0) * 20px) rgba(147, 197, 253, calc(0.18 + var(--kw-spot, 0) * 0.7));
-  transition: text-shadow 180ms ease;
+    /* Persistent base + dynamic inner halo */
+    0 0 calc(4px + var(--kw-spot, 0) * 14px) rgba(207, 231, 255, calc(0.22 + var(--kw-spot, 0) * 0.85)),
+    /* Dynamic wide cyan bloom — only present at peak */
+    0 0 calc(var(--kw-spot, 0) * 32px) rgba(103, 232, 249, calc(var(--kw-spot, 0) * 0.65));
+  transition: text-shadow 140ms ease;
 }
 
 /* Keyword pop — when a section enters via SiloReveal, every <strong class="kw">
@@ -1243,8 +1207,7 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .project-card:hover {
   background: var(--bg-surface-hover);
   border-color: var(--accent-violet);
-  /* translateY is now driven by --card-translate-y so the scroll
-     spotlight scale isn't clobbered. See above. */
+  transform: translateY(-4px);
 }
 
 .project-card__num {
