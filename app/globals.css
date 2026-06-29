@@ -238,12 +238,51 @@ h3 {
 h1, h2, h3 { letter-spacing: -0.02em; }
 .section-title { letter-spacing: -0.03em; }
 
-/* Cards stay dormant — no scroll-driven scaling. The visitor's eye
-   needs a stable text layout to read; only the keyword spotlight
-   on .kw provides scroll-driven attention. project-card's hover
-   translateY is restored to a single transform property below at
-   its original rule (around line ~1200).
-   See components/ScrollSpotlight.js. */
+/* ============================================
+   CARD SPOTLIGHT — one card at a time pops out as it passes through
+   a tight zone at viewport centre, returns to natural size as the
+   visitor keeps scrolling. ScrollSpotlight.js sets --spot-scale per
+   element; CSS picks it up here. Sharp 280ms transition so the
+   "active vs inactive" state reads as deliberate.
+   ============================================ */
+.experience__card,
+.skills__category,
+.about__win,
+.about__feature-card,
+.about__stat {
+  --spot-scale: 1;
+  transform: scale(var(--spot-scale));
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: center center;
+  will-change: transform;
+}
+/* project-card has a hover translateY too — compose translate +
+   scale via separate variables so neither overrides the other. */
+.project-card {
+  --spot-scale: 1;
+  --card-translate-y: 0px;
+  transform: translateY(var(--card-translate-y)) scale(var(--spot-scale));
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+              background 0.3s,
+              border-color 0.3s;
+  transform-origin: center center;
+  will-change: transform;
+}
+.project-card:hover {
+  --card-translate-y: -4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .experience__card,
+  .skills__category,
+  .about__win,
+  .about__feature-card,
+  .about__stat,
+  .project-card {
+    transform: none;
+    transition: none;
+  }
+}
 
 /* ============================================
    SILO REVEAL — section-level scroll-in choreography that simulates each
@@ -1207,7 +1246,8 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .project-card:hover {
   background: var(--bg-surface-hover);
   border-color: var(--accent-violet);
-  transform: translateY(-4px);
+  /* transform is driven by --card-translate-y so the spotlight scale
+     isn't clobbered. See the card spotlight section above. */
 }
 
 .project-card__num {

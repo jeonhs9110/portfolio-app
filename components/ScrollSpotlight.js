@@ -3,21 +3,33 @@
 import { useEffect } from 'react';
 
 /**
- * Keyword spotlight.
+ * Two scroll-driven effects.
  *
- * Cards stay dormant. ONLY <strong class="kw"> elements get a
- * scroll-driven cyan halo, and the spotlight zone is tight enough
- * (~10% of viewport height around centre) that only the keyword the
- * eye is actually reading lights up. Scroll past it → it dims back
- * down. The next keyword → that one lights up. And so on.
+ *   CARDS — every "boxy" component scales up as it passes through a
+ *   TIGHT zone right at viewport centre, then scales back down as
+ *   the user keeps scrolling. The zone is intentionally narrow
+ *   (~15% of viewport height) so at any given scroll position
+ *   exactly one card is "active" — visitor sees: box 1 pops out,
+ *   scroll a bit, box 1 returns to normal AND box 2 pops out,
+ *   scroll a bit more, box 2 returns AND box 3 pops out…
  *
- * One RAF-throttled scroll handler queries every .kw on the page,
- * measures distance to viewport centre, writes a `--kw-spot` (0 → 1)
- * intensity variable. CSS in globals.css turns that variable into
- * text-shadow blur radius + alpha.
+ *   KEYWORDS — every <strong class="kw"> picks up a cyan halo when
+ *   it sits inside an even tighter zone (~5% of viewport) so the
+ *   exact line being read lights up, and previous / next lines
+ *   stay quiet.
  *
- * Disabled entirely for prefers-reduced-motion: reduce.
+ * One RAF-throttled scroll handler does both. Disabled entirely for
+ * prefers-reduced-motion: reduce.
  */
+const CARD_SELECTORS = [
+    '.experience__card',
+    '.project-card',
+    '.skills__category',
+    '.about__win',
+    '.about__feature-card',
+    '.about__stat',
+];
+
 const KW_SELECTOR = '.kw';
 
 export default function ScrollSpotlight() {
@@ -28,9 +40,13 @@ export default function ScrollSpotlight() {
 
         let raf = 0;
         let cancelled = false;
+        let cards = [];
         let kws = [];
 
         function refresh() {
+            cards = CARD_SELECTORS.flatMap((sel) =>
+                Array.from(document.querySelectorAll(sel))
+            );
             kws = Array.from(document.querySelectorAll(KW_SELECTOR));
         }
 
@@ -38,11 +54,36 @@ export default function ScrollSpotlight() {
             raf = 0;
             const viewportH = window.innerHeight;
             const viewportCenter = viewportH / 2;
-            // Tight 10% viewport zone around centre. At ~5% above and
-            // below, --kw-spot returns to 0. That means typically only
-            // the keyword on the line the user is actually reading is
-            // lit up; previous and next lines stay quiet.
-            const maxDistance = viewportH * 0.10;
+
+            // Cards: 15% viewport zone — wide enough to feel smooth, tight
+            // enough that only ~one card at a time is at peak scale.
+            const cardMaxDistance = viewportH * 0.15;
+
+            // Keywords: 5% viewport zone — really just the line you're on.
+            const kwMaxDistance = viewportH * 0.05;
+
+            for (const el of cards) {
+                const rect = el.getBoundingClientRect();
+                if (rect.bottom < -100 || rect.top > viewportH + 100) {
+                    if (el.style.getPropertyValue('--spot-scale')) {
+                        el.style.removeProperty('--spot-scale');
+                    }
+                    continue;
+                }
+                const itemCenter = rect.top + rect.height / 2;
+                const distance = Math.abs(itemCenter - viewportCenter);
+                const linear = Math.max(0, 1 - distance / cardMaxDistance);
+                // Sharper easing (cubic-style) so the transition between
+                // "normal" and "active" reads as deliberate rather than
+                // a slow drift.
+                const eased = linear < 0.5
+                    ? 4 * linear * linear * linear
+                    : 1 - Math.pow(-2 * linear + 2, 3) / 2;
+                // Scale 1.00 → 1.15 (15% pop at peak — clearly bigger
+                // than its neighbours but doesn't overflow containers).
+                const scale = 1.0 + eased * 0.15;
+                el.style.setProperty('--spot-scale', scale.toFixed(3));
+            }
 
             for (const el of kws) {
                 const rect = el.getBoundingClientRect();
@@ -54,9 +95,7 @@ export default function ScrollSpotlight() {
                 }
                 const itemCenter = rect.top + rect.height / 2;
                 const distance = Math.abs(itemCenter - viewportCenter);
-                const linear = Math.max(0, 1 - distance / maxDistance);
-                // Smoothstep — gives a soft attack and release as the
-                // line slides through the spotlight zone.
+                const linear = Math.max(0, 1 - distance / kwMaxDistance);
                 const eased = linear * linear * (3 - 2 * linear);
                 el.style.setProperty('--kw-spot', eased.toFixed(3));
             }
@@ -72,8 +111,6 @@ export default function ScrollSpotlight() {
         window.addEventListener('scroll', onScroll, { passive: true });
         window.addEventListener('resize', onScroll);
 
-        // "See more projects" reveals additional .kw — re-query when
-        // the DOM changes.
         const observer = new MutationObserver(() => {
             refresh();
             update();
