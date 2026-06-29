@@ -53,13 +53,8 @@ export default function Projects() {
 
                 <div className="projects__list">
                     {visible.map((proj, i) => (
-                        <motion.div
+                        <div
                             key={proj.id}
-                            custom={i}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true, margin: '-60px' }}
-                            variants={fadeUp}
                             style={{ position: 'relative' }}
                         >
                             <div
@@ -96,7 +91,7 @@ export default function Projects() {
                                     </span>
                                 </div>
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
 

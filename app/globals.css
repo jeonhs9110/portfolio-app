@@ -373,6 +373,41 @@ h1, h2, h3 { letter-spacing: -0.02em; }
      pop against the parent's 0.85-alpha white body copy. */
   font-weight: 700;
   color: #ffffff;
+  display: inline-block; /* required for transform / scale to apply to inline text */
+  transform-origin: center center;
+}
+
+/* Keyword pop — when a section enters via SiloReveal, every <strong class="kw">
+   inside it briefly scales up and gets a cyan halo, then settles back to a
+   subtle persistent shadow. Reads as the bold terms "popping" without
+   disturbing layout (display: inline-block + scale stays within the
+   line-box). */
+.silo-reveal.is-revealed .kw {
+  animation: kw-pop 900ms cubic-bezier(0.22, 1, 0.36, 1) 250ms backwards;
+}
+@keyframes kw-pop {
+  0% {
+    transform: scale(0.96);
+    text-shadow: 0 0 0 rgba(147, 197, 253, 0);
+    color: rgba(255, 255, 255, 0.85);
+  }
+  55% {
+    transform: scale(1.08);
+    text-shadow: 0 0 18px rgba(147, 197, 253, 0.85);
+    color: #ffffff;
+  }
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 8px rgba(147, 197, 253, 0.32);
+    color: #ffffff;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .silo-reveal.is-revealed .kw {
+    animation: none;
+    text-shadow: 0 0 8px rgba(147, 197, 253, 0.32);
+  }
 }
 
 /* ---- Buttons ---- */

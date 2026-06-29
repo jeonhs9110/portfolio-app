@@ -42,14 +42,14 @@ export default function Skills() {
                     variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
                 >
                     {t.skills.categories.map((cat) => (
-                        <motion.div key={cat.name} className="skills__category" variants={fadeUp}>
+                        <div key={cat.name} className="skills__category">
                             <p className="skills__cat-name">{cat.name}</p>
                             <div className="skills__items">
                                 {cat.items.map((item) => (
                                     <span key={item} className="skills__item">{item}</span>
                                 ))}
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
                 </motion.div>
             </div>

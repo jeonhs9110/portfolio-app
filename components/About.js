@@ -37,11 +37,11 @@ export default function About() {
                         variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
                     >
                         {t.about.wins.map((w, i) => (
-                            <motion.div key={i} className="about__win" variants={fadeUp}>
+                            <div key={i} className="about__win">
                                 <div className="about__win-metric">{w.metric}</div>
                                 <div className="about__win-label">{w.label}</div>
                                 <div className="about__win-detail">{w.detail}</div>
-                            </motion.div>
+                            </div>
                         ))}
                     </motion.div>
                 )}
@@ -103,7 +103,7 @@ export default function About() {
                             variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.07 } } }}
                         >
                             {t.about.stats.map((s) => (
-                                <motion.div key={s.label} className="about__stat" variants={fadeUp} style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                                <div key={s.label} className="about__stat" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                                     {s.images && s.images.length > 1 ? (
                                         <div style={{ flexShrink: 0, width: '48px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
                                             {s.images.map((src) => (
@@ -121,7 +121,7 @@ export default function About() {
                                         <p className="about__stat-label">{s.label}</p>
                                         <p className="about__stat-value">{s.value}</p>
                                     </div>
-                                </motion.div>
+                                </div>
                             ))}
                         </motion.div>
                     </div>

@@ -124,14 +124,9 @@ export default function Experience() {
                 {/* Experience List */}
                 <div className="experience__list">
                     {t.experience.jobs.map((job, i) => (
-                        <motion.div
+                        <div
                             key={i}
                             className="experience__card"
-                            custom={i}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true, margin: '-60px' }}
-                            variants={fadeUp}
                         >
                             <div className="experience__card-header">
                                 <div>
@@ -160,7 +155,7 @@ export default function Experience() {
                                     </div>
                                 ))}
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
 
