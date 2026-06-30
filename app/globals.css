@@ -207,10 +207,16 @@ h3 {
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-  /* Chain noise + a soft cyan drop-shadow halo. drop-shadow works through
-     transparent-fill text (text-shadow does not), so it gives the word a
-     gentle glow that lifts it cleanly off the dark video. */
-  filter: url(#aura-noise) drop-shadow(0 0 14px rgba(147, 197, 253, 0.45));
+  /* Chain noise + a tight DARK drop-shadow (for legibility) + a soft
+     CYAN drop-shadow halo (for the aura aesthetic). drop-shadow works
+     through transparent-fill text — unlike text-shadow — so it both
+     keeps the word readable when the figure's face / shirt drifts
+     under it on mobile, AND gives the gentle cyan glow on dark bg.
+     Reading anchor first, glow second. */
+  filter: url(#aura-noise)
+          drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85))
+          drop-shadow(0 0 10px rgba(0, 0, 0, 0.55))
+          drop-shadow(0 0 14px rgba(147, 197, 253, 0.45));
   animation: aura-shiny 6s linear infinite;
   font-weight: 900;
 }
