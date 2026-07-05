@@ -1843,75 +1843,19 @@ h1, h2, h3 { letter-spacing: -0.02em; }
     isolation: isolate;
     perspective: 1400px;
     padding: 100px 0 120px;
-    /* Solid bright band — full opacity so the section reads as a proper
-       "bright zone" against the dark video sections around it. Edges
-       fade over 8% so the transition to dark is a gradient, not a cut. */
-    background:
-        linear-gradient(
-            180deg,
-            rgba(248, 250, 253, 0.0) 0%,
-            rgba(248, 250, 253, 1.0) 8%,
-            rgba(248, 250, 253, 1.0) 92%,
-            rgba(248, 250, 253, 0.0) 100%
-        );
+    /* No section-level background — inherits the site's video bg like
+       every other section. The white cards below sit as bright glass
+       tiles against the same dark canvas as About / Projects / etc. */
 }
 
-/* Subtle dot-grid texture on top of the white — 24px repeating grid,
-   dots only, mid-gray. Adds a "material" feel to the flat white without
-   competing with the content. */
-.experience--v2::before {
-    content: '';
-    position: absolute;
-    inset: 8% 0 8% 0;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.5;
-    background-image: radial-gradient(
-        rgba(15, 23, 42, 0.08) 1px,
-        transparent 1px
-    );
-    background-size: 24px 24px;
-    /* Fade the dots at the edges so they don't compete with the
-       gradient transition. */
-    mask-image: linear-gradient(
-        180deg,
-        transparent 0%,
-        black 15%,
-        black 85%,
-        transparent 100%
-    );
-    -webkit-mask-image: linear-gradient(
-        180deg,
-        transparent 0%,
-        black 15%,
-        black 85%,
-        transparent 100%
-    );
-}
-
-/* Make sure the container content sits above the dot pattern */
-.experience--v2 > .container {
-    position: relative;
-    z-index: 1;
-}
-
-/* Section title flips to dark ink on the lighter surface */
-.experience--v2 .section-title,
-.experience--v2 .experience__title-v2 {
-    color: #0f172a;
-}
-
-.experience--v2 .section-label {
-    color: rgba(15, 23, 42, 0.7);
-}
-
-/* Section-wide cursor-following radial gradient — soft on light bg */
+/* Section-wide cursor-following radial gradient — same treatment as
+   the rest of the dark site: screen blend for a subtle light bloom. */
 .experience__spotlight {
     position: absolute;
     inset: 0;
     pointer-events: none;
     z-index: 0;
-    mix-blend-mode: overlay;
+    mix-blend-mode: screen;
     transition: opacity 0.4s ease;
 }
 
