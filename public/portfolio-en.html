@@ -217,14 +217,14 @@
             <div class="project-card">
                 <h2>AIIM — AI Influencer Match <span class="participants">Hyunsik Jeon (Solo)</span></h2>
                 <div class="tech">Python · FastAPI · Next.js 14 · LangGraph · GraphRAG · PostgreSQL (Cloud SQL) · Selenium · YouTube Data API · Meta Graph API · LLM · GCP Cloud Run</div>
-                <div class="desc">An end-to-end cloud platform that ingests 5,300+ creators across YouTube + Instagram + TikTok in 14 languages and <strong>ranks brand-fit via a LangGraph agentic workflow layered on GraphRAG retrieval</strong> — returning shortlists with per-pick rationale. Multilingual hashtag discovery surfaced 400 new YouTube creators in one 30-min run; extracted 323 IG business emails. Runs 24/7 on Google Cloud (Cloud Run + Cloud SQL). <b>Live:</b> aiim-frontend-559416574965.asia-northeast3.run.app &nbsp;·&nbsp; <b>GitHub:</b> github.com/jeonhs9110/AIIM-Showcase</div>
+                <div class="desc">An end-to-end cloud platform that ingests 9,000+ creators across YouTube + Instagram + TikTok in 14 languages and <strong>ranks brand-fit via a LangGraph agentic workflow layered on GraphRAG retrieval</strong> — returning shortlists with per-pick rationale. Multilingual hashtag discovery surfaced 400 new YouTube creators in one 30-min run; extracted 323 IG business emails. Runs 24/7 on Google Cloud (Cloud Run + Cloud SQL). <b>Live:</b> aiim-frontend-559416574965.asia-northeast3.run.app &nbsp;·&nbsp; <b>GitHub:</b> github.com/jeonhs9110/AIIM-Showcase</div>
 
                 <div class="pipeline">
                     <h4>Technical Pipeline Detail</h4>
                     <ul>
                         <li><strong>1. LangGraph agentic workflow</strong> Brief parsing → candidate retrieval → multi-criteria scoring → rationale writing, modelled as a state graph (with retries, branching, human-in-the-loop hooks)</li>
                         <li><strong>2. GraphRAG retrieval</strong> Creator · category · brand-collab relations encoded as a knowledge graph so every pick comes with a structural "why this creator" rationale</li>
-                        <li><strong>3. Multi-platform ingestion</strong> YouTube (1,584) · Instagram (3,735) · TikTok (16) — 5,300+ creators total</li>
+                        <li><strong>3. Multi-platform ingestion</strong> YouTube · Instagram · TikTok — 9,000+ creators total</li>
                         <li><strong>4. Multilingual hashtag strategy</strong> Searches 14 writing systems (광고 · スポンサー · رعاية …) to escape English-query convergence</li>
                         <li><strong>5. LLM enrichment</strong> Country · language · brand-collab history · vertical · contacts — auto-extracted with prompt caching</li>
                         <li><strong>6. Infra</strong> GCP asia-northeast3 — Cloud Run + Cloud SQL Postgres + Cloud Build CI</li>
