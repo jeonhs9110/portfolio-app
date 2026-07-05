@@ -1843,15 +1843,17 @@ h1, h2, h3 { letter-spacing: -0.02em; }
     isolation: isolate;
     perspective: 1400px;
     padding: 100px 0 120px;
-    /* Subtle light haze — brightens the section without breaking the
-       video-behind aesthetic of the rest of the site. */
+    /* Bright white band — dramatic contrast against the dark video bg
+       of the rest of the site. Cross-fades in at the top / out at the
+       bottom so the transition is a gradient, not a hard edge. */
     background: linear-gradient(
         180deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.05) 20%,
-        rgba(255, 255, 255, 0.09) 50%,
-        rgba(255, 255, 255, 0.05) 80%,
-        transparent 100%
+        rgba(248, 250, 253, 0.0) 0%,
+        rgba(248, 250, 253, 0.85) 8%,
+        rgba(248, 250, 253, 0.96) 20%,
+        rgba(248, 250, 253, 0.96) 80%,
+        rgba(248, 250, 253, 0.85) 92%,
+        rgba(248, 250, 253, 0.0) 100%
     );
 }
 
