@@ -47,7 +47,7 @@ function ExperienceCard({ job, index, lang }) {
 
     return (
         <motion.div
-            className="experience__frame"
+            className="experience__card-wrapper"
             initial={{ opacity: 0, y: 90, scale: 0.94 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, margin: '-150px' }}
@@ -187,9 +187,19 @@ export default function Experience() {
                     {t.experience.title}
                 </motion.h2>
 
+                {/* Each card wrapped in a sticky-scroll frame — same pattern
+                    as the Projects section. Frame is 110vh, stage inside is
+                    sticky top:0 100vh flex-centered, so the card pins at
+                    viewport centre for ~one viewport of scroll, then unpins
+                    as the next card takes over. Mobile falls back to normal
+                    flow via the media query on .experience__card-frame. */}
                 <div className="experience__grid-v2">
                     {t.experience.jobs.map((job, i) => (
-                        <ExperienceCard key={job.slug || i} job={job} index={i} lang={lang} />
+                        <div key={job.slug || i} className="experience__card-frame">
+                            <div className="experience__card-stage">
+                                <ExperienceCard job={job} index={i} lang={lang} />
+                            </div>
+                        </div>
                     ))}
                 </div>
             </div>

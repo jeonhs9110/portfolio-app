@@ -1867,28 +1867,32 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .experience__grid-v2 {
     position: relative;
     z-index: 1;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 40px;
+    display: block;
     margin-top: 48px;
-    /* Single column throughout — each card gets its own scroll trigger
-       so they pop in one by one as you scroll, instead of pairs
-       revealing side-by-side. */
-    max-width: 780px;
-    margin-left: auto;
-    margin-right: auto;
+    /* No gap needed — each card lives in a 110vh sticky frame so the
+       vertical spacing is inherent to the scroll geometry. */
 }
 
-@media (min-width: 900px) {
-    .experience__grid-v2 {
-        gap: 48px;
-    }
-}
-
-.experience__frame {
-    /* Outer wrapper — motion viewport reveal */
+/* Card wrapper inside the sticky stage — motion reveal target,
+   width-constrained so cards don't stretch across ultrawide viewports. */
+.experience__card-wrapper {
     perspective: 1400px;
     transform-style: preserve-3d;
+    width: 100%;
+    max-width: 780px;
+    margin: 0 auto;
+}
+
+/* Mobile fallback: when the sticky frame collapses to normal flow
+   (media query on .experience__card-frame at 768px), give the
+   wrapper the same vertical rhythm as before. */
+@media (max-width: 768px) {
+    .experience__card-wrapper {
+        max-width: 100%;
+    }
+    .experience__card-frame {
+        margin-bottom: 40px;
+    }
 }
 
 .experience__link {
