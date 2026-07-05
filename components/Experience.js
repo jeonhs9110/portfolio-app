@@ -48,10 +48,10 @@ function ExperienceCard({ job, index, lang }) {
     return (
         <motion.div
             className="experience__frame"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.7, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, y: 90, scale: 0.94 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: '-150px' }}
+            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
         >
             <Link
                 href={`/experience/${job.slug}`}

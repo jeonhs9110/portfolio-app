@@ -1869,14 +1869,19 @@ h1, h2, h3 { letter-spacing: -0.02em; }
     z-index: 1;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 40px;
     margin-top: 48px;
+    /* Single column throughout — each card gets its own scroll trigger
+       so they pop in one by one as you scroll, instead of pairs
+       revealing side-by-side. */
+    max-width: 780px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 @media (min-width: 900px) {
     .experience__grid-v2 {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 32px;
+        gap: 48px;
     }
 }
 
