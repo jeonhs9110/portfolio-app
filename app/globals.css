@@ -1833,3 +1833,446 @@ h1, h2, h3 { letter-spacing: -0.02em; }
     order: -1;
   }
 }
+/* ═══════════════════════════════════════════════════════════════
+   EXPERIENCE V2 — condensed cards, 3D tilt, cursor spotlight,
+   route to /experience/[slug] for detail.
+   ═══════════════════════════════════════════════════════════════ */
+
+.experience--v2 {
+    position: relative;
+    isolation: isolate;
+    perspective: 1400px;
+    padding: 100px 0 120px;
+}
+
+/* Section-wide cursor-following radial gradient (mix-blend layer) */
+.experience__spotlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    mix-blend-mode: screen;
+    transition: opacity 0.4s ease;
+}
+
+.experience__title-v2 {
+    /* clip-path animation set in JS via framer-motion */
+    display: inline-block;
+}
+
+.experience__grid-v2 {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-top: 48px;
+}
+
+@media (min-width: 900px) {
+    .experience__grid-v2 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+    }
+}
+
+.experience__frame {
+    /* Outer wrapper — motion viewport reveal */
+    perspective: 1400px;
+    transform-style: preserve-3d;
+}
+
+.experience__link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    outline-offset: 4px;
+    border-radius: 24px;
+    /* View Transitions API — smooth handoff into detail page */
+    view-transition-name: exp-card;
+}
+
+.experience__link:focus-visible {
+    outline: 2px solid var(--accent, #8b5cf6);
+}
+
+/* Give each card its own view-transition-name at hover time so
+   only the clicked card animates. Set inline via JS if you want
+   per-card handoffs; for now the section shares one. */
+
+.experience__card-v2 {
+    position: relative;
+    display: block;
+    padding: 36px 34px 30px;
+    border-radius: 24px;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0) 100%),
+        rgba(20, 22, 34, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+        0 30px 60px -30px rgba(0, 0, 0, 0.6),
+        0 1px 0 rgba(255, 255, 255, 0.04) inset;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.experience__link:hover .experience__card-v2 {
+    border-color: rgba(139, 92, 246, 0.35);
+    box-shadow:
+        0 40px 80px -20px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(139, 92, 246, 0.2),
+        0 1px 0 rgba(255, 255, 255, 0.06) inset;
+}
+
+/* Pointer-following ambient glow inside the card */
+.experience__card-glow {
+    position: absolute;
+    inset: -20%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: radial-gradient(
+        350px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+        rgba(139, 92, 246, 0.22),
+        transparent 60%
+    );
+    z-index: 0;
+}
+
+.experience__link:hover .experience__card-glow {
+    opacity: 1;
+}
+
+/* SVG noise grain — data URL, no external asset */
+.experience__card-grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    z-index: 1;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.7'/></svg>");
+    mix-blend-mode: overlay;
+}
+
+.experience__card-inner {
+    position: relative;
+    z-index: 2;
+    transform: translateZ(24px);
+}
+
+.experience__card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 20px;
+}
+
+.experience__period-v2 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(139, 92, 246, 0.85);
+    margin: 0 0 10px;
+}
+
+.experience__role-v2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0 0 6px;
+    color: var(--text-color, #fff);
+}
+
+.experience__company-v2 {
+    font-size: 0.88rem;
+    color: var(--text-muted, rgba(255,255,255,0.55));
+    margin: 0;
+    font-weight: 500;
+}
+
+.experience__index {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.08);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    user-select: none;
+}
+
+.experience__headline {
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.82);
+    margin: 4px 0 28px;
+}
+
+.experience__headline .kw {
+    color: var(--text-color, #fff);
+    font-weight: 600;
+}
+
+.experience__card-foot {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.experience__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(139, 92, 246, 0.9);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s;
+}
+
+.experience__link:hover .experience__cta {
+    color: rgba(196, 174, 255, 1);
+    transform: translateX(4px);
+}
+
+.experience__cta svg {
+    transition: transform 0.3s ease;
+}
+
+.experience__link:hover .experience__cta svg {
+    transform: translate(3px, -3px);
+}
+
+@media (max-width: 700px) {
+    .experience__card-v2 {
+        padding: 28px 24px 24px;
+    }
+    .experience__index {
+        font-size: 1.5rem;
+    }
+    .experience__role-v2 {
+        font-size: 1.05rem;
+    }
+    .experience__headline {
+        font-size: 0.92rem;
+    }
+    /* Kill 3D tilt on touch — reads janky, adds no value */
+    .experience__card-v2 {
+        transform: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .experience__card-v2 {
+        transform: none !important;
+        transition: none;
+    }
+    .experience__spotlight,
+    .experience__card-glow,
+    .experience__card-grain {
+        display: none;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   EXPERIENCE DETAIL PAGE — /experience/[slug]
+   ═══════════════════════════════════════════════════════════════ */
+
+.exp-detail {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+.exp-detail__ambient {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background:
+        radial-gradient(1200px circle at 20% 10%, rgba(139, 92, 246, 0.15), transparent 60%),
+        radial-gradient(900px circle at 80% 90%, rgba(96, 165, 250, 0.09), transparent 60%);
+    pointer-events: none;
+    animation: exp-detail-ambient 22s ease-in-out infinite alternate;
+}
+
+@keyframes exp-detail-ambient {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(30px, -20px) scale(1.05); }
+}
+
+.exp-detail__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    margin: 40px 0;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-color, #fff);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.exp-detail__back:hover {
+    border-color: rgba(139, 92, 246, 0.4);
+    background: rgba(139, 92, 246, 0.08);
+    transform: translateX(-4px);
+}
+
+.exp-detail__header {
+    max-width: 780px;
+    margin: 20px 0 60px;
+}
+
+.exp-detail__period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(139, 92, 246, 0.9);
+    margin: 0 0 16px;
+}
+
+.exp-detail__role {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    line-height: 1.2;
+    font-weight: 700;
+    margin: 0 0 12px;
+    color: var(--text-color, #fff);
+}
+
+.exp-detail__company {
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0 24px;
+}
+
+.exp-detail__desc {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.78);
+    margin: 0;
+}
+
+.exp-detail__achievements {
+    margin: 0 0 80px;
+    max-width: 900px;
+}
+
+.exp-detail__group {
+    margin-bottom: 32px;
+}
+
+.exp-detail__category {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-color, #fff);
+    margin: 0 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.exp-detail__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.exp-detail__item {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.exp-detail__item:last-child {
+    border-bottom: none;
+}
+
+.exp-detail__item-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(139, 92, 246, 0.8);
+    box-shadow: 0 0 12px rgba(139, 92, 246, 0.5);
+    margin-top: 10px;
+    justify-self: center;
+}
+
+.exp-detail__item-action {
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.85);
+    white-space: pre-line;
+}
+
+.exp-detail__item-action .kw {
+    color: var(--text-color, #fff);
+    font-weight: 600;
+}
+
+.exp-detail__block {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.exp-detail__block--goal {
+    background: rgba(96, 165, 250, 0.06);
+    border-left: 2px solid rgba(96, 165, 250, 0.5);
+}
+
+.exp-detail__block--result {
+    background: rgba(34, 197, 94, 0.06);
+    border-left: 2px solid rgba(34, 197, 94, 0.5);
+}
+
+.exp-detail__label {
+    flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    padding-top: 2px;
+}
+
+.exp-detail__block--goal .exp-detail__label {
+    color: rgba(96, 165, 250, 0.9);
+}
+
+.exp-detail__block--result .exp-detail__label {
+    color: rgba(34, 197, 94, 0.9);
+}
+
+.exp-detail__block .kw {
+    color: var(--text-color, #fff);
+    font-weight: 600;
+}
+
+.exp-detail__footer {
+    padding: 20px 0 60px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+@media (max-width: 700px) {
+    .exp-detail__header { margin: 20px 0 40px; }
+    .exp-detail__role { font-size: 1.5rem; }
+    .exp-detail__item { padding: 16px 0; }
+    .exp-detail__block { flex-direction: column; gap: 4px; }
+}

@@ -1,106 +1,171 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import Link from 'next/link';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
-import { FiDownload } from 'react-icons/fi';
+import { FiArrowUpRight } from 'react-icons/fi';
 
-// Goal/Result keywords we expect inside achievement strings. Lines that
-// start with one of these get pulled into a labelled block so the eye
-// reads ACTION → GOAL → RESULT without parsing prose.
-const GOAL_PREFIXES = ['목표:', '목표 :', 'Objective:', 'Objective :', 'Goal:', 'Goal :'];
-const RESULT_PREFIXES = ['결과:', '결과 :', 'Outcome:', 'Outcome :', 'Result:', 'Result :'];
-
-function matchPrefix(line, prefixes) {
-    for (const p of prefixes) {
-        if (line.trimStart().startsWith(p)) {
-            return line.trimStart().slice(p.length).trimStart();
-        }
-    }
-    return null;
-}
 
 /**
- * Parse one achievement string (with embedded <strong> tags) into action
- * text + an optional goal block + an optional result block. Items that
- * don't follow this shape stay as a single span — many of the smaller
- * bullets (interpretation, network maintenance, etc) don't need
- * goal/result framing.
+ * Single experience card with:
+ *   - 3D perspective tilt driven by pointer position
+ *   - Ambient radial spotlight following the pointer inside the card
+ *   - Framer-motion layoutId + View-Transitions handoff into
+ *     /experience/[slug] on click.
  */
-function parseDealItem(html) {
-    const lines = html.split('\n');
-    const actionLines = [];
-    let goal = null;
-    let result = null;
-    for (const line of lines) {
-        const g = matchPrefix(line, GOAL_PREFIXES);
-        if (g !== null) { goal = g; continue; }
-        const r = matchPrefix(line, RESULT_PREFIXES);
-        if (r !== null) { result = r; continue; }
-        actionLines.push(line);
-    }
-    return { action: actionLines.join('\n'), goal, result };
-}
+function ExperienceCard({ job, index, lang }) {
+    const ref = useRef(null);
+    const [hovered, setHovered] = useState(false);
 
-function DealItem({ html, lang }) {
-    const { action, goal, result } = parseDealItem(html);
+    // Raw pointer position (0..1 inside the card)
+    const px = useMotionValue(0.5);
+    const py = useMotionValue(0.5);
+    // Springy versions for buttery motion
+    const spx = useSpring(px, { stiffness: 180, damping: 22, mass: 0.6 });
+    const spy = useSpring(py, { stiffness: 180, damping: 22, mass: 0.6 });
+    // Tilt output ranges (subtle — over-rotating reads as cheap)
+    const rotY = useTransform(spx, [0, 1], [7, -7]);
+    const rotX = useTransform(spy, [0, 1], [-6, 6]);
+    // Highlight anchor as CSS variables — updates the radial gradient
+    const glowX = useTransform(spx, (v) => `${v * 100}%`);
+    const glowY = useTransform(spy, (v) => `${v * 100}%`);
 
-    // No goal/result markers — render as the original single span.
-    if (!goal && !result) {
-        return (
-            <span
-                style={{ fontSize: '0.85rem', lineHeight: '1.65', whiteSpace: 'pre-line' }}
-                dangerouslySetInnerHTML={{ __html: html }}
-            />
-        );
-    }
+    const handleMove = (e) => {
+        const rect = ref.current?.getBoundingClientRect();
+        if (!rect) return;
+        px.set((e.clientX - rect.left) / rect.width);
+        py.set((e.clientY - rect.top) / rect.height);
+    };
+    const handleLeave = () => {
+        setHovered(false);
+        px.set(0.5);
+        py.set(0.5);
+    };
 
-    const goalLabel = lang === 'ko' ? '목표' : 'Goal';
-    const resultLabel = lang === 'ko' ? '결과' : 'Result';
+    const readMore = lang === 'ko' ? '자세히 보기' : 'Read more';
 
     return (
-        <div className="experience__deal">
-            <div
-                className="experience__deal-action"
-                dangerouslySetInnerHTML={{ __html: action }}
-            />
-            {goal && (
-                <div className="experience__deal-block experience__deal-block--goal">
-                    <span className="experience__deal-label">{goalLabel}</span>
-                    <span
-                        className="experience__deal-text"
-                        dangerouslySetInnerHTML={{ __html: goal }}
-                    />
-                </div>
-            )}
-            {result && (
-                <div className="experience__deal-block experience__deal-block--result">
-                    <span className="experience__deal-label">{resultLabel}</span>
-                    <span
-                        className="experience__deal-text"
-                        dangerouslySetInnerHTML={{ __html: result }}
-                    />
-                </div>
-            )}
-        </div>
+        <motion.div
+            className="experience__frame"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.7, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+        >
+            <Link
+                href={`/experience/${job.slug}`}
+                className="experience__link"
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={handleLeave}
+                onMouseMove={handleMove}
+            >
+                <motion.article
+                    ref={ref}
+                    className="experience__card-v2"
+                    style={{
+                        rotateX: rotX,
+                        rotateY: rotY,
+                        '--glow-x': glowX,
+                        '--glow-y': glowY,
+                        transformStyle: 'preserve-3d',
+                    }}
+                    animate={{ scale: hovered ? 1.015 : 1 }}
+                    transition={{ type: 'spring', stiffness: 220, damping: 24 }}
+                >
+                    {/* Ambient pointer-following glow (mix-blend layer) */}
+                    <div className="experience__card-glow" aria-hidden="true" />
+
+                    {/* Fixed grain overlay for cinematic texture */}
+                    <div className="experience__card-grain" aria-hidden="true" />
+
+                    <div className="experience__card-inner">
+                        <header className="experience__card-head">
+                            <div>
+                                <p className="experience__period-v2">{job.period}</p>
+                                <h3 className="experience__role-v2">{job.role}</h3>
+                                <p className="experience__company-v2">{job.company}</p>
+                            </div>
+                            <span className="experience__index" aria-hidden="true">
+                                0{index + 1}
+                            </span>
+                        </header>
+
+                        <p
+                            className="experience__headline"
+                            dangerouslySetInnerHTML={{ __html: job.headline || job.desc }}
+                        />
+
+                        <footer className="experience__card-foot">
+                            <span className="experience__cta">
+                                {readMore}
+                                <FiArrowUpRight />
+                            </span>
+                        </footer>
+                    </div>
+                </motion.article>
+            </Link>
+        </motion.div>
     );
 }
 
-const fadeUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i) => ({
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.55, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
-    }),
-};
+
+/**
+ * Section-level spotlight: a radial gradient that follows the cursor
+ * across the entire experience section. Rendered as a fixed layer with
+ * mix-blend-mode so it lights up whatever is behind it without needing
+ * to know about the cards' colours.
+ */
+function SectionSpotlight({ containerRef }) {
+    const x = useMotionValue(-9999);
+    const y = useMotionValue(-9999);
+
+    useEffect(() => {
+        const el = containerRef.current;
+        if (!el) return;
+        const handle = (e) => {
+            const rect = el.getBoundingClientRect();
+            x.set(e.clientX - rect.left);
+            y.set(e.clientY - rect.top);
+        };
+        const handleLeave = () => {
+            x.set(-9999);
+            y.set(-9999);
+        };
+        el.addEventListener('pointermove', handle);
+        el.addEventListener('pointerleave', handleLeave);
+        return () => {
+            el.removeEventListener('pointermove', handle);
+            el.removeEventListener('pointerleave', handleLeave);
+        };
+    }, [containerRef, x, y]);
+
+    return (
+        <motion.div
+            className="experience__spotlight"
+            style={{
+                background: useTransform(
+                    [x, y],
+                    ([vx, vy]) =>
+                        `radial-gradient(600px circle at ${vx}px ${vy}px, rgba(139,92,246,0.14), transparent 60%)`
+                ),
+            }}
+            aria-hidden="true"
+        />
+    );
+}
+
 
 export default function Experience() {
     const { t, lang } = useLanguage();
+    const sectionRef = useRef(null);
 
     return (
-        <section className="experience" id="experience">
+        <section className="experience experience--v2" id="experience" ref={sectionRef}>
+            {/* Section-wide cursor-following spotlight */}
+            <SectionSpotlight containerRef={sectionRef} />
+
             <div className="container">
-                {/* Section Header */}
                 <motion.p
                     className="section-label"
                     initial={{ opacity: 0, y: 20 }}
@@ -111,70 +176,22 @@ export default function Experience() {
                     {t.experience.section}
                 </motion.p>
 
+                {/* Clip-path text reveal on the title */}
                 <motion.h2
-                    className="section-title"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    className="section-title experience__title-v2"
+                    initial={{ opacity: 0, clipPath: 'inset(0 100% 0 0)' }}
+                    whileInView={{ opacity: 1, clipPath: 'inset(0 0% 0 0)' }}
                     viewport={{ once: true, margin: '-80px' }}
-                    transition={{ duration: 0.6, delay: 0.05 }}
+                    transition={{ duration: 0.9, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
                 >
                     {t.experience.title}
                 </motion.h2>
 
-                {/* Experience List — each job gets its own sticky frame so
-                    the card pins at viewport centre for ~one viewport of
-                    scroll while the visitor reads it, then unpins as the
-                    next job's frame takes over. ScrollSpotlight sets --pop
-                    based on proximity to viewport centre, driving the
-                    bg-opaque + scale + halo transitions. Falls back to
-                    normal flow on mobile + reduced motion. */}
-                <div className="experience__list">
+                <div className="experience__grid-v2">
                     {t.experience.jobs.map((job, i) => (
-                        <div key={i} className="experience__card-frame">
-                          <div className="experience__card-stage">
-                        <motion.div
-                            custom={i}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true, margin: '-60px' }}
-                            variants={fadeUp}
-                            style={{ width: '100%' }}
-                        >
-                        <div className="experience__card">
-                            <div className="experience__card-header">
-                                <div>
-                                    <h3 className="experience__role">{job.role}</h3>
-                                    <p className="experience__company">{job.company}</p>
-                                </div>
-                                <div className="experience__period" style={{ fontWeight: 'bold' }}>{job.period}</div>
-                            </div>
-                            <p className="experience__desc">{job.desc}</p>
-                            <div className="experience__achievements" style={{ marginTop: '16px' }}>
-                                {job.achievements.map((ach, idx) => (
-                                    <div key={idx} className="experience__achieved-group" style={{ marginBottom: '12px' }}>
-                                        {ach.category && (
-                                            <h4 className="experience__achieved-category" style={{ fontSize: '0.85rem', marginBottom: '8px', color: 'var(--text-color)', fontWeight: 600 }}>
-                                                {ach.category}
-                                            </h4>
-                                        )}
-                                        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                                            {ach.items.map((item, idxx) => (
-                                                <li key={idxx} className="experience__achieved-item" style={{ marginBottom: '14px', alignItems: 'flex-start' }}>
-                                                    <span className="experience__dot" style={{ marginTop: '8px' }} />
-                                                    <DealItem html={item} lang={lang} />
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                        </motion.div>
-                          </div>
-                        </div>
+                        <ExperienceCard key={job.slug || i} job={job} index={i} lang={lang} />
                     ))}
                 </div>
-
             </div>
         </section>
     );
